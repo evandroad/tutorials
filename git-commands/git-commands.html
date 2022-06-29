@@ -5,81 +5,36 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../content.css">
     <title>Git Commands</title>
-
-    <style>
-        .sidenav {
-            height: 100%;
-            width: 160px;
-            position: fixed;
-            z-index: 1;
-            top: 0;
-            left: 0;
-            background-color: rgb(58, 58, 58);
-            overflow-x: hidden;
-            padding-top: 20px;
-        }
-    
-        .sidenav a {
-            padding: 6px 8px 6px 16px;
-            text-decoration: none;
-            font-size: 25px;
-            color: #818181;
-            display: block;
-        }
-        
-        .sidenav a:hover {
-            color: #f1f1f1;
-        }
-        .main {
-            margin-left: 160px; /* Same as the width of the sidenav */
-            font-size: 18px; /* Increased text to enable scrolling */
-            padding: 0px 10px;
-        }
-        
-        @media screen and (max-height: 450px) {
-            .sidenav {padding-top: 15px;}
-            .sidenav a {font-size: 18px;}
-        }
-        pre code {
-            background-color: rgb(29, 29, 29);
-            border: 1px solid rgb(0, 0, 0);
-            display: block;
-            padding: 20px;
-            color: rgb(21, 146, 31);
-        }
-      </style>
 </head>
 
 <body>
+    
     <ul>
-        <li>
-            <ul>
-                <div class="sidenav">
-                    <h2 id="summary">Summary</h2>
-                    <li><a href="#git-config">#1 git config</a></li>
-                    <li><a href="#git-init">#2 git init</a></li>
-                    <li><a href="#git-clone">#3 git clone</a></li>
-                    <li><a href="#git-status">#4 git status</a></li>
-                    <li><a href="#git-add">#5 git add</a></li>
-                    <li><a href="#git-commit">#6 git commit</a></li>
-                    <li><a href="#git-diff">#7 git diff</a></li>
-                    <li><a href="#git-restore">#8 git restore</a></li>
-                    <li><a href="#git-reset">#9 git reset</a></li>
-                    <li><a href="#git-rm">#10 git rm</a></li>
-                    <li><a href="#git-log">#11 git log</a></li>
-                    <li><a href="#git-show">#12 git show</a></li>
-                    <li><a href="#git-tag">#13 git tag</a></li>
-                    <li><a href="#git-branch">#14 git branch</a></li>
-                    <li><a href="#git-checkout">#15 git checkout</a></li>
-                    <li><a href="#git-merge">#16 git merge</a></li>
-                    <li><a href="#git-remote">#17 git remote</a></li>
-                    <li><a href="#git-push">#18 git push</a></li>
-                    <li><a href="#git-pull">#19 git pull</a></li>
-                    <li><a href="#git-stash">#20 git stash</a></li>
-                </div>
-            </ul>
-        </li>
+        <div class="sidenav">
+            <h2 id="summary">Summary</h2>
+            <li><a href="#git-config">#1 git config</a></li>
+            <li><a href="#git-init">#2 git init</a></li>
+            <li><a href="#git-clone">#3 git clone</a></li>
+            <li><a href="#git-status">#4 git status</a></li>
+            <li><a href="#git-add">#5 git add</a></li>
+            <li><a href="#git-commit">#6 git commit</a></li>
+            <li><a href="#git-diff">#7 git diff</a></li>
+            <li><a href="#git-restore">#8 git restore</a></li>
+            <li><a href="#git-reset">#9 git reset</a></li>
+            <li><a href="#git-rm">#10 git rm</a></li>
+            <li><a href="#git-log">#11 git log</a></li>
+            <li><a href="#git-show">#12 git show</a></li>
+            <li><a href="#git-tag">#13 git tag</a></li>
+            <li><a href="#git-branch">#14 git branch</a></li>
+            <li><a href="#git-checkout">#15 git checkout</a></li>
+            <li><a href="#git-merge">#16 git merge</a></li>
+            <li><a href="#git-remote">#17 git remote</a></li>
+            <li><a href="#git-push">#18 git push</a></li>
+            <li><a href="#git-pull">#19 git pull</a></li>
+            <li><a href="#git-stash">#20 git stash</a></li>
+        </div>
     </ul>
 
     <div class="main">
@@ -88,216 +43,188 @@
 
         <h2 id="git-config">#1 git config</h2>
         <p>This command sets the author name and email address respectively to be used with your commits.</p>
-        <blockquote>
-            <code>git config –-global user.name "[name]"</code><br>
-            <code>git config –-global user.email "[email]"</code>
-        </blockquote>
+        <code>git config –-global user.name "[name]"<br>
+        git config –-global user.email "[email]"</code>
+        
         <h2 id="git-init">#2 git init</h2>
         <p>This command is used to start a new repository.</p>
-        <blockquote>
-            <code>git init</code>
-        </blockquote>
+        <code>git init</code>
         
         <h2 id="git-clone">#3 git clone</h2>
         <p>This command is used to obtain a repository from an existing URL.</p>
-        <blockquote>
-            <code>git clone [url]</code>
-        </blockquote>
+        <code>git clone [url]</code>
         
         <h2 id="git-status">#4 git status</h2>
         <p>This command lists all the files that have to be committed.</p>
-        <pre><code><span class="hljs-attribute">git status</span>
-        </code></pre>
+        <code>git status</code>
         
         <h2 id="git-add">#5 git add</h2>
         <ul>
             <li>
                 <p>This command adds a file to the staging area.</p>
-                <pre><code>  git <span class="hljs-keyword">add</span><span class="bash"> [file]</span>
-        </code></pre>
+                <code>git add [file]</code>
             </li>
             <li>
                 <p>This command adds one or more to the staging area.</p>
-                <pre><code>  git <span class="hljs-keyword">add</span><span class="bash"> *</span>
-        </code></pre>
+                <code>git add *</code>
             </li>
         </ul>
-        <h2 id="-6-git-commit">#6 git commit</h2>
+
+        <h2 id="git-commit">#6 git commit</h2>
         <ul>
             <li>
                 <p>This command records or snapshots the file permanently in the version history.</p>
-                <pre><code>  git commit -m "[<span class="hljs-built_in">Type</span> <span class="hljs-keyword">in</span> the commit message]"
-        </code></pre>
+                <code>git commit -m "[Type in the commit message]"</code>
             </li>
             <li>
-                <p>This command commits any files you’ve added with the git add command and also commits any files you’ve
+                <p>This command commits any files you1ve added with the git add command and also commits any files you’ve
                     changed since then.</p>
-                <pre><code>  git commit <span class="hljs-_">-a</span>
-        </code></pre>
+                <code>git commit -a</code>
             </li>
         </ul>
-        <h2 id="-7-git-diff">#7 git diff</h2>
+        
+        <h2 id="git-diff">#7 git diff</h2>
         <ul>
             <li>
                 <p>This command shows the file differences which are not yet staged.</p>
-                <pre><code><span class="hljs-attribute">  git diff</span>
-        </code></pre>
+                <code>git diff</code>
             </li>
             <li>
                 <p>This command shows the differences between the files in the staging area and the latest version present.
                 </p>
-                <pre><code>  git <span class="hljs-built_in">diff</span> –staged 
-        </code></pre>
+                <code>git diff -–staged</code>
             </li>
             <li>
                 <p>This command shows the differences between the two branches mentioned.</p>
-                <pre><code>  git <span class="hljs-built_in">diff</span> [<span class="hljs-built_in">first</span> branch] [<span class="hljs-built_in">second</span> branch]
-        </code></pre>
+                <code>git diff [first branch] [second branch]</code>
             </li>
         </ul>
-        <h2 id="-8-git-restore">#8 git restore</h2>
-        <ul>
-            <li>
-                <p>This command restores the contents of the file to that of the last commit.</p>
-                <pre><code>  git <span class="hljs-keyword">restore</span> [<span class="hljs-keyword">file</span>]
-        </code></pre>
-            </li>
-        </ul>
-        <h2 id="-9-git-reset">#9 git reset</h2>
+
+        <h2 id="git-restore">#8 git restore</h2>
+        <p>This command restores the contents of the file to that of the last commit.</p>
+        <code>git restore [file]</code>
+        
+        <h2 id="git-reset">#9 git reset</h2>
         <ul>
             <li>
                 <p>This command unstages the file, but it preserves the file contents.</p>
-                <pre><code>  git <span class="hljs-keyword">reset</span> [<span class="hljs-keyword">file</span>]  
-        </code></pre>
+                <code>git reset [file] </code>
             </li>
             <li>
                 <p>This command undoes the last commit and moves changes locally to staged.</p>
-                <pre><code>  git <span class="hljs-keyword">reset</span> <span class="hljs-comment">--soft HEAD~  </span>
-        </code></pre>
+                <code>git reset --soft HEAD~</code>
             </li>
             <li>
                 <p>This command discards the last commit and its contents.</p>
-                <pre><code>  git <span class="hljs-keyword">reset</span> -–hard <span class="hljs-keyword">HEAD</span>~
-        </code></pre>
+                <code>git reset -–hard HEAD~</code>
             </li>
         </ul>
-        <h2 id="-10-git-rm">#10 git rm</h2>
+
+        <h2 id="git-rm">#10 git rm</h2>
         <p>This command deletes the file from your working directory and stages the deletion.</p>
-        <pre><code>git <span class="hljs-keyword">rm</span> [<span class="hljs-keyword">file</span>]
-        </code></pre>
-        <h2 id="-11-git-log">#11 git log</h2>
+        <code>git rm [file]</code>
+
+        <h2 id="git-log">#11 git log</h2>
         <ul>
             <li>
                 <p>This command is used to list the version history for the current branch.</p>
-                <pre><code>  git <span class="hljs-built_in">log</span>
-        </code></pre>
+                <code>git log</code>
             </li>
             <li>
                 <p>This command lists the commit history of the current branch in just one line.</p>
-                <pre><code>  git <span class="hljs-built_in">log</span> -–oneline
-        </code></pre>
+                <code>git log -–oneline</code>
             </li>
             <li>
                 <p>This command is used to list the commit history of the current branch formatted in one line.</p>
-                <pre><code>  git <span class="hljs-keyword">log</span> --pretty=<span class="hljs-keyword">format</span>:<span class="hljs-string">"%C(yellow)%ad%Creset | %C(blue)%an%Creset | %Cgreen%s%Creset %Cred%d%Creset"</span> --date=short
-        </code></pre>
+                <code>git log --pretty=format:"%C(yellow)%ad%Creset | %C(blue)%an%Creset | %Cgreen%s%Creset %Cred%d%Creset" --date=short</code>
             </li>
         </ul>
-        <h2 id="-12-git-show">#12 git show</h2>
+
+        <h2 id="git-show">#12 git show</h2>
         <p>This command shows the metadata and content changes of the specified commit.</p>
-        <pre><code>git <span class="hljs-keyword">show</span> [<span class="hljs-keyword">commit</span>]
-        </code></pre>
-        <h2 id="-13-git-tag">#13 git tag</h2>
+        <code>git show [commit]</code>
+
+        <h2 id="git-tag">#13 git tag</h2>
         <p>This command is used to give tags to the specified commit.</p>
-        <pre><code>git <span class="hljs-keyword">tag</span> <span class="hljs-title">[commitID</span>]
-        </code></pre>
-        <h2 id="-14-git-branch">#14 git branch</h2>
+        <code>git tag [commitID]</code>
+
+        <h2 id="git-branch">#14 git branch</h2>
         <ul>
             <li>
                 <p>This command lists all the local branches in the current repository.</p>
-                <pre><code><span class="hljs-attribute">  git branch</span>
-        </code></pre>
+                <code>git branch</code>
             </li>
             <li>
                 <p>This command creates a new branch.</p>
-                <pre><code>  git <span class="hljs-keyword">branch </span>[<span class="hljs-keyword">branch </span>name]
-        </code></pre>
+                <code>git branch [branch name]</code>
             </li>
             <li>
                 <p>This command deletes the feature branch.</p>
-                <pre><code>  git <span class="hljs-keyword">branch </span>-d [<span class="hljs-keyword">branch </span>name]
-        </code></pre>
+                <code>git branch -d [branch name]</code>
             </li>
         </ul>
-        <h2 id="-15-git-checkout">#15 git checkout</h2>
+
+        <h2 id="git-checkout">#15 git checkout</h2>
         <ul>
             <li>
                 <p>This command is used to switch from one branch to another.</p>
-                <pre><code>  git checkout <span class="hljs-string">[branch name]</span>
-        </code></pre>
+                <code>git checkout [branch name]</code>
             </li>
             <li>
                 <p>This command creates a new branch and also switches to it.</p>
-                <pre><code>  git checkout -<span class="hljs-keyword">b </span>[<span class="hljs-keyword">branch </span>name]
-        </code></pre>
+                <code>git checkout -b [branch name]</code>
             </li>
         </ul>
-        <h2 id="-16-git-merge">#16 git merge</h2>
-        <p>This command merges the specified branch’s history into the current branch.</p>
-        <pre><code>git <span class="hljs-built_in">merge</span> [branch <span class="hljs-keyword">name</span>]
-        </code></pre>
-        <h2 id="-17-git-remote">#17 git remote</h2>
+
+        <h2 id="git-merge">#16 git merge</h2>
+        <p>This command merges the specified branch's history into the current branch.</p>
+        <code>git [branch]</code>
+
+        <h2 id="git-remote">#17 git remote</h2>
         <p>This command is used to connect your local repository to the remote server.</p>
-        <pre><code>git remote add <span class="hljs-string">[variable name]</span> <span class="hljs-string">[Remote Server Link]</span>
-        </code></pre>
-        <h2 id="-18-git-push">#18 git push</h2>
+        <code>git remote add [variable name] [Remote Server Link]</code>
+
+        <h2 id="git-push">#18 git push</h2>
         <ul>
             <li>
                 <p>This command sends the committed changes of master branch to your remote repository.</p>
-                <pre><code>  git push <span class="hljs-string">[variable name]</span> master
-        </code></pre>
+                <code>git push [variable name] master</code>
             </li>
             <li>
                 <p>This command sends the branch commits to your remote repository.</p>
-                <pre><code>  git push <span class="hljs-string">[variable name]</span> <span class="hljs-string">[branch]</span>
-        </code></pre>
+                <code>  git push [variable name] [branch]</code>
             </li>
             <li>
                 <p>This command pushes all branches to your remote repository.</p>
-                <pre><code>  <span class="hljs-attribute">git</span> push –<span class="hljs-literal">all</span><span class="hljs-meta"> [variable name]</span>
-        </code></pre>
+                <code>git push -–all [variable name]</code>
             </li>
             <li>
                 <p>This command deletes a branch on your remote repository.</p>
-                <pre><code>  git push <span class="hljs-string">[variable name]</span> :<span class="hljs-string">[branch name]</span>
-        </code></pre>
+                <code> git push [variable name] :[branch name]</code>
             </li>
         </ul>
-        <h2 id="-19-git-pull">#19 git pull</h2>
+
+        <h2 id="git-pull">#19 git pull</h2>
         <p>This command fetches and merges changes on the remote server to your working directory.</p>
-        <pre><code>git pull <span class="hljs-string">[Repository Link]</span>
-        </code></pre>
-        <h2 id="-20-git-stash">#20 git stash</h2>
+        <code>git pull [Repository Link]</code>
+
+        <h2 id="git-stash">#20 git stash</h2>
         <ul>
             <li>
                 <p>This command temporarily stores all the modified tracked files.</p>
-                <pre><code>  git stash <span class="hljs-keyword">save</span> <span class="hljs-string">"message"</span>
-        </code></pre>
+                <code>git stash save "message"</code>
             </li>
             <li>
                 <p>This command restores the most recently stashed files.</p>
-                <pre><code>  git stash <span class="hljs-keyword">pop</span>
-        </code></pre>
+                <code>git stash pop</code>
             </li>
             <li>
                 <p>This command lists all stashed changesets.</p>
-                <pre><code>  git stash <span class="hljs-built_in">list</span>
-        </code></pre>
+                <code>git stash list</code>
             </li>
             <li>
                 <p>This command discards the most recently stashed changeset.</p>
-                <pre><code><span class="hljs-attribute">  git stash drop</span>
-        </code></pre>
+                <code>git stash drop</code>
             </li>
         </ul>
     </div>

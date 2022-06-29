@@ -1,180 +1,348 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../content.css">
     <title>ADB Commands</title>
 </head>
 
 <body>
-    <h1 id="adb-list-all-comands">ADB  list all comands</h1>
-    <p><a href="../index.html">Home</a></p>
+    
+    <ul>
+        <div class="sidenav">
+            <h2 id="summary">Summary</h2>
+            <li><a href="#server">#1 server</a></li>
+            <li><a href="#reboot">#2 reboot</a></li>
+            <li><a href="#shell">#3 shell</a></li>
+            <li><a href="#devices">#3 devices</a></li>
+            <li><a href="#get-device-android-version">#4 android version</a></li>
+            <li><a href="#logcat">#5 logcat</a></li>
+            <li><a href="#files">#6 Files</a></li>
+            <li><a href="#app-install">#7 App Install</a></li>
+            <li><a href="#uninstalling-app-from-device">#8 Unininstall</a></li>
+        </div>
+    </ul>
 
-<h2 id="adb-server">Adb Server</h2>
-<p><code>adb kill-server</code><br><code>adb start-server</code></p>
-<h2 id="adb-reboot">Adb Reboot</h2>
-<p><code>adb reboot</code><br><code>adb reboot recovery</code><br><code>adb reboot-bootloader</code><br><code>adb root</code>  //restarts adb with root permissions</p>
-<h2 id="shell">Shell</h2>
-<p><code>adb shell</code>  // Open or run commands in a terminal on the host Android device.</p>
-<h2 id="devices">Devices</h2>
-<p><code>adb usb</code><br><code>adb devices</code>  //show devices attached<br><code>adb devices -l</code>  //devices (product/model)<br><code>adb connect ip_address_of_device</code></p>
-<h2 id="get-device-android-version">Get device android version</h2>
-<p><code>adb shell getprop ro.build.version.release</code></p>
-<h2 id="logcat">LogCat</h2>
-<p><code>adb logcat</code><br><code>adb logcat -c</code>  // clear // The parameter -c will clear the current logs on the device.<br><code>adb logcat -d &gt; [path_to_file]</code>  // Save the logcat output to a file on the local system.<br><code>adb bugreport &gt; [path_to_file]</code>  // Will dump the whole device information like dumpstate, dumpsys and logcat output.</p>
-<h2 id="files">Files</h2>
-<p><code>adb push [source] [destination]</code>  // Copy files from your computer to your phone.<br><code>adb pull [device file location] [local file location]</code>  // Copy files from your phone to your computer.</p>
-<h2 id="app-install">App install</h2>
-<p><code>adb -e install path/to/app.apk</code><br><code>-d</code>  - directs command to the only connected USB device...<br><code>-e</code>  - directs command to the only running emulator...<br><code>-s &lt;serial number&gt;</code><br><code>-p &lt;product name or path&gt;</code><br>The flag you decide to use has to come before the actual adb command:</p>
-<p><code>adb devices | tail -n +2 | cut -sf 1 | xargs -IX adb -s X install -r com.myAppPackage</code>  // Install the given app on all connected devices.</p>
-<h2 id="uninstalling-app-from-device">Uninstalling app from device</h2>
-<p><code>adb uninstall com.myAppPackage</code><br><code>adb uninstall &lt;app .apk name&gt;</code><br><code>adb uninstall -k &lt;app .apk name&gt;</code> // &quot;Uninstall .apk withour deleting data&quot;</p>
-<p><code>adb shell pm uninstall com.example.MyApp</code><br><code>adb shell pm clear [package]</code>  // Deletes all data associated with a package.</p>
-<p><code>adb devices | tail -n +2 | cut -sf 1 | xargs -IX adb -s X uninstall com.myAppPackage</code>  //Uninstall the given app from all connected devices</p>
-<h2 id="update-app">Update app</h2>
-<p><code>adb install -r yourApp.apk</code>  //  -r means re-install the app and keep its data on the device.<br><code>adb install –k &lt;.apk file path on computer&gt;</code> </p>
-<h2 id="home-button">Home button</h2>
-<p><code>adb shell am start -W -c android.intent.category.HOME -a android.intent.action.MAIN</code></p>
-<h2 id="activity-manager">Activity Manager</h2>
-<p><code>adb shell am start -a android.intent.action.VIEW</code><br><code>adb shell am broadcast -a &#39;my_action&#39;</code></p>
-<p><code>adb shell am start -a android.intent.action.CALL -d tel:+972527300294</code>  // Make a call</p>
-<h3 id="open-send-sms-screen-with-phone-number-and-the-message-">Open send sms screen with phone number and the message:</h3>
-<p><code>adb shell am start -a android.intent.action.SENDTO -d sms:+972527300294   --es  sms_body &quot;Test --ez exit_on_sent false&quot;</code></p>
-<h3 id="reset-permissions">Reset permissions</h3>
-<p><code>adb shell pm reset-permissions -p your.app.package</code><br><code>adb shell pm grant [packageName] [ Permission]</code>  // Grant a permission to an app.<br><code>adb shell pm revoke [packageName] [ Permission]</code>  // Revoke a permission from an app.</p>
-<h3 id="emulate-device">Emulate device</h3>
-<p><code>adb shell wm size 2048x1536</code><br><code>adb shell wm density 288</code>  </p>
-<h3 id="and-reset-to-default">And reset to default</h3>
-<p><code>adb shell wm size reset</code><br><code>adb shell wm density reset</code></p>
-<h2 id="print-text">Print text</h2>
-<p><code>adb shell input text &#39;Wow, it so cool feature&#39;</code></p>
-<h2 id="screenshot">Screenshot</h2>
-<p><code>adb shell screencap -p /sdcard/screenshot.png</code></p>
-<pre><code>$ adb shell
+    <div class="main">
+        <h1>ADB Commands</h1>
+        <p><a href="../index.html">Home</a></p>
+
+        <h2 id="server">Server</h2>
+        <code>adb kill-server</code><br>
+        <code>adb start-server</code>
+
+        <h2 id="reboot">Reboot</h2>
+        <code>adb reboot</code><br>
+        <code>adb reboot recovery</code><br>
+        <code>adb reboot-bootloader</code><br>
+
+        <h2 id="shell">Shell</h2>
+        <code>adb shell</code>
+        <p>Open or run commands in a terminal on the host Android device.</p>
+        
+        <h2 id="devices">Devices</h2>
+        <code>adb usb</code><br>
+        <code>adb devices</code>
+        <p>show devices attached</p>
+        <code>adb devices -l</code>
+        <p>devices (product/model)</p>
+        <code>adb connect ip_address_of_device</code>
+        
+        <h2 id="get-device-android-version">Get device android version</h2>
+        <code>adb shell getprop ro.build.version.release</code>
+        
+        <h2 id="logcat">Logcat</h2>
+        <code>adb logcat</code><br>
+        <code>adb logcat -c</code>
+        <p>clear, The parameter -c will clear the current logs on the device.</p>
+        <code>adb logcat -d &gt; [path_to_file]</code>
+        <p>Save the logcat output to a file on the local system.</p>
+        <code>adb bugreport &gt; [path_to_file]</code>
+        <p>Will dump the whole device information like dumpstate, dumpsys and logcat output.</p>
+        
+        <h2 id="files">Files</h2>
+        <code>adb push [source] [destination]</code>
+        <p>Copy files from your computer to your phone.</p>
+        <code>adb pull [device file location] [local file location]</code>
+        <p>Copy files from your phone to your computer.</p>
+        
+        <h2 id="app-install">App install</h2>
+        <code>adb -e install path/to/app.apk</code><br>
+        <code>-d</code>
+        <p>Directs command to the only connected USB device...</p>
+        <code>-e</code>
+        <p>Directs command to the only running emulator...</p>
+        <code>-s &lt;serial number&gt;</code><br>
+        <code>-p &lt;product name or path&gt;</code>
+        <p>The flag you decide to use has to come before the actual adb command:</p>
+        <code>adb devices | tail -n +2 | cut -sf 1 | xargs -IX adb -s X install -r com.myAppPackage</code>
+        <p>Install the given app on all connected devices.</p>
+        
+        <h2 id="uninstalling-app-from-device">Uninstalling app from device</h2>
+        <p><code>adb uninstall com.myAppPackage</code><br><code>adb uninstall &lt;app .apk name&gt;</code><br><code>adb uninstall -k &lt;app .apk name&gt;</code>
+            // &quot;Uninstall .apk withour deleting data&quot;</p>
+        <p><code>adb shell pm uninstall com.example.MyApp</code><br><code>adb shell pm clear [package]</code> // Deletes
+            all data associated with a package.</p>
+        <p><code>adb devices | tail -n +2 | cut -sf 1 | xargs -IX adb -s X uninstall com.myAppPackage</code> //Uninstall
+            the given app from all connected devices</p>
+        
+        <h2 id="update-app">Update app</h2>
+        <p><code>adb install -r yourApp.apk</code> // -r means re-install the app and keep its data on the
+            device.<br><code>adb install –k &lt;.apk file path on computer&gt;</code> </p>
+        
+        <h2 id="home-button">Home button</h2>
+        <p><code>adb shell am start -W -c android.intent.category.HOME -a android.intent.action.MAIN</code></p>
+        
+        <h2 id="activity-manager">Activity Manager</h2>
+        <p><code>adb shell am start -a android.intent.action.VIEW</code><br><code>adb shell am broadcast -a &#39;my_action&#39;</code>
+        </p>
+        <p><code>adb shell am start -a android.intent.action.CALL -d tel:+972527300294</code> // Make a call</p>
+        
+        <h3 id="open-send-sms-screen-with-phone-number-and-the-message-">Open send sms screen with phone number and the
+            message:</h3>
+        <p><code>adb shell am start -a android.intent.action.SENDTO -d sms:+972527300294   --es  sms_body &quot;Test --ez exit_on_sent false&quot;</code>
+        </p>
+        
+        <h3 id="reset-permissions">Reset permissions</h3>
+        <p><code>adb shell pm reset-permissions -p your.app.package</code><br><code>adb shell pm grant [packageName] [ Permission]</code>
+            // Grant a permission to an app.<br><code>adb shell pm revoke [packageName] [ Permission]</code> // Revoke a
+            permission from an app.</p>
+        
+            <h3 id="emulate-device">Emulate device</h3>
+        <p><code>adb shell wm size 2048x1536</code><br><code>adb shell wm density 288</code> </p>
+        <h3 id="and-reset-to-default">And reset to default</h3>
+        <p><code>adb shell wm size reset</code><br><code>adb shell wm density reset</code></p>
+        <h2 id="print-text">Print text</h2>
+        <p><code>adb shell input text &#39;Wow, it so cool feature&#39;</code></p>
+        <h2 id="screenshot">Screenshot</h2>
+        <p><code>adb shell screencap -p /sdcard/screenshot.png</code></p>
+        <pre><code>$ adb shell
 shell@ $ screencap <span class="hljs-regexp">/sdcard/</span>screen.png
 shell@ $ <span class="hljs-keyword">exit</span>
 $ adb pull <span class="hljs-regexp">/sdcard/</span>screen.png
-</code></pre><p><code>adb shell screenrecord /sdcard/NotAbleToLogin.mp4</code></p>
-<pre><code>$ adb shell
+</code></pre>
+        <p><code>adb shell screenrecord /sdcard/NotAbleToLogin.mp4</code></p>
+        <pre><code>$ adb shell
 shell@ $ screenrecord --verbose <span class="hljs-regexp">/sdcard/</span>demo.mp4
 (press Control + C to stop)
 shell@ $ <span class="hljs-keyword">exit</span>
 $ adb pull <span class="hljs-regexp">/sdcard/</span>demo.mp4
-</code></pre><h2 id="key-event">Key event</h2>
-<p><code>adb shell input keyevent 3</code>  // Home btn<br><code>adb shell input keyevent 4</code>  // Back btn<br><code>adb shell input keyevent 5</code>  // Call<br><code>adb shell input keyevent 6</code>  // End call<br><code>adb shell input keyevent 26</code>  // Turn Android device ON and OFF. It will toggle device to on/off status.<br><code>adb shell input keyevent 27</code>  // Camera<br><code>adb shell input keyevent 64</code>  // Open browser<br><code>adb shell input keyevent 66</code>  // Enter<br><code>adb shell input keyevent 67</code>  // Delete (backspace)<br><code>adb shell input keyevent 207</code>  // Contacts<br><code>adb shell input keyevent 220 / 221</code>  // Brightness down/up<br><code>adb shell input keyevent 277 / 278 /279</code>  // Cut/Copy/Paste  </p>
-<p>0 --&gt;  &quot;KEYCODE_0&quot;<br>1 --&gt;  &quot;KEYCODE_SOFT_LEFT&quot;<br>2 --&gt;  &quot;KEYCODE_SOFT_RIGHT&quot;<br>3 --&gt;  &quot;KEYCODE_HOME&quot;<br>4 --&gt;  &quot;KEYCODE_BACK&quot;<br>5 --&gt;  &quot;KEYCODE_CALL&quot;<br>6 --&gt;  &quot;KEYCODE_ENDCALL&quot;<br>7 --&gt;  &quot;KEYCODE_0&quot;<br>8 --&gt;  &quot;KEYCODE_1&quot;<br>9 --&gt;  &quot;KEYCODE_2&quot;<br>10 --&gt;  &quot;KEYCODE_3&quot;<br>11 --&gt;  &quot;KEYCODE_4&quot;<br>12 --&gt;  &quot;KEYCODE_5&quot;<br>13 --&gt;  &quot;KEYCODE_6&quot;<br>14 --&gt;  &quot;KEYCODE_7&quot;<br>15 --&gt;  &quot;KEYCODE_8&quot;<br>16 --&gt;  &quot;KEYCODE_9&quot;<br>17 --&gt;  &quot;KEYCODE_STAR&quot;<br>18 --&gt;  &quot;KEYCODE_POUND&quot;<br>19 --&gt;  &quot;KEYCODE_DPAD_UP&quot;<br>20 --&gt;  &quot;KEYCODE_DPAD_DOWN&quot;<br>21 --&gt;  &quot;KEYCODE_DPAD_LEFT&quot;<br>22 --&gt;  &quot;KEYCODE_DPAD_RIGHT&quot;<br>23 --&gt;  &quot;KEYCODE_DPAD_CENTER&quot;<br>24 --&gt;  &quot;KEYCODE_VOLUME_UP&quot;<br>25 --&gt;  &quot;KEYCODE_VOLUME_DOWN&quot;<br>26 --&gt;  &quot;KEYCODE_POWER&quot;<br>27 --&gt;  &quot;KEYCODE_CAMERA&quot;<br>28 --&gt;  &quot;KEYCODE_CLEAR&quot;<br>29 --&gt;  &quot;KEYCODE_A&quot;<br>30 --&gt;  &quot;KEYCODE_B&quot;<br>31 --&gt;  &quot;KEYCODE_C&quot;<br>32 --&gt;  &quot;KEYCODE_D&quot;<br>33 --&gt;  &quot;KEYCODE_E&quot;<br>34 --&gt;  &quot;KEYCODE_F&quot;<br>35 --&gt;  &quot;KEYCODE_G&quot;<br>36 --&gt;  &quot;KEYCODE_H&quot;<br>37 --&gt;  &quot;KEYCODE_I&quot;<br>38 --&gt;  &quot;KEYCODE_J&quot;<br>39 --&gt;  &quot;KEYCODE_K&quot;<br>40 --&gt;  &quot;KEYCODE_L&quot;<br>41 --&gt;  &quot;KEYCODE_M&quot;<br>42 --&gt;  &quot;KEYCODE_N&quot;<br>43 --&gt;  &quot;KEYCODE_O&quot;<br>44 --&gt;  &quot;KEYCODE_P&quot;<br>45 --&gt;  &quot;KEYCODE_Q&quot;<br>46 --&gt;  &quot;KEYCODE_R&quot;<br>47 --&gt;  &quot;KEYCODE_S&quot;<br>48 --&gt;  &quot;KEYCODE_T&quot;<br>49 --&gt;  &quot;KEYCODE_U&quot;<br>50 --&gt;  &quot;KEYCODE_V&quot;<br>51 --&gt;  &quot;KEYCODE_W&quot;<br>52 --&gt;  &quot;KEYCODE_X&quot;<br>53 --&gt;  &quot;KEYCODE_Y&quot;<br>54 --&gt;  &quot;KEYCODE_Z&quot;<br>55 --&gt;  &quot;KEYCODE_COMMA&quot;<br>56 --&gt;  &quot;KEYCODE_PERIOD&quot;<br>57 --&gt;  &quot;KEYCODE_ALT_LEFT&quot;<br>58 --&gt;  &quot;KEYCODE_ALT_RIGHT&quot;<br>59 --&gt;  &quot;KEYCODE_SHIFT_LEFT&quot;<br>60 --&gt;  &quot;KEYCODE_SHIFT_RIGHT&quot;<br>61 --&gt;  &quot;KEYCODE_TAB&quot;<br>62 --&gt;  &quot;KEYCODE_SPACE&quot;<br>63 --&gt;  &quot;KEYCODE_SYM&quot;<br>64 --&gt;  &quot;KEYCODE_EXPLORER&quot;<br>65 --&gt;  &quot;KEYCODE_ENVELOPE&quot;<br>66 --&gt;  &quot;KEYCODE_ENTER&quot;<br>67 --&gt;  &quot;KEYCODE_DEL&quot;<br>68 --&gt;  &quot;KEYCODE_GRAVE&quot;<br>69 --&gt;  &quot;KEYCODE_MINUS&quot;<br>70 --&gt;  &quot;KEYCODE_EQUALS&quot;<br>71 --&gt;  &quot;KEYCODE_LEFT_BRACKET&quot;<br>72 --&gt;  &quot;KEYCODE_RIGHT_BRACKET&quot;<br>73 --&gt;  &quot;KEYCODE_BACKSLASH&quot;<br>74 --&gt;  &quot;KEYCODE_SEMICOLON&quot;<br>75 --&gt;  &quot;KEYCODE_APOSTROPHE&quot;<br>76 --&gt;  &quot;KEYCODE_SLASH&quot;<br>77 --&gt;  &quot;KEYCODE_AT&quot;<br>78 --&gt;  &quot;KEYCODE_NUM&quot;<br>79 --&gt;  &quot;KEYCODE_HEADSETHOOK&quot;<br>80 --&gt;  &quot;KEYCODE_FOCUS&quot;<br>81 --&gt;  &quot;KEYCODE_PLUS&quot;<br>82 --&gt;  &quot;KEYCODE_MENU&quot;<br>83 --&gt;  &quot;KEYCODE_NOTIFICATION&quot;<br>84 --&gt;  &quot;KEYCODE_SEARCH&quot;<br>85 --&gt;  &quot;KEYCODE_MEDIA_PLAY_PAUSE&quot;<br>86 --&gt;  &quot;KEYCODE_MEDIA_STOP&quot;<br>87 --&gt;  &quot;KEYCODE_MEDIA_NEXT&quot;<br>88 --&gt;  &quot;KEYCODE_MEDIA_PREVIOUS&quot;<br>89 --&gt;  &quot;KEYCODE_MEDIA_REWIND&quot;<br>90 --&gt;  &quot;KEYCODE_MEDIA_FAST_FORWARD&quot;<br>91 --&gt;  &quot;KEYCODE_MUTE&quot;<br>92 --&gt;  &quot;KEYCODE_PAGE_UP&quot;<br>93 --&gt;  &quot;KEYCODE_PAGE_DOWN&quot;<br>94 --&gt;  &quot;KEYCODE_PICTSYMBOLS&quot;<br>...<br>122 --&gt;  &quot;KEYCODE_MOVE_HOME&quot;<br>123 --&gt;  &quot;KEYCODE_MOVE_END&quot;<br>// <a href="https://developer.android.com/reference/android/view/KeyEvent.html">https://developer.android.com/reference/android/view/KeyEvent.html</a></p>
-<h2 id="shpref">ShPref</h2>
-<blockquote>
-<p>replace org.example.app with your application id</p>
-</blockquote>
-<h3 id="add-a-value-to-default-shared-preferences-">Add a value to default shared preferences.</h3>
-<p><code>adb shell &#39;am broadcast -a org.example.app.sp.PUT --es key key_name --es value &quot;hello world!&quot;&#39;</code></p>
-<h3 id="remove-a-value-to-default-shared-preferences-">Remove a value to default shared preferences.</h3>
-<p><code>adb shell &#39;am broadcast -a org.example.app.sp.REMOVE --es key key_name&#39;</code></p>
-<h3 id="clear-all-default-shared-preferences-">Clear all default shared preferences.</h3>
-<p><code>adb shell &#39;am broadcast -a org.example.app.sp.CLEAR --es key key_name&#39;</code></p>
-<h1 id="it-s-also-possible-to-specify-shared-preferences-file-">It&#39;s also possible to specify shared preferences file.</h1>
-<p><code>adb shell &#39;am broadcast -a org.example.app.sp.PUT --es name Game --es key level --ei value 10&#39;</code></p>
-<h2 id="data-types">Data types</h2>
-<p><code>adb shell &#39;am broadcast -a org.example.app.sp.PUT --es key string --es value &quot;hello world!&quot;&#39;</code><br><code>adb shell &#39;am broadcast -a org.example.app.sp.PUT --es key boolean --ez value true&#39;</code><br><code>adb shell &#39;am broadcast -a org.example.app.sp.PUT --es key float --ef value 3.14159&#39;</code><br><code>adb shell &#39;am broadcast -a org.example.app.sp.PUT --es key int --ei value 2015&#39;</code><br><code>adb shell &#39;am broadcast -a org.example.app.sp.PUT --es key long --el value 9223372036854775807&#39;</code></p>
-<h2 id="restart-application-process-after-making-changes">Restart application process after making changes</h2>
-<p><code>adb shell &#39;am broadcast -a org.example.app.sp.CLEAR --ez restart true&#39;</code></p>
-<h2 id="monkey">Monkey</h2>
-<p><code>adb shell monkey -p com.myAppPackage -v 10000 -s 100</code>  // monkey tool is generating 10.000 random events on the real device</p>
-<h2 id="paths">Paths</h2>
-<p>/data/data/<code>&lt;package&gt;</code>/databases (app databases)<br>/data/data/<code>&lt;package&gt;</code>/shared_prefs/ (shared preferences)<br>/data/app (apk installed by user)<br>/system/app (pre-installed APK files)<br>/mmt/asec (encrypted apps) (App2SD)<br>/mmt/emmc (internal SD Card)<br>/mmt/adcard (external/Internal SD Card)<br>/mmt/adcard/external_sd (external SD Card)  </p>
-<p>adb shell ls (list directory contents)<br>adb shell ls -s (print size of each file)<br>adb shell ls -R (list subdirectories recursively)  </p>
-<h2 id="adb-get-stat-print-device-state-">adb get-statе (print device state)</h2>
-<p>adb get-serialno (get the serial number)<br>adb shell dumpsys iphonesybinfo (get the IMEI)<br>adb shell netstat (list TCP connectivity)<br>adb shell pwd (print current working directory)<br>adb shell dumpsys battery (battery status)<br>adb shell pm list features (list phone features)<br>adb shell service list (list all services)<br>adb shell dumpsys activity <code>&lt;package&gt;</code>/<code>&lt;activity&gt;</code> (activity info)<br>adb shell ps (print process status)<br>adb shell wm size (displays the current screen resolution)<br>dumpsys window windows | grep -E &#39;mCurrentFocus|mFocusedApp&#39; (print current app&#39;s opened activity)</p>
-<h2 id="package-info">Package info</h2>
-<p>adb shell list packages (list package names)<br>adb shell list packages -r (list package name + path to apks)<br>adb shell list packages -3 (list third party package names)<br>adb shell list packages -s (list only system packages)<br>adb shell list packages -u (list package names + uninstalled)<br>adb shell dumpsys package packages (list info on all apps)<br>adb shell dump <code>&lt;name&gt;</code> (list info on one package)<br>adb shell path <code>&lt;package&gt;</code> (path to the apk file)  </p>
-<h2 id="configure-settings-commands">Configure Settings Commands</h2>
-<p>adb shell dumpsys battery set level <code>&lt;n&gt;</code> (change the level from 0 to 100)<br>adb shell dumpsys battery set status<code>&lt;n&gt;</code> (change the level to unknown, charging, discharging, not charging or full)<br>adb shell dumpsys battery reset (reset the battery)<br>adb shell dumpsys battery set usb <code>&lt;n&gt;</code> (change the status of USB connection. ON or OFF)<br>adb shell wm size WxH (sets the resolution to WxH)</p>
-<h2 id="device-related-commands">Device Related Commands</h2>
-<p>adb reboot-recovery (reboot device into recovery mode)<br>adb reboot fastboot (reboot device into recovery mode)<br>adb shell screencap -p &quot;/path/to/screenshot.png&quot; (capture screenshot)<br>adb shell screenrecord &quot;/path/to/record.mp4&quot; (record device screen)<br>adb backup -apk -all -f backup.ab (backup settings and apps)<br>adb backup -apk -shared -all -f backup.ab (backup settings, apps and shared storage)<br>adb backup -apk -nosystem -all -f backup.ab (backup only non-system apps)<br>adb restore backup.ab (restore a previous backup)<br>adb shell am start|startservice|broadcast <INTENT>[<COMPONENT>]
--a <ACTION> e.g. android.intent.action.VIEW
--c <CATEGORY> e.g. android.intent.category.LAUNCHER (start activity intent)</p>
-<p>adb shell am start -a android.intent.action.VIEW -d URL (open URL)
-adb shell am start -t image/* -a android.intent.action.VIEW (opens gallery)</p>
-<p>== Logs
-adb logcat [options] [filter] [filter] (view device log)
-adb bugreport (print bug reports)</p>
-<p>== Other
-adb backup // Create a full backup of your phone and save to the computer.
-adb restore // Restore a backup to your phone.
-adb sideload //  Push and flash custom ROMs and zips from your computer.</p>
-<p>fastboot devices
-// Check connection and get basic information about devices connected to the computer.
-// This is essentially the same command as adb devices from earlier. 
-//However, it works in the bootloader, which ADB does not. Handy for ensuring that you have properly established a connection.</p>
-<hr>
-<p>Shared Preferences</p>
-<h1 id="replace-org-example-app-with-your-application-id">replace org.example.app with your application id</h1>
-<h1 id="add-a-value-to-default-shared-preferences-">Add a value to default shared preferences.</h1>
-<p>adb shell &#39;am broadcast -a org.example.app.sp.PUT --es key key_name --es value &quot;hello world!&quot;&#39;</p>
-<h1 id="remove-a-value-to-default-shared-preferences-">Remove a value to default shared preferences.</h1>
-<p>adb shell &#39;am broadcast -a org.example.app.sp.REMOVE --es key key_name&#39;</p>
-<h1 id="clear-all-default-shared-preferences-">Clear all default shared preferences.</h1>
-<p>adb shell &#39;am broadcast -a org.example.app.sp.CLEAR --es key key_name&#39;</p>
-<h1 id="it-s-also-possible-to-specify-shared-preferences-file-">It&#39;s also possible to specify shared preferences file.</h1>
-<p>adb shell &#39;am broadcast -a org.example.app.sp.PUT --es name Game --es key level --ei value 10&#39;</p>
-<h1 id="data-types">Data types</h1>
-<p>adb shell &#39;am broadcast -a org.example.app.sp.PUT --es key string --es value &quot;hello world!&quot;&#39;
-adb shell &#39;am broadcast -a org.example.app.sp.PUT --es key boolean --ez value true&#39;
-adb shell &#39;am broadcast -a org.example.app.sp.PUT --es key float --ef value 3.14159&#39;
-adb shell &#39;am broadcast -a org.example.app.sp.PUT --es key int --ei value 2015&#39;
-adb shell &#39;am broadcast -a org.example.app.sp.PUT --es key long --el value 9223372036854775807&#39;</p>
-<h1 id="restart-application-process-after-making-changes">Restart application process after making changes</h1>
-<h2 id="adb-shell-am-broadcast-a-org-example-app-sp-clear-ez-restart-true-">adb shell &#39;am broadcast -a org.example.app.sp.CLEAR --ez restart true&#39;</h2>
-<p>=== Few bash snippets ===
-@Source (<a href="https://jonfhancock.com/bash-your-way-to-better-android-development-1169bc3e0424">https://jonfhancock.com/bash-your-way-to-better-android-development-1169bc3e0424</a>)</p>
-<p>=== Using tail -n
-//Use tail to remove the first line. Actually two lines. The first one is just a newline. The second is “List of devices attached.”
-$ adb devices | tail -n +2</p>
-<p>=== Using cut -sf
-// Cut the last word and any white space off the end of each line.
-$ adb devices | tail -n +2 | cut -sf -1</p>
-<p>=== Using xargs -I
-// Given the -I option, xargs will perform an action for each line of text that we feed into it.
-// We can give the line a variable name to use in commands that xargs can execute.
-$ adb devices | tail -n +2 | cut -sf -1 | xargs -I X echo X aw yiss</p>
-<p>=== Three options below together
-// Will print android version of all connected devices
-adb devices | tail -n +2 | cut -sf -1 | xargs -I X adb -s X shell getprop ro.build.version.release  </p>
-<p>=== Using alias
--- Example 1 
-alias tellMeMore=echo
-tellMeMore &quot;hi there&quot;
-Output =&gt; hi there
--- Example 2
-// Define alias
-alias apkinstall=&quot;adb devices | tail -n +2 | cut -sf 1 | xargs -I X adb -s X install -r $1&quot;
-// And you can use it later 
-apkinstall ~/Downloads/MyAppRelease.apk  // Install an apk on all devices
--- Example 3
-alias rmapp=&quot;adb devices | tail -n +2 | cut -sf 1 | xargs -I X adb -s X uninstall $1&quot;
-rmapp com.example.myapp // Uninstall a package from all devices
--- Example 4
-alias clearapp=&quot;adb devices | tail -n +2 | cut -sf 1 | xargs -I X adb -s X shell pm clear $1&quot;
-clearapp com.example.myapp  // Clear data on all devices (leave installed)
--- Example 5
-alias startintent=&quot;adb devices | tail -n +2 | cut -sf 1 | xargs -I X adb -s X shell am start $1&quot;
-startintent <a href="https://twitter.com/JonFHancock">https://twitter.com/JonFHancock</a> // Launch a deep link on all devices</p>
-<p>Setting up your .bash_profile
-Finally, to make this all reusable even after rebooting your computer (aliases only last through the current session), we have to add these to your .bash_profile. You might or might not already have a .bash_profile, so let’s make sure we append to it rather than overwriting it. Just open a terminal, and run the following command</p>
-<p>touch .bash_profile &amp;&amp; open .bash_profile</p>
-<p>This will create it if it doesn’t already exist, and open it in a text editor either way. Now just copy and paste all of the aliases into it, save, and close.</p>
-<p>alias startintent=&quot;adb devices | tail -n +2 | cut -sf 1 | xargs -I X adb -s X shell am start $1&quot;
-alias apkinstall=&quot;adb devices | tail -n +2 | cut -sf 1 | xargs -I X adb -s X install -r $1&quot;
-alias rmapp=&quot;adb devices | tail -n +2 | cut -sf 1 | xargs -I X adb -s X uninstall $1&quot;
-alias clearapp=&quot;adb devices | tail -n +2 | cut -sf 1 | xargs -I X adb -s X shell pm clear $1&quot;</p>
-<hr>
-<h3 id="sources">Sources</h3>
-<ul>
-<li>Internet</li>
-<li><a href="https://www.automatetheplanet.com/adb-cheat-sheet/">https://www.automatetheplanet.com/adb-cheat-sheet/</a></li>
-</ul>
+</code></pre>
+        <h2 id="key-event">Key event</h2>
+        <p><code>adb shell input keyevent 3</code> // Home btn<br><code>adb shell input keyevent 4</code> // Back
+            btn<br><code>adb shell input keyevent 5</code> // Call<br><code>adb shell input keyevent 6</code> // End
+            call<br><code>adb shell input keyevent 26</code> // Turn Android device ON and OFF. It will toggle device to
+            on/off status.<br><code>adb shell input keyevent 27</code> //
+            Camera<br><code>adb shell input keyevent 64</code> // Open
+            browser<br><code>adb shell input keyevent 66</code> // Enter<br><code>adb shell input keyevent 67</code> //
+            Delete (backspace)<br><code>adb shell input keyevent 207</code> //
+            Contacts<br><code>adb shell input keyevent 220 / 221</code> // Brightness
+            down/up<br><code>adb shell input keyevent 277 / 278 /279</code> // Cut/Copy/Paste </p>
+        <p>0 --&gt; &quot;KEYCODE_0&quot;<br>1 --&gt; &quot;KEYCODE_SOFT_LEFT&quot;<br>2 --&gt;
+            &quot;KEYCODE_SOFT_RIGHT&quot;<br>3 --&gt; &quot;KEYCODE_HOME&quot;<br>4 --&gt;
+            &quot;KEYCODE_BACK&quot;<br>5 --&gt; &quot;KEYCODE_CALL&quot;<br>6 --&gt; &quot;KEYCODE_ENDCALL&quot;<br>7
+            --&gt; &quot;KEYCODE_0&quot;<br>8 --&gt; &quot;KEYCODE_1&quot;<br>9 --&gt; &quot;KEYCODE_2&quot;<br>10
+            --&gt; &quot;KEYCODE_3&quot;<br>11 --&gt; &quot;KEYCODE_4&quot;<br>12 --&gt; &quot;KEYCODE_5&quot;<br>13
+            --&gt; &quot;KEYCODE_6&quot;<br>14 --&gt; &quot;KEYCODE_7&quot;<br>15 --&gt; &quot;KEYCODE_8&quot;<br>16
+            --&gt; &quot;KEYCODE_9&quot;<br>17 --&gt; &quot;KEYCODE_STAR&quot;<br>18 --&gt;
+            &quot;KEYCODE_POUND&quot;<br>19 --&gt; &quot;KEYCODE_DPAD_UP&quot;<br>20 --&gt;
+            &quot;KEYCODE_DPAD_DOWN&quot;<br>21 --&gt; &quot;KEYCODE_DPAD_LEFT&quot;<br>22 --&gt;
+            &quot;KEYCODE_DPAD_RIGHT&quot;<br>23 --&gt; &quot;KEYCODE_DPAD_CENTER&quot;<br>24 --&gt;
+            &quot;KEYCODE_VOLUME_UP&quot;<br>25 --&gt; &quot;KEYCODE_VOLUME_DOWN&quot;<br>26 --&gt;
+            &quot;KEYCODE_POWER&quot;<br>27 --&gt; &quot;KEYCODE_CAMERA&quot;<br>28 --&gt;
+            &quot;KEYCODE_CLEAR&quot;<br>29 --&gt; &quot;KEYCODE_A&quot;<br>30 --&gt; &quot;KEYCODE_B&quot;<br>31 --&gt;
+            &quot;KEYCODE_C&quot;<br>32 --&gt; &quot;KEYCODE_D&quot;<br>33 --&gt; &quot;KEYCODE_E&quot;<br>34 --&gt;
+            &quot;KEYCODE_F&quot;<br>35 --&gt; &quot;KEYCODE_G&quot;<br>36 --&gt; &quot;KEYCODE_H&quot;<br>37 --&gt;
+            &quot;KEYCODE_I&quot;<br>38 --&gt; &quot;KEYCODE_J&quot;<br>39 --&gt; &quot;KEYCODE_K&quot;<br>40 --&gt;
+            &quot;KEYCODE_L&quot;<br>41 --&gt; &quot;KEYCODE_M&quot;<br>42 --&gt; &quot;KEYCODE_N&quot;<br>43 --&gt;
+            &quot;KEYCODE_O&quot;<br>44 --&gt; &quot;KEYCODE_P&quot;<br>45 --&gt; &quot;KEYCODE_Q&quot;<br>46 --&gt;
+            &quot;KEYCODE_R&quot;<br>47 --&gt; &quot;KEYCODE_S&quot;<br>48 --&gt; &quot;KEYCODE_T&quot;<br>49 --&gt;
+            &quot;KEYCODE_U&quot;<br>50 --&gt; &quot;KEYCODE_V&quot;<br>51 --&gt; &quot;KEYCODE_W&quot;<br>52 --&gt;
+            &quot;KEYCODE_X&quot;<br>53 --&gt; &quot;KEYCODE_Y&quot;<br>54 --&gt; &quot;KEYCODE_Z&quot;<br>55 --&gt;
+            &quot;KEYCODE_COMMA&quot;<br>56 --&gt; &quot;KEYCODE_PERIOD&quot;<br>57 --&gt;
+            &quot;KEYCODE_ALT_LEFT&quot;<br>58 --&gt; &quot;KEYCODE_ALT_RIGHT&quot;<br>59 --&gt;
+            &quot;KEYCODE_SHIFT_LEFT&quot;<br>60 --&gt; &quot;KEYCODE_SHIFT_RIGHT&quot;<br>61 --&gt;
+            &quot;KEYCODE_TAB&quot;<br>62 --&gt; &quot;KEYCODE_SPACE&quot;<br>63 --&gt; &quot;KEYCODE_SYM&quot;<br>64
+            --&gt; &quot;KEYCODE_EXPLORER&quot;<br>65 --&gt; &quot;KEYCODE_ENVELOPE&quot;<br>66 --&gt;
+            &quot;KEYCODE_ENTER&quot;<br>67 --&gt; &quot;KEYCODE_DEL&quot;<br>68 --&gt; &quot;KEYCODE_GRAVE&quot;<br>69
+            --&gt; &quot;KEYCODE_MINUS&quot;<br>70 --&gt; &quot;KEYCODE_EQUALS&quot;<br>71 --&gt;
+            &quot;KEYCODE_LEFT_BRACKET&quot;<br>72 --&gt; &quot;KEYCODE_RIGHT_BRACKET&quot;<br>73 --&gt;
+            &quot;KEYCODE_BACKSLASH&quot;<br>74 --&gt; &quot;KEYCODE_SEMICOLON&quot;<br>75 --&gt;
+            &quot;KEYCODE_APOSTROPHE&quot;<br>76 --&gt; &quot;KEYCODE_SLASH&quot;<br>77 --&gt;
+            &quot;KEYCODE_AT&quot;<br>78 --&gt; &quot;KEYCODE_NUM&quot;<br>79 --&gt;
+            &quot;KEYCODE_HEADSETHOOK&quot;<br>80 --&gt; &quot;KEYCODE_FOCUS&quot;<br>81 --&gt;
+            &quot;KEYCODE_PLUS&quot;<br>82 --&gt; &quot;KEYCODE_MENU&quot;<br>83 --&gt;
+            &quot;KEYCODE_NOTIFICATION&quot;<br>84 --&gt; &quot;KEYCODE_SEARCH&quot;<br>85 --&gt;
+            &quot;KEYCODE_MEDIA_PLAY_PAUSE&quot;<br>86 --&gt; &quot;KEYCODE_MEDIA_STOP&quot;<br>87 --&gt;
+            &quot;KEYCODE_MEDIA_NEXT&quot;<br>88 --&gt; &quot;KEYCODE_MEDIA_PREVIOUS&quot;<br>89 --&gt;
+            &quot;KEYCODE_MEDIA_REWIND&quot;<br>90 --&gt; &quot;KEYCODE_MEDIA_FAST_FORWARD&quot;<br>91 --&gt;
+            &quot;KEYCODE_MUTE&quot;<br>92 --&gt; &quot;KEYCODE_PAGE_UP&quot;<br>93 --&gt;
+            &quot;KEYCODE_PAGE_DOWN&quot;<br>94 --&gt; &quot;KEYCODE_PICTSYMBOLS&quot;<br>...<br>122 --&gt;
+            &quot;KEYCODE_MOVE_HOME&quot;<br>123 --&gt; &quot;KEYCODE_MOVE_END&quot;<br>// <a
+                href="https://developer.android.com/reference/android/view/KeyEvent.html">https://developer.android.com/reference/android/view/KeyEvent.html</a>
+        </p>
+        <h2 id="shpref">ShPref</h2>
+        <blockquote>
+            <p>replace org.example.app with your application id</p>
+        </blockquote>
+        <h3 id="add-a-value-to-default-shared-preferences-">Add a value to default shared preferences.</h3>
+        <p><code>adb shell &#39;am broadcast -a org.example.app.sp.PUT --es key key_name --es value &quot;hello world!&quot;&#39;</code>
+        </p>
+        <h3 id="remove-a-value-to-default-shared-preferences-">Remove a value to default shared preferences.</h3>
+        <p><code>adb shell &#39;am broadcast -a org.example.app.sp.REMOVE --es key key_name&#39;</code></p>
+        <h3 id="clear-all-default-shared-preferences-">Clear all default shared preferences.</h3>
+        <p><code>adb shell &#39;am broadcast -a org.example.app.sp.CLEAR --es key key_name&#39;</code></p>
+        <h1 id="it-s-also-possible-to-specify-shared-preferences-file-">It&#39;s also possible to specify shared
+            preferences file.</h1>
+        <p><code>adb shell &#39;am broadcast -a org.example.app.sp.PUT --es name Game --es key level --ei value 10&#39;</code>
+        </p>
+        <h2 id="data-types">Data types</h2>
+        <p><code>adb shell &#39;am broadcast -a org.example.app.sp.PUT --es key string --es value &quot;hello world!&quot;&#39;</code><br><code>adb shell &#39;am broadcast -a org.example.app.sp.PUT --es key boolean --ez value true&#39;</code><br><code>adb shell &#39;am broadcast -a org.example.app.sp.PUT --es key float --ef value 3.14159&#39;</code><br><code>adb shell &#39;am broadcast -a org.example.app.sp.PUT --es key int --ei value 2015&#39;</code><br><code>adb shell &#39;am broadcast -a org.example.app.sp.PUT --es key long --el value 9223372036854775807&#39;</code>
+        </p>
+        <h2 id="restart-application-process-after-making-changes">Restart application process after making changes</h2>
+        <p><code>adb shell &#39;am broadcast -a org.example.app.sp.CLEAR --ez restart true&#39;</code></p>
+        <h2 id="monkey">Monkey</h2>
+        <p><code>adb shell monkey -p com.myAppPackage -v 10000 -s 100</code> // monkey tool is generating 10.000 random
+            events on the real device</p>
+        <h2 id="paths">Paths</h2>
+        <p>/data/data/<code>&lt;package&gt;</code>/databases (app
+            databases)<br>/data/data/<code>&lt;package&gt;</code>/shared_prefs/ (shared preferences)<br>/data/app (apk
+            installed by user)<br>/system/app (pre-installed APK files)<br>/mmt/asec (encrypted apps)
+            (App2SD)<br>/mmt/emmc (internal SD Card)<br>/mmt/adcard (external/Internal SD
+            Card)<br>/mmt/adcard/external_sd (external SD Card) </p>
+        <p>adb shell ls (list directory contents)<br>adb shell ls -s (print size of each file)<br>adb shell ls -R (list
+            subdirectories recursively) </p>
+        <h2 id="adb-get-stat-print-device-state-">adb get-statе (print device state)</h2>
+        <p>adb get-serialno (get the serial number)<br>adb shell dumpsys iphonesybinfo (get the IMEI)<br>adb shell
+            netstat (list TCP connectivity)<br>adb shell pwd (print current working directory)<br>adb shell dumpsys
+            battery (battery status)<br>adb shell pm list features (list phone features)<br>adb shell service list (list
+            all services)<br>adb shell dumpsys activity <code>&lt;package&gt;</code>/<code>&lt;activity&gt;</code>
+            (activity info)<br>adb shell ps (print process status)<br>adb shell wm size (displays the current screen
+            resolution)<br>dumpsys window windows | grep -E &#39;mCurrentFocus|mFocusedApp&#39; (print current app&#39;s
+            opened activity)</p>
+        <h2 id="package-info">Package info</h2>
+        <p>adb shell list packages (list package names)<br>adb shell list packages -r (list package name + path to
+            apks)<br>adb shell list packages -3 (list third party package names)<br>adb shell list packages -s (list
+            only system packages)<br>adb shell list packages -u (list package names + uninstalled)<br>adb shell dumpsys
+            package packages (list info on all apps)<br>adb shell dump <code>&lt;name&gt;</code> (list info on one
+            package)<br>adb shell path <code>&lt;package&gt;</code> (path to the apk file) </p>
+        <h2 id="configure-settings-commands">Configure Settings Commands</h2>
+        <p>adb shell dumpsys battery set level <code>&lt;n&gt;</code> (change the level from 0 to 100)<br>adb shell
+            dumpsys battery set status<code>&lt;n&gt;</code> (change the level to unknown, charging, discharging, not
+            charging or full)<br>adb shell dumpsys battery reset (reset the battery)<br>adb shell dumpsys battery set
+            usb <code>&lt;n&gt;</code> (change the status of USB connection. ON or OFF)<br>adb shell wm size WxH (sets
+            the resolution to WxH)</p>
+        <h2 id="device-related-commands">Device Related Commands</h2>
+        <p>adb reboot-recovery (reboot device into recovery mode)<br>adb reboot fastboot (reboot device into recovery
+            mode)<br>adb shell screencap -p &quot;/path/to/screenshot.png&quot; (capture screenshot)<br>adb shell
+            screenrecord &quot;/path/to/record.mp4&quot; (record device screen)<br>adb backup -apk -all -f backup.ab
+            (backup settings and apps)<br>adb backup -apk -shared -all -f backup.ab (backup settings, apps and shared
+            storage)<br>adb backup -apk -nosystem -all -f backup.ab (backup only non-system apps)<br>adb restore
+            backup.ab (restore a previous backup)<br>adb shell am start|startservice|broadcast <INTENT>[<COMPONENT>]
+                    -a <ACTION> e.g. android.intent.action.VIEW
+                        -c <CATEGORY> e.g. android.intent.category.LAUNCHER (start activity intent)</p>
+        <p>adb shell am start -a android.intent.action.VIEW -d URL (open URL)
+            adb shell am start -t image/* -a android.intent.action.VIEW (opens gallery)</p>
+        <p>== Logs
+            adb logcat [options] [filter] [filter] (view device log)
+            adb bugreport (print bug reports)</p>
+        <p>== Other
+            adb backup // Create a full backup of your phone and save to the computer.
+            adb restore // Restore a backup to your phone.
+            adb sideload // Push and flash custom ROMs and zips from your computer.</p>
+        <p>fastboot devices
+            // Check connection and get basic information about devices connected to the computer.
+            // This is essentially the same command as adb devices from earlier.
+            //However, it works in the bootloader, which ADB does not. Handy for ensuring that you have properly
+            established a connection.</p>
+        <hr>
+        <p>Shared Preferences</p>
+        <h1 id="replace-org-example-app-with-your-application-id">replace org.example.app with your application id</h1>
+        <h1 id="add-a-value-to-default-shared-preferences-">Add a value to default shared preferences.</h1>
+        <p>adb shell &#39;am broadcast -a org.example.app.sp.PUT --es key key_name --es value &quot;hello
+            world!&quot;&#39;</p>
+        <h1 id="remove-a-value-to-default-shared-preferences-">Remove a value to default shared preferences.</h1>
+        <p>adb shell &#39;am broadcast -a org.example.app.sp.REMOVE --es key key_name&#39;</p>
+        <h1 id="clear-all-default-shared-preferences-">Clear all default shared preferences.</h1>
+        <p>adb shell &#39;am broadcast -a org.example.app.sp.CLEAR --es key key_name&#39;</p>
+        <h1 id="it-s-also-possible-to-specify-shared-preferences-file-">It&#39;s also possible to specify shared
+            preferences file.</h1>
+        <p>adb shell &#39;am broadcast -a org.example.app.sp.PUT --es name Game --es key level --ei value 10&#39;</p>
+        <h1 id="data-types">Data types</h1>
+        <p>adb shell &#39;am broadcast -a org.example.app.sp.PUT --es key string --es value &quot;hello
+            world!&quot;&#39;
+            adb shell &#39;am broadcast -a org.example.app.sp.PUT --es key boolean --ez value true&#39;
+            adb shell &#39;am broadcast -a org.example.app.sp.PUT --es key float --ef value 3.14159&#39;
+            adb shell &#39;am broadcast -a org.example.app.sp.PUT --es key int --ei value 2015&#39;
+            adb shell &#39;am broadcast -a org.example.app.sp.PUT --es key long --el value 9223372036854775807&#39;</p>
+        <h1 id="restart-application-process-after-making-changes">Restart application process after making changes</h1>
+        <h2 id="adb-shell-am-broadcast-a-org-example-app-sp-clear-ez-restart-true-">adb shell &#39;am broadcast -a
+            org.example.app.sp.CLEAR --ez restart true&#39;</h2>
+        <p>=== Few bash snippets ===
+            @Source (<a
+                href="https://jonfhancock.com/bash-your-way-to-better-android-development-1169bc3e0424">https://jonfhancock.com/bash-your-way-to-better-android-development-1169bc3e0424</a>)
+        </p>
+        <p>=== Using tail -n
+            //Use tail to remove the first line. Actually two lines. The first one is just a newline. The second is
+            “List of devices attached.”
+            $ adb devices | tail -n +2</p>
+        <p>=== Using cut -sf
+            // Cut the last word and any white space off the end of each line.
+            $ adb devices | tail -n +2 | cut -sf -1</p>
+        <p>=== Using xargs -I
+            // Given the -I option, xargs will perform an action for each line of text that we feed into it.
+            // We can give the line a variable name to use in commands that xargs can execute.
+            $ adb devices | tail -n +2 | cut -sf -1 | xargs -I X echo X aw yiss</p>
+        <p>=== Three options below together
+            // Will print android version of all connected devices
+            adb devices | tail -n +2 | cut -sf -1 | xargs -I X adb -s X shell getprop ro.build.version.release </p>
+        <p>=== Using alias
+            -- Example 1
+            alias tellMeMore=echo
+            tellMeMore &quot;hi there&quot;
+            Output =&gt; hi there
+            -- Example 2
+            // Define alias
+            alias apkinstall=&quot;adb devices | tail -n +2 | cut -sf 1 | xargs -I X adb -s X install -r $1&quot;
+            // And you can use it later
+            apkinstall ~/Downloads/MyAppRelease.apk // Install an apk on all devices
+            -- Example 3
+            alias rmapp=&quot;adb devices | tail -n +2 | cut -sf 1 | xargs -I X adb -s X uninstall $1&quot;
+            rmapp com.example.myapp // Uninstall a package from all devices
+            -- Example 4
+            alias clearapp=&quot;adb devices | tail -n +2 | cut -sf 1 | xargs -I X adb -s X shell pm clear $1&quot;
+            clearapp com.example.myapp // Clear data on all devices (leave installed)
+            -- Example 5
+            alias startintent=&quot;adb devices | tail -n +2 | cut -sf 1 | xargs -I X adb -s X shell am start $1&quot;
+            startintent <a href="https://twitter.com/JonFHancock">https://twitter.com/JonFHancock</a> // Launch a deep
+            link on all devices</p>
+        <p>Setting up your .bash_profile
+            Finally, to make this all reusable even after rebooting your computer (aliases only last through the current
+            session), we have to add these to your .bash_profile. You might or might not already have a .bash_profile,
+            so let’s make sure we append to it rather than overwriting it. Just open a terminal, and run the following
+            command</p>
+        <p>touch .bash_profile &amp;&amp; open .bash_profile</p>
+        <p>This will create it if it doesn’t already exist, and open it in a text editor either way. Now just copy and
+            paste all of the aliases into it, save, and close.</p>
+        <p>alias startintent=&quot;adb devices | tail -n +2 | cut -sf 1 | xargs -I X adb -s X shell am start $1&quot;
+            alias apkinstall=&quot;adb devices | tail -n +2 | cut -sf 1 | xargs -I X adb -s X install -r $1&quot;
+            alias rmapp=&quot;adb devices | tail -n +2 | cut -sf 1 | xargs -I X adb -s X uninstall $1&quot;
+            alias clearapp=&quot;adb devices | tail -n +2 | cut -sf 1 | xargs -I X adb -s X shell pm clear $1&quot;</p>
+        
+        <hr>
+
+        <h3 id="sources">Sources</h3>
+        <ul>
+            <li>Internet</li>
+            <li>
+                <a href="https://www.automatetheplanet.com/adb-cheat-sheet/">https://www.automatetheplanet.com/adb-cheat-sheet/</a>
+            </li>
+        </ul>
+    </div>
 
 </body>
+
 </html>
