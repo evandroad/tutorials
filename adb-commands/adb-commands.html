@@ -14,15 +14,19 @@
     <ul>
         <div class="sidenav">
             <h2 id="summary">Summary</h2>
-            <li><a href="#server">#1 server</a></li>
-            <li><a href="#reboot">#2 reboot</a></li>
-            <li><a href="#shell">#3 shell</a></li>
-            <li><a href="#devices">#3 devices</a></li>
-            <li><a href="#get-device-android-version">#4 android version</a></li>
-            <li><a href="#logcat">#5 logcat</a></li>
-            <li><a href="#files">#6 Files</a></li>
-            <li><a href="#app-install">#7 App Install</a></li>
-            <li><a href="#uninstalling-app-from-device">#8 Unininstall</a></li>
+            <li class="summaryItem"><a href="#server">#1 server</a></li>
+            <li class="summaryItem"><a href="#reboot">#2 reboot</a></li>
+            <li class="summaryItem"><a href="#shell">#3 shell</a></li>
+            <li class="summaryItem"><a href="#devices">#4 devices</a></li>
+            <li class="summaryItem"><a href="#get-device-android-version">#5 android version</a></li>
+            <li class="summaryItem"><a href="#logcat">#6 logcat</a></li>
+            <li class="summaryItem"><a href="#files">#7 Files</a></li>
+            <li class="summaryItem"><a href="#app-install">#8 App Install</a></li>
+            <li class="summaryItem"><a href="#uninstalling-app">#9 Unininstall App</a></li>
+            <li class="summaryItem"><a href="#update-app">#10 Update App</a></li>
+            <li class="summaryItem"><a href="#home-button">#11 Home Button</a></li>
+            <li class="summaryItem"><a href="#activity-manager">#12 Activity Manager</a></li>
+            <li class="summaryItem"><a href="#send-sms">#13 Send Sms</a></li>
         </div>
     </ul>
 
@@ -30,19 +34,23 @@
         <h1>ADB Commands</h1>
         <p><a href="../index.html">Home</a></p>
 
+        <!-- #1 server -->
         <h2 id="server">Server</h2>
         <code>adb kill-server</code><br>
         <code>adb start-server</code>
 
+        <!-- #2 reboot -->
         <h2 id="reboot">Reboot</h2>
         <code>adb reboot</code><br>
         <code>adb reboot recovery</code><br>
         <code>adb reboot-bootloader</code><br>
 
+        <!-- #3 shell -->
         <h2 id="shell">Shell</h2>
         <code>adb shell</code>
         <p>Open or run commands in a terminal on the host Android device.</p>
         
+        <!-- #4 devices -->
         <h2 id="devices">Devices</h2>
         <code>adb usb</code><br>
         <code>adb devices</code>
@@ -51,9 +59,11 @@
         <p>devices (product/model)</p>
         <code>adb connect ip_address_of_device</code>
         
+        <!-- #5 android version -->
         <h2 id="get-device-android-version">Get device android version</h2>
         <code>adb shell getprop ro.build.version.release</code>
         
+        <!-- #6 logcat -->
         <h2 id="logcat">Logcat</h2>
         <code>adb logcat</code><br>
         <code>adb logcat -c</code>
@@ -63,12 +73,14 @@
         <code>adb bugreport &gt; [path_to_file]</code>
         <p>Will dump the whole device information like dumpstate, dumpsys and logcat output.</p>
         
+        <!-- #7 files -->
         <h2 id="files">Files</h2>
         <code>adb push [source] [destination]</code>
         <p>Copy files from your computer to your phone.</p>
         <code>adb pull [device file location] [local file location]</code>
         <p>Copy files from your phone to your computer.</p>
         
+        <!-- #8 app install -->
         <h2 id="app-install">App install</h2>
         <code>adb -e install path/to/app.apk</code><br>
         <code>-d</code>
@@ -81,30 +93,39 @@
         <code>adb devices | tail -n +2 | cut -sf 1 | xargs -IX adb -s X install -r com.myAppPackage</code>
         <p>Install the given app on all connected devices.</p>
         
-        <h2 id="uninstalling-app-from-device">Uninstalling app from device</h2>
-        <p><code>adb uninstall com.myAppPackage</code><br><code>adb uninstall &lt;app .apk name&gt;</code><br><code>adb uninstall -k &lt;app .apk name&gt;</code>
-            // &quot;Uninstall .apk withour deleting data&quot;</p>
-        <p><code>adb shell pm uninstall com.example.MyApp</code><br><code>adb shell pm clear [package]</code> // Deletes
-            all data associated with a package.</p>
-        <p><code>adb devices | tail -n +2 | cut -sf 1 | xargs -IX adb -s X uninstall com.myAppPackage</code> //Uninstall
-            the given app from all connected devices</p>
+        <!-- #9 uninstalling app -->
+        <h2 id="uninstalling-app">Uninstalling app from device</h2>
+        <code>adb uninstall com.myAppPackage</code><br>
+        <code>adb uninstall &lt;app .apk name&gt;</code><br>
+        <code>adb uninstall -k &lt;app .apk name&gt;</code>
+        <p>Uninstall .apk withour deleting data</p>
+        <code>adb shell pm uninstall com.example.MyApp</code><br>
+        <code>adb shell pm clear [package]</code>
+        <p>Deletes all data associated with a package.</p>
+        <code>adb devices | tail -n +2 | cut -sf 1 | xargs -IX adb -s X uninstall com.myAppPackage</code>
+        <p>Uninstall the given app from all connected devices</p>
         
+        <!-- #10 update app -->
         <h2 id="update-app">Update app</h2>
-        <p><code>adb install -r yourApp.apk</code> // -r means re-install the app and keep its data on the
-            device.<br><code>adb install –k &lt;.apk file path on computer&gt;</code> </p>
+        <code>adb install -r yourApp.apk</code>
+        <p>-r means re-install the app and keep its data on the device.</p>
+        <code>adb install –k &lt;.apk file path on computer&gt;</code>
         
+        <!-- #11 home button -->
         <h2 id="home-button">Home button</h2>
-        <p><code>adb shell am start -W -c android.intent.category.HOME -a android.intent.action.MAIN</code></p>
+        <code>adb shell am start -W -c android.intent.category.HOME -a android.intent.action.MAIN</code>
         
+        <!-- #12 activity manager -->
         <h2 id="activity-manager">Activity Manager</h2>
-        <p><code>adb shell am start -a android.intent.action.VIEW</code><br><code>adb shell am broadcast -a &#39;my_action&#39;</code>
-        </p>
-        <p><code>adb shell am start -a android.intent.action.CALL -d tel:+972527300294</code> // Make a call</p>
+        <code>adb shell am start -a android.intent.action.VIEW</code><br>
+        <code>adb shell am broadcast -a &#39;my_action&#39;</code>
+        <code>adb shell am start -a android.intent.action.CALL -d tel:+972527300294</code>
+        <p>Make a call</p>
         
-        <h3 id="open-send-sms-screen-with-phone-number-and-the-message-">Open send sms screen with phone number and the
-            message:</h3>
-        <p><code>adb shell am start -a android.intent.action.SENDTO -d sms:+972527300294   --es  sms_body &quot;Test --ez exit_on_sent false&quot;</code>
-        </p>
+        <!-- #13 send sms -->
+        <h3 id="send-sms">Open send sms screen with phone number and the message:</h3>
+        <code>adb shell am start -a android.intent.action.SENDTO -d sms:+972527300294 --es sms_body &quot;Test --ez exit_on_sent false&quot;</code>
+        
         
         <h3 id="reset-permissions">Reset permissions</h3>
         <p><code>adb shell pm reset-permissions -p your.app.package</code><br><code>adb shell pm grant [packageName] [ Permission]</code>

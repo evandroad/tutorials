@@ -1,3 +1,7 @@
+:root {
+    --dark: #3a3a3a;
+    --light: #cccccc;
+}
 body {
     font-family: Arial, Helvetica, sans-serif;
 }
@@ -8,7 +12,7 @@ body {
     z-index: 1;
     top: 0;
     left: 0;
-    background-color: rgb(58, 58, 58);
+    background-color: var(--dark);
     overflow-x: hidden;
     padding-top: 20px;
 }
@@ -17,16 +21,19 @@ body {
     padding: 6px 8px 6px 16px;
     text-decoration: none;
     font-size: 18px;
-    color: #cccccc;
+    color: var(--light);
     display: block;
 }
 
 .sidenav a:hover {
-    color: #797979;
+    color: var(--dark);
 }
 #summary {
-    color: #cccccc;
+    color: var(--light);
     padding-left: 15px;
+}
+.summaryItem:hover {
+    background-color: rgba(255, 255, 255, 0.8);
 }
 .main {
     margin-left: 20%;
@@ -38,10 +45,11 @@ body {
     .sidenav a {font-size: 18px;}
 }
 code {
-    background-color: rgb(48, 48, 48);
+    background-color: var(--dark);
     border-radius: 10px;
     display: block;
     padding: 20px;
     color: rgb(0, 206, 17);
     width: 60%;
+    font-size: 0.9em;
 }
