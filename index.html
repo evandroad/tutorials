@@ -20,6 +20,12 @@
     </style>
 </head>
 <body>
+    <script>
+        fetch("backend/data.json")
+            .then(response => response.json())
+            .then(json => console.log(json))
+            .catch(err => console.log('Error in the request', err))
+    </script>
     <h1 id="tutorials">Tutorials</h1>
     <p>The idea of this project is to gather some important tutorials for those who are entering the world of programming and software development.</p>
 
