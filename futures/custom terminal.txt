@@ -1,0 +1,14 @@
+// Theme
+https://github.com/Gogh-Co/Gogh
+
+// Oh my bash
+https://ohmybash.nntoan.com/
+
+vi or nano .bashrc
+
+OSH_THEME="font -> OSH_THEME="agnoster
+
+// Fonts
+sudo apt install fonts-powerline
+
+
