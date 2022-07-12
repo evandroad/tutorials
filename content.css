@@ -13,6 +13,10 @@ body {
     align-items: center;
 }
 
+p {
+    width: 66%;
+}
+
 #btnTop {
     display: none; /* Hidden by default */
     position: fixed; /* Fixed/sticky position */
@@ -35,7 +39,7 @@ body {
 }
 
 .sidenav {
-    height: 100%;
+    height: 97.5%;
     width: 20%;
     position: fixed;
     z-index: 1;
@@ -57,22 +61,27 @@ body {
 .sidenav a:hover {
     color: var(--dark);
 }
+
 #summary {
     color: var(--light);
     padding-left: 15px;
 }
+
 .summaryItem:hover {
     background-color: rgba(255, 255, 255, 0.8);
 }
+
 .main {
     margin-left: 20%;
     font-size: 18px;
     padding: 0px 10px;
 }
+
 @media screen and (max-height: 450px) {
     .sidenav {padding-top: 15px;}
     .sidenav a {font-size: 18px;}
 }
+
 code {
     background-color: var(--dark);
     border-radius: 10px;
@@ -86,4 +95,5 @@ code {
 ul {
     list-style-type: none;
     margin: 0;
+    margin-bottom: 20px;
 }
