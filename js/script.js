@@ -29,22 +29,16 @@ window.onload = () => {
                 main.appendChild(title)
 
                 if(json[item].length > 1) {
-
-                    const list = document.createElement('ul')
                     json[item].forEach(ele => {
-                        const itemList = document.createElement('li')
-                        
                         const content = document.createElement('p')
                         content.innerHTML = ele.content
                         
                         const code = document.createElement('code')
                         code.innerHTML = ele.code
-
-                        itemList.appendChild(content)
-                        itemList.appendChild(code)
-                        list.appendChild(itemList)
+                        
+                        main.appendChild(content)
+                        main.appendChild(code)
                     });
-                    main.appendChild(list)
                 } else {
                     const content = document.createElement('p')
                     content.innerHTML = json[item][0].content
