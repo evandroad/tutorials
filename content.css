@@ -2,10 +2,12 @@
     --dark: #3a3a3a;
     --light: #cccccc;
 }
+
 body {
     font-family: Arial, Helvetica, sans-serif;
 }
 
+<<<<<<< HEAD
 #home {
     display: flex;
     justify-content: center;
@@ -13,6 +15,13 @@ body {
 }
 
 #btnTop {
+=======
+p {
+    width: 68%;
+}
+
+#myBtn {
+>>>>>>> ecec987504c07e5d414af6a9fac504fb726999a2
     display: none; /* Hidden by default */
     position: fixed; /* Fixed/sticky position */
     bottom: 20px; /* Place the button at the bottom of the page */
