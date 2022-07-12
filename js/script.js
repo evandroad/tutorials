@@ -19,6 +19,18 @@ window.onload = () => {
     fetch("../git-commands/Git Commands.json")
         .then(response => response.json())
         .then(json => {
+            var menu = document.getElementById('menu')
+            const sidenav = document.createElement(div)
+            sidenav.classList.add('sidenav')
+            menu.appendChild(sidenav)
+            // menu.innerHTML = `
+            //     <div id="home">
+            //         <a href="../index.html">
+            //             <img src="https://img.icons8.com/ios-glyphs/90/EBEBEB/home-page--v1.png" width="50px"/>
+            //         </a>
+            //     </div>
+            // `
+
             var main = document.getElementById('root')
             
             for(i = 0; i < Object.keys(json).length; i++) {
@@ -49,7 +61,6 @@ window.onload = () => {
                     main.appendChild(content)
                     main.appendChild(code)
                 }
-
             }
         })
         .catch(err => console.log('Error in the request', err))
