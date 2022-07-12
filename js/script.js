@@ -1,19 +1,63 @@
-//Get the button:
-mybutton = document.getElementById("myBtn");
+btnTop = document.getElementById("btnTop");
 
-// When the user scrolls down 20px from the top of the document, show the button
 window.onscroll = function() {scrollFunction()};
 
 function scrollFunction() {
     if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-    mybutton.style.display = "block";
+        btnTop.style.display = "block";
     } else {
-    mybutton.style.display = "none";
+        btnTop.style.display = "none";
     }
 }
 
-// When the user clicks on the button, scroll to the top of the document
 function topFunction() {
     document.body.scrollTop = 0; // For Safari
     document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+}
+
+window.onload = () => {
+    fetch("../git-commands/Git Commands.json")
+        .then(response => response.json())
+        .then(json => {
+            var main = document.getElementById('root')
+            
+            for(i = 0; i < Object.keys(json).length; i++) {
+                var item = Object.keys(json)[i]
+                
+                const title = document.createElement('h2')
+                title.innerHTML = item  
+                main.appendChild(title)
+
+                if(json[item].length > 1) {
+
+                    const list = document.createElement('ul')
+                    json[item].forEach(ele => {
+                        const itemList = document.createElement('li')
+                        
+                        const content = document.createElement('p')
+                        content.innerHTML = ele.content
+                        
+                        const code = document.createElement('code')
+                        code.innerHTML = ele.code
+
+                        itemList.appendChild(content)
+                        itemList.appendChild(code)
+                        list.appendChild(itemList)
+                    });
+                    main.appendChild(list)
+                } else {
+                    const content = document.createElement('p')
+                    content.innerHTML = json[item][0].content
+                    
+                    const code = document.createElement('code')
+                    code.innerHTML = json[item][0].code
+                    
+                    main.appendChild(content)
+                    main.appendChild(code)
+                }
+
+            }
+        })
+        .catch(err => console.log('Error in the request', err))
+
 }
