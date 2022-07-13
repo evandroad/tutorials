@@ -111,24 +111,20 @@ p {
     margin-bottom: 20px;
 }
 
-.summaryItem {
-    margin-left: 10px;
-    padding-top: 5px;
-    padding-bottom: 5px;
+.summaryItem:hover {
+    background-color: rgba(255, 255, 255, 0.8);
 }
 
-/* .summaryItem:hover {
-    background-color: rgba(255, 255, 255, 0.8);
-} */
-
-/* .summaryItem:hover .linkMenu {
+.summaryItem:hover .linkMenu {
     color: var(--dark);
-} */
+}
 
 .linkMenu {
+    padding: 6px 8px 6px 16px;
     text-decoration: none;
+    font-size: 18px;
     color: var(--light);
-    font-size: large;
+    display: block;
 }
 
 .linkMenu:hover {
