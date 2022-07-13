@@ -1,11 +1,11 @@
-body {
-    font-family: Arial, Helvetica, sans-serif
+:root {
+    --dark: #3a3a3a;
+    --middle: #7e7e7e;
+    --light: #cccccc;
 }
 
-#container {
-    display: block;
-    width: 60%;
-    margin: 0 auto;
+body {
+    font-family: Arial, Helvetica, sans-serif
 }
 
 h1 {
@@ -15,6 +15,18 @@ h1 {
 
 p {
     font-size:large
+}
+
+/* MAIN */
+
+#mainContainer {
+    display: block;
+    width: 60%;
+    margin: 0 auto;
+}
+
+#description {
+    text-align: justify;
 }
 
 #menuTutorials {
@@ -28,7 +40,7 @@ p {
     margin-bottom: 10px;
 }
 
-button {
+.btnTutorial {
     color: rgb(6, 125, 236);
     background-color: white;
     font-size: 1.2em;
@@ -37,29 +49,90 @@ button {
     padding: 0;
 }
 
-button:hover {
+.btnTutorial:hover {
     color: rgb(2, 53, 129);
     cursor: pointer;
 }
 
-:root {
-    --dark: #3a3a3a;
-    --light: #cccccc;
+/* CONTENT */
+
+.sidenav {
+    height: 97.5%;
+    width: 20%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: var(--dark);
+    overflow-x: hidden;
+    padding-top: 20px;
 }
 
-body {
-    font-family: Arial, Helvetica, sans-serif;
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
 }
 
-#home {
+#linkHome {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 18px;
+    color: var(--light);
+    display: block;
+}
+
+#linkHome:hover {
+    cursor: context-menu;
+}
+
+#divHome {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-#content {
+#logoHome:hover {
+    color: var(--middle);
+    cursor: pointer;
+}
+
+#summary {
+    color: var(--light);
+    padding-left: 15px;
+}
+
+.summaryItem:hover {
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+#menu {
+    list-style-type: none;
+    margin: 0px;
+    margin-bottom: 20px;
+}
+
+.main {
+    margin-left: 20%;
+    font-size: 18px;
+    padding: 0px 10px;
+}
+
+.content {
     width: 66%;
 }
+
+
+
+code {
+    background-color: var(--dark);
+    border-radius: 10px;
+    display: block;
+    padding: 20px;
+    color: rgb(0, 206, 17);
+    width: 60%;
+    font-size: 0.9em;
+}
+
 
 #btnTop {
     display: none; /* Hidden by default */
@@ -80,64 +153,4 @@ body {
   
 #btnTop:hover {
     background-color: #555; /* Add a dark-grey background on hover */
-}
-
-.sidenav {
-    height: 97.5%;
-    width: 20%;
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    background-color: var(--dark);
-    overflow-x: hidden;
-    padding-top: 20px;
-}
-
-.sidenav a {
-    padding: 6px 8px 6px 16px;
-    text-decoration: none;
-    font-size: 18px;
-    color: var(--light);
-    display: block;
-}
-
-.sidenav a:hover {
-    color: var(--dark);
-}
-
-#summary {
-    color: var(--light);
-    padding-left: 15px;
-}
-
-.summaryItem:hover {
-    background-color: rgba(255, 255, 255, 0.8);
-}
-
-.main {
-    margin-left: 20%;
-    font-size: 18px;
-    padding: 0px 10px;
-}
-
-@media screen and (max-height: 450px) {
-    .sidenav {padding-top: 15px;}
-    .sidenav a {font-size: 18px;}
-}
-
-code {
-    background-color: var(--dark);
-    border-radius: 10px;
-    display: block;
-    padding: 20px;
-    color: rgb(0, 206, 17);
-    width: 60%;
-    font-size: 0.9em;
-}
-
-#menu {
-    list-style-type: none;
-    margin: 0px;
-    margin-bottom: 20px;
 }

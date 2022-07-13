@@ -5,22 +5,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="main/main.css">
-    <link rel="stylesheet" href="main/content.css">
     <link rel="icon" type="image/x-icon" href="https://img.icons8.com/sf-regular/96/000000/book.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Tutorials</title>
     
 </head>
 <body>
-    <div id="container">
+    <div id="mainContainer">
         <h1 id="tutorials">Tutorials</h1>
-        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The idea of this project is to gather some important tutorials for those who are entering the world of programming and software development.</p>
-    
+        <p id="description">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The idea of this project is to gather some important tutorials for those who are entering the world of programming and software development, as well as for those with more experience who have not memorized all the commands.</p>
         <ul id="menuTutorials"></ul>
     </div>
-    
-    <button onclick="topFunction()" id="btnTop" title="Go to top">Top</button>
-    <ul id="menu"></ul>
-    <div id="root" class="main"></div>
+    <div id="contentContainer">
+        <button onclick="topFunction()" id="btnTop" title="Go to top">Top</button>
+        <ul id="contentMenu"></ul>
+        <div id="contentBody" class="main"></div>
+    </div>
     
     <script src="main/main.js"></script>
 </body>
