@@ -43,6 +43,10 @@ function getPage(page) {
             
             const linkHome = document.createElement('a')
             linkHome.setAttribute('href', 'index.html')
+<<<<<<< HEAD
+=======
+            logoHome.setAttribute('id', 'linkHome')
+>>>>>>> ad106fa88c0eb49d5144a6079a45748e7d19ca91
 
             const logoHome = document.createElement('i')
             logoHome.setAttribute('class', 'fa fa-home')
