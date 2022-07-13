@@ -1,0 +1,14 @@
+{
+    "Server": [
+        {
+            "id": "4e4cd6b6c3d0a7917e623b94f42d0617",
+            "content": "",
+            "code": "adb kill-server"
+        },
+        {
+            "id": "f4e48eaa6e7208e8723511de9bb046e1",
+            "content": "",
+            "code": "adb start-server"
+        }
+    ]
+}

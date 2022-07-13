@@ -1,3 +1,47 @@
+body {
+    font-family: Arial, Helvetica, sans-serif
+}
+
+#container {
+    display: block;
+    width: 60%;
+    margin: 0 auto;
+}
+
+h1 {
+    text-align: center;
+    margin: 20px auto;
+}
+
+p {
+    font-size:large
+}
+
+#menuTutorials {
+    text-align: center;
+    list-style-type: none;
+    margin-bottom: 20px;
+}
+
+.liTutorial {
+    margin-left: -40px;
+    margin-bottom: 10px;
+}
+
+button {
+    color: rgb(6, 125, 236);
+    background-color: white;
+    font-size: 1.2em;
+    font-family: inherit;
+    border: 0;
+    padding: 0;
+}
+
+button:hover {
+    color: rgb(2, 53, 129);
+    cursor: pointer;
+}
+
 :root {
     --dark: #3a3a3a;
     --light: #cccccc;
@@ -13,7 +57,7 @@ body {
     align-items: center;
 }
 
-p {
+#content {
     width: 66%;
 }
 
@@ -92,8 +136,8 @@ code {
     font-size: 0.9em;
 }
 
-ul {
+#menu {
     list-style-type: none;
-    margin: 0;
+    margin: 0px;
     margin-bottom: 20px;
 }

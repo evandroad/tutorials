@@ -4,28 +4,24 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="main/main.css">
+    <link rel="stylesheet" href="main/content.css">
+    <link rel="icon" type="image/x-icon" href="https://img.icons8.com/sf-regular/96/000000/book.png">
     <title>Tutorials</title>
-    <style>
-        body {
-            font-family: Arial, Helvetica, sans-serif
-        }
-
-        p {
-            font-size:large
-        }
-
-        li {
-            text-decoration: none;
-        }
-    </style>
+    
 </head>
 <body>
-    <h1 id="tutorials">Tutorials</h1>
-    <p>The idea of this project is to gather some important tutorials for those who are entering the world of programming and software development.</p>
-
-    <ul>
-        <li><a href="git-commands/git-commands.html">Git Commands</a></li>
-        <li><a href="adb-commands/adb-commands.html">Adb Commands</a></li>
-    </ul>
+    <div id="container">
+        <h1 id="tutorials">Tutorials</h1>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The idea of this project is to gather some important tutorials for those who are entering the world of programming and software development.</p>
+    
+        <ul id="menuTutorials"></ul>
+    </div>
+    
+    <button onclick="topFunction()" id="btnTop" title="Go to top">Top</button>
+    <ul id="menu"></ul>
+    <div id="root" class="main"></div>
+    
+    <script src="main/main.js"></script>
 </body>
 </html>

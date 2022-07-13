@@ -1,22 +1,28 @@
-btnTop = document.getElementById("btnTop");
-
-window.onscroll = function() {scrollFunction()};
-
-function scrollFunction() {
-    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-        btnTop.style.display = "block";
-    } else {
-        btnTop.style.display = "none";
-    }
-}
-
-function topFunction() {
-    document.body.scrollTop = 0; // For Safari
-    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
-}
-
 window.onload = () => {
-    fetch("../git-commands/Git Commands.json")
+    fetch("main/tutorials.json")
+        .then(response => response.json())
+        .then(json => {
+            var menu = document.getElementById('menuTutorials')
+
+            json.forEach(ele => {
+                const li = document.createElement('li')
+                li.setAttribute('class', 'liTutorial')
+                const link = document.createElement('button')
+                link.setAttribute('id', ele)
+                link.setAttribute('onclick', 'getPage(\"'+ele+'\")')
+                link.innerHTML = ele
+                li.appendChild(link)
+                menu.appendChild(li)
+            })
+        })
+        .catch(err => console.log('Error in the request', err))
+}
+
+function getPage(page) {
+    var container = document.getElementById('container')
+    container.style.display = "none";
+
+    fetch("data/" + page + ".json")
         .then(response => response.json())
         .then(json => {
             // SUMMARY
@@ -29,7 +35,7 @@ window.onload = () => {
             home.setAttribute('id','home');
             
             const backHome = document.createElement('a')
-            backHome.setAttribute('href', '../index.html')
+            backHome.setAttribute('href', 'index.html')
 
             const logoHome = document.createElement('img')
             logoHome.setAttribute('src', 'https://img.icons8.com/ios-glyphs/90/EBEBEB/home-page--v1.png')
@@ -74,6 +80,7 @@ window.onload = () => {
                 if(json[item].length > 1) {
                     json[item].forEach(ele => {
                         const content = document.createElement('p')
+                        content.setAttribute('class', 'content')
                         content.innerHTML = ele.content
                         
                         const code = document.createElement('code')
@@ -95,5 +102,21 @@ window.onload = () => {
             }
         })
         .catch(err => console.log('Error in the request', err))
+}
 
+btnTop = document.getElementById("btnTop");
+
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+        btnTop.style.display = "block";
+    } else {
+        btnTop.style.display = "none";
+    }
+}
+
+function topFunction() {
+    document.body.scrollTop = 0; // For Safari
+    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
 }
