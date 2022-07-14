@@ -15,18 +15,14 @@
   - [#9 Uninstalling app](#9-uninstalling-app)
   - [#10 Update app](#10-update-app)
   - [#11 Reset permissions](#11-reset-permissions)
-  - [#12 Emulate device](#12-emulate-device)
-  - [#13 And reset to default](#13-and-reset-to-default)
-  - [#14 Print text](#14-print-text)
-  - [#15 Screenshot](#15-screenshot)
-  - [#16 Key event](#16-key-event)
-  - [#17 SharedPreferences](#17-sharedpreferences)
-  - [#18 Data types](#18-data-types)
-  - [#19 Paths](#19-paths)
-  - [#20 Phone state](#20-phone-state)
-  - [#21 Package info](#21-package-info)
-  - [#22 Configure Settings Commands](#22-configure-settings-commands)
-  - [#23 Device Related Commands](#23-device-related-commands)
+  - [#12 Key event](#12-key-event)
+  - [#13 SharedPreferences](#13-sharedpreferences)
+  - [#14 Data types](#14-data-types)
+  - [#15 Paths](#15-paths)
+  - [#16 Phone state](#16-phone-state)
+  - [#17 Package info](#17-package-info)
+  - [#18 Configure Settings Commands](#18-configure-settings-commands)
+  - [#19 Device Related Commands](#19-device-related-commands)
 
 ## #1 Server
 
@@ -137,42 +133,7 @@ Grant a permission to an app.
 Revoke a permission from an app.  
 `adb shell pm revoke [packageName] [ Permission]`
 
-## #12 Emulate device
-
-`adb shell wm size 2048x1536`  
-`adb shell wm density 288`
-
-## #13 And reset to default
-
-`adb shell wm size reset`  
-`adb shell wm density reset`
-
-## #14 Print text
-
-`adb shell input text 'Wow, it so cool feature'`
-
-## #15 Screenshot
-
-`adb shell screencap -p /sdcard/screenshot.png`
-
-```bahs
-$ adb shell
-shell@ $ screencap /sdcard/screen.png
-shell@ $ exit
-$ adb pull /sdcard/screen.png
-```
-
-`adb shell screenrecord /sdcard/NotAbleToLogin.mp4`
-
-```bash
-$ adb shell
-shell@ $ screenrecord --verbose /sdcard/demo.mp4
-(press Control + C to stop)
-shell@ $ exit
-$ adb pull /sdcard/demo.mp4
-```
-
-## #16 Key event
+## #12 Key event
 
 Home btn  
 `adb shell input keyevent 3`
@@ -308,7 +269,7 @@ Cut/Copy/Paste
 122 -->  "KEYCODE_MOVE_HOME"  
 123 -->  "KEYCODE_MOVE_END"  
 
-## #17 SharedPreferences
+## #13 SharedPreferences
 
 Replace org.example.app with your application id
 
@@ -328,7 +289,7 @@ It's also possible to specify shared preferences file.
 
 `adb shell 'am broadcast -a org.example.app.sp.PUT --es name Game --es key level --ei value 10'`
 
-## #18 Data types
+## #14 Data types
 
 `adb shell 'am broadcast -a org.example.app.sp.PUT --es key string --es value "hello world!"'`  
 `adb shell 'am broadcast -a org.example.app.sp.PUT --es key boolean --ez value true'`  
@@ -336,7 +297,7 @@ It's also possible to specify shared preferences file.
 `adb shell 'am broadcast -a org.example.app.sp.PUT --es key int --ei value 2015'`  
 `adb shell 'am broadcast -a org.example.app.sp.PUT --es key long --el value 9223372036854775807'`
 
-## #19 Paths
+## #15 Paths
 
 /data/data/`<package>`/databases (app databases)  
 /data/data/`<package>`/shared_prefs/ (shared preferences)  
@@ -356,7 +317,7 @@ Print size of each file
 List subdirectories recursively  
 `adb shell ls -R`
 
-## #20 Phone state
+## #16 Phone state
 
 Print device state  
 `adb get-statе`
@@ -394,7 +355,7 @@ Displays the current screen resolution
 Print current app's opened activity  
 `dumpsys window windows | grep -E 'mCurrentFocus|mFocusedApp'`
 
-## #21 Package info
+## #17 Package info
 
 List package names  
 `adb shell list packages`
@@ -420,7 +381,7 @@ List info on one package
 Path to the apk file  
 `adb shell path <package>`
 
-## #22 Configure Settings Commands
+## #18 Configure Settings Commands
 
 Change the level from 0 to 100  
 `adb shell dumpsys battery set level <n>`
@@ -437,7 +398,7 @@ Change the status of USB connection. ON or OFF
 Sets the resolution to WxH  
 `adb shell wm size WxH`
 
-## #23 Device Related Commands
+## #19 Device Related Commands
 
 Reboot device into recovery mode  
 `adb reboot-recovery`
