@@ -1,26 +1,54 @@
-# ADB  list all comands
+# ADB comands
 
 [Home](../README.md)
 
-## Server
+- ## Summary
+
+  - [#1 Server](#1-server)
+  - [#2 Reboot](#2-reboot)
+  - [#3 Shell](#3-shell)
+  - [#4 Devices](#4-devices)
+  - [#5 Get device android version](#5-get-device-android-version)
+  - [#6 Logcat](#6-logcat)
+  - [#7 Files](#7-files)
+  - [#8 App install](#8-app-install)
+  - [#9 Uninstalling app](#9-uninstalling-app)
+  - [#10 Update app](#10-update-app)
+  - [#11 Home button](#11-home-button)
+  - [#12 Activity Manager](#12-activity-manager)
+  - [#13 Make a call](#13-make-a-call)
+  - [#14 Send sms](#14-send-sms)
+  - [#15 Reset permissions](#15-reset-permissions)
+  - [#16 Emulate device](#16-emulate-device)
+  - [#17 And reset to default](#17-and-reset-to-default)
+  - [#18 Print text](#18-print-text)
+  - [#19 Screenshot](#19-screenshot)
+  - [#20 Key event](#20-key-event)
+  - [#21 SharedPreferences](#21-sharedpreferences)
+  - [#22 Data types](#22-data-types)
+  - [#23 Paths](#23-paths)
+  - [#24 Phone state](#24-phone-state)
+  - [#25 Package info](#25-package-info)
+  - [#26 Configure Settings Commands](#26-configure-settings-commands)
+  - [#27 Device Related Commands](#27-device-related-commands)
+
+## #1 Server
 
 `adb kill-server`  
 `adb start-server`
 
-## Reboot
+## #2 Reboot
 
 `adb reboot`  
 `adb reboot recovery`  
-`adb reboot-bootloader`
+`adb reboot bootloader`
 
-## Shell
+## #3 Shell
 
 Open or run commands in a terminal on the host Android device.  
 `adb shell`
 
-## Devices
-
-`adb usb`
+## #4 Devices
 
 Show devices attached  
 `adb devices`
@@ -30,16 +58,15 @@ Devices (product/model)
 
 `adb connect ip_address_of_device`
 
-## Get device android version
+## #5 Get device android version
 
 `adb shell getprop ro.build.version.release`
 
-## Logcat
+## #6 Logcat
 
 `adb logcat`
 
-Clear the parameter -c will clear the current logs on the device.
-
+Clear the parameter -c will clear the current logs on the device.  
 `adb logcat -c`
 
 Save the logcat output to a file on the local system.  
@@ -48,7 +75,7 @@ Save the logcat output to a file on the local system.
 Will dump the whole device information like dumpstate, dumpsys and logcat output.  
 `adb bugreport > [path_to_file]`
 
-## Files
+## #7 Files
 
 Copy files from your computer to your phone.  
 `adb push [source] [destination]`
@@ -56,25 +83,18 @@ Copy files from your computer to your phone.
 Copy files from your phone to your computer.  
 `adb pull [device file location] [local file location]`
 
-## App install
+## #8 App install
 
-```adb -e install path/to/app.apk```  
+Install app  
+`adb shell install <apk>`
 
-irects command to the only connected USB device...  
-`-d`
+Install app from phone path  
+`adb shell install <path>`
 
-Directs command to the only running emulator...  
-`-e`
+Install app from phone path  
+`adb shell install -r <path>`
 
-`-s <serial number>`
-
-`-p <product name or path>`
-
-The flag you decide to use has to come before the actual adb command:  
-Install the given app on all connected devices.  
-`adb devices | tail -n +2 | cut -sf 1 | xargs -IX adb -s X install -r com.myAppPackage`
-
-## Uninstalling app from device
+## #9 Uninstalling app
 
 `adb uninstall com.myAppPackage`
 `adb uninstall <app .apk name>`
@@ -90,32 +110,37 @@ Deletes all data associated with a package.
 Uninstall the given app from all connected devices  
 `adb devices | tail -n +2 | cut -sf 1 | xargs -IX adb -s X uninstall com.myAppPackage`
 
-## Update app
+## #10 Update app
 
 Means re-install the app and keep its data on the device.  
 `-r`  
 `adb install -r yourApp.apk`  
 `adb install –k <.apk file path on computer>`
 
-## Home button
+## #11 Home button
 
 `adb shell am start -W -c android.intent.category.HOME -a android.intent.action.MAIN`
 
-## Activity Manager
+## #12 Activity Manager
 
 `adb shell am start -a android.intent.action.VIEW`
 `adb shell am broadcast -a 'my_action'`
 
-Make a call  
+## #13 Make a call
+
 `adb shell am start -a android.intent.action.CALL -d tel:+972527300294`
 
-## Open send sms screen with phone number and the message
+## #14 Send sms
 
 `adb shell am start -a android.intent.action.SENDTO -d sms:+972527300294   --es  sms_body "Test --ez exit_on_sent false"`
 
-## Reset permissions
+## #15 Reset permissions
 
-`adb shell pm reset-permissions -p your.app.package`
+list permission groups definitions  
+`adb shell permissions groups`
+
+list permissions details  
+`adb shell list permissions -g -r`
 
 Grant a permission to an app.  
 `adb shell pm grant [packageName] [ Permission]`
@@ -123,21 +148,21 @@ Grant a permission to an app.
 Revoke a permission from an app.
 `adb shell pm revoke [packageName] [ Permission]`
 
-## Emulate device
+## #16 Emulate device
 
 `adb shell wm size 2048x1536`
 `adb shell wm density 288`
 
-## And reset to default
+## #17 And reset to default
 
 `adb shell wm size reset`
 `adb shell wm density reset`
 
-## Print text
+## #18 Print text
 
 `adb shell input text 'Wow, it so cool feature'`
 
-## Screenshot
+## #19 Screenshot
 
 `adb shell screencap -p /sdcard/screenshot.png`
 
@@ -158,7 +183,7 @@ shell@ $ exit
 $ adb pull /sdcard/demo.mp4
 ```
 
-## Key event
+## #20 Key event
 
 Home btn  
 `adb shell input keyevent 3`
@@ -294,9 +319,9 @@ Cut/Copy/Paste
 122 -->  "KEYCODE_MOVE_HOME"  
 123 -->  "KEYCODE_MOVE_END"  
 
-## SharedPreferences
+## #21 SharedPreferences
 
-> replace org.example.app with your application id
+Replace org.example.app with your application id
 
 Add a value to default shared preferences.
 
@@ -314,7 +339,7 @@ It's also possible to specify shared preferences file.
 
 `adb shell 'am broadcast -a org.example.app.sp.PUT --es name Game --es key level --ei value 10'`
 
-## Data types
+## #22 Data types
 
 `adb shell 'am broadcast -a org.example.app.sp.PUT --es key string --es value "hello world!"'`  
 `adb shell 'am broadcast -a org.example.app.sp.PUT --es key boolean --ez value true'`  
@@ -322,7 +347,7 @@ It's also possible to specify shared preferences file.
 `adb shell 'am broadcast -a org.example.app.sp.PUT --es key int --ei value 2015'`  
 `adb shell 'am broadcast -a org.example.app.sp.PUT --es key long --el value 9223372036854775807'`
 
-## Paths
+## #23 Paths
 
 /data/data/`<package>`/databases (app databases)  
 /data/data/`<package>`/shared_prefs/ (shared preferences)  
@@ -333,53 +358,118 @@ It's also possible to specify shared preferences file.
 /mmt/adcard (external/Internal SD Card)  
 /mmt/adcard/external_sd (external SD Card)
 
-`adb shell ls` (list directory contents)  
-`adb shell ls -s` (print size of each file)  
-`adb shell ls -R` (list subdirectories recursively)  
+List directory contents  
+`adb shell ls`
 
-## adb get-statе (print device state)
+Print size of each file  
+`adb shell ls -s`
 
-`adb get-serialno` (get the serial number)  
-`adb shell dumpsys iphonesybinfo` (get the IMEI)  
-`adb shell netstat` (list TCP connectivity)  
-`adb shell pwd` (print current working directory)  
-`adb shell dumpsys battery` (battery status)  
-`adb shell pm list features` (list phone features)  
-`adb shell service list` (list all services)  
-`adb shell dumpsys activity <package>/<activity>` (activity info)  
-`adb shell ps` (print process status)  
-`adb shell wm size` (displays the current screen resolution)  
-`dumpsys window windows | grep -E 'mCurrentFocus|mFocusedApp'` (print current app's opened activity)
+List subdirectories recursively
+`adb shell ls -R`
 
-## Package info
+## #24 Phone state
 
-`adb shell list packages` (list package names)  
-`adb shell list packages -r` (list package name + path to apks)  
-`adb shell list packages -3` (list third party package names)  
-`adb shell list packages -s` (list only system packages)  
-`adb shell list packages -u` (list package names + uninstalled)  
-`adb shell dumpsys package packages` (list info on all apps)  
-`adb shell dump <name>` (list info on one package)  
-`adb shell path <package>` (path to the apk file)  
+Print device state  
+`adb get-statе`
 
-## Configure Settings Commands
+Get the serial number  
+`adb get-serialno`
 
-`adb shell dumpsys battery set level <n>` (change the level from 0 to 100)  
-`adb shell dumpsys battery set status<n>` (change the level to unknown, charging, discharging, not charging or full)  
-`adb shell dumpsys battery reset` (reset the battery)  
-`adb shell dumpsys battery set usb <n>` (change the status of USB connection. ON or OFF)  
-`adb shell wm size WxH` (sets the resolution to WxH)
+Get the IMEI  
+`adb shell dumpsys iphonesybinfo`
 
-## Device Related Commands
+List TCP connectivity  
+`adb shell netstat`
 
-`adb reboot-recovery` (reboot device into recovery mode)  
-`adb reboot fastboot` (reboot device into recovery mode)  
-`adb shell screencap -p "/path/to/screenshot.png"` (capture screenshot)  
-`adb shell screenrecord "/path/to/record.mp4"` (record device screen)  
-`adb backup -apk -all -f backup.ab` (backup settings and apps)  
-`adb backup -apk -shared -all -f backup.ab` (backup settings, apps and shared storage)  
-`adb backup -apk -nosystem -all -f backup.ab` (backup only non-system apps)  
-`adb restore backup.ab` (restore a previous backup)  
-`adb shell am start|startservice|broadcast <INTENT>[<COMPONENT>]`  
-`-a <ACTION>` e.g. android.intent.action.VIEW  
-`-c <CATEGORY>` e.g. android.intent.category.LAUNCHER (start activity intent)
+Print current working directory  
+`adb shell pwd`
+
+Battery status  
+`adb shell dumpsys battery`
+
+List phone features  
+`adb shell pm list features`
+
+List all services  
+`adb shell service list`
+
+Activity info  
+`adb shell dumpsys activity <package>/<activity>`
+
+Print process status  
+`adb shell ps`
+
+Displays the current screen resolution  
+`adb shell wm size`
+
+Print current app's opened activity  
+`dumpsys window windows | grep -E 'mCurrentFocus|mFocusedApp'`
+
+## #25 Package info
+
+List package names  
+`adb shell list packages`
+
+List package name + path to apks  
+`adb shell list packages -r`
+
+List third party package names  
+`adb shell list packages -3`
+
+List only system packages  
+`adb shell list packages -s`
+
+List package names + uninstalled  
+`adb shell list packages -u`
+
+list info on all apps
+`adb shell dumpsys package packages`
+
+List info on one package  
+`adb shell dump <name>`
+
+Path to the apk file  
+`adb shell path <package>`
+
+## #26 Configure Settings Commands
+
+Change the level from 0 to 100  
+`adb shell dumpsys battery set level <n>`
+
+Change the level to unknown, charging, discharging, not charging or full  
+`adb shell dumpsys battery set status<n>`
+
+Reset the battery  
+`adb shell dumpsys battery reset`
+
+Change the status of USB connection. ON or OFF  
+`adb shell dumpsys battery set usb <n>`
+
+Sets the resolution to WxH  
+`adb shell wm size WxH`
+
+## #27 Device Related Commands
+
+Reboot device into recovery mode
+`adb reboot-recovery`
+
+Reboot device into recovery mode  
+`adb reboot fastboot`
+
+Capture screenshot  
+`adb shell screencap -p "/path/to/screenshot.png"`
+
+Record device screen  
+`adb shell screenrecord "/path/to/record.mp4"`
+
+Backup settings and apps  
+`adb backup -apk -all -f backup.ab`
+
+Backup settings, apps and shared storage  
+`adb backup -apk -shared -all -f backup.ab`
+
+Backup only non-system apps  
+`adb backup -apk -nosystem -all -f backup.ab`
+
+restore a previous backup
+`adb restore backup.ab`
