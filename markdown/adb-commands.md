@@ -109,11 +109,11 @@ Means re-install the app and keep its data on the device.
 Make a call  
 `adb shell am start -a android.intent.action.CALL -d tel:+972527300294`
 
-### Open send sms screen with phone number and the message:
+## Open send sms screen with phone number and the message
 
 `adb shell am start -a android.intent.action.SENDTO -d sms:+972527300294   --es  sms_body "Test --ez exit_on_sent false"`
 
-### Reset permissions
+## Reset permissions
 
 `adb shell pm reset-permissions -p your.app.package`
 
@@ -123,12 +123,12 @@ Grant a permission to an app.
 Revoke a permission from an app.
 `adb shell pm revoke [packageName] [ Permission]`
 
-### Emulate device
+## Emulate device
 
 `adb shell wm size 2048x1536`
 `adb shell wm density 288`
 
-### And reset to default
+## And reset to default
 
 `adb shell wm size reset`
 `adb shell wm density reset`
@@ -138,6 +138,7 @@ Revoke a permission from an app.
 `adb shell input text 'Wow, it so cool feature'`
 
 ## Screenshot
+
 `adb shell screencap -p /sdcard/screenshot.png`
 
 ```bahs
@@ -293,23 +294,23 @@ Cut/Copy/Paste
 122 -->  "KEYCODE_MOVE_HOME"  
 123 -->  "KEYCODE_MOVE_END"  
 
-## ShPref
+## SharedPreferences
 
 > replace org.example.app with your application id
 
-### Add a value to default shared preferences.
+Add a value to default shared preferences.
 
 `adb shell 'am broadcast -a org.example.app.sp.PUT --es key key_name --es value "hello world!"'`
 
-### Remove a value to default shared preferences.
+Remove a value to default shared preferences.
 
 `adb shell 'am broadcast -a org.example.app.sp.REMOVE --es key key_name'`
 
-### Clear all default shared preferences.
+Clear all default shared preferences.
 
 `adb shell 'am broadcast -a org.example.app.sp.CLEAR --es key key_name'`
 
-## It's also possible to specify shared preferences file.
+It's also possible to specify shared preferences file.
 
 `adb shell 'am broadcast -a org.example.app.sp.PUT --es name Game --es key level --ei value 10'`
 
@@ -320,15 +321,6 @@ Cut/Copy/Paste
 `adb shell 'am broadcast -a org.example.app.sp.PUT --es key float --ef value 3.14159'`  
 `adb shell 'am broadcast -a org.example.app.sp.PUT --es key int --ei value 2015'`  
 `adb shell 'am broadcast -a org.example.app.sp.PUT --es key long --el value 9223372036854775807'`
-
-## Restart application process after making changes
-
-`adb shell 'am broadcast -a org.example.app.sp.CLEAR --ez restart true'`
-
-## Monkey
-
-monkey tool is generating 10.000 random events on the real device  
-`adb shell monkey -p com.myAppPackage -v 10000 -s 100`
 
 ## Paths
 
@@ -391,26 +383,3 @@ adb restore backup.ab (restore a previous backup)
 adb shell am start|startservice|broadcast `<INTENT>[<COMPONENT>]`
 -a `<ACTION>` e.g. android.intent.action.VIEW
 -c `<CATEGORY>` e.g. android.intent.category.LAUNCHER (start activity intent)
-
-# Shared Preferences
-
-> replace org.example.app with your application id
-
-## Add a value to default shared preferences.
-`adb shell 'am broadcast -a org.example.app.sp.PUT --es key key_name --es value "hello world!"'`
-
-## Remove a value to default shared preferences.
-`adb shell 'am broadcast -a org.example.app.sp.REMOVE --es key key_name'`
-
-## Clear all default shared preferences.
-`adb shell 'am broadcast -a org.example.app.sp.CLEAR --es key key_name'`
-
-## It's also possible to specify shared preferences file.
-`adb shell 'am broadcast -a org.example.app.sp.PUT --es name Game --es key level --ei value 10'`
-
-# Data types
-`adb shell 'am broadcast -a org.example.app.sp.PUT --es key string --es value "hello world!"'`  
-`adb shell 'am broadcast -a org.example.app.sp.PUT --es key boolean --ez value true'`  
-`adb shell 'am broadcast -a org.example.app.sp.PUT --es key float --ef value 3.14159'`  
-`adb shell 'am broadcast -a org.example.app.sp.PUT --es key int --ei value 2015'`  
-`adb shell 'am broadcast -a org.example.app.sp.PUT --es key long --el value 9223372036854775807'`
