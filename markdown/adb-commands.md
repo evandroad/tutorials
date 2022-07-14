@@ -8,39 +8,43 @@
   - [#2 Reboot](#2-reboot)
   - [#3 Shell](#3-shell)
   - [#4 Devices](#4-devices)
-  - [#5 Get device android version](#5-get-device-android-version)
+  - [#5 Get version](#5-get-version)
   - [#6 Logcat](#6-logcat)
   - [#7 Files](#7-files)
   - [#8 App install](#8-app-install)
   - [#9 Uninstalling app](#9-uninstalling-app)
   - [#10 Update app](#10-update-app)
-  - [#11 Home button](#11-home-button)
-  - [#12 Activity Manager](#12-activity-manager)
-  - [#13 Make a call](#13-make-a-call)
-  - [#14 Send sms](#14-send-sms)
-  - [#15 Reset permissions](#15-reset-permissions)
-  - [#16 Emulate device](#16-emulate-device)
-  - [#17 And reset to default](#17-and-reset-to-default)
-  - [#18 Print text](#18-print-text)
-  - [#19 Screenshot](#19-screenshot)
-  - [#20 Key event](#20-key-event)
-  - [#21 SharedPreferences](#21-sharedpreferences)
-  - [#22 Data types](#22-data-types)
-  - [#23 Paths](#23-paths)
-  - [#24 Phone state](#24-phone-state)
-  - [#25 Package info](#25-package-info)
-  - [#26 Configure Settings Commands](#26-configure-settings-commands)
-  - [#27 Device Related Commands](#27-device-related-commands)
+  - [#11 Reset permissions](#11-reset-permissions)
+  - [#12 Emulate device](#12-emulate-device)
+  - [#13 And reset to default](#13-and-reset-to-default)
+  - [#14 Print text](#14-print-text)
+  - [#15 Screenshot](#15-screenshot)
+  - [#16 Key event](#16-key-event)
+  - [#17 SharedPreferences](#17-sharedpreferences)
+  - [#18 Data types](#18-data-types)
+  - [#19 Paths](#19-paths)
+  - [#20 Phone state](#20-phone-state)
+  - [#21 Package info](#21-package-info)
+  - [#22 Configure Settings Commands](#22-configure-settings-commands)
+  - [#23 Device Related Commands](#23-device-related-commands)
 
 ## #1 Server
 
-`adb kill-server`  
+This Command is used to kill an adb server if it is running  
+`adb kill-server`
+
+This command is used to start an adb server if it is running  
 `adb start-server`
 
 ## #2 Reboot
 
-`adb reboot`  
-`adb reboot recovery`  
+This command is used to restart the device.  
+`adb reboot`
+
+This command is used to restart the device in recovery mode.  
+`adb reboot recovery`
+
+This command is used to restart the device in bootloader mode.  
 `adb reboot bootloader`
 
 ## #3 Shell
@@ -56,14 +60,17 @@ Show devices attached
 Devices (product/model)  
 `adb devices -l`
 
+Connects to a device through its ip  
 `adb connect ip_address_of_device`
 
-## #5 Get device android version
+## #5 Get version
 
+Get device android version  
 `adb shell getprop ro.build.version.release`
 
 ## #6 Logcat
 
+Logcat is a command-line tool that dumps a log of system messages  
 `adb logcat`
 
 Clear the parameter -c will clear the current logs on the device.  
@@ -96,13 +103,14 @@ Install app from phone path
 
 ## #9 Uninstalling app
 
-`adb uninstall com.myAppPackage`  
+This command uninstalls an app from the device by passing the package.  
+`adb uninstall com.myAppPackage`
+
+This command uninstalls an app from the device by passing the name.  
 `adb uninstall <app .apk name>`
 
-Uninstall .apk withour deleting data  
+Uninstall .apk without deleting data  
 `adb uninstall -k <app .apk name>`
-
-`adb shell pm uninstall com.example.MyApp`
 
 Deletes all data associated with a package.  
 `adb shell pm clear [package]`
@@ -113,28 +121,9 @@ Uninstall the given app from all connected devices
 ## #10 Update app
 
 Means re-install the app and keep its data on the device.  
-`-r`  
-`adb install -r yourApp.apk`  
-`adb install –k <.apk file path on computer>`
+`adb install -r yourApp.apk`
 
-## #11 Home button
-
-`adb shell am start -W -c android.intent.category.HOME -a android.intent.action.MAIN`
-
-## #12 Activity Manager
-
-`adb shell am start -a android.intent.action.VIEW`  
-`adb shell am broadcast -a 'my_action'`
-
-## #13 Make a call
-
-`adb shell am start -a android.intent.action.CALL -d tel:+972527300294`
-
-## #14 Send sms
-
-`adb shell am start -a android.intent.action.SENDTO -d sms:+972527300294   --es  sms_body "Test --ez exit_on_sent false"`
-
-## #15 Reset permissions
+## #11 Reset permissions
 
 list permission groups definitions  
 `adb shell permissions groups`
@@ -148,21 +137,21 @@ Grant a permission to an app.
 Revoke a permission from an app.  
 `adb shell pm revoke [packageName] [ Permission]`
 
-## #16 Emulate device
+## #12 Emulate device
 
 `adb shell wm size 2048x1536`  
 `adb shell wm density 288`
 
-## #17 And reset to default
+## #13 And reset to default
 
 `adb shell wm size reset`  
 `adb shell wm density reset`
 
-## #18 Print text
+## #14 Print text
 
 `adb shell input text 'Wow, it so cool feature'`
 
-## #19 Screenshot
+## #15 Screenshot
 
 `adb shell screencap -p /sdcard/screenshot.png`
 
@@ -183,7 +172,7 @@ shell@ $ exit
 $ adb pull /sdcard/demo.mp4
 ```
 
-## #20 Key event
+## #16 Key event
 
 Home btn  
 `adb shell input keyevent 3`
@@ -319,7 +308,7 @@ Cut/Copy/Paste
 122 -->  "KEYCODE_MOVE_HOME"  
 123 -->  "KEYCODE_MOVE_END"  
 
-## #21 SharedPreferences
+## #17 SharedPreferences
 
 Replace org.example.app with your application id
 
@@ -339,7 +328,7 @@ It's also possible to specify shared preferences file.
 
 `adb shell 'am broadcast -a org.example.app.sp.PUT --es name Game --es key level --ei value 10'`
 
-## #22 Data types
+## #18 Data types
 
 `adb shell 'am broadcast -a org.example.app.sp.PUT --es key string --es value "hello world!"'`  
 `adb shell 'am broadcast -a org.example.app.sp.PUT --es key boolean --ez value true'`  
@@ -347,7 +336,7 @@ It's also possible to specify shared preferences file.
 `adb shell 'am broadcast -a org.example.app.sp.PUT --es key int --ei value 2015'`  
 `adb shell 'am broadcast -a org.example.app.sp.PUT --es key long --el value 9223372036854775807'`
 
-## #23 Paths
+## #19 Paths
 
 /data/data/`<package>`/databases (app databases)  
 /data/data/`<package>`/shared_prefs/ (shared preferences)  
@@ -367,7 +356,7 @@ Print size of each file
 List subdirectories recursively  
 `adb shell ls -R`
 
-## #24 Phone state
+## #20 Phone state
 
 Print device state  
 `adb get-statе`
@@ -405,7 +394,7 @@ Displays the current screen resolution
 Print current app's opened activity  
 `dumpsys window windows | grep -E 'mCurrentFocus|mFocusedApp'`
 
-## #25 Package info
+## #21 Package info
 
 List package names  
 `adb shell list packages`
@@ -431,7 +420,7 @@ List info on one package
 Path to the apk file  
 `adb shell path <package>`
 
-## #26 Configure Settings Commands
+## #22 Configure Settings Commands
 
 Change the level from 0 to 100  
 `adb shell dumpsys battery set level <n>`
@@ -448,7 +437,7 @@ Change the status of USB connection. ON or OFF
 Sets the resolution to WxH  
 `adb shell wm size WxH`
 
-## #27 Device Related Commands
+## #23 Device Related Commands
 
 Reboot device into recovery mode  
 `adb reboot-recovery`

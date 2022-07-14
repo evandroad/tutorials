@@ -1,1 +1,145 @@
-{"#1 Server":[{"id":"4e4cd6b6c3d0a7917e623b94f42d0617","content":"","code":"adb kill-server"},{"id":"f4e48eaa6e7208e8723511de9bb046e1","content":"","code":"adb start-server"}],"#2 Reboot":[{"id":"869a25ad056d9f5e0444b8d393d2e151","content":"","code":"adb reboot"},{"id":"9747c0cdc5dfefff9fefb22a28965bd5","content":"","code":"adb reboot recovery"},{"id":"706832c73b978e64a536cc95366dcf06","content":"","code":"adb reboot bootloader"}],"#3 Shell":[{"id":"b40934852110cedf47a9fa0fb9b44f84","content":"Open or run commands in a terminal on the host Android device.","code":"adb shell"}]}
+{
+    "#1 Server": [
+        {
+            "id": "4e4cd6b6c3d0a7917e623b94f42d0617",
+            "content": "",
+            "code": "adb kill-server"
+        },
+        {
+            "id": "f4e48eaa6e7208e8723511de9bb046e1",
+            "content": "",
+            "code": "adb start-server"
+        }
+    ],
+    "#2 Reboot": [
+        {
+            "id": "869a25ad056d9f5e0444b8d393d2e151",
+            "content": "",
+            "code": "adb reboot"
+        },
+        {
+            "id": "9747c0cdc5dfefff9fefb22a28965bd5",
+            "content": "",
+            "code": "adb reboot recovery"
+        },
+        {
+            "id": "706832c73b978e64a536cc95366dcf06",
+            "content": "",
+            "code": "adb reboot bootloader"
+        }
+    ],
+    "#3 Shell": [
+        {
+            "id": "b40934852110cedf47a9fa0fb9b44f84",
+            "content": "Open or run commands in a terminal on the host Android device.",
+            "code": "adb shell"
+        }
+    ],
+    "#4 Devices": [
+        {
+            "id": "",
+            "content": "Show devices attached",
+            "code": "adb devices"
+        },
+        {
+            "id": "",
+            "content": "Devices (product/model)",
+            "code": "adb devices -l"
+        },
+        {
+            "id": "",
+            "content": "",
+            "code": "adb connect ip_address_of_device"
+        }
+    ],
+    "#5 Get device android version": [
+        {
+            "id": "",
+            "content": "",
+            "code": "adb shell getprop ro.build.version.release"
+        }
+    ],
+    "#6 Logcat": [
+        {
+            "id": "",
+            "content": "",
+            "code": "adb logcat"
+        },
+        {
+            "id": "",
+            "content": "Clear the parameter -c will clear the current logs on the device.",
+            "code": "adb logcat -c"
+        },
+        {
+            "id": "",
+            "content": "Save the logcat output to a file on the local system.",
+            "code": "adb logcat -d > [path_to_file]"
+        },
+        {
+            "id": "",
+            "content": "Will dump the whole device information like dumpstate, dumpsys and logcat output.",
+            "code": "adb bugreport > [path_to_file]"
+        }
+    ],
+    "#7 Files": [
+        {
+            "id": "",
+            "content": "Copy files from your computer to your phone.",
+            "code": "adb push [source] [destination]"
+        },
+        {
+            "id": "",
+            "content": "Copy files from your phone to your computer.",
+            "code": "adb pull [device file location] [local file location]"
+        }
+    ],
+    "#8 App install": [
+        {
+            "id": "",
+            "content": "Install app",
+            "code": "adb shell install <apk>"
+        },
+        {
+            "id": "",
+            "content": "Install app from phone path",
+            "code": "adb shell install <path>"
+        },
+        {
+            "id": "",
+            "content": "Install app from phone path",
+            "code": "adb shell install -r <path>"
+        }
+    ],
+    "#9 Uninstalling app": [
+        {
+            "id": "",
+            "content": "",
+            "code": "adb uninstall com.myAppPackage"
+        },
+        {
+            "id": "",
+            "content": "",
+            "code": "adb uninstall <app .apk name>"
+        },
+        {
+            "id": "",
+            "content": "Uninstall .apk withour deleting data",
+            "code": "adb uninstall -k <app .apk name>"
+        },
+        {
+            "id": "",
+            "content": "",
+            "code": "adb shell pm uninstall com.example.MyApp"
+        },
+        {
+            "id": "",
+            "content": "Deletes all data associated with a package.",
+            "code": "adb shell pm clear [package]"
+        },
+        {
+            "id": "",
+            "content": "Uninstall the given app from all connected devices",
+            "code": "adb devices | tail -n +2 | cut -sf 1 | xargs -IX adb -s X uninstall com.myAppPackage"
+        }
+    ]
+}
