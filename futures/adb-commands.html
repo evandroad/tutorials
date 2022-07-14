@@ -270,23 +270,10 @@ $ adb pull <span class="hljs-regexp">/sdcard/</span>demo.mp4
             backup.ab (restore a previous backup)<br>adb shell am start|startservice|broadcast <INTENT>[<COMPONENT>]
                     -a <ACTION> e.g. android.intent.action.VIEW
                         -c <CATEGORY> e.g. android.intent.category.LAUNCHER (start activity intent)</p>
-        <p>adb shell am start -a android.intent.action.VIEW -d URL (open URL)
-            adb shell am start -t image/* -a android.intent.action.VIEW (opens gallery)</p>
-        <p>== Logs
-            adb logcat [options] [filter] [filter] (view device log)
-            adb bugreport (print bug reports)</p>
-        <p>== Other
-            adb backup // Create a full backup of your phone and save to the computer.
-            adb restore // Restore a backup to your phone.
-            adb sideload // Push and flash custom ROMs and zips from your computer.</p>
-        <p>fastboot devices
-            // Check connection and get basic information about devices connected to the computer.
-            // This is essentially the same command as adb devices from earlier.
-            //However, it works in the bootloader, which ADB does not. Handy for ensuring that you have properly
-            established a connection.</p>
+        
         <hr>
-        <p>Shared Preferences</p>
-        <h1 id="replace-org-example-app-with-your-application-id">replace org.example.app with your application id</h1>
+        <h1>Shared Preferences</h1>
+        <p id="replace-org-example-app-with-your-application-id">replace org.example.app with your application id</p>
         <h1 id="add-a-value-to-default-shared-preferences-">Add a value to default shared preferences.</h1>
         <p>adb shell &#39;am broadcast -a org.example.app.sp.PUT --es key key_name --es value &quot;hello
             world!&quot;&#39;</p>
@@ -299,74 +286,11 @@ $ adb pull <span class="hljs-regexp">/sdcard/</span>demo.mp4
         <p>adb shell &#39;am broadcast -a org.example.app.sp.PUT --es name Game --es key level --ei value 10&#39;</p>
         <h1 id="data-types">Data types</h1>
         <p>adb shell &#39;am broadcast -a org.example.app.sp.PUT --es key string --es value &quot;hello
-            world!&quot;&#39;
-            adb shell &#39;am broadcast -a org.example.app.sp.PUT --es key boolean --ez value true&#39;
-            adb shell &#39;am broadcast -a org.example.app.sp.PUT --es key float --ef value 3.14159&#39;
-            adb shell &#39;am broadcast -a org.example.app.sp.PUT --es key int --ei value 2015&#39;
-            adb shell &#39;am broadcast -a org.example.app.sp.PUT --es key long --el value 9223372036854775807&#39;</p>
-        <h1 id="restart-application-process-after-making-changes">Restart application process after making changes</h1>
-        <h2 id="adb-shell-am-broadcast-a-org-example-app-sp-clear-ez-restart-true-">adb shell &#39;am broadcast -a
-            org.example.app.sp.CLEAR --ez restart true&#39;</h2>
-        <p>=== Few bash snippets ===
-            @Source (<a
-                href="https://jonfhancock.com/bash-your-way-to-better-android-development-1169bc3e0424">https://jonfhancock.com/bash-your-way-to-better-android-development-1169bc3e0424</a>)
-        </p>
-        <p>=== Using tail -n
-            //Use tail to remove the first line. Actually two lines. The first one is just a newline. The second is
-            “List of devices attached.”
-            $ adb devices | tail -n +2</p>
-        <p>=== Using cut -sf
-            // Cut the last word and any white space off the end of each line.
-            $ adb devices | tail -n +2 | cut -sf -1</p>
-        <p>=== Using xargs -I
-            // Given the -I option, xargs will perform an action for each line of text that we feed into it.
-            // We can give the line a variable name to use in commands that xargs can execute.
-            $ adb devices | tail -n +2 | cut -sf -1 | xargs -I X echo X aw yiss</p>
-        <p>=== Three options below together
-            // Will print android version of all connected devices
-            adb devices | tail -n +2 | cut -sf -1 | xargs -I X adb -s X shell getprop ro.build.version.release </p>
-        <p>=== Using alias
-            -- Example 1
-            alias tellMeMore=echo
-            tellMeMore &quot;hi there&quot;
-            Output =&gt; hi there
-            -- Example 2
-            // Define alias
-            alias apkinstall=&quot;adb devices | tail -n +2 | cut -sf 1 | xargs -I X adb -s X install -r $1&quot;
-            // And you can use it later
-            apkinstall ~/Downloads/MyAppRelease.apk // Install an apk on all devices
-            -- Example 3
-            alias rmapp=&quot;adb devices | tail -n +2 | cut -sf 1 | xargs -I X adb -s X uninstall $1&quot;
-            rmapp com.example.myapp // Uninstall a package from all devices
-            -- Example 4
-            alias clearapp=&quot;adb devices | tail -n +2 | cut -sf 1 | xargs -I X adb -s X shell pm clear $1&quot;
-            clearapp com.example.myapp // Clear data on all devices (leave installed)
-            -- Example 5
-            alias startintent=&quot;adb devices | tail -n +2 | cut -sf 1 | xargs -I X adb -s X shell am start $1&quot;
-            startintent <a href="https://twitter.com/JonFHancock">https://twitter.com/JonFHancock</a> // Launch a deep
-            link on all devices</p>
-        <p>Setting up your .bash_profile
-            Finally, to make this all reusable even after rebooting your computer (aliases only last through the current
-            session), we have to add these to your .bash_profile. You might or might not already have a .bash_profile,
-            so let’s make sure we append to it rather than overwriting it. Just open a terminal, and run the following
-            command</p>
-        <p>touch .bash_profile &amp;&amp; open .bash_profile</p>
-        <p>This will create it if it doesn’t already exist, and open it in a text editor either way. Now just copy and
-            paste all of the aliases into it, save, and close.</p>
-        <p>alias startintent=&quot;adb devices | tail -n +2 | cut -sf 1 | xargs -I X adb -s X shell am start $1&quot;
-            alias apkinstall=&quot;adb devices | tail -n +2 | cut -sf 1 | xargs -I X adb -s X install -r $1&quot;
-            alias rmapp=&quot;adb devices | tail -n +2 | cut -sf 1 | xargs -I X adb -s X uninstall $1&quot;
-            alias clearapp=&quot;adb devices | tail -n +2 | cut -sf 1 | xargs -I X adb -s X shell pm clear $1&quot;</p>
-        
-        <hr>
-
-        <h3 id="sources">Sources</h3>
-        <ul>
-            <li>Internet</li>
-            <li>
-                <a href="https://www.automatetheplanet.com/adb-cheat-sheet/">https://www.automatetheplanet.com/adb-cheat-sheet/</a>
-            </li>
-        </ul>
+            world!&quot;&#39;<br>
+            adb shell &#39;am broadcast -a org.example.app.sp.PUT --es key boolean --ez value true&#39;<br>
+            adb shell &#39;am broadcast -a org.example.app.sp.PUT --es key float --ef value 3.14159&#39;<br>
+            adb shell &#39;am broadcast -a org.example.app.sp.PUT --es key int --ei value 2015&#39;<br>
+            adb shell &#39;am broadcast -a org.example.app.sp.PUT --es key long --el value 9223372036854775807&#39;</p>                
     </div>
 
 </body>

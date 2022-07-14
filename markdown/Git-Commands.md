@@ -54,57 +54,57 @@ This command lists all the files that have to be committed.
 
 ## #5 git add
 
-- This command adds a file to the staging area.
+This command adds a file to the staging area.
 
-        git add [file]
+    git add [file]
 
-- This command adds one or more to the staging area.
+This command adds one or more to the staging area.
 
-        git add *
+    git add *
 
 ## #6 git commit
 
-- This command records or snapshots the file permanently in the version history.
+This command records or snapshots the file permanently in the version history.
 
-        git commit -m "[Type in the commit message]"
+    git commit -m "[Type in the commit message]"
 
-- This command commits any files you’ve added with the git add command and also commits any files you’ve changed since then.
+This command commits any files you’ve added with the git add command and also commits any files you’ve changed since then.
 
-        git commit -a
+    git commit -a
 
 ## #7 git diff
 
-- This command shows the file differences which are not yet staged.
+This command shows the file differences which are not yet staged.
 
-        git diff
+    git diff
 
-- This command shows the differences between the files in the staging area and the latest version present.
+This command shows the differences between the files in the staging area and the latest version present.
 
-        git diff –staged 
+    git diff –staged 
 
-- This command shows the differences between the two branches mentioned.
+This command shows the differences between the two branches mentioned.
 
-        git diff [first branch] [second branch]
+    git diff [first branch] [second branch]
 
 ## #8 git restore
 
-- This command restores the contents of the file to that of the last commit.
+This command restores the contents of the file to that of the last commit.
 
-        git restore [file]
+    git restore [file]
 
 ## #9 git reset
 
-- This command unstages the file, but it preserves the file contents.
+This command unstages the file, but it preserves the file contents.
 
-        git reset [file]  
+    git reset [file]  
 
-- This command undoes the last commit and moves changes locally to staged.
+This command undoes the last commit and moves changes locally to staged.
 
-        git reset --soft HEAD~  
+    git reset --soft HEAD~  
 
-- This command discards the last commit and its contents.
+This command discards the last commit and its contents.
 
-        git reset -–hard HEAD~
+    git reset -–hard HEAD~
 
 ## #10 git rm
 
@@ -114,17 +114,17 @@ This command deletes the file from your working directory and stages the deletio
 
 ## #11 git log
 
-- This command is used to list the version history for the current branch.
+This command is used to list the version history for the current branch.
 
-        git log
+    git log
 
-- This command lists the commit history of the current branch in just one line.
+This command lists the commit history of the current branch in just one line.
 
-        git log -–oneline
+    git log -–oneline
 
-- This command is used to list the commit history of the current branch formatted in one line.
+This command is used to list the commit history of the current branch formatted in one line.
 
-        git log --pretty=format:"%C(yellow)%ad%Creset | %C(blue)%an%Creset | %Cgreen%s%Creset %Cred%d%Creset" --date=short
+    git log --pretty=format:"%C(yellow)%ad%Creset | %C(blue)%an%Creset | %Cgreen%s%Creset %Cred%d%Creset" --date=short
 
 ## #12 git show
 
@@ -140,27 +140,27 @@ This command is used to give tags to the specified commit.
 
 ## #14 git branch
 
-- This command lists all the local branches in the current repository.
+This command lists all the local branches in the current repository.
 
-        git branch
+    git branch
 
-- This command creates a new branch.
+This command creates a new branch.
 
-        git branch [branch name]
+    git branch [branch name]
 
-- This command deletes the feature branch.
+This command deletes the feature branch.
 
-        git branch -d [branch name]
+    git branch -d [branch name]
 
 ## #15 git checkout
 
-- This command is used to switch from one branch to another.
+This command is used to switch from one branch to another.
 
-        git checkout [branch name]
+    git checkout [branch name]
 
-- This command creates a new branch and also switches to it.
+This command creates a new branch and also switches to it.
 
-        git checkout -b [branch name]
+    git checkout -b [branch name]
 
 ## #16 git merge
 
@@ -176,21 +176,21 @@ This command is used to connect your local repository to the remote server.
 
 ## #18 git push
 
-- This command sends the committed changes of master branch to your remote repository.
+This command sends the committed changes of master branch to your remote repository.
 
-        git push [variable name] master
+    git push [variable name] master
 
-- This command sends the branch commits to your remote repository.
+This command sends the branch commits to your remote repository.
 
-        git push [variable name] [branch]
+    git push [variable name] [branch]
 
-- This command pushes all branches to your remote repository.
+This command pushes all branches to your remote repository.
 
-        git push –all [variable name]
+    git push –all [variable name]
 
-- This command deletes a branch on your remote repository.
+This command deletes a branch on your remote repository.
 
-        git push [variable name] :[branch name]
+    git push [variable name] :[branch name]
 
 ## #19 git pull
 
@@ -200,18 +200,18 @@ This command fetches and merges changes on the remote server to your working dir
 
 ## #20 git stash
 
-- This command temporarily stores all the modified tracked files.
+This command temporarily stores all the modified tracked files.
 
-        git stash save "message"
+    git stash save "message"
 
-- This command restores the most recently stashed files.
+This command restores the most recently stashed files.
 
-        git stash pop
+    git stash pop
 
-- This command lists all stashed changesets.
+This command lists all stashed changesets.
 
-        git stash list
+    git stash list
 
-- This command discards the most recently stashed changeset.
+This command discards the most recently stashed changeset.
 
-        git stash drop
+    git stash drop
