@@ -2,12 +2,12 @@
 
 [Home](../README.md)
 
-## Adb Server
+## Server
 
 `adb kill-server`  
 `adb start-server`
 
-## Adb Reboot
+## Reboot
 
 `adb reboot`  
 `adb reboot recovery`  
