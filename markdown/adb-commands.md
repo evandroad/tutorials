@@ -96,10 +96,10 @@ Install app from phone path
 
 ## #9 Uninstalling app
 
-`adb uninstall com.myAppPackage`
+`adb uninstall com.myAppPackage`  
 `adb uninstall <app .apk name>`
 
-Uninstall .apk withour deleting data
+Uninstall .apk withour deleting data  
 `adb uninstall -k <app .apk name>`
 
 `adb shell pm uninstall com.example.MyApp`
@@ -123,7 +123,7 @@ Means re-install the app and keep its data on the device.
 
 ## #12 Activity Manager
 
-`adb shell am start -a android.intent.action.VIEW`
+`adb shell am start -a android.intent.action.VIEW`  
 `adb shell am broadcast -a 'my_action'`
 
 ## #13 Make a call
@@ -145,17 +145,17 @@ list permissions details
 Grant a permission to an app.  
 `adb shell pm grant [packageName] [ Permission]`
 
-Revoke a permission from an app.
+Revoke a permission from an app.  
 `adb shell pm revoke [packageName] [ Permission]`
 
 ## #16 Emulate device
 
-`adb shell wm size 2048x1536`
+`adb shell wm size 2048x1536`  
 `adb shell wm density 288`
 
 ## #17 And reset to default
 
-`adb shell wm size reset`
+`adb shell wm size reset`  
 `adb shell wm density reset`
 
 ## #18 Print text
@@ -364,7 +364,7 @@ List directory contents
 Print size of each file  
 `adb shell ls -s`
 
-List subdirectories recursively
+List subdirectories recursively  
 `adb shell ls -R`
 
 ## #24 Phone state
@@ -422,7 +422,7 @@ List only system packages
 List package names + uninstalled  
 `adb shell list packages -u`
 
-list info on all apps
+list info on all apps  
 `adb shell dumpsys package packages`
 
 List info on one package  
@@ -450,7 +450,7 @@ Sets the resolution to WxH
 
 ## #27 Device Related Commands
 
-Reboot device into recovery mode
+Reboot device into recovery mode  
 `adb reboot-recovery`
 
 Reboot device into recovery mode  
@@ -471,5 +471,5 @@ Backup settings, apps and shared storage
 Backup only non-system apps  
 `adb backup -apk -nosystem -all -f backup.ab`
 
-restore a previous backup
+restore a previous backup  
 `adb restore backup.ab`
