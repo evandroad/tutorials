@@ -4,6 +4,6 @@ The idea of this project is to gather some important tutorials for those who are
 
 [click here](https://tutorials-util.netlify.app) to visit the website
 
-[Git Commands](markdown/Git-Commands.md)
+[Git Commands](markdown/git-commands.md)
 
 [Adb Commands](markdown/adb-commands.md)
