@@ -2,29 +2,29 @@
     "#1 Server": [
         {
             "id": "4e4cd6b6c3d0a7917e623b94f42d0617",
-            "content": "",
+            "content": "This Command is used to kill an adb server if it is running",
             "code": "adb kill-server"
         },
         {
             "id": "f4e48eaa6e7208e8723511de9bb046e1",
-            "content": "",
+            "content": "This command is used to start an adb server if it is running",
             "code": "adb start-server"
         }
     ],
     "#2 Reboot": [
         {
             "id": "869a25ad056d9f5e0444b8d393d2e151",
-            "content": "",
+            "content": "This command is used to restart the device.",
             "code": "adb reboot"
         },
         {
             "id": "9747c0cdc5dfefff9fefb22a28965bd5",
-            "content": "",
+            "content": "This command is used to restart the device in recovery mode.",
             "code": "adb reboot recovery"
         },
         {
             "id": "706832c73b978e64a536cc95366dcf06",
-            "content": "",
+            "content": "This command is used to restart the device in bootloader mode.",
             "code": "adb reboot bootloader"
         }
     ],
@@ -43,19 +43,19 @@
         },
         {
             "id": "",
-            "content": "Devices (product/model)",
+            "content": "Devices (product\/model)",
             "code": "adb devices -l"
         },
         {
             "id": "",
-            "content": "",
+            "content": "Connects to a device through its ip",
             "code": "adb connect ip_address_of_device"
         }
     ],
-    "#5 Get device android version": [
+    "#5 Get version": [
         {
             "id": "",
-            "content": "",
+            "content": "Get device android version",
             "code": "adb shell getprop ro.build.version.release"
         }
     ],
