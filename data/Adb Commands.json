@@ -1,1 +1,231 @@
-{"#1 Server":[{"id":"4e4cd6b6c3d0a7917e623b94f42d0617","content":"This Command is used to kill an adb server if it is running","code":"adb kill-server"},{"id":"f4e48eaa6e7208e8723511de9bb046e1","content":"This command is used to start an adb server if it is running","code":"adb start-server"}],"#2 Reboot":[{"id":"869a25ad056d9f5e0444b8d393d2e151","content":"This command is used to restart the device.","code":"adb reboot"},{"id":"9747c0cdc5dfefff9fefb22a28965bd5","content":"This command is used to restart the device in recovery mode.","code":"adb reboot recovery"},{"id":"706832c73b978e64a536cc95366dcf06","content":"This command is used to restart the device in bootloader mode.","code":"adb reboot bootloader"}],"#3 Shell":[{"id":"b40934852110cedf47a9fa0fb9b44f84","content":"Open or run commands in a terminal on the host Android device.","code":"adb shell"}],"#4 Devices":[{"id":"a19d9b9935c7472db69ce3428a518388","content":"Show devices attached","code":"adb devices"},{"id":"8c1783dee7497d40412d30c5667f612f","content":"Devices (product\/model)","code":"adb devices -l"},{"id":"fac7b9b9c72f7751628b10c57b0439fe","content":"Connects to a device through its ip","code":"adb connect ip_address_of_device"}],"#5 Get version":[{"id":"4cf2a960273d922eb42dd30bb846091e","content":"Get device android version","code":"adb shell getprop ro.build.version.release"}],"#6 Logcat":[{"id":"1c10d8dd1869c1c08ba8fe4e47e7210a","content":"Logcat is a command-line tool that dumps a log of system messages","code":"adb logcat"},{"id":"ebfe58223b6a0708f9a14e1c7a822124","content":"Clear the parameter -c will clear the current logs on the device.","code":"adb logcat -c"},{"id":"7d0b7b9e4392ed3bc6e161366b9086f0","content":"Save the logcat output to a file on the local system.","code":"adb logcat -d > [path_to_file]"},{"id":"6477fc7308726d9ca92f3a1f5c8e76ea","content":"Will dump the whole device information like dumpstate, dumpsys and logcat output.","code":"adb bugreport > [path_to_file]"}],"#7 Files":[{"id":"24ab6cc0b01895f764e36c02c5571355","content":"Copy files from your computer to your phone.","code":"adb push [source] [destination]"},{"id":"694599c9266d6cee126b0738b948c835","content":"Copy files from your phone to your computer.","code":"adb pull [device file location] [local file location]"}],"#8 App install":[{"id":"ec67e1189653f2f356e6ad6fc11abb60","content":"Install app","code":"adb shell install <apk>"},{"id":"f7847e374f2a449708dede6ca5214737","content":"Install app from phone path","code":"adb shell install <path>"},{"id":"8a1af770bc71b8dab011ae7ac8de921f","content":"Install app from phone path","code":"adb shell install -r <path>"}],"#9 Uninstalling app":[{"id":"3d59393c16309f3edca037ca19dc57a4","content":"This command uninstalls an app from the device by passing the package.","code":"adb uninstall com.myAppPackage"},{"id":"bd8227798ca4c407cfcb1e2ab2eb1ab4","content":"","code":"adb uninstall <app .apk name>"},{"id":"7196e204b7404e31a6623726be25606c","content":"Uninstall .apk withour deleting data","code":"adb uninstall -k <app .apk name>"},{"id":"e0adb294a7a943b855b914b068fa7bc6","content":"","code":"adb shell pm uninstall com.example.MyApp"},{"id":"21161912849d7a41cb64a155adf78548","content":"Deletes all data associated with a package.","code":"adb shell pm clear [package]"},{"id":"2ab15e8f85dbe04bd4586173dc8fda7b","content":"Uninstall the given app from all connected devices","code":"adb devices | tail -n +2 | cut -sf 1 | xargs -IX adb -s X uninstall com.myAppPackage"}]}
+{
+    "#1 Server": [
+        {
+            "id": "4e4cd6b6c3d0a7917e623b94f42d0617",
+            "content": "This Command is used to kill an adb server if it is running",
+            "code": "adb kill-server"
+        },
+        {
+            "id": "f4e48eaa6e7208e8723511de9bb046e1",
+            "content": "This command is used to start an adb server if it is running",
+            "code": "adb start-server"
+        }
+    ],
+    "#2 Reboot": [
+        {
+            "id": "869a25ad056d9f5e0444b8d393d2e151",
+            "content": "This command is used to restart the device.",
+            "code": "adb reboot"
+        },
+        {
+            "id": "9747c0cdc5dfefff9fefb22a28965bd5",
+            "content": "This command is used to restart the device in recovery mode.",
+            "code": "adb reboot recovery"
+        },
+        {
+            "id": "706832c73b978e64a536cc95366dcf06",
+            "content": "This command is used to restart the device in bootloader mode.",
+            "code": "adb reboot bootloader"
+        }
+    ],
+    "#3 Shell": [
+        {
+            "id": "b40934852110cedf47a9fa0fb9b44f84",
+            "content": "Open or run commands in a terminal on the host Android device.",
+            "code": "adb shell"
+        }
+    ],
+    "#4 Devices": [
+        {
+            "id": "a19d9b9935c7472db69ce3428a518388",
+            "content": "Show devices attached",
+            "code": "adb devices"
+        },
+        {
+            "id": "8c1783dee7497d40412d30c5667f612f",
+            "content": "Devices (product\/model)",
+            "code": "adb devices -l"
+        },
+        {
+            "id": "fac7b9b9c72f7751628b10c57b0439fe",
+            "content": "Connects to a device through its ip",
+            "code": "adb connect ip_address_of_device"
+        }
+    ],
+    "#5 Get version": [
+        {
+            "id": "4cf2a960273d922eb42dd30bb846091e",
+            "content": "Get device android version",
+            "code": "adb shell getprop ro.build.version.release"
+        }
+    ],
+    "#6 Logcat": [
+        {
+            "id": "1c10d8dd1869c1c08ba8fe4e47e7210a",
+            "content": "Logcat is a command-line tool that dumps a log of system messages",
+            "code": "adb logcat"
+        },
+        {
+            "id": "ebfe58223b6a0708f9a14e1c7a822124",
+            "content": "Clear the parameter -c will clear the current logs on the device.",
+            "code": "adb logcat -c"
+        },
+        {
+            "id": "7d0b7b9e4392ed3bc6e161366b9086f0",
+            "content": "Save the logcat output to a file on the local system.",
+            "code": "adb logcat -d > [path_to_file]"
+        },
+        {
+            "id": "6477fc7308726d9ca92f3a1f5c8e76ea",
+            "content": "Will dump the whole device information like dumpstate, dumpsys and logcat output.",
+            "code": "adb bugreport > [path_to_file]"
+        }
+    ],
+    "#7 Files": [
+        {
+            "id": "24ab6cc0b01895f764e36c02c5571355",
+            "content": "Copy files from your computer to your phone.",
+            "code": "adb push [source] [destination]"
+        },
+        {
+            "id": "694599c9266d6cee126b0738b948c835",
+            "content": "Copy files from your phone to your computer.",
+            "code": "adb pull [device file location] [local file location]"
+        }
+    ],
+    "#8 App install": [
+        {
+            "id": "ec67e1189653f2f356e6ad6fc11abb60",
+            "content": "Install app",
+            "code": "adb shell install &lt;apk&gt;"
+        },
+        {
+            "id": "f7847e374f2a449708dede6ca5214737",
+            "content": "Install app from phone path",
+            "code": "adb shell install &ltpath&gt"
+        },
+        {
+            "id": "8a1af770bc71b8dab011ae7ac8de921f",
+            "content": "Install app from phone path",
+            "code": "adb shell install -r &ltpath&gt"
+        }
+    ],
+    "#9 Uninstalling app": [
+        {
+            "id": "3d59393c16309f3edca037ca19dc57a4",
+            "content": "This command uninstalls an app from the device by passing the package.",
+            "code": "adb uninstall com.myAppPackage"
+        },
+        {
+            "id": "bd8227798ca4c407cfcb1e2ab2eb1ab4",
+            "content": "This command uninstalls an app from the device by passing the name.",
+            "code": "adb uninstall &ltapp .apk name&gt"
+        },
+        {
+            "id": "7196e204b7404e31a6623726be25606c",
+            "content": "Uninstall .apk withour deleting data",
+            "code": "adb uninstall -k &ltapp .apk name&gt"
+        },
+        {
+            "id": "21161912849d7a41cb64a155adf78548",
+            "content": "Deletes all data associated with a package.",
+            "code": "adb shell pm clear [package]"
+        },
+        {
+            "id": "2ab15e8f85dbe04bd4586173dc8fda7b",
+            "content": "Uninstall the given app from all connected devices",
+            "code": "adb devices | tail -n +2 | cut -sf 1 | xargs -IX adb -s X uninstall com.myAppPackage"
+        }
+    ],
+    "#10 Update app": [
+        {
+            "id": "3eb092f9f93f04f1322442be2ae26c62",
+            "content": "Means re-install the app and keep its data on the device.",
+            "code": "adb install -r yourApp.apk"
+        }
+    ],
+    "#11 Reset permissions": [
+        {
+            "id": "9405ed563adb880bfde79a91d6718480",
+            "content": "List permission groups definitions.",
+            "code": "adb shell permissions groups"
+        },
+        {
+            "id": "34b4fad013935b2b6c669a2802ffd0d5",
+            "content": "List permissions details.",
+            "code": "adb shell list permissions -g -r"
+        },
+        {
+            "id": "e1609ecb7b312c2750db838f103c91d8",
+            "content": "Grant a permission to an app.",
+            "code": "adb shell pm grant [packageName] [ Permission]"
+        },
+        {
+            "id": "0fb5d0761bd64bd23aa60a52607e9a68",
+            "content": "Revoke a permission from an app.",
+            "code": "adb shell pm revoke [packageName] [ Permission]"
+        }
+    ],
+    "#12 Key event": [
+        {
+            "id": "2c6fe7646cb1b30a69eb6416db2d613f",
+            "content": "Home btn.",
+            "code": "adb shell input keyevent 3"
+        },
+        {
+            "id": "4eca9ec43e3a84283c919905d4a2eb40",
+            "content": "Back btn.",
+            "code": "adb shell input keyevent 4"
+        },
+        {
+            "id": "b040f21fe1c23e7c18b9fc6f7551f68a",
+            "content": "Call.",
+            "code": "adb shell input keyevent 5"
+        },
+        {
+            "id": "030bc036c446dab01185be7e9cc5eb5b",
+            "content": "End call.",
+            "code": "adb shell input keyevent 6"
+        },
+        {
+            "id": "244587df7d51fb53a30f3c7731043d3e",
+            "content": "Turn Android device ON and OFF. It will toggle device to on/off status.",
+            "code": "adb shell input keyevent 26"
+        },
+        {
+            "id": "fb05976cb4bc2cfa26286a7d4ce710a6",
+            "content": "Camera.",
+            "code": "adb shell input keyevent 27"
+        },
+        {
+            "id": "6922250e74ca28b08f8a5434c654510a",
+            "content": "Open browser.",
+            "code": "adb shell input keyevent 64"
+        },
+        {
+            "id": "9c1c28aaa53b7c445e1a904d3940f8b3",
+            "content": "Enter.",
+            "code": "adb shell input keyevent 66"
+        },
+        {
+            "id": "57c5b99710e3ae60282f4ae6fca5b962",
+            "content": "Delete (backspace).",
+            "code": "adb shell input keyevent 67"
+        },
+        {
+            "id": "e7b4b3d2fc3fbe272c8382493ba7d046",
+            "content": "Contacts.",
+            "code": "adb shell input keyevent 207"
+        },
+        {
+            "id": "76fa47ef209bf70f3e4422546dd8ac54",
+            "content": "Brightness down/up.",
+            "code": "adb shell input keyevent 220 / 221"
+        },
+        {
+            "id": "53c630959423b4cbcf125190d78e4d8f",
+            "content": "Cut/Copy/Paste.",
+            "code": "adb shell input keyevent 277 / 278 /279"
+        }
+    ]
+}

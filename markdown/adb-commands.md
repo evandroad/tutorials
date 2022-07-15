@@ -89,13 +89,13 @@ Copy files from your phone to your computer.
 ## #8 App install
 
 Install app.  
-`adb shell install <apk>`
+`adb shell install [apk]`
 
 Install app from phone path.  
-`adb shell install <path>`
+`adb shell install [path]`
 
 Install app from phone path.  
-`adb shell install -r <path>`
+`adb shell install -r [path]`
 
 ## #9 Uninstalling app
 
@@ -121,10 +121,10 @@ Means re-install the app and keep its data on the device.
 
 ## #11 Reset permissions
 
-list permission groups definitions.  
+List permission groups definitions.  
 `adb shell permissions groups`
 
-list permissions details.  
+List permissions details.  
 `adb shell list permissions -g -r`
 
 Grant a permission to an app.  
@@ -372,7 +372,7 @@ List only system packages.
 List package names + uninstalled.  
 `adb shell list packages -u`
 
-list info on all apps.  
+List info on all apps.  
 `adb shell dumpsys package packages`
 
 List info on one package.  
@@ -415,5 +415,5 @@ Backup settings, apps and shared storage.
 Backup only non-system apps.  
 `adb backup -apk -nosystem -all -f backup.ab`
 
-restore a previous backup.  
+Restore a previous backup.  
 `adb restore backup.ab`
