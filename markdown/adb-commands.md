@@ -26,10 +26,10 @@
 
 ## #1 Server
 
-This Command is used to kill an adb server if it is running  
+This Command is used to kill an adb server if it is running.  
 `adb kill-server`
 
-This command is used to start an adb server if it is running  
+This command is used to start an adb server if it is running.  
 `adb start-server`
 
 ## #2 Reboot
@@ -50,23 +50,23 @@ Open or run commands in a terminal on the host Android device.
 
 ## #4 Devices
 
-Show devices attached  
+Show devices attached.  
 `adb devices`
 
-Devices (product/model)  
+Devices (product/model).  
 `adb devices -l`
 
-Connects to a device through its ip  
+Connects to a device through its ip.  
 `adb connect ip_address_of_device`
 
 ## #5 Get version
 
-Get device android version  
+Get device android version.  
 `adb shell getprop ro.build.version.release`
 
 ## #6 Logcat
 
-Logcat is a command-line tool that dumps a log of system messages  
+Logcat is a command-line tool that dumps a log of system messages.  
 `adb logcat`
 
 Clear the parameter -c will clear the current logs on the device.  
@@ -88,13 +88,13 @@ Copy files from your phone to your computer.
 
 ## #8 App install
 
-Install app  
+Install app.  
 `adb shell install <apk>`
 
-Install app from phone path  
+Install app from phone path.  
 `adb shell install <path>`
 
-Install app from phone path  
+Install app from phone path.  
 `adb shell install -r <path>`
 
 ## #9 Uninstalling app
@@ -105,13 +105,13 @@ This command uninstalls an app from the device by passing the package.
 This command uninstalls an app from the device by passing the name.  
 `adb uninstall <app .apk name>`
 
-Uninstall .apk without deleting data  
+Uninstall .apk without deleting data.  
 `adb uninstall -k <app .apk name>`
 
 Deletes all data associated with a package.  
 `adb shell pm clear [package]`
 
-Uninstall the given app from all connected devices  
+Uninstall the given app from all connected devices.  
 `adb devices | tail -n +2 | cut -sf 1 | xargs -IX adb -s X uninstall com.myAppPackage`
 
 ## #10 Update app
@@ -121,10 +121,10 @@ Means re-install the app and keep its data on the device.
 
 ## #11 Reset permissions
 
-list permission groups definitions  
+list permission groups definitions.  
 `adb shell permissions groups`
 
-list permissions details  
+list permissions details.  
 `adb shell list permissions -g -r`
 
 Grant a permission to an app.  
@@ -135,40 +135,40 @@ Revoke a permission from an app.
 
 ## #12 Key event
 
-Home btn  
+Home btn.  
 `adb shell input keyevent 3`
 
-Back btn  
+Back btn.  
 `adb shell input keyevent 4`
 
-Call  
+Call.  
 `adb shell input keyevent 5`
 
-End call  
+End call.  
 `adb shell input keyevent 6`
 
 Turn Android device ON and OFF. It will toggle device to on/off status.  
 `adb shell input keyevent 26`
 
-Camera  
+Camera.  
 `adb shell input keyevent 27`
 
-Open browser  
+Open browser.  
 `adb shell input keyevent 64`
 
-Enter  
+Enter.  
 `adb shell input keyevent 66`
 
-Delete (backspace)  
+Delete (backspace).  
 `adb shell input keyevent 67`
 
-Contacts  
+Contacts.  
 `adb shell input keyevent 207`
 
-Brightness down/up  
+Brightness down/up.  
 `adb shell input keyevent 220 / 221`
 
-Cut/Copy/Paste  
+Cut/Copy/Paste.  
 `adb shell input keyevent 277 / 278 /279`
 
 0 -->  "KEYCODE_0"  
@@ -271,7 +271,7 @@ Cut/Copy/Paste
 
 ## #13 SharedPreferences
 
-Replace org.example.app with your application id
+Replace org.example.app with your application id.
 
 Add a value to default shared preferences.
 
@@ -299,127 +299,121 @@ It's also possible to specify shared preferences file.
 
 ## #15 Paths
 
-/data/data/`<package>`/databases (app databases)  
-/data/data/`<package>`/shared_prefs/ (shared preferences)  
-/data/app (apk installed by user)  
-/system/app (pre-installed APK files)  
-/mmt/asec (encrypted apps) (App2SD)  
-/mmt/emmc (internal SD Card)  
-/mmt/adcard (external/Internal SD Card)  
-/mmt/adcard/external_sd (external SD Card)
+/data/data/`<package>`/databases (app databases).  
+/data/data/`<package>`/shared_prefs/ (shared preferences).  
+/data/app (apk installed by user).  
+/system/app (pre-installed APK files).  
+/mmt/asec (encrypted apps) (App2SD).  
+/mmt/emmc (internal SD Card).  
+/mmt/adcard (external/Internal SD Card).  
+/mmt/adcard/external_sd (external SD Card).
 
-List directory contents  
+List directory contents.  
 `adb shell ls`
 
-Print size of each file  
+Print size of each file.  
 `adb shell ls -s`
 
-List subdirectories recursively  
+List subdirectories recursively.  
 `adb shell ls -R`
 
 ## #16 Phone state
 
-Print device state  
+Print device state.  
 `adb get-statе`
 
-Get the serial number  
+Get the serial number.  
 `adb get-serialno`
 
-Get the IMEI  
+Get the IMEI.  
 `adb shell dumpsys iphonesybinfo`
 
-List TCP connectivity  
+List TCP connectivity.  
 `adb shell netstat`
 
-Print current working directory  
+Print current working directory.  
 `adb shell pwd`
 
-Battery status  
+Battery status.  
 `adb shell dumpsys battery`
 
-List phone features  
+List phone features.  
 `adb shell pm list features`
 
-List all services  
+List all services.  
 `adb shell service list`
 
-Activity info  
+Activity info.  
 `adb shell dumpsys activity <package>/<activity>`
 
-Print process status  
+Print process status.  
 `adb shell ps`
 
-Displays the current screen resolution  
+Displays the current screen resolution.  
 `adb shell wm size`
 
-Print current app's opened activity  
+Print current app's opened activity.  
 `dumpsys window windows | grep -E 'mCurrentFocus|mFocusedApp'`
 
 ## #17 Package info
 
-List package names  
+List package names.  
 `adb shell list packages`
 
-List package name + path to apks  
+List package name + path to apks.  
 `adb shell list packages -r`
 
-List third party package names  
+List third party package names.  
 `adb shell list packages -3`
 
-List only system packages  
+List only system packages.  
 `adb shell list packages -s`
 
-List package names + uninstalled  
+List package names + uninstalled.  
 `adb shell list packages -u`
 
-list info on all apps  
+list info on all apps.  
 `adb shell dumpsys package packages`
 
-List info on one package  
+List info on one package.  
 `adb shell dump <name>`
 
-Path to the apk file  
+Path to the apk file.  
 `adb shell path <package>`
 
 ## #18 Configure Settings Commands
 
-Change the level from 0 to 100  
+Change the level from 0 to 100.  
 `adb shell dumpsys battery set level <n>`
 
-Change the level to unknown, charging, discharging, not charging or full  
+Change the level to unknown, charging, discharging, not charging or full.  
 `adb shell dumpsys battery set status<n>`
 
-Reset the battery  
+Reset the battery.  
 `adb shell dumpsys battery reset`
 
-Change the status of USB connection. ON or OFF  
+Change the status of USB connection. ON or OFF.  
 `adb shell dumpsys battery set usb <n>`
 
-Sets the resolution to WxH  
+Sets the resolution to WxH.  
 `adb shell wm size WxH`
 
 ## #19 Device Related Commands
 
-Reboot device into recovery mode  
-`adb reboot-recovery`
-
-Reboot device into recovery mode  
-`adb reboot fastboot`
-
-Capture screenshot  
+Capture screenshot.  
 `adb shell screencap -p "/path/to/screenshot.png"`
 
-Record device screen  
+Record device screen.  
 `adb shell screenrecord "/path/to/record.mp4"`
 
-Backup settings and apps  
+Backup settings and apps.  
 `adb backup -apk -all -f backup.ab`
 
-Backup settings, apps and shared storage  
+Backup settings, apps and shared storage.  
 `adb backup -apk -shared -all -f backup.ab`
 
-Backup only non-system apps  
+Backup only non-system apps.  
 `adb backup -apk -nosystem -all -f backup.ab`
 
-restore a previous backup  
+restore a previous backup.  
 `adb restore backup.ab`
