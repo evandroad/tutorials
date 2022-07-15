@@ -103,12 +103,13 @@ function createContentAndCode(obj, main) {
     const content = document.createElement('p')
     content.setAttribute('class', 'content')
     content.innerHTML = obj.content
-    
-    const code = document.createElement('code')
-    code.innerHTML = obj.code
-    
     main.appendChild(content)
-    main.appendChild(code)
+    
+    if(obj.code != '') {
+        const code = document.createElement('code')
+        code.innerHTML = obj.code
+        main.appendChild(code)
+    }
 }
 
 btnTop = document.getElementById("btnTop");

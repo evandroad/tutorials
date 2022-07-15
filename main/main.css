@@ -138,7 +138,7 @@ p {
 }
 
 .content {
-    width: 66%;
+    width: 86%;
 }
 
 code {
@@ -147,7 +147,7 @@ code {
     display: block;
     padding: 20px;
     color: rgb(0, 206, 17);
-    width: 60%;
+    width: 80%;
     font-size: 0.9em;
 }
 

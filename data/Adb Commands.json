@@ -189,7 +189,7 @@
         },
         {
             "id": "244587df7d51fb53a30f3c7731043d3e",
-            "content": "Turn Android device ON and OFF. It will toggle device to on/off status.",
+            "content": "Turn Android device ON and OFF. It will toggle device to on\/off status.",
             "code": "adb shell input keyevent 26"
         },
         {
@@ -219,13 +219,232 @@
         },
         {
             "id": "76fa47ef209bf70f3e4422546dd8ac54",
-            "content": "Brightness down/up.",
-            "code": "adb shell input keyevent 220 / 221"
+            "content": "Brightness down\/up.",
+            "code": "adb shell input keyevent 220 \/ 221"
         },
         {
             "id": "53c630959423b4cbcf125190d78e4d8f",
-            "content": "Cut/Copy/Paste.",
-            "code": "adb shell input keyevent 277 / 278 /279"
+            "content": "Cut\/Copy\/Paste.",
+            "code": "adb shell input keyevent 277 \/ 278 \/279"
+        },
+        {
+            "id": "31f9f6cb44e057455b1fa85c6afef851",
+            "content": "0 --> \"KEYCODE_0\"<br>1 --> \"KEYCODE_SOFT_LEFT\"<br>2 --> \"KEYCODE_SOFT_RIGHT\"<br>3 --> \"KEYCODE_HOME\"<br>4 --> \"KEYCODE_BACK\"<br>5 --> \"KEYCODE_CALL\"<br>6 --> \"KEYCODE_ENDCALL\"<br>7 --> \"KEYCODE_0\"<br>8 --> \"KEYCODE_1\"<br>9 --> \"KEYCODE_2\"<br>10 --> \"KEYCODE_3\"<br>11 --> \"KEYCODE_4\"<br>12 --> \"KEYCODE_5\"<br>13 --> \"KEYCODE_6\"<br>14 --> \"KEYCODE_7\"<br>15 --> \"KEYCODE_8\"<br>16 --> \"KEYCODE_9\"<br>17 --> \"KEYCODE_STAR\"<br>18 --> \"KEYCODE_POUND\"<br>19 --> \"KEYCODE_DPAD_UP\"<br>20 --> \"KEYCODE_DPAD_DOWN\"<br>21 --> \"KEYCODE_DPAD_LEFT\"<br>22 --> \"KEYCODE_DPAD_RIGHT\"<br>23 --> \"KEYCODE_DPAD_CENTER\"<br>24 --> \"KEYCODE_VOLUME_UP\"<br>25 --> \"KEYCODE_VOLUME_DOWN\"<br>26 --> \"KEYCODE_POWER\"<br>27 --> \"KEYCODE_CAMERA\"<br>28 --> \"KEYCODE_CLEAR\"<br>29 --> \"KEYCODE_A\"<br>30 --> \"KEYCODE_B\"<br>31 --> \"KEYCODE_C\"<br>32 --> \"KEYCODE_D\"<br>33 --> \"KEYCODE_E\"<br>34 --> \"KEYCODE_F\"<br>35 --> \"KEYCODE_G\"<br>36 --> \"KEYCODE_H\"<br>37 --> \"KEYCODE_I\"<br>38 --> \"KEYCODE_J\"<br>39 --> \"KEYCODE_K\"<br>40 --> \"KEYCODE_L\"<br>41 --> \"KEYCODE_M\"<br>42 --> \"KEYCODE_N\"<br>43 --> \"KEYCODE_O\"<br>44 --> \"KEYCODE_P\"<br>45 --> \"KEYCODE_Q\"<br>46 --> \"KEYCODE_R\"<br>47 --> \"KEYCODE_S\"<br>48 --> \"KEYCODE_T\"<br>49 --> \"KEYCODE_U\"<br>50 --> \"KEYCODE_V\"<br>51 --> \"KEYCODE_W\"<br>52 --> \"KEYCODE_X\"<br>53 --> \"KEYCODE_Y\"<br>54 --> \"KEYCODE_Z\"<br>55 --> \"KEYCODE_COMMA\"<br>56 --> \"KEYCODE_PERIOD\"<br>57 --> \"KEYCODE_ALT_LEFT\"<br>58 --> \"KEYCODE_ALT_RIGHT\"<br>59 --> \"KEYCODE_SHIFT_LEFT\"<br>60 --> \"KEYCODE_SHIFT_RIGHT\"<br>61 --> \"KEYCODE_TAB\"<br>62 --> \"KEYCODE_SPACE\"<br>63 --> \"KEYCODE_SYM\"<br>64 --> \"KEYCODE_EXPLORER\"<br>65 --> \"KEYCODE_ENVELOPE\"<br>66 --> \"KEYCODE_ENTER\"<br>67 --> \"KEYCODE_DEL\"<br>68 --> \"KEYCODE_GRAVE\"<br>69 --> \"KEYCODE_MINUS\"<br>70 --> \"KEYCODE_EQUALS\"<br>71 --> \"KEYCODE_LEFT_BRACKET\"<br>72 --> \"KEYCODE_RIGHT_BRACKET\"<br>73 --> \"KEYCODE_BACKSLASH\"<br>74 --> \"KEYCODE_SEMICOLON\"<br>75 --> \"KEYCODE_APOSTROPHE\"<br>76 --> \"KEYCODE_SLASH\"<br>77 --> \"KEYCODE_AT\"<br>78 --> \"KEYCODE_NUM\"<br>79 --> \"KEYCODE_HEADSETHOOK\"<br>80 --> \"KEYCODE_FOCUS\"<br>81 --> \"KEYCODE_PLUS\"<br>82 --> \"KEYCODE_MENU\"<br>83 --> \"KEYCODE_NOTIFICATION\"<br>84 --> \"KEYCODE_SEARCH\"<br>85 --> \"KEYCODE_MEDIA_PLAY_PAUSE\"<br>86 --> \"KEYCODE_MEDIA_STOP\"<br>87 --> \"KEYCODE_MEDIA_NEXT\"<br>88 --> \"KEYCODE_MEDIA_PREVIOUS\"<br>89 --> \"KEYCODE_MEDIA_REWIND\"<br>90 --> \"KEYCODE_MEDIA_FAST_FORWARD\"<br>91 --> \"KEYCODE_MUTE\"<br>92 --> \"KEYCODE_PAGE_UP\"<br>93 --> \"KEYCODE_PAGE_DOWN\"<br>94 --> \"KEYCODE_PICTSYMBOLS\"<br>122 --> \"KEYCODE_MOVE_HOME\"<br>123 --> \"KEYCODE_MOVE_END\"<br>",
+            "code": ""
+        }
+    ],
+    "#13 SharedPreferences": [
+        {
+            "id": "1c6a50ba5f7e03a12768a1f9d5861a10",
+            "content": "Replace org.example.app with your application id.<br><br>Add a value to default shared preferences.",
+            "code": "adb shell 'am broadcast -a org.example.app.sp.PUT --es key key_name --es value \"hello world!\"'"
+        },
+        {
+            "id": "f040fa5ad47a758efb87385dc533d071",
+            "content": "Remove a value to default shared preferences.",
+            "code": "adb shell 'am broadcast -a org.example.app.sp.REMOVE --es key key_name'"
+        },
+        {
+            "id": "d16106dded3fbddb4f13c34381dc83bb",
+            "content": "Clear all default shared preferences.",
+            "code": "adb shell 'am broadcast -a org.example.app.sp.CLEAR --es key key_name'"
+        },
+        {
+            "id": "4ca447ee9b1c243204ec3fe7ccfaa58b",
+            "content": "It's also possible to specify shared preferences file.",
+            "code": "adb shell 'am broadcast -a org.example.app.sp.PUT --es name Game --es key level --ei value 10'"
+        }
+    ],
+    "#14 Data types": [
+        {
+            "id": "2a4bd9bcf537aa591433d29f2922709b",
+            "content": "",
+            "code": "adb shell 'am broadcast -a org.example.app.sp.PUT --es key string --es value \"hello world!\"'<br>adb shell 'am broadcast -a org.example.app.sp.PUT --es key boolean --ez value true'<br>adb shell 'am broadcast -a org.example.app.sp.PUT --es key float --ef value 3.14159'<br>adb shell 'am broadcast -a org.example.app.sp.PUT --es key int --ei value 2015'<br>adb shell 'am broadcast -a org.example.app.sp.PUT --es key long --el value 9223372036854775807'"
+        }
+    ],
+    "#15 Paths": [
+        {
+            "id": "375c7a2770ce12fddad81280b1b81786",
+            "content": "\/data\/data\/&lt;package&gt;\/databases (app databases).<br>\/data\/data\/&lt;package&gt;\/shared_prefs\/ (shared preferences).<br>\/data\/app (apk installed by user).<br>\/system\/app (pre-installed APK files).<br>\/mmt\/asec (encrypted apps) (App2SD).<br>\/mmt\/emmc (internal SD Card).<br>\/mmt\/adcard (external\/Internal SD Card).<br>\/mmt\/adcard\/external_sd (external SD Card).<br><br>List directory contents.",
+            "code": "adb shell ls"
+        },
+        {
+            "id": "9b6bac9ce7021fd51c0f9a0ebbc32b77",
+            "content": "List directory contents.",
+            "code": "adb shell ls"
+        },
+        {
+            "id": "48c98ae36acdfdb39965ef89a29c7ec7",
+            "content": "Print size of each file.",
+            "code": "adb shell ls -s"
+        },
+        {
+            "id": "ae8f10228eff0ab93c7a83682551c3b6",
+            "content": "List subdirectories recursively.",
+            "code": "adb shell ls -R"
+        }
+    ],
+    "#16 Phone state": [
+        {
+            "id": "6b61ac57f5d204b0f481fa0d69be9499",
+            "content": "Print device state.",
+            "code": "adb get-state"
+        },
+        {
+            "id": "288bb81f4de1821f1588faeaa588cf45",
+            "content": "Get the serial number.",
+            "code": "adb get-serialno"
+        },
+        {
+            "id": "b9d6df58d0436325f50607b3bd64f862",
+            "content": "Get the IMEI.",
+            "code": "adb shell dumpsys iphonesybinfo"
+        },
+        {
+            "id": "451353887e7c4850ad3c301189e59a9f",
+            "content": "List TCP connectivity.",
+            "code": "adb shell netstat"
+        },
+        {
+            "id": "17afeb9dc2620f4bdd4b3c4dc831209a",
+            "content": "Print current working directory.",
+            "code": "adb shell pwd"
+        },
+        {
+            "id": "e322d4dba09954ac02953c8a1446643e",
+            "content": "Battery status.",
+            "code": "adb shell dumpsys battery"
+        },
+        {
+            "id": "cb066a9b3ef6820d21d0845639ed3588",
+            "content": "List phone features.",
+            "code": "adb shell pm list features"
+        },
+        {
+            "id": "cdf86fca62e4665cd8009ed790c66a74",
+            "content": "List all services.",
+            "code": "adb shell service list"
+        },
+        {
+            "id": "b3ab0770ca14a369c0648b88114d8e4b",
+            "content": "Activity info.",
+            "code": "adb shell dumpsys activity <package>\/<activity>"
+        },
+        {
+            "id": "e7098ecff2023b6fe205bb34f3bc6e77",
+            "content": "Print process status.",
+            "code": "adb shell ps"
+        },
+        {
+            "id": "fd980ea0bc03cb4fee823ee06afdf4e8",
+            "content": "Displays the current screen resolution.",
+            "code": "adb shell wm size"
+        },
+        {
+            "id": "e0e96f81ccd56d214b792348c6089105",
+            "content": "Print current app's opened activity.",
+            "code": "dumpsys window windows | grep -E 'mCurrentFocus|mFocusedApp'"
+        }
+    ],
+    "#17 Package info": [
+        {
+            "id": "bcccf61a95b31f165dc3c27c1f721ba3",
+            "content": "List package names.",
+            "code": "adb shell list packages"
+        },
+        {
+            "id": "6c7b8d0819cf56fcfb85f22cd9a32dd3",
+            "content": "List package name + path to apks.",
+            "code": "adb shell list packages -r"
+        },
+        {
+            "id": "51a613f8063b7e98e9e53a6f49c0f451",
+            "content": "List third party package names.",
+            "code": "adb shell list packages -3"
+        },
+        {
+            "id": "1746db29f1faa161e6296e85dd96de0e",
+            "content": "List only system packages.",
+            "code": "adb shell list packages -s"
+        },
+        {
+            "id": "84b1815a228f828bf0ee25797951cf48",
+            "content": "List package names + uninstalled.",
+            "code": "adb shell list packages -u"
+        },
+        {
+            "id": "89b2bc0a62cb6d24d22cb3f71fcd7682",
+            "content": "List info on all apps.",
+            "code": "adb shell dumpsys package packages"
+        },
+        {
+            "id": "3052185415158b5d1adc9bb7996ca60e",
+            "content": "List info on one package.",
+            "code": "adb shell dump <name>"
+        },
+        {
+            "id": "2f900cd0878acf8cd9643aa30e1cdae1",
+            "content": "Path to the apk file.",
+            "code": "adb shell path <package>"
+        }
+    ],
+    "#18 Configure Settings Commands": [
+        {
+            "id": "6692b7280aa4896228ddc43ea7334be4",
+            "content": "Change the level from 0 to 100.",
+            "code": "adb shell dumpsys battery set level &ltn&gt"
+        },
+        {
+            "id": "72cf01671923e0260be4d55c260eeee3",
+            "content": "Change the level to unknown, charging, discharging, not charging or full.",
+            "code": "adb shell dumpsys battery set status<n>"
+        },
+        {
+            "id": "e61b47dcd0ec89f131ff903b423fdf28",
+            "content": "Reset the battery.",
+            "code": "adb shell dumpsys battery reset"
+        },
+        {
+            "id": "28c45a69f858406a8d152b2a9870661b",
+            "content": "Change the status of USB connection. ON or OFF.",
+            "code": "adb shell dumpsys battery set usb <n>"
+        },
+        {
+            "id": "cd8130e62b979966baf7a7552b3a8133",
+            "content": "Sets the resolution to WxH.",
+            "code": "adb shell wm size WxH"
+        }
+    ],
+    "#19 Device Related Commands": [
+        {
+            "id": "4418d59f872b1dcd8252d7ca6f7772d7",
+            "content": "Capture screenshot.",
+            "code": "adb shell screencap -p \"\/path\/to\/screenshot.png\""
+        },
+        {
+            "id": "",
+            "content": "Record device screen.",
+            "code": "adb shell screenrecord \"\/path\/to\/record.mp4\""
+        },
+        {
+            "id": "",
+            "content": "Backup settings and apps.",
+            "code": "adb backup -apk -all -f backup.ab"
+        },
+        {
+            "id": "",
+            "content": "Backup settings, apps and shared storage.",
+            "code": "adb backup -apk -shared -all -f backup.ab"
+        },
+        {
+            "id": "",
+            "content": "Backup only non-system apps.",
+            "code": "adb backup -apk -nosystem -all -f backup.ab"
+        },
+        {
+            "id": "",
+            "content": "Restore a previous backup.",
+            "code": "adb restore backup.ab"
         }
     ]
 }
