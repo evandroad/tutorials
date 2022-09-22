@@ -10,3 +10,6 @@ OSH_THEME=font -> OSH_THEME=agnoster
 
 // Fonts
 sudo apt install fonts-powerline
+
+// ls icons
+https://github.com/sebastiencs/icons-in-terminal
