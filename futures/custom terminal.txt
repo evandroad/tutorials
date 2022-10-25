@@ -10,3 +10,13 @@ OSH_THEME=font -> OSH_THEME=agnoster
 
 // Fonts
 sudo apt install fonts-powerline
+
+// logo-ls
+https://github.com/Yash-Handa/logo-ls
+
+// nerd fonts
+https://www.nerdfonts.com/font-downloads
+
+// create alias
+nano ~/.bashrc
+alias ls = "logo-ls"
