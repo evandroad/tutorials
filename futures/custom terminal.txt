@@ -1,6 +1,3 @@
-// Theme
-https://github.com/Gogh-Co/Gogh
-
 // Oh my bash
 https://ohmybash.nntoan.com/
 
