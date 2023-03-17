@@ -4,10 +4,12 @@
 
 ## Oh my bash
 https://ohmybash.nntoan.com/
+
+Edit the .bashrc file.
 ```
 nano .bashrc
 ```
-OSH_THEME=font -> OSH_THEME=agnoster
+Replace `OSH_THEME=font` with `OSH_THEME=agnoster
 
 ## Fonts
 ```
