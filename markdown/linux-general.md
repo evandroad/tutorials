@@ -9,7 +9,7 @@ Edit the .bashrc file.
 ```
 nano .bashrc
 ```
-Replace `OSH_THEME=font` with `OSH_THEME=agnoster
+Replace `OSH_THEME=font` with `OSH_THEME=agnoster`.
 
 ## Fonts
 ```
