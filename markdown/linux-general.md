@@ -2,6 +2,11 @@
 
 [Home](../README.md)
 
+## Git
+```
+sudo apt install git
+```
+
 ## Oh my bash
 https://ohmybash.nntoan.com/
 
@@ -32,6 +37,8 @@ alias ls = "logo-ls"
 Configure git before.
 ```
 git config --global user.name "Fulano de Tal"
+```
+```
 git config --global user.email fulanodetal@exemplo.br
 ```
 
