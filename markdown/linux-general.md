@@ -8,8 +8,10 @@ sudo apt install git
 ```
 
 ## Oh my bash
-https://ohmybash.nntoan.com/
-
+In `https://ohmybash.nntoan.com/`
+```
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh)"
+```
 Edit the .bashrc file.
 ```
 nano .bashrc
@@ -19,6 +21,14 @@ Replace `OSH_THEME=font` with `OSH_THEME=agnoster`.
 ## Fonts
 ```
 sudo apt install fonts-powerline
+```
+## Get Profile ID
+```
+dconf list /org/gnome/terminal/legacy/profiles:/
+```
+## Select Font
+```
+gsettings set org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/<profile-id>/ font 'Ubuntu Mono Regular 12'
 ```
 ## logo-ls
 https://github.com/Yash-Handa/logo-ls
