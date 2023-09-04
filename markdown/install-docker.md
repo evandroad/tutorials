@@ -6,13 +6,9 @@ Atualizar pacotes do linux
 ```
 sudo apt-get update
 ```
-Remover instalações antigas
-```
-sudo apt-get remove docker-engine docker.io
-```
 instalar o docker
 ```
-sudo apt install docker.io
+sudo apt install docker*
 ```
 Iniciando docker
 ```
@@ -34,4 +30,7 @@ Adicionar usuario ao grupo de admin
 ```
 sudo usermod -aG docker $USER
 ```
-obs.: Reiniciar o pc para reler as permissões.
+Executar o comando a seguir para ativar as mudanças no grupo
+```
+newgrp docker
+```
