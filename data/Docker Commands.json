@@ -1,1 +1,48 @@
-{"":[{"id":"aca4ccfd69900b79208cbf55d3ba9ba6","content":"Para listar todas as imagens do Docker no seu sistema, voc\u00ea pode usar o seguinte comando:","code":"sudo docker images"},{"id":"fab404cf04e2c9bbe42bf7d289334c34","content":"Se voc\u00ea desejar exibir informa\u00e7\u00f5es adicionais, insira o seguinte comando na linha de comando:","code":"sudo docker images --help"},{"id":"6fe0255e9e1985f97be4ec5cdd7916da","content":"Para puxar uma imagem docker, v\u00e1 at\u00e9 o hub Docker (https:\/\/hub.docker.com\/). Aqui voc\u00ea pode encontrar centenas de Imagens Docker.","code":"."},{"id":"4e6d23ffd0be158ed3b7b07d9f30ebec","content":"N\u00f3s podemos puxar a imagem com o seguinte comando:","code":"docker pull &ltnome da imagem&gt"}]}
+{
+    "Listar": [
+        {
+            "id": "aca4ccfd69900b79208cbf55d3ba9ba6",
+            "content": "Para listar todas as imagens do Docker no seu sistema:",
+            "code": "docker image ls"
+        },
+        {
+            "id": "e54d544f8288788470dfb5f18c2ac309",
+            "content": "Listar todos os containers ativos",
+            "code": "docker container ls"
+        },
+        {
+            "id": "0830e8df3da22c21df1c42233fdf6a74",
+            "content": "Listar todos os containers",
+            "code": "docker container ls -a"
+        }
+    ],
+    "Puxar Imagem": [
+        {
+            "id": "6fe0255e9e1985f97be4ec5cdd7916da",
+            "content": "Para puxar uma imagem docker, v\u00e1 at\u00e9 o hub Docker (https:\/\/hub.docker.com\/). Aqui voc\u00ea pode encontrar centenas de Imagens Docker.",
+            "code": ""
+        },
+        {
+            "id": "4e6d23ffd0be158ed3b7b07d9f30ebec",
+            "content": "N\u00f3s podemos puxar a imagem com o seguinte comando:",
+            "code": "docker pull &lt;nome da imagem&gt;"
+        }
+    ],
+    "Instalar": [
+        {
+            "id": "ade6a7e39f65f50ed8aa346586e798b5",
+            "content": "Instalar o docker.",
+            "code": "sudo apt install docker*"
+        },
+        {
+            "id": "f57c3056d5fa16160089880f87f6bbb9",
+            "content": "Iniciando o docker",
+            "code": "sudo systemctl start docker"
+        },
+        {
+            "id": "7f274254ef952041ce1d53ebf5651d1d",
+            "content": "Verificar docker",
+            "code": "systemctl status docker"
+        }
+    ]
+}

@@ -147,8 +147,10 @@ code {
     display: block;
     padding: 20px;
     color: rgb(0, 206, 17);
-    width: 80%;
+    /* width: 80%; */
     font-size: 0.9em;
+    /* overflow: auto; */
+    white-space: pre-wrap;
 }
 
 

@@ -105,10 +105,12 @@ function createContentAndCode(obj, main) {
     content.innerHTML = obj.content
     main.appendChild(content)
     
-    if(obj.code != '') {
+    if (obj.code != '') {
+        const pre = document.createElement('pre')
         const code = document.createElement('code')
         code.innerHTML = obj.code
-        main.appendChild(code)
+        pre.appendChild(code)
+        main.appendChild(pre)
     }
 }
 

@@ -1,1 +1,79 @@
-{"ls":[{"id":"0a6385a03187c3063054692e007eba6d","content":"ls is a command to list the contents of a directory.","code":"ls"},{"id":"f2a4bef51c3353c5b8592964ec97f9ea","content":"This command is used to list files and directories in Long Listing Format.","code":"ls -l"}],"pwd":[{"id":"da579ad7bdd8391b5e7d36b916cf6244","content":"pwd is a command that stands for Print Working Directory. It displays your current working directory as output.","code":"pwd"}]}
+{
+    "ls": [
+        {
+            "id":"0a6385a03187c3063054692e007eba6d",
+            "content":"ls is a command to list the contents of a directory.",
+            "code":"ls"
+        },
+        {
+            "id":"f2a4bef51c3353c5b8592964ec97f9ea",
+            "content":"This command is used to list files and directories in Long Listing Format.",
+            "code":"ls -l"
+        }
+    ],
+    "pwd": [
+        {
+            "id": "da579ad7bdd8391b5e7d36b916cf6244",
+            "content": "pwd is a command that stands for Print Working Directory. It displays your current working directory as output.",
+            "code": "pwd"
+        }
+    ],
+    "scp": [
+        {
+            "id": "b6040ef592510b72bfff19fab394e04d",
+            "content": "Envia um arquivo para um outro computador remotamente via ssh",
+            "code": "scp test.txt user@ip_dest:\/location"
+        },
+        {
+            "id": "ab17eeca90349fb5d79fb19af5affd5e",
+            "content": "Pega um arquivo de um outro computador remotamente via ssh",
+            "code": "scp user@ip_dest:\/location\/test.txt ."
+        },
+        {
+            "id": "3498569347c6976b489a30c40113ac5b",
+            "content": "Pega uma pasta de um outro computador remotamente via ssh",
+            "code": "scp -r user@ip_dest:\/location\/test.txt"
+        }
+    ],
+    "Logs": [
+        {
+            "id": "0c35b19f1023ddd4ae5c4fec31c14a88",
+            "content": "Visualisar logs do sistema",
+            "code": "cat \/var\/log\/syslog"
+        }
+    ],
+    "crontab": [
+        {
+            "id": "6282cd4e2a396b145b5e4be2ecf77871",
+            "content": "Editar o arquivo de agendamentos do crontab",
+            "code": "crontab -e"
+        },
+        {
+            "id": "d596e83b906ac05ccf283009eb847ab6",
+            "content": "Visualizar o arquivo de agendamento do crontab",
+            "code": "crontab -l"
+        },
+        {
+            "id": "4c4d21d8b153d144689faecd9f29c1d2",
+            "content": "Linha que deve ser adicionada no arquivo de agendamento.<br>[minuto(0-59)] [hora(0-23)] [dia-m\u00eas(1-31)] [m\u00eas(1-12)] [dia-semana(0-7)]. ",
+            "code": "* * * * * \/caminho\/para\/seu\/script"
+        }
+    ],
+    "ip fixo": [
+        {
+            "id": "9d8373de4aefdd387b4bbeee7e08fb0f",
+            "content": "Editar o arquivo de configura\u00e7\u00e3o",
+            "code": "sudo nano \/etc\/network\/interfaces"
+        },
+        {
+            "id": "0a07d6f476c4dcd43a1bea1576684c25",
+            "content": "Configure o endere\u00e7o de ip fixo.<br>Antes:",
+            "code": "auto eth0<br>iface eth0 inet dhcp"
+        },
+        {
+            "id": "e5444ca1a4d99140935d33b21f62081a",
+            "content": "Depois:",
+            "code": "auto eth0<br>iface eth0 inet static<br>    address 192.168.1.10<br>    netmask 255.255.255.0<br>    gateway 192.168.1.1<br>    dns-nameservers 8.8.8.8"
+        }
+    ]
+}
