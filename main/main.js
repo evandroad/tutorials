@@ -5,25 +5,6 @@ const contentBody = document.getElementById('contentBody')
 
 window.onload = () => {
     contentContainer.style.display = 'none'
-
-    fetch("main/tutorials.json")
-        .then(response => response.json())
-        .then(json => {
-            var menu = document.getElementById('menuTutorials')
-
-            json.forEach(ele => {
-                const li = document.createElement('li')
-                li.setAttribute('class', 'liTutorial')
-                const link = document.createElement('button')
-                link.setAttribute('id', ele)
-                link.setAttribute('onclick', 'getPage(\"'+ele+'\")')
-                link.setAttribute('class', 'btnTutorial')
-                link.innerHTML = ele
-                li.appendChild(link)
-                menu.appendChild(li)
-            })
-        })
-        .catch(err => console.log('Error in the request', err))
 }
 
 function getPage(page) {
@@ -100,7 +81,7 @@ function getPage(page) {
 }
 
 function createContentAndCode(obj, main) {
-    const content = document.createElement('p')
+    const content = document.createElement('pre')
     content.setAttribute('class', 'content')
     content.innerHTML = obj.content
     main.appendChild(content)

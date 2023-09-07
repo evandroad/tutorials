@@ -13,9 +13,84 @@
 <body>
     <div id="mainContainer">
         <h1 id="tutorials">Tutorials</h1>
+        
         <p id="description">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The idea of this project is to gather some important tutorials for those who are entering the world of programming and software development, as well as for those with more experience who have not memorized all the commands.</p>
-        <ul id="menuTutorials"></ul>
+
+        <section id="menuTutorials" class="articles">
+            <article>
+                <div class="article-wrapper">
+                    <figure>
+                        <img src="img/adb.png" alt="" />
+                    </figure>
+                    <div class="article-body">
+                        <h2>Adb Commands</h2>
+                        <button onclick="getPage('Adb Commands')" class="btnTutorial">Leia Mais</button>
+                    </div>
+                </div>
+            </article>
+          
+            <article>
+                <div class="article-wrapper">
+                    <figure>
+                        <img src="img/git.png" alt="" />
+                    </figure>
+                    <div class="article-body">
+                        <h2>Git Commands</h2>
+                        <button onclick="getPage('Git Commands')" class="btnTutorial">Leia mais</button>
+                    </div>
+                </div>
+            </article>
+            
+            <article>
+                <div class="article-wrapper">
+                    <figure>
+                        <img src="img/shell.png" alt="" />
+                    </figure>
+                    <div class="article-body">
+                        <h2>Linux Commands</h2>
+                        <button onclick="getPage('Linux Commands')" class="btnTutorial">Leia mais</button>
+                    </div>
+                </div>
+            </article>
+          
+            <article>
+                <div class="article-wrapper">
+                    <figure>
+                        <img src="img/docker.png" alt="" />
+                    </figure>
+                    <div class="article-body">
+                        <h2>Docker Commands</h2>
+                        <button onclick="getPage('Docker Commands')" class="btnTutorial">Leia mais</button>
+                    </div>
+                </div>
+            </article>
+          
+            <article>
+                <div class="article-wrapper">
+                    <figure>
+                        <img src="https://picsum.photos/id/1005/800/450" alt="" />
+                    </figure>
+                    <div class="article-body">
+                        <h2>This is some title</h2>
+                        <a href="#" class="read-more">Read more</a>
+                    </div>
+                </div>
+            </article>
+            
+            <article>
+              <div class="article-wrapper">
+                <figure>
+                  <img src="https://picsum.photos/id/103/800/450" alt="" />
+                </figure>
+                <div class="article-body">
+                  <h2>This is some title</h2>
+                  <a href="#" class="read-more">Read more</a>
+                </div>
+              </div>
+            </article>
+          </section>
     </div>
+
     <div id="contentContainer">
         <button onclick="topFunction()" id="btnTop" title="Go to top">Top</button>
         <ul id="contentMenu"></ul>
