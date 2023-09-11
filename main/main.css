@@ -35,8 +35,8 @@ p {
 	box-shadow: 1px 4px 6px rgba(0, 0, 0, 0.2);
 	margin: 10px;
 	padding: 15px;
-	min-width: 20%;
-	max-width: 270px;
+	min-width: 200px;
+	max-width: 260px;
 	flex-basis: 23%;
 	flex-grow: 1;
 }
