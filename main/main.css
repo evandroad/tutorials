@@ -27,10 +27,11 @@ p {
 	width: 100%;
 	display: flex;
 	flex-wrap: wrap;
+    align-content: center;
 }
 
 .card {
-	background-color: #fff;
+	background-color: white;
 	border-radius: 15px;
 	box-shadow: 1px 4px 6px rgba(0, 0, 0, 0.2);
 	margin: 10px;
@@ -56,19 +57,8 @@ p {
 
 .card p {
 	font-size: 14px;
-	color: #777;
+	color: var(--dark);
 	margin-top: 10px;
-}
-
-@media (max-width: 500px) {
-	.gallery {
-		flex-direction: column;
-		align-items: center;
-	}
-	.card {
-		margin-right: 0;
-		width: 200px;
-	}
 }
 
 #mainContainer {
@@ -190,12 +180,14 @@ p {
 }
 
 .content {
-    width: 86%;
+    width: 80%;
     font-family: sans-serif;
+    white-space: pre-line;
 }
 
 code {
     background-color: var(--dark);
+    width: 80%;
     border-radius: 10px;
     display: block;
     padding: 20px;
@@ -223,4 +215,30 @@ code {
   
 #btnTop:hover {
     background-color: #555; /* Add a dark-grey background on hover */
+}
+
+@media (max-width: 500px) {
+	.gallery {
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.card {
+		margin-right: 0;
+		width: 200px;
+	}
+}
+
+@media (max-width: 650px) {
+    #contentMenu {
+        display: none;
+    }
+
+    .main {
+        margin-left: 0;
+    }
+
+    .content, code {
+        width: 100%;
+    }
 }
