@@ -5,6 +5,30 @@ const contentBody = document.getElementById('contentBody')
 
 window.onload = () => {
     contentContainer.style.display = 'none'
+
+    fetch("main/tutorials.json")
+        .then(response => response.json())
+        .then(json => {
+            var menu = document.getElementById('menuTutorials')
+
+            json.forEach(item => {
+                const div = document.createElement('div')
+                div.setAttribute('class', 'card')
+                const img = document.createElement('img')
+                img.setAttribute('src', 'img/' + item.image)
+                const h2 = document.createElement('h2')
+                h2.innerHTML = item.title
+                const link = document.createElement('button')
+                link.setAttribute('onclick', 'getPage(\"' + item.title + '\")')
+                link.setAttribute('class', 'btnTutorial')
+                link.innerHTML = 'Leia mais'
+                div.appendChild(img)
+                div.appendChild(h2)
+                div.appendChild(link)
+                menu.appendChild(div)
+            })
+        })
+        .catch(err => console.log('Error in the request', err))
 }
 
 function getPage(page) {

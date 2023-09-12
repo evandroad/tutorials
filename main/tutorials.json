@@ -1,1 +1,26 @@
-["Adb Commands","Git Commands","Linux Commands","Conventional Commits","Docker Commands","Terminator Commands"]
+[
+    {
+        "title":"Adb Commands",
+        "image":"adb.png"
+    },
+    {
+        "title":"Git Commands",
+        "image":"git.png"
+    },
+    {
+        "title":"Linux Commands",
+        "image":"shell.png"
+    },
+    {
+        "title":"Docker Commands",
+        "image":"docker.png"
+    },
+    {
+        "title":"Conventional Commits",
+        "image":"conventional-commits.png"
+    },
+    {
+        "title":"Terminator Commands",
+        "image":"terminator.png"
+    }
+]
