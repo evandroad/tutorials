@@ -282,6 +282,11 @@
             "id": "ac42344aa594782d8eaddd73f8468252",
             "content": "This command will show the changes contained in the contents of the files.",
             "code": "git stash show -p stash@{0}"
+        },
+        {
+            "id": "ade68408dbf77d9e19d2566cc3f38971",
+            "content": "This command save code changes of the files specifics",
+            "code": "git stash -m \"stash-message\" -- filename1.txt filename2.txt"
         }
     ]
 }
