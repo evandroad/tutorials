@@ -1,1 +1,79 @@
-{"Listar":[{"id":"aca4ccfd69900b79208cbf55d3ba9ba6","content":"Para listar todas as imagens do Docker no seu sistema:","code":"docker image ls"},{"id":"e54d544f8288788470dfb5f18c2ac309","content":"Listar todos os containers ativos","code":"docker container ls"},{"id":"0830e8df3da22c21df1c42233fdf6a74","content":"Listar todos os containers","code":"docker container ls -a"}],"Puxar Imagem":[{"id":"6fe0255e9e1985f97be4ec5cdd7916da","content":"Para puxar uma imagem docker, v\u00e1 at\u00e9 o hub Docker (https:\/\/hub.docker.com\/). Aqui voc\u00ea pode encontrar centenas de Imagens Docker.","code":""},{"id":"4e6d23ffd0be158ed3b7b07d9f30ebec","content":"N\u00f3s podemos puxar a imagem com o seguinte comando:","code":"docker pull &lt;nome da imagem&gt;"}],"Instalar":[{"id":"ade6a7e39f65f50ed8aa346586e798b5","content":"Instalar o docker.","code":"sudo apt install docker*"},{"id":"f57c3056d5fa16160089880f87f6bbb9","content":"Iniciando o docker","code":"sudo systemctl start docker"},{"id":"7f274254ef952041ce1d53ebf5651d1d","content":"Verificar docker","code":"systemctl status docker"}],"Permiss\u00f5es":[{"id":"876a9d3c4c3d230120d847e6613be3fe","content":"Para dar permiss\u00f5es ao docker.","code":"sudo usermod -aG docker $USER"},{"id":"2998b79989ff2403250b3b74c9eac726","content":"Para aplicar as permiss\u00f5es.","code":"newgrp docker"}],"Renomear Imagem":[{"id":"baad5145fe87929b6f7ae6ca7bb3104a","content":"Para renomear uma imagem use o comando tag.","code":"docker tag nome_da_imagem_antiga:tag nome_da_imagem_nova:tag"},{"id":"c5ba4788495d2d571323e8be34ef5782","content":"Depois remova a imagem antiga","code":"docker rmi myimage:latest"}],"timedatectl":[{"id":"1c8f1a4f2f9862e59ff25cf5a72ee0f7","content":"Rode o comando abaixo para ver as configura\u00e7\u00f5es de data e hora.","code":"timedatectl"}]}
+{
+    "Listar": [
+        {
+            "id": "aca4ccfd69900b79208cbf55d3ba9ba6",
+            "content": "Para listar todas as imagens do Docker no seu sistema:",
+            "code": "docker image ls"
+        },
+        {
+            "id": "e54d544f8288788470dfb5f18c2ac309",
+            "content": "Listar todos os containers ativos",
+            "code": "docker container ls"
+        },
+        {
+            "id": "0830e8df3da22c21df1c42233fdf6a74",
+            "content": "Listar todos os containers",
+            "code": "docker container ls -a"
+        }
+    ],
+    "Puxar Imagem": [
+        {
+            "id": "6fe0255e9e1985f97be4ec5cdd7916da",
+            "content": "Para puxar uma imagem docker, v\u00e1 at\u00e9 o hub Docker (https:\/\/hub.docker.com\/). Aqui voc\u00ea pode encontrar centenas de Imagens Docker.",
+            "code": ""
+        },
+        {
+            "id": "4e6d23ffd0be158ed3b7b07d9f30ebec",
+            "content": "N\u00f3s podemos puxar a imagem com o seguinte comando:",
+            "code": "docker pull &lt;nome da imagem&gt;"
+        }
+    ],
+    "Instalar": [
+        {
+            "id": "ade6a7e39f65f50ed8aa346586e798b5",
+            "content": "Instalar o docker.",
+            "code": "sudo apt install docker*"
+        },
+        {
+            "id": "f57c3056d5fa16160089880f87f6bbb9",
+            "content": "Iniciando o docker",
+            "code": "sudo systemctl start docker"
+        },
+        {
+            "id": "7f274254ef952041ce1d53ebf5651d1d",
+            "content": "Verificar docker",
+            "code": "systemctl status docker"
+        }
+    ],
+    "Permiss\u00f5es": [
+        {
+            "id": "876a9d3c4c3d230120d847e6613be3fe",
+            "content": "Para dar permiss\u00f5es ao docker.",
+            "code": "sudo usermod -aG docker $USER"
+        },
+        {
+            "id": "2998b79989ff2403250b3b74c9eac726",
+            "content": "Para aplicar as permiss\u00f5es.",
+            "code": "newgrp docker"
+        }
+    ],
+    "Renomear Imagem": [
+        {
+            "id": "baad5145fe87929b6f7ae6ca7bb3104a",
+            "content": "Para renomear uma imagem use o comando tag.",
+            "code": "docker tag nome_da_imagem_antiga:tag nome_da_imagem_nova:tag"
+        },
+        {
+            "id": "c5ba4788495d2d571323e8be34ef5782",
+            "content": "Depois remova a imagem antiga",
+            "code": "docker rmi myimage:latest"
+        }
+    ],
+    "timedatectl": [
+        {
+            "id": "1c8f1a4f2f9862e59ff25cf5a72ee0f7",
+            "content": "Rode o comando abaixo para ver as configura\u00e7\u00f5es de data e hora.",
+            "code": "timedatectl"
+        }
+    ]
+}
