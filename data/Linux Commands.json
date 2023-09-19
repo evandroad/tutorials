@@ -221,5 +221,47 @@
                 "code": "ssh &lt;user&gt;@&lt;remot ip&gt;"
             }
         ]
+    },
+    {
+        "number": "14",
+        "title": "zip",
+        "content": [
+            {
+                "id": "4a3cf14eced16e1ecca43e893b8941f4",
+                "content": "Criar um arquivo compactado zip.",
+                "code": "zip filename.zip filename1 filename2 filename3"
+            },
+            {
+                "id": "2beb4dcb73c97f6ea3b8c9d1fe422d08",
+                "content": "Criar um arquivo compactado zip de uma pasta e seus arquivos.",
+                "code": "zip -r foldername.zip foldername\/"
+            },
+            {
+                "id": "1b43a8d5e127bdb543989ad39f29bfaa",
+                "content": "Criar um arquivo compactado de um arquivo com uma senha.",
+                "code": "zip -e  filename.zip file_name.txt"
+            }
+        ]
+    },
+    {
+        "number": "15",
+        "title": "unzip",
+        "content": [
+            {
+                "id": "e22e8fa17b0a4d8ceac0dc84b0119ddf",
+                "content": "Para extrair um arquivo.zip.",
+                "code": "unzip filename.zip"
+            },
+            {
+                "id": "f6afada9d093ad011de6ca640da03f3d",
+                "content": "Para extrair um arquivo em um diret\u00f3rio espec\u00edfico.",
+                "code": "unzip filename.zip -d \/path\/to\/directory"
+            },
+            {
+                "id": "88d3da174b63e29a6542d3b832212a0d",
+                "content": "Para listar o conte\u00fado de um arquivo zip.",
+                "code": "unzip -l filename.zip"
+            }
+        ]
     }
 ]
