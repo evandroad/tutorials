@@ -153,6 +153,17 @@
         ]
     },
     {
+        "number": "9",
+        "title": "hexdump",
+        "content": [
+            {
+                "id": "0684eb20160a371f07cebad61bd73186",
+                "content": "Comando para imprimir o conte\u00fado de um arquivo em hexadecimal.",
+                "code": "hexdump -C &ltfilename&gt"
+            }
+        ]
+    },
+    {
         "number": 10,
         "title": "timedatectl",
         "content": [
@@ -208,17 +219,6 @@
                 "id": "5877d28b3f8960f5b92c9befe45dfd09",
                 "content": "Cria uma conex\u00e3o ssh com outro computador com linux via terminal.",
                 "code": "ssh &lt;user&gt;@&lt;remot ip&gt;"
-            }
-        ]
-    },
-    {
-        "number": "9",
-        "title": "hexdump",
-        "content": [
-            {
-                "id": "0684eb20160a371f07cebad61bd73186",
-                "content": "Comando para imprimir o conte\u00fado de um arquivo em hexadecimal.",
-                "code": "hexdump -C &ltfilename&gt"
             }
         ]
     }

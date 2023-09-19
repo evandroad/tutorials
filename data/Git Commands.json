@@ -77,65 +77,105 @@
     },
     {
         "number": 7,
-        "title": "git diff",
+        "title": "git push",
         "content": [
             {
-                "id": "51447de0eabef26e49a0c93cbc363b19",
-                "content": "This command shows the file differences which are not yet staged.",
-                "code": "git diff"
+                "id": "f1b039fd82bebe499c6b1a8584cfd4c9",
+                "content": "This command sends the branch commits to your remote repository.",
+                "code": "git push -u origin [branch]"
             },
             {
-                "id": "52459c94ef43f62fe6a0bfdd9a44a78e",
-                "content": "This command shows the differences between the files in the staging area and the latest version present.",
-                "code": "git diff --staged"
+                "id": "1987e32260ee6ce8811489892158ae89",
+                "content": "This command sends the committed changes to your remote repository.",
+                "code": "git push"
             },
             {
-                "id": "0c4057a0ea37c70d94f86ae0d27e2182",
-                "content": "This command shows the differences between the two branches mentioned.",
-                "code": "git diff [first branch] [second branch]"
+                "id": "842e95032e4017f866ac9bf1388f76ed",
+                "content": "This command deletes a branch on your remote repository.",
+                "code": "git push origin :[branch name]"
+            },
+            {
+                "id": "969fa07685c7ab9cb60191dbbb3cf405",
+                "content": "This command pushes tag to your remote repository.",
+                "code": "git push origin [tag name]"
+            },
+            {
+                "id": "40aa31d007ae1c4dee4f4c8aaf4aab82",
+                "content": "This command deletes a commit already pushed to the remote repository.",
+                "code": "git push origin HEAD --force"
             }
         ]
     },
     {
         "number": 8,
-        "title": "git restore",
+        "title": "git pull",
         "content": [
             {
-                "id": "00a057365836a40b8bbee1805b39c536",
-                "content": "This command restores the contents of the file to that of the last commit.",
-                "code": "git restore [file]"
+                "id": "786eb761ea6fc3404520294c4444be40",
+                "content": "This command fetches and merges changes on the remote server to your working directory.",
+                "code": "git pull [Repository Link]"
             }
         ]
     },
     {
         "number": 9,
-        "title": "git reset",
+        "title": "git checkout",
         "content": [
             {
-                "id": "64336efefd905bada37c1a01c0b0ee47",
-                "content": "This command unstages the file, but it preserves the file contents.",
-                "code": "git reset [file]"
+                "id": "df82c81bdef4902ed35025e910b5f6ef",
+                "content": "This command is used to switch from one branch to another.",
+                "code": "git checkout [branch name]"
             },
             {
-                "id": "85c61d15655753c0c1507967b3defd66",
-                "content": "This command undoes the last commit and moves changes locally to staged.",
-                "code": "git reset --soft HEAD~"
+                "id": "cda988bc8398be65a3712b2efd7287d6",
+                "content": "This command creates a new branch and also switches to it.",
+                "code": "git checkout -b [branch name]"
             },
             {
-                "id": "c7ea9cae7e5e50e3e63b362a4ce2523e",
-                "content": "This command discards the last commit and its contents.",
-                "code": "git reset --hard HEAD~"
+                "id": "32680fec200a32f851cbade957d5a45a",
+                "content": "This command returns to the previous commit state.",
+                "code": "git checkout HEAD~"
+            },
+            {
+                "id": "5eba90d1d6b42a2add39e5ad5306e6cc",
+                "content": "This command goes to the commit state of the tag.",
+                "code": "git checkout &lttag&gt"
+            },
+            {
+                "id": "21f828c56045da0363e58bd34fb1ac01",
+                "content": "This command advances to the next commit state.",
+                "code": " git checkout $(git rev-list --topo-order HEAD..&ltcurrent branch&gt | tail -1)"
             }
         ]
     },
     {
         "number": 10,
-        "title": "git rm",
+        "title": "git branch",
         "content": [
             {
-                "id": "657459a7d251d07e879664e82cc9a210",
-                "content": "This command deletes the file from your working directory and stages the deletion.",
-                "code": "git rm [file]"
+                "id": "009db5f5441de432a0f9c484dbab9c2c",
+                "content": "This command lists all the local branches in the current repository.",
+                "code": "git branch"
+            },
+            {
+                "id": "3d353ecb2e16c8ab76782ff2be5d721e",
+                "content": "This command creates a new branch.",
+                "code": "git branch [branch name]"
+            },
+            {
+                "id": "ff10d8cf62fee0793cd62f66f3d66326",
+                "content": "This command deletes the feature branch.",
+                "code": "git branch -d [branch name]"
+            },
+            {
+                "id": "d696c9fffef9d3e59c282b22b7d23990",
+                "content": "this command displays the remote branches",
+                "code": "git branch -r"
+            },
+            {
+                "id": "45ee22ca332b22ee5bf91eb458c41dda",
+                "content": "this command displays all branches, local and remote",
+                "code": "git branch -a"
             }
         ]
     },
@@ -167,27 +207,6 @@
     },
     {
         "number": 12,
-        "title": "git show",
-        "content": [
-            {
-                "id": "d6baef02d9567d84ee0d145cf0d393b5",
-                "content": "This command shows the metadata and content changes of the specified commit.",
-                "code": "git show [commit]"
-            },
-            {
-                "id": "a9644afb92e81ba9fb67b66473394c49",
-                "content": "This command displays the modified files in the current commit.",
-                "code": "git show --stat"
-            },
-            {
-                "id": "4fa49fbb5dcf206c0049a4b907db57aa",
-                "content": "This command displays the modified files in the specific commit.",
-                "code": "git show --stat [commit]"
-            }
-        ]
-    },
-    {
-        "number": 13,
         "title": "git tag",
         "content": [
             {
@@ -203,69 +222,7 @@
         ]
     },
     {
-        "number": 14,
-        "title": "git branch",
-        "content": [
-            {
-                "id": "009db5f5441de432a0f9c484dbab9c2c",
-                "content": "This command lists all the local branches in the current repository.",
-                "code": "git branch"
-            },
-            {
-                "id": "3d353ecb2e16c8ab76782ff2be5d721e",
-                "content": "This command creates a new branch.",
-                "code": "git branch [branch name]"
-            },
-            {
-                "id": "ff10d8cf62fee0793cd62f66f3d66326",
-                "content": "This command deletes the feature branch.",
-                "code": "git branch -d [branch name]"
-            },
-            {
-                "id": "d696c9fffef9d3e59c282b22b7d23990",
-                "content": "this command displays the remote branches",
-                "code": "git branch -r"
-            },
-            {
-                "id": "45ee22ca332b22ee5bf91eb458c41dda",
-                "content": "this command displays all branches, local and remote",
-                "code": "git branch -a"
-            }
-        ]
-    },
-    {
-        "number": 15,
-        "title": "git checkout",
-        "content": [
-            {
-                "id": "df82c81bdef4902ed35025e910b5f6ef",
-                "content": "This command is used to switch from one branch to another.",
-                "code": "git checkout [branch name]"
-            },
-            {
-                "id": "cda988bc8398be65a3712b2efd7287d6",
-                "content": "This command creates a new branch and also switches to it.",
-                "code": "git checkout -b [branch name]"
-            },
-            {
-                "id": "32680fec200a32f851cbade957d5a45a",
-                "content": "This command returns to the previous commit state.",
-                "code": "git checkout HEAD~"
-            },
-            {
-                "id": "5eba90d1d6b42a2add39e5ad5306e6cc",
-                "content": "This command goes to the commit state of the tag.",
-                "code": "git checkout &lttag&gt"
-            },
-            {
-                "id": "21f828c56045da0363e58bd34fb1ac01",
-                "content": "This command advances to the next commit state.",
-                "code": " git checkout $(git rev-list --topo-order HEAD..&ltcurrent branch&gt | tail -1)"
-            }
-        ]
-    },
-    {
-        "number": 16,
+        "number": 13,
         "title": "git merge",
         "content": [
             {
@@ -276,60 +233,7 @@
         ]
     },
     {
-        "number": 17,
-        "title": "git remote",
-        "content": [
-            {
-                "id": "d020219cc254d6c85d95a6780c6bca63",
-                "content": "This command is used to connect your local repository to the remote server.",
-                "code": "git remote add origin git@github.com:user\/repo.git"
-            }
-        ]
-    },
-    {
-        "number": 18,
-        "title": "git push",
-        "content": [
-            {
-                "id": "f1b039fd82bebe499c6b1a8584cfd4c9",
-                "content": "This command sends the branch commits to your remote repository.",
-                "code": "git push -u origin [branch]"
-            },
-            {
-                "id": "1987e32260ee6ce8811489892158ae89",
-                "content": "This command sends the committed changes to your remote repository.",
-                "code": "git push"
-            },
-            {
-                "id": "842e95032e4017f866ac9bf1388f76ed",
-                "content": "This command deletes a branch on your remote repository.",
-                "code": "git push origin :[branch name]"
-            },
-            {
-                "id": "969fa07685c7ab9cb60191dbbb3cf405",
-                "content": "This command pushes tag to your remote repository.",
-                "code": "git push origin [tag name]"
-            },
-            {
-                "id": "40aa31d007ae1c4dee4f4c8aaf4aab82",
-                "content": "This command deletes a commit already pushed to the remote repository.",
-                "code": "git push origin HEAD --force"
-            }
-        ]
-    },
-    {
-        "number": 19,
-        "title": "git pull",
-        "content": [
-            {
-                "id": "786eb761ea6fc3404520294c4444be40",
-                "content": "This command fetches and merges changes on the remote server to your working directory.",
-                "code": "git pull [Repository Link]"
-            }
-        ]
-    },
-    {
-        "number": 20,
+        "number": 14,
         "title": "git stash",
         "content": [
             {
@@ -366,6 +270,128 @@
                 "id": "ade68408dbf77d9e19d2566cc3f38971",
                 "content": "This command save code changes of the files specifics",
                 "code": "git stash -m \"stash-message\" -- filename1.txt filename2.txt"
+            },
+            {
+                "id": "aa517baf52702411a146852d94d56a98",
+                "content": "Este comando grava em um arquivo as altera\u00e7\u00f5es n\u00e3o comitadas.",
+                "code": "git diff &gt &ltname&gt.patch"
+            }
+        ]
+    },
+    {
+        "number": 15,
+        "title": "git diff",
+        "content": [
+            {
+                "id": "51447de0eabef26e49a0c93cbc363b19",
+                "content": "This command shows the file differences which are not yet staged.",
+                "code": "git diff"
+            },
+            {
+                "id": "52459c94ef43f62fe6a0bfdd9a44a78e",
+                "content": "This command shows the differences between the files in the staging area and the latest version present.",
+                "code": "git diff --staged"
+            },
+            {
+                "id": "0c4057a0ea37c70d94f86ae0d27e2182",
+                "content": "This command shows the differences between the two branches mentioned.",
+                "code": "git diff [first branch] [second branch]"
+            },
+            {
+                "id": "08747ea7409b3e422408fa2c6e20202c",
+                "content": "Este comando cria um arquivo com as modifica\u00e7\u00f5es n\u00e3o comitadas.",
+                "code": "git diff &gt [name].patch"
+            },
+            {
+                "id": "d1c21b2ecca9d1ae6efce5bf8aa0863f",
+                "content": "Este comando cria um arquivo com as modifica\u00e7\u00f5es n\u00e3o comitadas, incluindo bin\u00e1rios e arquivos untracked.",
+                "code": "git diff --cached --binary &gt [name].patch"
+            }
+        ]
+    },
+    {
+        "number": "16",
+        "title": "git apply",
+        "content": [
+            {
+                "id": "6f6065cc0d665f0834455c004cab6d0c",
+                "content": "Este comando aplica altera\u00e7\u00f5es de acordo com o arquivo indicado.",
+                "code": "git apply [name]"
+            }
+        ]
+    },
+    {
+        "number": 17,
+        "title": "git reset",
+        "content": [
+            {
+                "id": "64336efefd905bada37c1a01c0b0ee47",
+                "content": "This command unstages the file, but it preserves the file contents.",
+                "code": "git reset [file]"
+            },
+            {
+                "id": "85c61d15655753c0c1507967b3defd66",
+                "content": "This command undoes the last commit and moves changes locally to staged.",
+                "code": "git reset --soft HEAD~"
+            },
+            {
+                "id": "c7ea9cae7e5e50e3e63b362a4ce2523e",
+                "content": "This command discards the last commit and its contents.",
+                "code": "git reset --hard HEAD~"
+            }
+        ]
+    },
+    {
+        "number": 18,
+        "title": "git restore",
+        "content": [
+            {
+                "id": "00a057365836a40b8bbee1805b39c536",
+                "content": "This command restores the contents of the file to that of the last commit.",
+                "code": "git restore [file]"
+            }
+        ]
+    },
+    {
+        "number": 19,
+        "title": "git show",
+        "content": [
+            {
+                "id": "d6baef02d9567d84ee0d145cf0d393b5",
+                "content": "This command shows the metadata and content changes of the specified commit.",
+                "code": "git show [commit]"
+            },
+            {
+                "id": "a9644afb92e81ba9fb67b66473394c49",
+                "content": "This command displays the modified files in the current commit.",
+                "code": "git show --stat"
+            },
+            {
+                "id": "4fa49fbb5dcf206c0049a4b907db57aa",
+                "content": "This command displays the modified files in the specific commit.",
+                "code": "git show --stat [commit]"
+            }
+        ]
+    },
+    {
+        "number": 20,
+        "title": "git remote",
+        "content": [
+            {
+                "id": "d020219cc254d6c85d95a6780c6bca63",
+                "content": "This command is used to connect your local repository to the remote server.",
+                "code": "git remote add origin git@github.com:user\/repo.git"
+            }
+        ]
+    },
+    {
+        "number": 21,
+        "title": "git rm",
+        "content": [
+            {
+                "id": "657459a7d251d07e879664e82cc9a210",
+                "content": "This command deletes the file from your working directory and stages the deletion.",
+                "code": "git rm [file]"
             }
         ]
     }
