@@ -218,6 +218,11 @@
                 "id": "0d8fbac03ba7f65e216287ec0059e020",
                 "content": "This command is used to list existing tags.",
                 "code": "git tag"
+            },
+            {
+                "id": "639a3fb3fa37359420b9cea8caa866a1",
+                "content": "This command is used to delete tag.",
+                "code": "git tag -d &lttag&gt"
             }
         ]
     },
