@@ -263,5 +263,16 @@
                 "code": "unzip -l filename.zip"
             }
         ]
+    },
+    {
+        "number": "16",
+        "title": "Virtual Box",
+        "content": [
+            {
+                "id": "77810f45fb5bd284bc1ad5d3be42b873",
+                "content": "Para acessar uma pasta compartilhada no Virutal Box.",
+                "code": "sudo usermod -aG vboxsf &ltuser&gt<br>sudo chmod 777 \/media\/sf_Docs"
+            }
+        ]
     }
 ]
