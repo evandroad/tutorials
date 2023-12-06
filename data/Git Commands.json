@@ -196,7 +196,7 @@
             {
                 "id": "17ae2dc9e3058eaa3a6e2a7d607f2de5",
                 "content": "This command is used to list the commit history of the current branch formatted in one line.",
-                "code": "git log --pretty=format:\"%C(yellow)%ad%Creset | %h | %C(blue)%an%Creset | %Cgreen%s%Creset %Cred%d%Creset\" --date=short"
+                "code": "git log --pretty=format:\"%C(blue)%an%Creset | %h | %C(yellow)%ad%Creset | %Cgreen%s%Creset %Cred%d%Creset\" --date=short"
             },
             {
                 "id": "4cc33a7c7b96def3152f17360197a4ee",
