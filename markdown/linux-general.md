@@ -21,6 +21,17 @@ Replace `OSH_THEME=font` with `OSH_THEME=agnoster`.
 ## Fonts
 ```
 sudo apt install fonts-powerline
+
+curl -fsSLo "UbuntuMonoNerdFont-Regular.ttf" \
+  "https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/UbuntuMono/Regular/UbuntuMonoNerdFont-Regular.ttf"
+
+cd ~/.local/share
+
+rm -rf fonts/
+
+mkdir fonts
+
+mv UbuntuMonoNerdFont-Regular.ttf ~/.local/share/fonts/
 ```
 ## Get Profile ID
 ```
