@@ -222,7 +222,12 @@
             {
                 "id": "639a3fb3fa37359420b9cea8caa866a1",
                 "content": "This command is used to delete tag.",
-                "code": "git tag -d &lttag&gt"
+                "code": "git tag -d [tag]"
+            },
+            {
+                "id": "5485c603905ae030c9d2edecbd22ae0d",
+                "content": "Send deleted tag to remote repository",
+                "code": "git push origin :refs\/tags\/[tag]"
             }
         ]
     },
