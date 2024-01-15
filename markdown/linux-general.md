@@ -1,7 +1,5 @@
 # Linux Settings
 
-[Home](../README.md)
-
 ## Git
 ```
 sudo apt install git
@@ -22,6 +20,23 @@ Replace `OSH_THEME=font` with `OSH_THEME=agnoster`.
 ```
 sudo apt install fonts-powerline
 ```
+```
+curl -fsSLo "UbuntuMonoNerdFont-Regular.ttf" \
+  "https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/UbuntuMono/Regular/UbuntuMonoNerdFont-Regular.ttf"
+```
+```
+cd ~/.local/share
+```
+```
+rm -rf fonts/
+```
+```
+mkdir fonts
+```
+```
+mv UbuntuMonoNerdFont-Regular.ttf ~/.local/share/fonts/
+```
+
 ## Get Profile ID
 ```
 dconf list /org/gnome/terminal/legacy/profiles:/
@@ -67,3 +82,18 @@ ssh-add ~/.ssh/id_ed25519
 Copy the SSH public key to your clipboard.
 ```
 cat ~/.ssh/id_ed25519.pub
+```
+# Install Node
+```
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+```
+```
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+```
+```
+command -v nvm
+```
+```
+nvm install node
+```
