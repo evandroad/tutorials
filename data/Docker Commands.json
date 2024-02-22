@@ -44,16 +44,6 @@
                 "id": "ade6a7e39f65f50ed8aa346586e798b5",
                 "content": "Instalar o docker.",
                 "code": "sudo apt install docker*"
-            },
-            {
-                "id": "f57c3056d5fa16160089880f87f6bbb9",
-                "content": "Iniciando o docker",
-                "code": "sudo systemctl start docker"
-            },
-            {
-                "id": "7f274254ef952041ce1d53ebf5651d1d",
-                "content": "Verificar docker",
-                "code": "systemctl status docker"
             }
         ]
     },
@@ -61,6 +51,11 @@
         "number": 4,
         "title": "Permiss\u00f5es",
         "content": [
+            {
+                "id": "9877a9d3c4c3d230120d847e6613befe",
+                "content": "Para adicionar ao grupo do docker.",
+                "code": "sudo groupadd docker"
+            },
             {
                 "id": "876a9d3c4c3d230120d847e6613be3fe",
                 "content": "Para dar permiss\u00f5es ao docker.",
