@@ -28,5 +28,10 @@
         "number": 6,
         "title": "Terminator Commands",
         "image": "terminator.png"
+    },
+    {
+        "number": 7,
+        "title": "Nano",
+        "image": "nano.jpg"
     }
 ]
