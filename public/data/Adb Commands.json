@@ -333,11 +333,6 @@
                 "code": "adb shell ls"
             },
             {
-                "id": "9b6bac9ce7021fd51c0f9a0ebbc32b77",
-                "content": "List directory contents.",
-                "code": "adb shell ls"
-            },
-            {
                 "id": "48c98ae36acdfdb39965ef89a29c7ec7",
                 "content": "Print size of each file.",
                 "code": "adb shell ls -s"
