@@ -1,116 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="icon" type="image/x-icon" href="https://img.icons8.com/ios-glyphs/90/000000/blog--v1.png">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/index.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <title>register content</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="icon" type="image/x-icon" href="https://img.icons8.com/ios-glyphs/90/000000/blog--v1.png">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/index.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <title>register content</title>
 </head>
 <body>
     <h1 id="mainTitle">Tutoriais</h1>
 
     <!-- form tutorial -->
     <div id="formTutorial" class="col-sm-6 d">
-        <div class="input-group mb-3">
-            <div class="input-group-prepend">
-                <span class="input-group-text" style="width: 80px">Número:</span>
-            </div>
-            <input type="text" id="number" class="form-control">
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" style="width: 80px">Número:</span>
         </div>
-        <div class="input-group mb-3">
-            <div class="input-group-prepend">
-                <span class="input-group-text" style="width: 80px">Tutorial:</span>
-            </div>
-            <input type="text" id="tutorial" class="form-control">
+        <input type="text" id="number" class="form-control">
+      </div>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" style="width: 80px">Tutorial:</span>
         </div>
-        <div class="input-group mb-3">
-            <div class="input-group-prepend">
-                <span class="input-group-text" style="width: 80px">Imagem:</span>
-            </div>
-            <input type="file" id="image" class="form-control">
+        <input type="text" id="tutorial" class="form-control">
+      </div>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" style="width: 80px">Imagem:</span>
         </div>
-        <div class="form-group">
-            <button id="btnAddTutorial" class="btn btn-success" onclick="createTutorial()">Criar Tutorial</button>
-            <button id="btnEditTutorial" class="btn btn-success" onclick="editTutorial()">Editar Tutorial</button>
-            <button class="btn btn-primary" onclick="cleanTutorial()">Limpar</button>
-        </div>
+        <input type="file" id="image" class="form-control">
+      </div>
+      <div class="form-group">
+        <button id="btnAddTutorial" class="btn btn-success" onclick="createTutorial()">Criar Tutorial</button>
+        <button id="btnEditTutorial" class="btn btn-success" onclick="editTutorial()">Editar Tutorial</button>
+        <button class="btn btn-primary" onclick="cleanTutorial()">Limpar</button>
+      </div>
     </div>
 
     <!-- table tutorials -->
     <div id="tableTutorials" class="col-sm-6 d">
-        <table id="tutorials" class="table">
-            <thead>
-                <th>Número</th>
-                <th>Tutoriais</th>
-                <th>Editar</th>
-                <th>Ir</th>
-                <th>Apagar</th>
-            </thead>
-        </table>
+      <table id="tutorials" class="table">
+        <thead>
+          <th>Número</th>
+          <th>Tutoriais</th>
+          <th>Editar</th>
+          <th>Ir</th>
+          <th>Apagar</th>
+        </thead>
+      </table>
     </div>
 
     <!-- form content -->
     <div id="formContent" class="col-sm-8 d">
-        <button id="btnHome" class="btn btn-secondary" type="button" onclick="home()">Voltar</button>
-        <h2 id="titleAddCont" style="text-align: center;">Adicionar Conteúdo</h2>
-        <h2 id="titleUpdCont" style="text-align: center;">Alterar Conteúdo</h2>
-        <div id="divId" class="input-group mb-3">
-            <div class="input-group-prepend">
-                <span class="input-group-text" style="width: 80px">Id:</span>
-            </div>
-            <input type="text" id="id" class="form-control">
+      <button id="btnHome" class="btn btn-secondary" type="button" onclick="home()">Voltar</button>
+      <h2 id="titleAddCont" style="text-align: center;">Adicionar Conteúdo</h2>
+      <h2 id="titleUpdCont" style="text-align: center;">Alterar Conteúdo</h2>
+      <div id="divId" class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" style="width: 80px">Id:</span>
         </div>
-        <div class="input-group mb-3">
-            <div class="input-group-prepend">
-                <span class="input-group-text" style="width: 80px">Number:</span>
-            </div>
-            <input type="text" id="contentNumber" class="form-control">
+        <input type="text" id="id" class="form-control">
+      </div>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" style="width: 80px">Number:</span>
         </div>
-        <div class="input-group mb-3">
-            <div class="input-group-prepend">
-                <span class="input-group-text" style="width: 80px">Title:</span>
-            </div>
-            <input type="text" id="title" class="form-control">
+        <input type="text" id="contentNumber" class="form-control">
+      </div>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" style="width: 80px">Title:</span>
         </div>
-        <div class="input-group mb-3">
-            <div class="input-group-prepend">
-                <span class="input-group-text" style="width: 80px">Content:</span>
-            </div>
-            <textarea id="content" class="form-control" rows="3"></textarea>
+        <input type="text" id="title" class="form-control">
+      </div>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" style="width: 80px">Content:</span>
         </div>
-        <div class="input-group mb-3">
-            <div class="input-group-prepend">
-                <span class="input-group-text" style="width: 80px">Code:</span>
-            </div>
-            <textarea id="code" class="form-control" rows="3"></textarea>
+        <textarea id="content" class="form-control" rows="3"></textarea>
+      </div>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" style="width: 80px">Code:</span>
         </div>
-        <div class="form-group">
-            <button id="btnUpda" class="btn btn-success" type="button" onclick="updateContent()">Alterar</button>
-            <button id="btnSave" class="btn btn-success" type="button" onclick="saveContent()">Salvar</button>
-            <button class="btn btn-primary" type="button" onclick="cleanContent()">Limpar</button>
-            <button id="btnAdd" class="btn btn-secondary" type="button" onclick="addContent()">Retornar</button>
-        </div>
+        <textarea id="code" class="form-control" rows="3"></textarea>
+      </div>
+      <div class="form-group">
+        <button id="btnUpda" class="btn btn-success" type="button" onclick="updateContent()">Alterar</button>
+        <button id="btnSave" class="btn btn-success" type="button" onclick="saveContent()">Salvar</button>
+        <button class="btn btn-primary" type="button" onclick="cleanContent()">Limpar</button>
+        <button id="btnAdd" class="btn btn-secondary" type="button" onclick="addContent()">Retornar</button>
+      </div>
     </div>
 
     <!-- table content -->
     <div id="tableContents" class="table-responsive col-lg-8 d">
-        <h2 style="text-align: center;">Conteúdos</h2>
-        <table id="contents" class="table table-sm table-hover table-condensed">
-            <thead>
-                <th>Number</th>
-                <th>Title</th>
-                <th>Content</th>
-                <th>Code</th>
-                <th>Adicionar</th>
-                <th>Editar</th>
-                <th>Apagar</th>
-            </thead>
-        </table>
+      <h2 style="text-align: center;">Conteúdos</h2>
+      <table id="contents" class="table table-sm table-hover table-condensed">
+        <thead>
+          <th>Number</th>
+          <th>Title</th>
+          <th>Content</th>
+          <th>Code</th>
+          <th>Adicionar</th>
+          <th>Editar</th>
+          <th>Apagar</th>
+        </thead>
+      </table>
     </div>
     <script src="js/index.js"></script>
 </body>
