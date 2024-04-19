@@ -1,12 +1,12 @@
 package main
 
 import (
-	"os"
-	// "io"
-	"strconv"
 	"net/http"
-	"io/ioutil"
-	"encoding/json"
+	// "strconv"
+	// "io/ioutil"
+	// "encoding/json"
+
+	"github.com/gin-gonic/gin"
 )
 
 type Data struct {
@@ -23,78 +23,78 @@ type TutorialList struct {
 	Tutorials []Tutorial `json:"tutorials"`
 }
 
-func (tl *TutorialList) LoadFromFile(path string) error {
-	data, err := ioutil.ReadFile(path)
-	if err != nil {
-		return err
-	}
-	return json.Unmarshal(data, tl)
-}
+// func (tl *TutorialList) LoadFromFile(path string) error {
+// 	data, err := ioutil.ReadFile(path)
+// 	if err != nil {
+// 		return err
+// 	}
+// 	return json.Unmarshal(data, tl)
+// }
 
-func (tl *TutorialList) AddTutorial(tutorial Tutorial) {
-	tl.Tutorials = append(tl.Tutorials, tutorial)
-}
+// func (tl *TutorialList) AddTutorial(tutorial Tutorial) {
+// 	tl.Tutorials = append(tl.Tutorials, tutorial)
+// }
 
-func (tl *TutorialList) ToJson() ([]byte, error) {
-	return json.MarshalIndent(tl, "", "  ")
-}
+// func (tl *TutorialList) ToJson() ([]byte, error) {
+// 	return json.MarshalIndent(tl, "", "  ")
+// }
 
 func main() {
-	staticDir := "./"
+	apiRouter := gin.Default()
+	apiRouter.GET("/data", handleData)
 
-	http.Handle("/", http.FileServer(http.Dir(staticDir)))
-	http.HandleFunc("/api/data", handleData)
-	http.HandleFunc("/api/insert", insertHandler)
+	apiPort := ":8081"
+	println("API rodando em http://localhost" + apiPort)
+	go func() {
+			err := apiRouter.Run(apiPort)
+			if err != nil {
+					println("Erro ao iniciar o servidor da API: ", err.Error())
+			}
+	}()
 
-	port := ":8080"
-	println("Servidor rodando em http://localhost" + port)
-	err := http.ListenAndServe(port, nil)
+	appRouter := gin.Default()
+	appRouter.StaticFS("/", http.Dir("./public"))
+
+	appPort := ":8080"
+	println("Arquivos estáticos rodando em http://localhost" + appPort)
+	err := appRouter.Run(appPort)
 	if err != nil {
-		println("Erro ao iniciar o servidor: ", err.Error())
-		os.Exit(1)
+			println("Erro ao iniciar o servidor de arquivos estáticos: ", err.Error())
 	}
 }
 
-func handleData(w http.ResponseWriter, r *http.Request) {
+func handleData(c *gin.Context) {
 	data := Data{Message: "Hello from Go server!"}
-
-	jsonData, err := json.Marshal(data)
-	if err != nil {
-		http.Error(w, "Erro ao codificar JSON", http.StatusInternalServerError)
-		return
-	}
-
-	w.Header().Set("Content-Type", "application/json")
-	w.Write(jsonData)
+	c.JSON(http.StatusOK, data)
 }
 
-func insertHandler(w http.ResponseWriter, r *http.Request) {
-	if r.Method != http.MethodPost {
-		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
-		return
-	}
+// func insertHandler(w http.ResponseWriter, r *http.Request) {
+// 	if r.Method != http.MethodPost {
+// 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+// 		return
+// 	}
 
-	err := r.ParseMultipartForm(10 << 20) // 10 MB max memory
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
+// 	err := r.ParseMultipartForm(10 << 20) // 10 MB max memory
+// 	if err != nil {
+// 		http.Error(w, err.Error(), http.StatusInternalServerError)
+// 		return
+// 	}
 
-	number, err := strconv.Atoi(r.FormValue("number"))
-	if err != nil {
-		http.Error(w, "Invalid or missing number", http.StatusBadRequest)
-		return
-	}
+// 	number, err := strconv.Atoi(r.FormValue("number"))
+// 	if err != nil {
+// 		http.Error(w, "Invalid or missing number", http.StatusBadRequest)
+// 		return
+// 	}
 
-	println("Body decodificado da solicitação:\n%s", number)
+// 	println("Body decodificado da solicitação:\n%s", number)
 
-	title := r.FormValue("tutorial")
-	if title == "" {
-		http.Error(w, "Invalid or missing tutorial title", http.StatusBadRequest)
-		return
-	}
+// 	title := r.FormValue("tutorial")
+// 	if title == "" {
+// 		http.Error(w, "Invalid or missing tutorial title", http.StatusBadRequest)
+// 		return
+// 	}
 
-	println("Body decodificado da solicitação:\n%s", title)
+// 	println("Body decodificado da solicitação:\n%s", title)
 
 	// // Read the file
 	// file, handler, err := r.FormFile("image")
@@ -139,4 +139,4 @@ func insertHandler(w http.ResponseWriter, r *http.Request) {
 
 	// ioutil.WriteFile(path, jsonData, 0644)
 	// json.NewEncoder(w).Encode(map[string]string{"message": "Created tutorial."})
-}
+// }
