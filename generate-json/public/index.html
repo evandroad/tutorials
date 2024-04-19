@@ -15,46 +15,14 @@
 <body>
   <h1 id="mainTitle">Tutoriais</h1>
 
-  <!-- <div id="tutorial"></div>
-  <div id="content"></div> -->
-  <div id="app">
-    <button @click="toggleView">Toggle View</button>
-    <tutorial v-if="currentView === 'tutorial'"></tutorial>
-    <content v-else></content>
-  </div>
+  <div id="app"></div>
 
   <script type="module">
-    const { createApp, ref } = Vue
-    import Tutorial from './tutorial.js'
-    import Content from './content.js'
-  
-    const App = {
-      components: {
-        Tutorial,
-        Content
-      },
-      setup() {
-        const currentView = ref('tutorial')
-  
-        function toggleView() {
-          currentView.value = (currentView.value === 'tutorial' ? 'content' : 'tutorial')
-        }
-  
-        return { currentView, toggleView }
-      }
-    }
-  
-    createApp(App).mount('#app')
-  </script>
-
-  <!-- <script type="module">
 		const { createApp } = Vue
-		import Tutorial from './tutorial.js'
-		import Content from './content.js'
+		import App from './script.js'
 	
-		createApp(Tutorial).mount('#tutorial')
-		createApp(Content).mount('#content')
-	</script> -->
+		createApp(App).mount('#app')
+	</script>
 
   <!-- <script src="index.js"></script> -->
 </body>
