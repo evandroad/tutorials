@@ -1,0 +1,13 @@
+[
+    {
+        "number": "1",
+        "title": "Window Location",
+        "content": [
+            {
+                "id": "97c4b274accbfc56538379aad348de8c",
+                "content": "The window.location object can be written without the window prefix.",
+                "code": "window.location.href returns the href (URL) of the current page<br>window.location.hostname: returns the domain name of the web host<br>window.location.pathname: returns the path and filename of the current page<br>window.location.protocol: returns the web protocol used (http: or https:)<br>window.location.assign(): loads a new document"
+            }
+        ]
+    }
+]

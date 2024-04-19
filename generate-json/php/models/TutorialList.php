@@ -45,7 +45,7 @@ class TutorialList {
             return;
         }
         
-        unlink('../../tutorials/img/'.$this->tutorials[$existingTutorialIndex]['image']);
+        unlink('../../public/img/'.$this->tutorials[$existingTutorialIndex]['image']);
         unset($this->tutorials[$existingTutorialIndex]);
         $this->tutorials = array_values($this->tutorials);
     }

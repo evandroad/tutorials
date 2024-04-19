@@ -6,11 +6,12 @@ include 'models/TutorialList.php';
 
 class TutorialController {
 
-  function getAll() {
-    $path = '../../tutorials/data/tutorials.json';
+  const ROOT_DIR = '../../public/';
+  const PATH_TUTORIALS = self::ROOT_DIR . 'data/tutorials.json';
 
+  function getAll() {
     $tutorialList = new TutorialList();
-    $tutorialList->loadFromFile($path);
+    $tutorialList->loadFromFile(self::PATH_TUTORIALS);
 
     echo $tutorialList->toJson();
   }
@@ -21,20 +22,19 @@ class TutorialController {
     $number = $req['number'];
     $title = $req['tutorial'];
     $image = $req['image'];
+    $type = explode('/', $image['type'])[1];
 
     if ($this->createMoveFoldersFiles($title, $image)) {
       return;
     }
 
-    $path = '../../tutorials/data/tutorials.json';
-
     $tutorialList = new TutorialList();
-    $tutorialList->loadFromFile($path);
+    $tutorialList->loadFromFile(self::PATH_TUTORIALS);
 
-    $tutorial = new Tutorial(intval($number), $title, $image['name']);
+    $tutorial = new Tutorial(intval($number), $title, $title.'.'.$type);
     $tutorialList->addTutorial($tutorial);
 
-    file_put_contents($path, $tutorialList->toJson());
+    file_put_contents(self::PATH_TUTORIALS, $tutorialList->toJson());
     
     echo json_encode(["message" => "Created tutorial."]);
   }
@@ -49,16 +49,21 @@ class TutorialController {
     $image = $req['image'] ?? '';
     
     $this->updateMoveFiles($currentImage, $image, $currentTitle, $title);
-
-    $path = '../../tutorials/data/tutorials.json';
+    
+    if (empty($image)) {
+      $imgName = $currentImage;
+    } else {
+      $type = explode('/', $image['type'])[1];
+      $imgName = $title.'.'.$type;
+    }
 
     $tutorialList = new TutorialList();
-    $tutorialList->loadFromFile($path);
+    $tutorialList->loadFromFile(self::PATH_TUTORIALS);
 
-    $tutorial = new Tutorial(intval($number), $title, $image['name'] ?? '');
+    $tutorial = new Tutorial(intval($number), $title, $imgName);
     $tutorialList->updateTutorial($currentTitle, $tutorial);
     
-    file_put_contents($path, $tutorialList->toJson());
+    file_put_contents(self::PATH_TUTORIALS, $tutorialList->toJson());
 
     echo json_encode(["message" => "Updated tutorial."]);
   }
@@ -66,34 +71,34 @@ class TutorialController {
   function delete($params) {
     $tutorial = $params["name"];
 
-    unlink("../../tutorials/data/".$tutorial.".json");
-    
-    $path = "../../tutorials/data/tutorials.json";
+    unlink(self::ROOT_DIR."data/".$tutorial.".json");
 
     $tutorialList = new TutorialList();
-    $tutorialList->loadFromFile($path);
+    $tutorialList->loadFromFile(self::PATH_TUTORIALS);
 
     $tutorialList->deleteTutorial($tutorial);
     
-    file_put_contents($path, $tutorialList->toJson());
+    file_put_contents(self::PATH_TUTORIALS, $tutorialList->toJson());
 
     echo json_encode(["message" => "Tutorial deletado."]);
   }
 
   function createMoveFoldersFiles($title, $image) {
-    $dirData = "../../tutorials/data";
-    $dirImg = "../../tutorials/img";
+    $dirData = self::ROOT_DIR . "data/";
+    $dirImg = self::ROOT_DIR . "img/";
 
-    $pathTutorial = $dirData.'/'.$title.'.json';
-    $pathImage = $dirImg.'/'.$image['name'];
-    $pathTutorials = $dirData.'/tutorials.json';
+    $type = explode('/', $image['type'])[1];
+    $pathTutorial = $dirData.$title.'.json';
+    $pathImage = $dirImg.$title.'.'.$type;
 
     if (!file_exists($dirData)) {
       mkdir($dirData, 777, true);
-      file_put_contents($pathTutorials, '[]');
+      file_put_contents(self::PATH_TUTORIALS, '[]');
     }
     
-    if (!file_exists($dirImg)) mkdir($dirImg, 777, true);
+    if (!file_exists($dirImg)) {
+      mkdir($dirImg, 777, true);
+    }
             
     if (file_exists($pathTutorial)) {
       echo json_encode(["message" => "Tutorial already exists."]);
@@ -106,8 +111,8 @@ class TutorialController {
   }
 
   function updateMoveFiles($currentImage, $image, $currentTitle, $title) {
-    $dirImg = "../../tutorials/img/";
-    $dirData = "../../tutorials/data/";
+    $dirData = self::ROOT_DIR . "data/";
+    $dirImg = self::ROOT_DIR . "img/";
     $currentFile = $dirData.$currentTitle.".json";
     $file = $dirData.$title.".json";
 
@@ -117,7 +122,8 @@ class TutorialController {
       return;
     }
     
-    $pathImage = $dirImg.$image['name'];
+    $type = explode('/', $image['type'])[1];
+    $pathImage = $dirImg.$title.'.'.$type;
     $pathCurrentImage = $dirImg.$currentImage;
 
     if (is_file($pathCurrentImage)) {

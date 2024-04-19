@@ -6,83 +6,85 @@ include 'models/CommandList.php';
 
 class ContentController {
 
-    function getAll($param) {
-        $tutorial = $param['tutorial'];
-        
-        $path = "../../tutorials/data/".$tutorial.'.json';
+  const DIR_DATA = '../../public/data/';
 
-        $commandList = new CommandList();
-        $commandList->loadFromFile($path);
+  function getAll($param) {
+    $tutorial = $param['tutorial'];
+    
+    $path = self::DIR_DATA.$tutorial.'.json';
 
-        echo $commandList->toJson();
-    }
+    $commandList = new CommandList();
+    $commandList->loadFromFile($path);
+
+    echo $commandList->toJson();
+  }
 
 
-    function insert() {
-        $req = getBody();
-        
-        $tutorial = $req['tutorial'];
-        $number = $req['number'] ?? 0;
-        $title = $req['title'];
-        $content = $req['content'];
-        $code = $req['code'] ?? '';
-        $currentTime = date('dmYhis', time());
-        $id = md5($title.$content.$code.$currentTime);
+  function insert() {
+    $req = getBody();
+    
+    $tutorial = $req['tutorial'];
+    $number = $req['number'] ?? 0;
+    $title = $req['title'];
+    $content = $req['content'];
+    $code = $req['code'] ?? '';
+    $currentTime = date('dmYhis', time());
+    $id = md5($title.$content.$code.$currentTime);
 
-        $path = '../../tutorials/data/'.$tutorial.'.json';
+    $path = self::DIR_DATA.$tutorial.'.json';
 
-        $commandList = new CommandList();
-        $commandList->loadFromFile($path);
+    $commandList = new CommandList();
+    $commandList->loadFromFile($path);
 
-        $commandContent = new Content($id, $content, $code);
-        $command = new Command($title, $number);
-        $command->addContent($commandContent);
-        $commandList->addCommand($command);
+    $commandContent = new Content($id, $content, $code);
+    $command = new Command($title, $number);
+    $command->addContent($commandContent);
+    $commandList->addCommand($command);
 
-        file_put_contents($path, $commandList->toJson());
+    file_put_contents($path, $commandList->toJson());
 
-        echo json_encode(["message" => "Conteúdo cadastrado."]);
-    }
+    echo json_encode(["message" => "Conteúdo cadastrado."]);
+  }
 
-    function update() {
-        $req = getBody();
+  function update() {
+    $req = getBody();
 
-        $tutorial = $req["tutorial"];
-        $number = $req['number'];
-        $title = $req['title'];
-        $id = $req["id"];
-        $content = $req['content'] ?? '';
-        $code = $req['code'] ?? '';
-        $oldTitle = $req['oldTitle'];
+    $tutorial = $req["tutorial"];
+    $number = $req['number'];
+    $title = $req['title'];
+    $id = $req["id"];
+    $content = $req['content'] ?? '';
+    $code = $req['code'] ?? '';
+    $oldTitle = $req['oldTitle'];
 
-        $path = "../../tutorials/data/".$tutorial.".json";
-        
-        $commandList = new CommandList();
-        $commandList->loadFromFile($path);
+    $path = self::DIR_DATA.$tutorial.".json";
+    
+    $commandList = new CommandList();
+    $commandList->loadFromFile($path);
 
-        $commandContent = new Content($id, $content, $code);
-        $commandList->updateCommand($number, $title, $oldTitle, $commandContent);
-        
-        file_put_contents($path, $commandList->toJson());
+    $commandContent = new Content($id, $content, $code);
+    $commandList->updateCommand($number, $title, $oldTitle, $commandContent);
+    
+    file_put_contents($path, $commandList->toJson());
 
-        echo json_encode(["message" => "Conteúdo alterado."]);
-    }
+    echo json_encode(["message" => "Conteúdo alterado."]);
+  }
 
-    function delete($params) {
-        $tutorial = $params["tutorial"];
-        $title = $params["title"];
-        $id = $params["id"];
+  function delete($params) {
+    $tutorial = $params["tutorial"];
+    $title = $params["title"];
+    $id = $params["id"];
 
-        $path = "../../tutorials/data/".$tutorial.".json";
-        
-        $commandList = new CommandList();
-        $commandList->loadFromFile($path);
+    $path = self::DIR_DATA.$tutorial.".json";
+    
+    $commandList = new CommandList();
+    $commandList->loadFromFile($path);
 
-        $commandList->deleteCommand($title, $id);
-        
-        file_put_contents($path, $commandList->toJson());
+    $commandList->deleteCommand($title, $id);
+    
+    file_put_contents($path, $commandList->toJson());
 
-        echo json_encode(["message" => "Conteúdo deletado."]);
-    }
+    echo json_encode(["message" => "Conteúdo deletado."]);
+  }
 
 }

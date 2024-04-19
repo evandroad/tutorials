@@ -1,4 +1,4 @@
-const API = 'php/index.php'
+const API = '../php/index.php'
 let currentTutorial
 let currentImage
 
@@ -86,7 +86,7 @@ function createTutorial() {
 	}
 
 	$.ajax({
-		url: '/api/insert',
+		url: API + '/tutorial',
 		method: 'post',
 		processData: false,
 		contentType: false,
