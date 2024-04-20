@@ -30,7 +30,7 @@ class TutorialController {
 
     $tutorialList = new TutorialList();
     $tutorialList->loadFromFile(self::PATH_TUTORIALS);
-
+    
     $tutorial = new Tutorial(intval($number), $title, $title.'.'.$type);
     $tutorialList->addTutorial($tutorial);
 

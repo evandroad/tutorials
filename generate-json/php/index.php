@@ -10,10 +10,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
   header('Access-Control-Allow-Headers: Origin, Content-Type, Authorization');
   exit(0);
 }
-    
-include 'router.php';
 
+error_reporting(E_ALL & ~E_DEPRECATED & ~E_STRICT & ~E_NOTICE & ~E_WARNING  & ~E_ERROR);
+include 'router.php';
 $router = new Router();
+
+echo file_put_contents('teste', 'Evandro');
 
 $router->get('/tutorial', 'TutorialController@getAll');
 $router->post('/tutorial', 'TutorialController@insert');

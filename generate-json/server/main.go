@@ -3,20 +3,27 @@ package main
 import (
 	"net/http"
 	// "strconv"
-	// "io/ioutil"
-	// "encoding/json"
+	"io/ioutil"
+	"encoding/json"
 
 	"github.com/gin-gonic/gin"
+	"github.com/gin-contrib/cors"
 )
-
-type Data struct {
-	Message string `json:"message"`
-}
 
 type Tutorial struct {
 	Number int    `json:"number"`
 	Title  string `json:"title"`
 	Image  string `json:"image"`
+}
+
+type Content struct {
+	Number int `json:"number"`
+	Title  string `json:"title"`
+	Content []struct {
+		ID      string `json:"id"`
+		Content string `json:"content"`
+		Code    string `json:"code"`
+	} `json:"content"`
 }
 
 type TutorialList struct {
@@ -41,31 +48,84 @@ type TutorialList struct {
 
 func main() {
 	apiRouter := gin.Default()
-	apiRouter.GET("/data", handleData)
+	apiRouter.Use(CorsMiddleware())
+	apiRouter.GET("/tutorial", listTutorial)
+	apiRouter.GET("/content/:tutorial", listContent)
 
 	apiPort := ":8081"
 	println("API rodando em http://localhost" + apiPort)
 	go func() {
-			err := apiRouter.Run(apiPort)
-			if err != nil {
-					println("Erro ao iniciar o servidor da API: ", err.Error())
-			}
+		err := apiRouter.Run(apiPort)
+		if err != nil {
+			println("Erro ao iniciar o servidor da API: ", err.Error())
+		}
 	}()
 
 	appRouter := gin.Default()
-	appRouter.StaticFS("/", http.Dir("./public"))
+	appRouter.StaticFS("/", http.Dir("../public"))
 
 	appPort := ":8080"
 	println("Arquivos estáticos rodando em http://localhost" + appPort)
 	err := appRouter.Run(appPort)
 	if err != nil {
-			println("Erro ao iniciar o servidor de arquivos estáticos: ", err.Error())
+		println("Erro ao iniciar o servidor de arquivos estáticos: ", err.Error())
 	}
 }
 
-func handleData(c *gin.Context) {
-	data := Data{Message: "Hello from Go server!"}
-	c.JSON(http.StatusOK, data)
+func CorsMiddleware() gin.HandlerFunc {
+  return cors.New(cors.Config{
+		AllowOrigins:     []string{"http://localhost:8080"},
+		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE"},
+		AllowHeaders:     []string{"Origin", "Content-Type", "Content-Length", "Accept-Encoding", "Authorization", "Accept", "X-Requested-With"},
+		AllowCredentials: true,
+		ExposeHeaders:    []string{"Content-Length"},
+  })
+}
+
+func listTutorial(c *gin.Context) {
+	filePath := "../../public/data/tutorials.json"
+	
+	file, err := ioutil.ReadFile(filePath)
+	if err != nil {
+		println("Erro: ", err.Error())
+		c.AbortWithStatus(http.StatusInternalServerError)
+		return
+	}
+
+	var jsonData []Tutorial
+
+	err = json.Unmarshal(file, &jsonData)
+	if err != nil {
+		println("Erro: ", err.Error())
+		c.AbortWithStatus(http.StatusInternalServerError)
+		return
+	}
+
+	c.JSON(http.StatusOK, jsonData)
+}
+
+func listContent(c *gin.Context) {
+	tutorial := c.Param("tutorial")
+	filePath := "../../public/data/" + tutorial + ".json"
+	println("FilePath: " + filePath)
+	
+	file, err := ioutil.ReadFile(filePath)
+	if err != nil {
+		println("Erro: ", err.Error())
+		c.AbortWithStatus(http.StatusInternalServerError)
+		return
+	}
+
+	var jsonData []Content
+
+	err = json.Unmarshal(file, &jsonData)
+	if err != nil {
+		println("Erro: ", err.Error())
+		c.AbortWithStatus(http.StatusInternalServerError)
+		return
+	}
+
+	c.JSON(http.StatusOK, jsonData)
 }
 
 // func insertHandler(w http.ResponseWriter, r *http.Request) {

@@ -1,28 +1,30 @@
 export default {
   template: `
+    <h1>{{ mainTitle }}</h1>
+
     <div v-if="page == 'tutorial'" id="formTutorial" class="col-sm-6 d">
       <div class="input-group mb-3">
         <div class="input-group-prepend">
           <span class="input-group-text" style="width: 80px">Número:</span>
         </div>
-        <input type="text" id="number" class="form-control">
+        <input type="text" id="number" class="form-control" v-model="number">
       </div>
       <div class="input-group mb-3">
         <div class="input-group-prepend">
           <span class="input-group-text" style="width: 80px">Tutorial:</span>
         </div>
-        <input type="text" id="tutorial" class="form-control">
+        <input type="text" id="tutorial" class="form-control" v-model="tutorial">
       </div>
       <div class="input-group mb-3">
         <div class="input-group-prepend">
           <span class="input-group-text" style="width: 80px">Imagem:</span>
         </div>
-        <input type="file" id="image" class="form-control">
+        <input type="file" id="image" class="form-control" v-model="image" @change="handleImageChange">
       </div>
-      <div class="form-group">
-        <button id="btnAddTutorial" class="btn btn-success" onclick="createTutorial()">Criar Tutorial</button>
-        <button id="btnEditTutorial" class="btn btn-success" onclick="editTutorial()">Editar Tutorial</button>
-        <button class="btn btn-primary" onclick="cleanTutorial()">Limpar</button>
+      <div class="form-group gap">
+        <button v-show="showBtnAddTutorial" class="btn btn-success" @click="createTutorial">Criar Tutorial</button>
+        <button v-show="showBtnEditTutorial" class="btn btn-success" onclick="editTutorial()">Editar Tutorial</button>
+        <button class="btn btn-primary" @click="cleanTutorial">Limpar</button>
       </div>
     </div>
 
@@ -35,18 +37,42 @@ export default {
           <th>Ir</th>
           <th>Apagar</th>
         </thead>
+        <tbody>
+          <tr v-for="tutorial in tutorials">
+            <td>{{ tutorial.number }}</td>
+            <td>{{ tutorial.title }}</td>
+            <td>
+              <a href='#'>
+                <i class='fa fa-pencil-square' style='font-size: 25px'></i>
+              </a>
+            </td>
+            <td>
+              <a href='#content' @click="goTutorial(tutorial.title)">
+                <i class='fa fa-share' style='font-size: 25px'></i>
+              </a>
+            </td>
+            <td>
+              <a href='#'>
+                <i class='fa fa-trash' style='font-size: 25px'></i>
+              </a>
+            </td>
+            <td v-show="false">{{ tutorial.image }}</td>
+          </tr>
+        </tbody>
       </table>
     </div>
 
     <div v-if="page == 'content'" id="formContent" class="col-sm-8 d">
-      <button id="btnHome" class="btn btn-secondary" type="button" onclick="home()">Voltar</button>
+      <button id="btnHome" class="btn btn-secondary" type="button" @click="home">Voltar</button>
+      
       <h2 id="titleAddCont" style="text-align: center;">Adicionar Conteúdo</h2>
-      <h2 id="titleUpdCont" style="text-align: center;">Alterar Conteúdo</h2>
-      <div id="divId" class="input-group mb-3">
+      <h2 v-show="showTitleUpdCont" style="text-align: center;">Alterar Conteúdo</h2>
+      
+      <div id="divId" v-show="false" class="input-group mb-3">
         <div class="input-group-prepend">
           <span class="input-group-text" style="width: 80px">Id:</span>
         </div>
-        <input type="text" id="id" class="form-control">
+        <input type="text" v-model="id" class="form-control">
       </div>
       <div class="input-group mb-3">
         <div class="input-group-prepend">
@@ -72,11 +98,11 @@ export default {
         </div>
         <textarea id="code" class="form-control" rows="3"></textarea>
       </div>
-      <div class="form-group">
-        <button id="btnUpda" class="btn btn-success" type="button" onclick="updateContent()">Alterar</button>
+      <div class="form-group gap">
+        <button v-show="showBtnUpd" class="btn btn-success" type="button" onclick="updateContent()">Alterar</button>
         <button id="btnSave" class="btn btn-success" type="button" onclick="saveContent()">Salvar</button>
         <button class="btn btn-primary" type="button" onclick="cleanContent()">Limpar</button>
-        <button id="btnAdd" class="btn btn-secondary" type="button" onclick="addContent()">Retornar</button>
+        <button v-show="showBtnAdd" class="btn btn-secondary" type="button" onclick="addContent()">Retornar</button>
       </div>
     </div>
 
@@ -92,60 +118,145 @@ export default {
           <th>Editar</th>
           <th>Apagar</th>
         </thead>
+        <tbody>
+          <template v-for="content in contents">
+            <tr v-for="command in content.content">
+              <td>{{ content.number }}</td>
+              <td>{{ content.title }}</td>
+              <td>{{ command.content }}</td>
+              <td>{{ command.code }}</td>
+              <td>
+                <a href='#'>
+                  <i class='fa fa-plus-square' style='font-size: 25px'></i>
+                </a>
+              </td>
+              <td class="goTutorial">
+                <a href='#content' @click="goTutorial(tutorial.title)">
+                  <i class='fa fa-share' style='font-size: 25px'></i>
+                </a>
+              </td>
+              <td class="deleteTutorial">
+                <a href='#'>
+                  <i class='fa fa-trash' style='font-size: 25px'></i>
+                </a>
+              </td>
+              <td v-show="false">{{ tutorial.image }}</td>
+            </tr>
+          </template>
+        </tbody>
       </table>
     </div>
   `,
   mounted() {
+    document.querySelector("#number").focus()
 		this.listTutorials()
 	},
   data() {
     return {
-      API: '../php/index.php',
-      page: 'tutorial'
+      API: 'http://localhost:8081',
+      page: 'tutorial',
+      tutorials: [],
+      contents: [],
+      number: '',
+      tutorial: '',
+      image: '',
+      mainTitle: 'Tutoriais',
+      showBtnEditTutorial: false,
+      showBtnAddTutorial: true,
+      showTitleUpdCont: false,
+      showBtnUpd: false,
+      showBtnAdd: false
     }
   },
   methods: {
     listTutorials() {
+      if (window.location.hash == '#content') {
+        this.page = 'content'
+        setTimeout(() => document.querySelector("#contentNumber").focus(), 0)
+        return
+      }
+
       $.ajax({
         url: this.API + '/tutorial',
         method: 'get',
         success: data => {
-          data.sort(this.compareByNumber)
-          $('#tutorials tbody').remove()
-          var table = document.querySelector('#tutorials')
-          var tbody = document.createElement('tbody')
-          data.forEach(item => {
-            var tr = document.createElement('tr')
-            var td = document.createElement('td')
-            td.innerHTML = item.number
-            tr.appendChild(td)
-            var td = document.createElement('td')
-            td.innerHTML = item.title
-            tr.appendChild(td)
-            var td = document.createElement('td')
-            td.classList.add("editTutorial")
-            td.innerHTML = "<a href='#'><i class='fa fa-pencil-square' style='font-size: 25px'></i></a>"
-            tr.appendChild(td)
-            var td = document.createElement('td')
-            td.classList.add("goTutorial")
-            td.innerHTML = "<a href='#'><i class='fa fa-share' style='font-size: 22px'></i></a>"
-            tr.appendChild(td)
-            var td = document.createElement('td')
-            td.classList.add("deleteTutorial")
-            td.innerHTML = "<a href='#'><i class='fa fa-trash' style='font-size: 25px'></i></a>"
-            tr.appendChild(td)
-            var td = document.createElement('td')
-            td.innerHTML = item.image
-            tr.appendChild(td)
-            tbody.appendChild(tr)
-          })
-          table.appendChild(tbody)
-          $('td:last-child()').hide()
+          this.tutorials = data.sort(this.compareByNumber)
+        },
+        error: err => console.log(err)
+      })
+    },
+    createTutorial() {
+      if (isNaN(parseFloat(this.number))) {
+        this.number = 0;
+      }
+    
+      var fd = new FormData()
+      fd.append('number', this.number)
+      fd.append('tutorial', this.tutorial)
+      fd.append('image', this.image)
+      
+      if (this.tutorial.length < 1) {
+        alert('Tutorial não pode ficar vazio')
+        return
+      }
+    
+      if (fd.get('image').size === undefined) {
+        alert('Selecione uma imagem.')
+        return
+      }
+    
+      $.ajax({
+        url: this.API + '/tutorial',
+        method: 'post',
+        processData: false,
+        contentType: false,
+        data: fd,
+        success: data => {
+          this.number = ''
+          this.tutorial = ''
+          this.cleanImage()
+          alert(data.message)
+          this.listTutorials()
         }
       })
     },
+    listContents(tutorial) {
+      $.ajax({
+        url: this.API + '/content/' + tutorial,
+        method: 'get',
+        success: data => {
+          this.contents = data
+        }
+      })
+    },
+    goTutorial(tutorial) {
+      this.page = 'content'
+      this.mainTitle = tutorial
+      this.listContents(tutorial)
+      setTimeout(() => document.querySelector("#contentNumber").focus(), 10)
+    },
+    home() {
+      this.page = 'tutorial'
+      window.location.hash = '#home'
+      this.listTutorials()
+      setTimeout(() => document.querySelector("#number").focus(), 0)
+    },
+    handleImageChange(event) {
+      this.image = event.target.files[0];
+    },
     compareByNumber(a, b) {
       return a.number - b.number;
+    },
+    cleanTutorial() {
+      this.showBtnAddTutorial = true
+      this.showBtnEditTutorial = false
+      document.querySelector("#number").focus()
+      this.number = ''
+      this.tutorial = ''
+      this.image = ''
+    },
+    cleanImage() {
+      document.querySelector("#image").value = ''
     }
   }
 }

@@ -325,7 +325,7 @@
 		]
 	},
 	{
-		"number": "16",
+		"number": 16,
 		"title": "git apply",
 		"content": [
 			{
