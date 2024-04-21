@@ -42,7 +42,7 @@ export default {
             <td>{{ tutorial.number }}</td>
             <td>{{ tutorial.title }}</td>
             <td>
-              <a href='#'>
+              <a href="">
                 <i class='fa fa-pencil-square' style='font-size: 25px'></i>
               </a>
             </td>
@@ -52,7 +52,7 @@ export default {
               </a>
             </td>
             <td>
-              <a href='#'>
+              <a href="" @click.prevent="deleteTutorial(tutorial.title)">
                 <i class='fa fa-trash' style='font-size: 25px'></i>
               </a>
             </td>
@@ -149,6 +149,16 @@ export default {
   `,
   mounted() {
     document.querySelector("#number").focus()
+    tutorial = ''
+
+    if (window.location.hash == '#content') {
+      if (sessionStorage.getItem('tutorial') != null) {
+        tutorial = sessionStorage.getItem('tutorial')
+      }
+      this.goTutorial(tutorial)
+      return
+    }
+
 		this.listTutorials()
 	},
   data() {
@@ -170,12 +180,6 @@ export default {
   },
   methods: {
     listTutorials() {
-      if (window.location.hash == '#content') {
-        this.page = 'content'
-        setTimeout(() => document.querySelector("#contentNumber").focus(), 0)
-        return
-      }
-
       $.ajax({
         url: this.API + '/tutorial',
         method: 'get',
@@ -220,6 +224,20 @@ export default {
         }
       })
     },
+    deleteTutorial(tutorial) {
+      $.ajax({
+        url: this.API + '/tutorial/' + tutorial,
+        method: 'delete',
+        success: data => {
+          alert(data.message)
+          this.listTutorials()
+        },
+        error: (xhr, status, error) => {
+          console.error("Status:", status);
+          console.error("Error:", error);
+        }
+      })
+    },
     listContents(tutorial) {
       $.ajax({
         url: this.API + '/content/' + tutorial,
@@ -230,6 +248,7 @@ export default {
       })
     },
     goTutorial(tutorial) {
+      sessionStorage.setItem('tutorial', tutorial)
       this.page = 'content'
       this.mainTitle = tutorial
       this.listContents(tutorial)
