@@ -10,9 +10,12 @@ import (
 	"encoding/json"
 	"path/filepath"
 
+	"github.com/fatih/color"
 	"github.com/gin-gonic/gin"
 	"github.com/gin-contrib/cors"
 )
+
+var cyan = color.New(color.FgCyan).SprintFunc()
 
 type Tutorial struct {
 	Number int    `json:"number"`
@@ -30,10 +33,6 @@ type Content struct {
 	} `json:"content"`
 }
 
-type TutorialList struct {
-	Tutorials []Tutorial `json:"tutorials"`
-}
-
 func CorsMiddleware() gin.HandlerFunc {
   return cors.New(cors.Config{
 		AllowOrigins:     []string{"http://localhost:8080"},
@@ -44,27 +43,12 @@ func CorsMiddleware() gin.HandlerFunc {
   })
 }
 
-// func (tl *TutorialList) LoadFromFile(path string) error {
-// 	data, err := ioutil.ReadFile(path)
-// 	if err != nil {
-// 		return err
-// 	}
-// 	return json.Unmarshal(data, tl)
-// }
-
-// func (tl *TutorialList) AddTutorial(tutorial Tutorial) {
-// 	tl.Tutorials = append(tl.Tutorials, tutorial)
-// }
-
-// func (tl *TutorialList) ToJson() ([]byte, error) {
-// 	return json.MarshalIndent(tl, "", "  ")
-// }
-
 func main() {
 	apiRouter := gin.Default()
 	apiRouter.Use(CorsMiddleware())
 	apiRouter.GET("/tutorial", listTutorial)
 	apiRouter.POST("/tutorial", insertTutorial)
+	apiRouter.PUT("/tutorial", updateTutorial)
 	apiRouter.DELETE("/tutorial/:tutorial", deleteTutorial)
 	apiRouter.GET("/content/:tutorial", listContent)
 
@@ -81,7 +65,7 @@ func main() {
 	appRouter.StaticFS("/", http.Dir("../public"))
 
 	appPort := ":8080"
-	println("Arquivos estáticos rodando em http://localhost" + appPort)
+	println("Arquivos estáticos rodando em " + cyan("http://localhost" + appPort))
 	err := appRouter.Run(appPort)
 	if err != nil {
 		println("Erro ao iniciar o servidor de arquivos estáticos: ", err.Error())
@@ -129,7 +113,6 @@ func insertTutorial(c *gin.Context) {
 	}
 	
 	tutorial := c.PostForm("tutorial")
-	println("Tutorial: ", tutorial)
 
 	image, header, err := c.Request.FormFile("image")
 	if err != nil {
@@ -203,6 +186,125 @@ func insertTutorial(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, gin.H{"message": "Dados e imagem salvos com sucesso."})
+}
+
+func updateTutorial(c *gin.Context) {
+	if err := c.Request.ParseMultipartForm(32 << 20); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Não foi possível processar os dados do formulário: " + err.Error()})
+		return
+	}
+	
+	var formData Tutorial
+	if err := c.ShouldBind(&formData); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Erro ao vincular os dados do formulário: " + err.Error()})
+		return
+	}
+	
+	number, err := strconv.Atoi(c.PostForm("number"))
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Número inválido"})
+		return
+	}
+	
+	tutorial := c.PostForm("tutorial")
+	currentTutorial := c.PostForm("currentTutorial")
+	currentImage := c.PostForm("currentImage")
+	var ext string
+
+	oldImagePath := "../../public/img/" + currentImage
+	
+	image, header, err := c.Request.FormFile("image")
+	if err != nil {
+		println("error: Erro ao receber a imagem: ", err.Error())
+		ext = filepath.Ext(currentImage)
+		newImagePath := "../../public/img/" + tutorial + ext
+
+		err = os.Rename(oldImagePath, newImagePath)
+		if err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "Erro ao renomear o tutorial: " + err.Error()})
+			return
+		}
+	} else {
+		err = os.Remove(oldImagePath)
+		if err != nil {
+			println("Erro ao apagar o arquivo:", err)
+			return
+		}
+
+		ext = filepath.Ext(header.Filename)
+		newImagePath := "../../public/img/" + tutorial + ext
+
+		out, err := os.Create(newImagePath)
+		if err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "Erro ao salvar a imagem: " + err.Error()})
+			return
+		}
+		defer out.Close()
+
+		if _, err = io.Copy(out, image); err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "Erro ao salvar a imagem: " + err.Error()})
+			return
+		}
+		defer image.Close()
+	}
+
+	oldPath := "../../public/data/" + currentTutorial + ".json"
+	newPath := "../../public/data/" + tutorial + ".json"
+	
+	err = os.Rename(oldPath, newPath)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Erro ao renomear o tutorial: " + err.Error()})
+		return
+	}
+
+	filePath := "../../public/data/tutorials.json"
+	
+	file, err := ioutil.ReadFile(filePath)
+	if err != nil {
+		println("Erro: ", err.Error())
+		c.AbortWithStatus(http.StatusInternalServerError)
+		return
+	}
+
+	var tutorials []Tutorial
+
+	err = json.Unmarshal(file, &tutorials)
+	if err != nil {
+		println("Erro: ", err.Error())
+		c.AbortWithStatus(http.StatusInternalServerError)
+		return
+	}
+
+	var updatedTutorials []Tutorial
+
+	for _, t := range tutorials {
+		if t.Title == currentTutorial {
+			t.Number = number
+			t.Title = tutorial
+			t.Image = tutorial + ext
+		}
+		updatedTutorials = append(updatedTutorials, t)
+	}
+
+	tutorials = updatedTutorials
+
+	sort.Slice(tutorials, func(i, j int) bool {
+    return tutorials[i].Number < tutorials[j].Number
+	})
+
+	updatedData, err := json.Marshal(tutorials)
+	if err != nil {
+		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Erro ao serializar JSON: " + err.Error()})
+		return
+	}
+
+	err = ioutil.WriteFile(filePath, updatedData, 0644)
+	if err != nil {
+		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Erro ao escrever no arquivo: " + err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"message": "Tutorial salvo com sucesso."})
 }
 
 func deleteTutorial(c *gin.Context) {
@@ -293,76 +395,3 @@ func listContent(c *gin.Context) {
 
 	c.JSON(http.StatusOK, jsonData)
 }
-
-// func insertHandler(w http.ResponseWriter, r *http.Request) {
-// 	if r.Method != http.MethodPost {
-// 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
-// 		return
-// 	}
-
-// 	err := r.ParseMultipartForm(10 << 20) // 10 MB max memory
-// 	if err != nil {
-// 		http.Error(w, err.Error(), http.StatusInternalServerError)
-// 		return
-// 	}
-
-// 	number, err := strconv.Atoi(r.FormValue("number"))
-// 	if err != nil {
-// 		http.Error(w, "Invalid or missing number", http.StatusBadRequest)
-// 		return
-// 	}
-
-// 	println("Body decodificado da solicitação:\n%s", number)
-
-// 	title := r.FormValue("tutorial")
-// 	if title == "" {
-// 		http.Error(w, "Invalid or missing tutorial title", http.StatusBadRequest)
-// 		return
-// 	}
-
-// 	println("Body decodificado da solicitação:\n%s", title)
-
-	// // Read the file
-	// file, handler, err := r.FormFile("image")
-	// if err != nil {
-	// 	http.Error(w, "Invalid or missing image file", http.StatusBadRequest)
-	// 	return
-	// }
-	// defer file.Close()
-
-	// // Create file
-	// dst, err := os.Create("../" + handler.Filename)
-	// if err != nil {
-	// 	http.Error(w, "Failed to create file", http.StatusInternalServerError)
-	// 	return
-	// }
-	// defer dst.Close()
-
-	// // Copy the file to the destination
-	// _, err = io.Copy(dst, file)
-	// if err != nil {
-	// 	http.Error(w, "Failed to save file", http.StatusInternalServerError)
-	// 	return
-	// }
-
-	// tutorial := Tutorial{Number: int(number), Title: title, Image: handler.Filename}
-	
-	// path := "tutorials.json"
-	// tutorialList := &TutorialList{}
-	// err = tutorialList.LoadFromFile(path)
-	// if err != nil {
-	// 	http.Error(w, "Failed to load tutorials", http.StatusInternalServerError)
-	// 	return
-	// }
-
-	// tutorialList.AddTutorial(tutorial)
-
-	// jsonData, err := tutorialList.ToJson()
-	// if err != nil {
-	// 	http.Error(w, "Failed to serialize tutorials", http.StatusInternalServerError)
-	// 	return
-	// }
-
-	// ioutil.WriteFile(path, jsonData, 0644)
-	// json.NewEncoder(w).Encode(map[string]string{"message": "Created tutorial."})
-// }

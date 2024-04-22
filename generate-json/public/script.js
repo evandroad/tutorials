@@ -23,7 +23,7 @@ export default {
       </div>
       <div class="form-group gap">
         <button v-show="showBtnAddTutorial" class="btn btn-success" @click="createTutorial">Criar Tutorial</button>
-        <button v-show="showBtnEditTutorial" class="btn btn-success" onclick="editTutorial()">Editar Tutorial</button>
+        <button v-show="showBtnEditTutorial" class="btn btn-success" @click="updateTutorial">Editar Tutorial</button>
         <button class="btn btn-primary" @click="cleanTutorial">Limpar</button>
       </div>
     </div>
@@ -42,7 +42,7 @@ export default {
             <td>{{ tutorial.number }}</td>
             <td>{{ tutorial.title }}</td>
             <td>
-              <a href="">
+              <a href="" @click.prevent="editTutorial(tutorial)">
                 <i class='fa fa-pencil-square' style='font-size: 25px'></i>
               </a>
             </td>
@@ -99,10 +99,10 @@ export default {
         <textarea id="code" class="form-control" rows="3"></textarea>
       </div>
       <div class="form-group gap">
-        <button v-show="showBtnUpd" class="btn btn-success" type="button" onclick="updateContent()">Alterar</button>
+        <button v-show="showBtnUpdContent" class="btn btn-success" type="button" onclick="updateContent()">Alterar</button>
         <button id="btnSave" class="btn btn-success" type="button" onclick="saveContent()">Salvar</button>
         <button class="btn btn-primary" type="button" onclick="cleanContent()">Limpar</button>
-        <button v-show="showBtnAdd" class="btn btn-secondary" type="button" onclick="addContent()">Retornar</button>
+        <button v-show="showBtnAddContent" class="btn btn-secondary" type="button" onclick="addContent()">Retornar</button>
       </div>
     </div>
 
@@ -170,12 +170,14 @@ export default {
       number: '',
       tutorial: '',
       image: '',
+      currentTutorial: '',
+	    currentImage: '',
       mainTitle: 'Tutoriais',
       showBtnEditTutorial: false,
       showBtnAddTutorial: true,
       showTitleUpdCont: false,
-      showBtnUpd: false,
-      showBtnAdd: false
+      showBtnUpdContent: false,
+      showBtnAddContent: false
     }
   },
   methods: {
@@ -224,17 +226,49 @@ export default {
         }
       })
     },
+    updateTutorial() {
+      var fd = new FormData()
+      fd.append('number', this.number)
+      fd.append('tutorial', this.tutorial)
+      fd.append('currentTutorial', this.currentTutorial)
+      fd.append('currentImage', this.currentImage)
+      fd.append('image', this.image)
+
+      if (this.tutorial.length < 1) {
+        alert('Tutorial não pode ficar vazio')
+        return
+      }
+
+      $.ajax({
+        url: this.API + '/tutorial',
+        method: 'put',
+        processData: false,
+        contentType: false,
+        data: fd,
+        success: data => {
+          this.number = ''
+          this.tutorial = ''
+          this.cleanImage()
+          alert(data.message)
+          this.listTutorials()
+          this.showBtnAddTutorial = true
+          this.showBtnEditTutorial = false
+        }
+      })
+    },
     deleteTutorial(tutorial) {
+      var response = confirm("Você deseja apagar o tutorial " + tutorial + "?");
+
+      if (!response) {
+        return
+      }
+
       $.ajax({
         url: this.API + '/tutorial/' + tutorial,
         method: 'delete',
         success: data => {
           alert(data.message)
           this.listTutorials()
-        },
-        error: (xhr, status, error) => {
-          console.error("Status:", status);
-          console.error("Error:", error);
         }
       })
     },
@@ -252,7 +286,15 @@ export default {
       this.page = 'content'
       this.mainTitle = tutorial
       this.listContents(tutorial)
-      setTimeout(() => document.querySelector("#contentNumber").focus(), 10)
+      setTimeout(() => document.querySelector("#contentNumber").focus(), 100)
+    },
+    editTutorial(tutorial) {
+      this.number = tutorial.number
+      this.tutorial = tutorial.title
+      this.currentTutorial = tutorial.title
+      this.currentImage = tutorial.image
+      this.showBtnAddTutorial = false
+      this.showBtnEditTutorial = true
     },
     home() {
       this.page = 'tutorial'
