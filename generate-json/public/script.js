@@ -227,6 +227,10 @@ export default {
       })
     },
     updateTutorial() {
+      if (isNaN(parseFloat(this.number))) {
+        this.number = 0;
+      }
+      
       var fd = new FormData()
       fd.append('number', this.number)
       fd.append('tutorial', this.tutorial)
@@ -298,6 +302,7 @@ export default {
     },
     home() {
       this.page = 'tutorial'
+      this.mainTitle = 'Tutorial'
       window.location.hash = '#home'
       this.listTutorials()
       setTimeout(() => document.querySelector("#number").focus(), 0)
