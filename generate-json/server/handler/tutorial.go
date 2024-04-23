@@ -44,7 +44,7 @@ func InsertTutorial(c *gin.Context) {
 		Number: number,
 		Title: tutorial,
 		Image: tutorial + ext,
-	}	
+	}
 
 	tutorials = append(tutorials, newTutorial)
 

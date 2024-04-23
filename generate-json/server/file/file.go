@@ -13,6 +13,18 @@ type Tutorial struct {
 	Image  string `json:"image"`
 }
 
+type Command struct {
+	Number 	int	 			`json:"number"`
+	Title  	string	  `json:"title"`
+	Content []Content `json:"content"`
+}
+
+type Content struct {
+	ID      string `json:"id"`
+	Content string `json:"content"`
+	Code    string `json:"code"`
+}
+
 func SaveImage(imagePath string, image io.Reader) {
 	out, err := os.Create(imagePath)
 	if err != nil {
@@ -28,13 +40,27 @@ func SaveImage(imagePath string, image io.Reader) {
 }
 
 func SaveJson(filePath string, tutorials []Tutorial) {
-	updatedData, err := json.Marshal(tutorials)
+	data, err := json.Marshal(tutorials)
 	if err != nil {
 		println("Erro ao serializar JSON: " + err.Error())
 		return
 	}
 	
-	err = ioutil.WriteFile(filePath, updatedData, 0644)
+	saveFile(filePath, data)
+}
+
+func SaveCommand(filePath string, commands []Command) {
+	data, err := json.Marshal(commands)
+	if err != nil {
+		println("Erro ao serializar JSON: " + err.Error())
+		return
+	}
+	
+	saveFile(filePath, data)
+}
+
+func saveFile(filePath string, data []byte) {
+	err := ioutil.WriteFile(filePath, data, 0644)
 	if err != nil {
 		println("Erro ao escrever no arquivo: " + err.Error())
 		return

@@ -12,11 +12,11 @@ var cyan = color.New(color.FgCyan).SprintFunc()
 
 func CorsMiddleware() gin.HandlerFunc {
   return cors.New(cors.Config{
+		AllowCredentials: true,
 		AllowOrigins:     []string{"http://localhost:8080"},
 		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE"},
-		AllowHeaders:     []string{"Origin", "Content-Type", "Content-Length", "Accept-Encoding", "Authorization", "Accept", "X-Requested-With"},
-		AllowCredentials: true,
 		ExposeHeaders:    []string{"Content-Length"},
+		AllowHeaders:     []string{"Origin", "Content-Type", "Content-Length", "Accept-Encoding", "Authorization", "Accept", "X-Requested-With"},
   })
 }
 
@@ -28,6 +28,7 @@ func main() {
 	apiRouter.PUT("/tutorial", updateTutorial)
 	apiRouter.DELETE("/tutorial/:tutorial", deleteTutorial)
 	apiRouter.GET("/content/:tutorial", listContent)
+	apiRouter.POST("/content", insertContent)
 
 	apiPort := ":8081"
 	println("API rodando em http://localhost" + apiPort)
@@ -54,3 +55,4 @@ func insertTutorial(c *gin.Context) { handler.InsertTutorial(c) }
 func updateTutorial(c *gin.Context) { handler.UpdateTutorial(c) }
 func deleteTutorial(c *gin.Context) { handler.DeleteTutorial(c) }
 func listContent(c *gin.Context) { handler.ListContent(c) }
+func insertContent(c *gin.Context) { handler.InsertContent(c) }

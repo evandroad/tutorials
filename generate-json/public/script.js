@@ -78,29 +78,29 @@ export default {
         <div class="input-group-prepend">
           <span class="input-group-text" style="width: 80px">Number:</span>
         </div>
-        <input type="text" id="contentNumber" class="form-control">
+        <input type="text" id="contentNumber" v-model="contentNumber" class="form-control">
       </div>
       <div class="input-group mb-3">
         <div class="input-group-prepend">
           <span class="input-group-text" style="width: 80px">Title:</span>
         </div>
-        <input type="text" id="title" class="form-control">
+        <input type="text" v-model="title" class="form-control">
       </div>
       <div class="input-group mb-3">
         <div class="input-group-prepend">
           <span class="input-group-text" style="width: 80px">Content:</span>
         </div>
-        <textarea id="content" class="form-control" rows="3"></textarea>
+        <textarea v-model="content" class="form-control" rows="3"></textarea>
       </div>
       <div class="input-group mb-3">
         <div class="input-group-prepend">
           <span class="input-group-text" style="width: 80px">Code:</span>
         </div>
-        <textarea id="code" class="form-control" rows="3"></textarea>
+        <textarea v-model="code" class="form-control" rows="3"></textarea>
       </div>
       <div class="form-group gap">
         <button v-show="showBtnUpdContent" class="btn btn-success" type="button" onclick="updateContent()">Alterar</button>
-        <button id="btnSave" class="btn btn-success" type="button" onclick="saveContent()">Salvar</button>
+        <button id="btnSaveContent" class="btn btn-success" type="button" @click="saveContent()">Salvar</button>
         <button class="btn btn-primary" type="button" onclick="cleanContent()">Limpar</button>
         <button v-show="showBtnAddContent" class="btn btn-secondary" type="button" onclick="addContent()">Retornar</button>
       </div>
@@ -172,6 +172,10 @@ export default {
       image: '',
       currentTutorial: '',
 	    currentImage: '',
+      contentNumber: '',
+      title: '',
+      content: '',
+      code: '',
       mainTitle: 'Tutoriais',
       showBtnEditTutorial: false,
       showBtnAddTutorial: true,
@@ -306,6 +310,41 @@ export default {
       window.location.hash = '#home'
       this.listTutorials()
       setTimeout(() => document.querySelector("#number").focus(), 0)
+    },
+    saveContent() {
+      var content = this.content
+        .replaceAll('<', '&lt')
+        .replaceAll('>', '&gt')
+        .replaceAll('\n', '<br>')
+      var code = this.code
+        .replaceAll('<', '&lt')
+        .replaceAll('>', '&gt')
+        .replaceAll('\n', '<br>')
+      
+      if (this.title.length < 1 && (content.length < 1 || code.length < 1)) {
+        alert('Campos não podem ficar vazio')
+        return
+      }
+
+      if (isNaN(parseFloat(this.contentNumber))) {
+        this.contentNumber = 0;
+      }
+
+      $.ajax({
+        url: this.API + '/content',
+        method: 'post',
+        data: {tutorial: this.mainTitle, number: this.contentNumber, title: this.title, content: content, code: code},
+        success: data => {
+          alert(data.message)
+          // addContent()
+          this.listContents(tutorial)
+          this.contentNumber = ''
+          this.title = ''
+          this.content = ''
+          this.code = ''
+          document.querySelector("#contentNumber").focus()
+        }
+      })
     },
     handleImageChange(event) {
       this.image = event.target.files[0];
