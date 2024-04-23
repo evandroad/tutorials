@@ -304,9 +304,9 @@ function updateContent() {
 function addContent() {
 	cleanContent()
 	$('#btnAdd').hide()
-	$('#titleUpdCont').hide()
-	$('#btnUpda').hide()
 	$('#titleAddCont').show()
+	$('#btnUpda').hide()
+	$('#titleUpdCont').hide()
 	$('#btnSave').show()
 	$('#contentNumber').focus()
 }

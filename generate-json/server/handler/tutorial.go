@@ -96,22 +96,20 @@ func UpdateTutorial(c *gin.Context) {
 	}
 	
 	var tutorials = getTutorials()
-	var updatedTutorials []file.Tutorial
 
-	for _, t := range tutorials {
-		if t.Title == currentTutorial {
-			t.Number = number
-			t.Title = tutorial
-			t.Image = tutorial + ext
+	for i := range tutorials {
+		if tutorials[i].Title == currentTutorial {
+			tutorials[i].Number = number
+			tutorials[i].Title = tutorial
+			tutorials[i].Image = tutorial + ext
 		}
-		updatedTutorials = append(updatedTutorials, t)
 	}
 
-	sort.Slice(updatedTutorials, func(i, j int) bool {
-    return updatedTutorials[i].Number < updatedTutorials[j].Number
+	sort.Slice(tutorials, func(i, j int) bool {
+    return tutorials[i].Number < tutorials[j].Number
 	})
 
-	file.SaveJson(filePath, updatedTutorials)
+	file.SaveJson(filePath, tutorials)
 
 	c.JSON(http.StatusOK, gin.H{"message": "Tutorial salvo com sucesso."})
 }
@@ -121,20 +119,17 @@ func DeleteTutorial(c *gin.Context) {
 	filePath := "../../public/data/tutorials.json"
 
 	var tutorials = getTutorials()
-	var updatedTutorials []file.Tutorial
 
 	var image string
-	for _, t := range tutorials {
-		if t.Title != tutorial {
-			updatedTutorials = append(updatedTutorials, t)
-		}
-
-		if t.Title == tutorial {
-			image = t.Image
+	for i := range tutorials {
+		if tutorials[i].Title == tutorial {
+			image = tutorials[i].Image
+			tutorials = append(tutorials[:i], tutorials[i+1:]...)
+			break
 		}
 	}
 
-	file.SaveJson(filePath, updatedTutorials)
+	file.SaveJson(filePath, tutorials)
 	
 	imagePath := "../../public/img/" + image
 	file.Remove(imagePath)

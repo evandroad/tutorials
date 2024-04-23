@@ -68,12 +68,6 @@ export default {
       <h2 v-show="showTitleAddCont" style="text-align: center;">Adicionar Conteúdo</h2>
       <h2 v-show="showTitleUpdCont" style="text-align: center;">Alterar Conteúdo</h2>
       
-      <div id="divId" v-show="false" class="input-group mb-3">
-        <div class="input-group-prepend">
-          <span class="input-group-text" style="width: 80px">Id:</span>
-        </div>
-        <input type="text" v-model="id" class="form-control">
-      </div>
       <div class="input-group mb-3">
         <div class="input-group-prepend">
           <span class="input-group-text" style="width: 80px">Number:</span>
@@ -99,10 +93,9 @@ export default {
         <textarea v-model="code" class="form-control" rows="3"></textarea>
       </div>
       <div class="form-group gap">
-        <button v-show="showBtnUpdContent" class="btn btn-success" type="button" onclick="updateContent()">Alterar</button>
-        <button id="btnSaveContent" class="btn btn-success" type="button" @click="saveContent()">Salvar</button>
-        <button class="btn btn-primary" type="button" onclick="cleanContent()">Limpar</button>
-        <button v-show="showBtnAddContent" class="btn btn-secondary" type="button" onclick="addContent()">Retornar</button>
+        <button v-show="showBtnSaveContent" class="btn btn-success" type="button" @click="saveContent">Salvar</button>
+        <button v-show="showBtnUpdContent" class="btn btn-success" type="button" @click="updateContent">Alterar</button>
+        <button class="btn btn-primary" type="button" @click="cleanContent">Limpar</button>
       </div>
     </div>
 
@@ -126,12 +119,12 @@ export default {
               <td>{{ command.content }}</td>
               <td>{{ command.code }}</td>
               <td>
-                <a href='' @click.prevent="addContent(content, command)">
+                <a href='' @click.prevent="addContent(content)">
                   <i class='fa fa-plus-square' style='font-size: 25px'></i>
                 </a>
               </td>
               <td class="goTutorial">
-                <a href='#content' @click="goTutorial(tutorial.title)">
+                <a href='' @click.prevent="editContent(content, command)">
                   <i class='fa fa-share' style='font-size: 25px'></i>
                 </a>
               </td>
@@ -174,15 +167,18 @@ export default {
 	    currentImage: '',
       contentNumber: '',
       title: '',
+      id: '',
       content: '',
       code: '',
+      currentTitle: '',
       mainTitle: 'Tutoriais',
       showBtnEditTutorial: false,
       showBtnAddTutorial: true,
       showTitleUpdCont: false,
       showBtnUpdContent: false,
       showTitleAddCont: true,
-      showBtnAddContent: false
+      showBtnAddContent: false,
+      showBtnSaveContent: true
     }
   },
   methods: {
@@ -337,7 +333,6 @@ export default {
         data: {tutorial: this.mainTitle, number: this.contentNumber, title: this.title, content: content, code: code},
         success: data => {
           alert(data.message)
-          // addContent()
           this.listContents(this.mainTitle)
           this.contentNumber = ''
           this.title = ''
@@ -347,10 +342,62 @@ export default {
         }
       })
     },
-    addContent(content, command) {
+    updateContent() {
+      var content = this.content
+        .replaceAll('<', '&lt')
+        .replaceAll('>', '&gt')
+        .replaceAll('\n', '<br>')
+      var code = this.code
+        .replaceAll('<', '&lt')
+        .replaceAll('>', '&gt')
+        .replaceAll('\n', '<br>')
+      
+      if (this.title.length < 1 && (content.length < 1 || code.length < 1)) {
+        alert('Campos não podem ficar vazio')
+        return
+      }
+
+      if (isNaN(parseFloat(this.contentNumber))) {
+        this.contentNumber = 0;
+      }
+
+      $.ajax({
+        url: this.API + '/content',
+        method: 'put',
+        data: {tutorial: this.mainTitle, id: this.id, number: this.contentNumber, title: this.title, content: content, code: code, oldTitle: this.currentTitle},
+        success: data => {
+          alert(data.message)
+          this.listContents(this.mainTitle)
+          this.addContent({})
+          this.contentNumber = ''
+          this.title = ''
+          this.content = ''
+          this.code = ''
+          document.querySelector("#contentNumber").focus()
+        }
+      })
+    },
+    addContent(content) {
       this.cleanContent()
-      this.showBtnAddContent = false
+      this.showBtnSaveContent = true
+      this.showTitleAddCont = true
+      this.showBtnUpdContent = false
+      this.showTitleUpdCont = false
+      this.contentNumber = content.number
+      this.title = content.title
+    },
+    editContent(content, command) {
+      this.cleanContent()
+      this.showBtnSaveContent = false
       this.showTitleAddCont = false
+      this.showBtnUpdContent = true
+      this.showTitleUpdCont = true
+      this.contentNumber = content.number
+      this.title = content.title
+      this.currentTitle = content.title
+      this.id = command.id
+      this.content = command.content
+      this.code = command.code
     },
     handleImageChange(event) {
       this.image = event.target.files[0];

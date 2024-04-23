@@ -29,6 +29,7 @@ func main() {
 	apiRouter.DELETE("/tutorial/:tutorial", deleteTutorial)
 	apiRouter.GET("/content/:tutorial", listContent)
 	apiRouter.POST("/content", insertContent)
+	apiRouter.PUT("/content", updateContent)
 
 	apiPort := ":8081"
 	println("API rodando em http://localhost" + apiPort)
@@ -56,3 +57,4 @@ func updateTutorial(c *gin.Context) { handler.UpdateTutorial(c) }
 func deleteTutorial(c *gin.Context) { handler.DeleteTutorial(c) }
 func listContent(c *gin.Context) { handler.ListContent(c) }
 func insertContent(c *gin.Context) { handler.InsertContent(c) }
+func updateContent(c *gin.Context) { handler.UpdateContent(c) }

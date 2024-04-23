@@ -33,7 +33,7 @@ func InsertContent(c *gin.Context) {
 	jsonPath := "../../public/data/" + tutorial + ".json"
 
 	now := time.Now()
-	hash := md5.Sum([]byte(title + scontent + code + now.Format("20060102150405")))
+	hash := md5.Sum([]byte(title + scontent + code + now.Format("yyyymmddhhmmss")))
 	id := hex.EncodeToString(hash[:])
 
 	commands := getContents(tutorial)
@@ -49,18 +49,17 @@ func InsertContent(c *gin.Context) {
 		Code: code,
 	}
 
-	command.Content = append(command.Content, content)
-
 	exist := false
-	for _, _command := range commands {
-		if _command.Title == command.Title {
+	for i := range commands {
+		if commands[i].Title == command.Title {
 			exist = true
-			commands = append(commands, command)
+			commands[i].Content = append(commands[i].Content, content)
 			break
 		}
 	}
 
 	if !exist {
+		command.Content = append(command.Content, content)
 		commands = append(commands, command)
 	}
 
@@ -71,6 +70,47 @@ func InsertContent(c *gin.Context) {
 	file.SaveCommand(jsonPath, commands)
 
 	c.JSON(http.StatusOK, gin.H{"message": "Conteúdo salvo com sucesso."})
+}
+
+func UpdateContent(c *gin.Context) {
+	number, err := strconv.Atoi(c.PostForm("number"))
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Número inválido"})
+		return
+	}
+	
+	tutorial := c.PostForm("tutorial")
+	oldTitle := c.PostForm("oldTitle")
+	title := c.PostForm("title")
+	id := c.PostForm("id")
+	content := c.PostForm("content")
+	code := c.PostForm("code")
+	jsonPath := "../../public/data/" + tutorial + ".json"
+
+	commands := getContents(tutorial)
+
+	for i := range commands {
+		if commands[i].Title == oldTitle {
+			commands[i].Number = number
+			commands[i].Title = title
+			for j := range commands[i].Content {
+				if commands[i].Content[j].ID == id {
+					commands[i].Content[j].Content = content
+					commands[i].Content[j].Code = code
+					break
+				}
+			}
+			break
+		}
+	}
+
+	sort.Slice(commands, func(i, j int) bool {
+    return commands[i].Number < commands[j].Number
+	})
+
+	file.SaveCommand(jsonPath, commands)
+
+	c.JSON(http.StatusOK, gin.H{"message": "Conteúdo alterado com sucesso."})
 }
 
 func getContents(tutorial string) []file.Command {
