@@ -2,6 +2,9 @@ package handler
 
 import (
 	// "fmt"
+	"crypto/md5"
+	"encoding/hex"
+	"time"
 	"sort"
 	"strconv"
 	"net/http"
@@ -29,6 +32,10 @@ func InsertContent(c *gin.Context) {
 	code := c.PostForm("code")
 	jsonPath := "../../public/data/" + tutorial + ".json"
 
+	now := time.Now()
+	hash := md5.Sum([]byte(title + scontent + code + now.Format("20060102150405")))
+	id := hex.EncodeToString(hash[:])
+
 	commands := getContents(tutorial)
 
 	command := file.Command{
@@ -37,30 +44,31 @@ func InsertContent(c *gin.Context) {
 	}
 
 	content := file.Content{
-		ID: "qqqqq",
+		ID: id,
 		Content: scontent,
 		Code: code,
 	}
 
 	command.Content = append(command.Content, content)
-	commands = append(commands, command)
+
+	exist := false
+	for _, _command := range commands {
+		if _command.Title == command.Title {
+			exist = true
+			commands = append(commands, command)
+			break
+		}
+	}
+
+	if !exist {
+		commands = append(commands, command)
+	}
 
 	sort.Slice(commands, func(i, j int) bool {
     return commands[i].Number < commands[j].Number
 	})
 
 	file.SaveCommand(jsonPath, commands)
-
-	// for _, command := range commands {
-		// 	for _, c := range command.Content {
-			// 		if t.Title == currentTutorial {
-				// 			t.Number = number
-				// 			t.Title = tutorial
-				// 			t.Image = tutorial + ext
-				// 		}
-				// 		updatedTutorials = append(updatedTutorials, t)
-				// 	}
-	// }
 
 	c.JSON(http.StatusOK, gin.H{"message": "Conteúdo salvo com sucesso."})
 }

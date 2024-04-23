@@ -337,7 +337,7 @@ export default {
         success: data => {
           alert(data.message)
           // addContent()
-          this.listContents(tutorial)
+          this.listContents(this.mainTitle)
           this.contentNumber = ''
           this.title = ''
           this.content = ''
