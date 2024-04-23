@@ -65,7 +65,7 @@ export default {
     <div v-if="page == 'content'" id="formContent" class="col-sm-8 d">
       <button id="btnHome" class="btn btn-secondary" type="button" @click="home">Voltar</button>
       
-      <h2 id="titleAddCont" style="text-align: center;">Adicionar Conteúdo</h2>
+      <h2 v-show="showTitleAddCont" style="text-align: center;">Adicionar Conteúdo</h2>
       <h2 v-show="showTitleUpdCont" style="text-align: center;">Alterar Conteúdo</h2>
       
       <div id="divId" v-show="false" class="input-group mb-3">
@@ -126,7 +126,7 @@ export default {
               <td>{{ command.content }}</td>
               <td>{{ command.code }}</td>
               <td>
-                <a href='#'>
+                <a href='' @click.prevent="addContent(content, command)">
                   <i class='fa fa-plus-square' style='font-size: 25px'></i>
                 </a>
               </td>
@@ -181,6 +181,7 @@ export default {
       showBtnAddTutorial: true,
       showTitleUpdCont: false,
       showBtnUpdContent: false,
+      showTitleAddCont: true,
       showBtnAddContent: false
     }
   },
@@ -346,6 +347,11 @@ export default {
         }
       })
     },
+    addContent(content, command) {
+      this.cleanContent()
+      this.showBtnAddContent = false
+      this.showTitleAddCont = false
+    },
     handleImageChange(event) {
       this.image = event.target.files[0];
     },
@@ -359,6 +365,12 @@ export default {
       this.number = ''
       this.tutorial = ''
       this.image = ''
+    },
+    cleanContent() {
+      this.contentNumber = ''
+      this.title = ''
+      this.content = ''
+      this.code = ''
     },
     cleanImage() {
       document.querySelector("#image").value = ''
