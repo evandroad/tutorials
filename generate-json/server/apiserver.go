@@ -25,6 +25,12 @@ func CorsMiddleware(port string) gin.HandlerFunc {
 func main() {
   apiPort := ":8081"
   appPort := ":8001"
+  apiUrl := "http://localhost" + apiPort
+  appUrl := "http://localhost" + appPort
+
+  if runtime.GOOS == "linux" {
+    openBrowserLinux(appUrl)
+  }
 
   apiRouter := gin.Default()
   apiRouter.Use(CorsMiddleware(appPort))
@@ -37,7 +43,7 @@ func main() {
   apiRouter.PUT("/content", updateContent)
   apiRouter.DELETE("/content/:id/:tutorial/:title", deleteContent)
 
-  println("API rodando em http://localhost" + apiPort)
+  println("API rodando em " + apiUrl)
   go func() {
     err := apiRouter.Run(apiPort)
     if err != nil {
@@ -48,13 +54,11 @@ func main() {
   appRouter := gin.Default()
   appRouter.StaticFS("/", http.Dir("../public"))
 
-  println("Arquivos estáticos rodando em " + cyan("http://localhost" + appPort))
+  println("Arquivos estáticos rodando em " + cyan(appUrl))
   err := appRouter.Run(appPort)
   if err != nil {
     println("Erro ao iniciar o servidor de arquivos estáticos: ", err.Error())
   }
-
-  openBrowser(appPort)
 }
 
 func listTutorial(c *gin.Context) { handler.ListTutorial(c) }
@@ -66,23 +70,11 @@ func insertContent(c *gin.Context) { handler.InsertContent(c) }
 func updateContent(c *gin.Context) { handler.UpdateContent(c) }
 func deleteContent(c *gin.Context) { handler.DeleteContent(c) }
 
-func openBrowser(port string) {
-  var err error
-  url := "http://localhost" + port
-
-  switch runtime.GOOS {
-    case "linux":
-      err = exec.Command("xdg-open", url).Start()
-    case "windows":
-      err = exec.Command("cmd", "/c", "start", url).Start()
-    case "darwin":
-      err = exec.Command("open", url).Start()
-    default:
-      println("Sistema operacional não suportado.")
-      return
-  }
-
+func openBrowserLinux(url string) {
+  cmd := exec.Command("xdg-open", url)
+  err := cmd.Run()
   if err != nil {
     println("Erro ao abrir o navegador padrão:", err.Error())
+    return
   }
 }

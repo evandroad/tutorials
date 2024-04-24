@@ -1,14 +1,13 @@
 package handler
 
 import (
-	// "fmt"
-	"crypto/md5"
-	"encoding/hex"
+	"os"
 	"time"
 	"sort"
 	"strconv"
 	"net/http"
-	"io/ioutil"
+	"crypto/md5"
+	"encoding/hex"
 	"encoding/json"
 	"tutorials/file"
 	"github.com/gin-gonic/gin"
@@ -30,7 +29,7 @@ func InsertContent(c *gin.Context) {
 	title := c.PostForm("title")
 	scontent := c.PostForm("content")
 	code := c.PostForm("code")
-	jsonPath := "../../public/data/" + tutorial + ".json"
+	jsonPath := ROOT_DIR + "data/" + tutorial + ".json"
 
 	now := time.Now()
 	hash := md5.Sum([]byte(title + scontent + code + now.Format("yyyymmddhhmmss")))
@@ -85,7 +84,7 @@ func UpdateContent(c *gin.Context) {
 	id := c.PostForm("id")
 	content := c.PostForm("content")
 	code := c.PostForm("code")
-	jsonPath := "../../public/data/" + tutorial + ".json"
+	jsonPath := ROOT_DIR + "data/" + tutorial + ".json"
 
 	commands := getContents(tutorial)
 
@@ -117,7 +116,7 @@ func DeleteContent(c *gin.Context) {
 	id := c.Param("id")
 	title := c.Param("title")
 	tutorial := c.Param("tutorial")
-	filePath := "../../public/data/" + tutorial + ".json"
+	filePath := ROOT_DIR + "data/" + tutorial + ".json"
 
 	commands := getContents(tutorial)
 
@@ -143,10 +142,10 @@ func DeleteContent(c *gin.Context) {
 }
 
 func getContents(tutorial string) []file.Command {
-	filePath := "../../public/data/" + tutorial + ".json"
+	filePath := ROOT_DIR + "data/" + tutorial + ".json"
 	var jsonData []file.Command
 	
-	file, err := ioutil.ReadFile(filePath)
+	file, err := os.ReadFile(filePath)
 	if err != nil {
 		println("Erro: ", err.Error())
 		return jsonData

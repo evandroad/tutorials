@@ -1,14 +1,18 @@
 package handler
 
 import (
+	"os"
 	"sort"
 	"strconv"
 	"net/http"
-	"io/ioutil"
 	"encoding/json"
 	"path/filepath"
 	"tutorials/file"
 	"github.com/gin-gonic/gin"
+)
+
+const (
+	ROOT_DIR = "../../tutorial/public/"
 )
 
 func ListTutorial(c *gin.Context) {
@@ -32,11 +36,11 @@ func InsertTutorial(c *gin.Context) {
 	defer image.Close()
 
 	ext := filepath.Ext(header.Filename)
-	imagePath := "../../public/img/" + tutorial + ext
+	imagePath := ROOT_DIR + "img/" + tutorial + ext
 
 	file.SaveImage(imagePath, image)
 
-	filePath := "../../public/data/tutorials.json"
+	filePath := ROOT_DIR + "data/tutorials.json"
 	
 	tutorials := getTutorials()
 
@@ -54,7 +58,7 @@ func InsertTutorial(c *gin.Context) {
 
 	file.SaveJson(filePath, tutorials)
 	
-	jsonPath := "../../public/data/" + tutorial + ".json"
+	jsonPath := ROOT_DIR + "data/" + tutorial + ".json"
 	file.SaveEmptyJSON(jsonPath)
 
 	c.JSON(http.StatusOK, gin.H{"message": "Tutorial salvo com sucesso."})
@@ -64,10 +68,10 @@ func UpdateTutorial(c *gin.Context) {
 	tutorial := c.PostForm("tutorial")
 	currentTutorial := c.PostForm("currentTutorial")
 	currentImage := c.PostForm("currentImage")
-	filePath := "../../public/data/tutorials.json"
-	oldImagePath := "../../public/img/" + currentImage
-	oldPath := "../../public/data/" + currentTutorial + ".json"
-	newPath := "../../public/data/" + tutorial + ".json"
+	filePath := ROOT_DIR +  "data/tutorials.json"
+	oldImagePath := ROOT_DIR + "img/" + currentImage
+	oldPath := ROOT_DIR + "data/" + currentTutorial + ".json"
+	newPath := ROOT_DIR + "data/" + tutorial + ".json"
 	var ext string
 	
 	number, err := strconv.Atoi(c.PostForm("number"))
@@ -82,14 +86,14 @@ func UpdateTutorial(c *gin.Context) {
 	if err != nil {
 		println("error: Erro ao receber a imagem: ", err.Error())
 		ext = filepath.Ext(currentImage)
-		newImagePath := "../../public/img/" + tutorial + ext
+		newImagePath := ROOT_DIR + "img/" + tutorial + ext
 
 		file.Rename(oldImagePath, newImagePath)
 	} else {
 		file.Remove(oldImagePath)
 
 		ext = filepath.Ext(header.Filename)
-		newImagePath := "../../public/img/" + tutorial + ext
+		newImagePath := ROOT_DIR + "img/" + tutorial + ext
 
 		file.SaveImage(newImagePath, image)
 		defer image.Close()
@@ -116,7 +120,7 @@ func UpdateTutorial(c *gin.Context) {
 
 func DeleteTutorial(c *gin.Context) {
 	tutorial := c.Param("tutorial")
-	filePath := "../../public/data/tutorials.json"
+	filePath := ROOT_DIR + "data/tutorials.json"
 
 	var tutorials = getTutorials()
 
@@ -131,20 +135,20 @@ func DeleteTutorial(c *gin.Context) {
 
 	file.SaveJson(filePath, tutorials)
 	
-	imagePath := "../../public/img/" + image
+	imagePath := ROOT_DIR + "img/" + image
 	file.Remove(imagePath)
 
-	jsonPath:= "../../public/data/" + tutorial + ".json"
+	jsonPath:= ROOT_DIR + "data/" + tutorial + ".json"
 	file.Remove(jsonPath)
 
 	c.JSON(http.StatusOK, gin.H{"message": "Tutorial apagado com sucesso."})
 }
 
 func getTutorials() []file.Tutorial {
-	filePath := "../../public/data/tutorials.json"
+	filePath := ROOT_DIR + "data/tutorials.json"
 	var jsonData []file.Tutorial
 	
-	file, err := ioutil.ReadFile(filePath)
+	file, err := os.ReadFile(filePath)
 	if err != nil {
 		println("Erro: ", err.Error())
 		return jsonData

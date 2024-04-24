@@ -1,0 +1,13 @@
+[
+    {
+        "number": 1,
+        "title": "Commands",
+        "content": [
+            {
+                "id": "83aad7c6f29c2d974c937ccadebc1ef3",
+                "content": "",
+                "code": "F11                      - Tela cheia<br>Ctrl+Shift+O             - Divide a aba atual em 2 terminais horizontais<br>Ctrl+Shift+E             - Divide a aba atual em 2 terminais verticais<br>Ctrl+Shift+W             - Fecha o terminal ativo<br>Ctrl+Shift+T             - Abre uma nova aba<br>Shift+Ctrl+s             - Exibe\/Esconde a barra de rolagem<br>Ctrl+Shift+f             - Procura por um texto no terminal ativo<br>Ctrl+Shift+R             - Limpa o terminal ativo<br>Super+g                  - Agrupa todos os terminais em uma aba<br>Super+Shift+t            - Remova todo o agrupamento de terminais<br>Ctrl+Shift+q             - Sai do terminator, fechando todas as abas<br>Ctrl+Shift+N ou Ctrl+Tab - Mover para o pr\u00f3ximo terminal<br>Ctrl+page_Down           - Mover para a pr\u00f3xima guia<br>Ctrl+Page_up             - Mover para a guia anterior<br>Alt+Seta_pra_Cima        - Mover para o Terminal Acima<br>Alt+Seta_pra_Baixo       - Mover para o Terminal Abaixo<br>Alt+Seta_pra_Esquerda    - Mover para o Terminal Esquerdo<br>Alt+Seta_pra_Direita     - Mover para o Terminal Direito<br>Ctrl+(+)                 - Aumentar o tamanho da fonte<br>Ctrl+(-)                 - Diminuir o tamanho da fonte<br>Ctrl+0                   - Redefinir o tamanho da fonte para original<br>Ctrl+Shift+R             - Redefinir Terminal<br>Ctrl+Shift+G             - Redefinir o terminal e limpar a janela"
+            }
+        ]
+    }
+]
