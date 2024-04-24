@@ -24,7 +24,7 @@ func CorsMiddleware(port string) gin.HandlerFunc {
 
 func main() {
   apiPort := ":8081"
-  appPort := ":8000"
+  appPort := ":8001"
 
   apiRouter := gin.Default()
   apiRouter.Use(CorsMiddleware(appPort))
