@@ -1,6 +1,8 @@
 package main
 
 import (
+  "log"
+  "fmt"
   "os/exec"
   "runtime"
   "net/http"
@@ -66,21 +68,29 @@ func updateContent(c *gin.Context) { handler.UpdateContent(c) }
 func deleteContent(c *gin.Context) { handler.DeleteContent(c) }
 
 func openBrowser(port string) {
-  var cmd *exec.Cmd
+  var err error
+  url := "http://localhost" + port
 
   switch runtime.GOOS {
-  case "darwin", "linux":
-    cmd = exec.Command("xdg-open", "http://localhost" + port)
+  case "linux":
+    // cmd := exec.Command("xdg-open", url)
+    err = exec.Command("xdg-open", url).Start()
   case "windows":
-    cmd = exec.Command("cmd", "/c", "start", "http://localhost" + port)
+    // cmd = exec.Command("cmd", "/c", "start", url)
+    err = exec.Command("rundll32", "url.dll,FileProtocolHandler", url).Start()
+  case "darwin":
+    err = exec.Command("open", url).Start()
   default:
-    println("Sistema operacional não suportado.")
-    return
+    err = fmt.Errorf("Sistema operacional não suportado.")
   }
 
-  err := cmd.Run()
   if err != nil {
-    println("Erro ao abrir o navegador padrão:", err.Error())
-    return
+    log.Fatal(err)
   }
+
+  // err := cmd.Run()
+  // if err != nil {
+  //   println("Erro ao abrir o navegador padrão:", err.Error())
+  //   return
+  // }
 }
