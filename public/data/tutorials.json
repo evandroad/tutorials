@@ -2,27 +2,27 @@
   {
     "number": 1,
     "title": "Linux Commands",
-    "image": "shell.png"
+    "image": "Linux Commands.png"
   },
   {
     "number": 2,
     "title": "Git Commands",
-    "image": "git.png"
+    "image": "Git Commands.png"
   },
   {
     "number": 3,
     "title": "Docker Commands",
-    "image": "docker.png"
+    "image": "Docker Commands.png"
   },
   {
     "number": 4,
     "title": "Adb Commands",
-    "image": "adb.png"
+    "image": "Adb Commands.png"
   },
   {
     "number": 5,
     "title": "Conventional Commits",
-    "image": "conventional-commits.png"
+    "image": "Conventional Commits.png"
   },
   {
     "number": 6,
@@ -36,12 +36,12 @@
   },
   {
     "number": 8,
-    "title": "Terminator Commands",
-    "image": "Terminator.png"
+    "title": "Nano",
+    "image": "Nano.jpg"
   },
   {
     "number": 9,
-    "title": "Nano",
-    "image": "Nano.jpg"
+    "title": "Terminator Commands",
+    "image": "Terminator Commands.png"
   }
 ]

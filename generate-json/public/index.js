@@ -299,22 +299,6 @@ export default {
         }
       })
     },
-    listContents(tutorial) {
-      $.ajax({
-        url: this.API + '/content/' + tutorial,
-        method: 'get',
-        success: data => {
-          this.contents = data
-        }
-      })
-    },
-    goTutorial(tutorial) {
-      sessionStorage.setItem('tutorial', tutorial)
-      this.page = 'content'
-      this.mainTitle = tutorial
-      this.listContents(tutorial)
-      setTimeout(() => this.focus('contentNumber'), 100)
-    },
     editTutorial(tutorial) {
       this.number = tutorial.number
       this.tutorial = tutorial.title
@@ -323,12 +307,28 @@ export default {
       this.showBtnAddTutorial = false
       this.showBtnEditTutorial = true
     },
+    goTutorial(tutorial) {
+      sessionStorage.setItem('tutorial', tutorial)
+      this.page = 'content'
+      this.mainTitle = tutorial
+      this.listContents(tutorial)
+      setTimeout(() => this.focus('contentNumber'), 100)
+    },
     home() {
       this.page = 'tutorial'
       this.mainTitle = 'Tutorial'
       window.location.hash = '#home'
       this.listTutorials()
       setTimeout(() => this.focus('number'), 0)
+    },
+    listContents(tutorial) {
+      $.ajax({
+        url: this.API + '/content/' + tutorial,
+        method: 'get',
+        success: data => {
+          this.contents = data
+        }
+      })
     },
     saveContent() {
       var content = this.content

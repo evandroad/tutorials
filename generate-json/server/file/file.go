@@ -40,7 +40,7 @@ func SaveImage(imagePath string, image io.Reader) {
 }
 
 func SaveJson(filePath string, tutorials []Tutorial) {
-	data, err := json.Marshal(tutorials)
+	data, err := json.MarshalIndent(tutorials, "", "  ")
 	if err != nil {
 		println("Erro ao serializar JSON: " + err.Error())
 		return
