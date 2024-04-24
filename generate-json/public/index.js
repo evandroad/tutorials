@@ -309,6 +309,7 @@ export default {
     },
     goTutorial(tutorial) {
       sessionStorage.setItem('tutorial', tutorial)
+      this.cleanTutorial()
       this.page = 'content'
       this.mainTitle = tutorial
       this.listContents(tutorial)
