@@ -43,5 +43,10 @@
     "number": 9,
     "title": "Terminator Commands",
     "image": "Terminator Commands.png"
+  },
+  {
+    "number": 10,
+    "title": "SQL Commands",
+    "image": "SQL Commands.jpeg"
   }
 ]
