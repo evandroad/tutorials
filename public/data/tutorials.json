@@ -31,12 +31,17 @@
   },
   {
     "number": 7,
-    "title": "Terminator Commands",
-    "image": "terminator.png"
+    "title": "Coffeescript",
+    "image": "Coffeescript.png"
   },
   {
     "number": 8,
+    "title": "Terminator Commands",
+    "image": "Terminator.png"
+  },
+  {
+    "number": 9,
     "title": "Nano",
-    "image": "nano.jpg"
+    "image": "Nano.jpg"
   }
 ]
