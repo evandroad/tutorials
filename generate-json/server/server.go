@@ -1,8 +1,6 @@
 package main
 
 import (
-  "log"
-  "fmt"
   "os/exec"
   "runtime"
   "net/http"
@@ -14,10 +12,10 @@ import (
 
 var cyan = color.New(color.FgCyan).SprintFunc()
 
-func CorsMiddleware() gin.HandlerFunc {
+func CorsMiddleware(port string) gin.HandlerFunc {
   return cors.New(cors.Config{
     AllowCredentials: true,
-    AllowOrigins:     []string{"http://localhost:8080"},
+    AllowOrigins:     []string{"http://localhost" + port},
     AllowMethods:     []string{"GET", "POST", "PUT", "DELETE"},
     ExposeHeaders:    []string{"Content-Length"},
     AllowHeaders:     []string{"Origin", "Content-Type", "Content-Length", "Accept-Encoding", "Authorization", "Accept", "X-Requested-With"},
@@ -25,8 +23,11 @@ func CorsMiddleware() gin.HandlerFunc {
 }
 
 func main() {
+  apiPort := ":8081"
+  appPort := ":8000"
+
   apiRouter := gin.Default()
-  apiRouter.Use(CorsMiddleware())
+  apiRouter.Use(CorsMiddleware(appPort))
   apiRouter.GET("/tutorial", listTutorial)
   apiRouter.POST("/tutorial", insertTutorial)
   apiRouter.PUT("/tutorial", updateTutorial)
@@ -36,7 +37,6 @@ func main() {
   apiRouter.PUT("/content", updateContent)
   apiRouter.DELETE("/content/:id/:tutorial/:title", deleteContent)
 
-  apiPort := ":8081"
   println("API rodando em http://localhost" + apiPort)
   go func() {
     err := apiRouter.Run(apiPort)
@@ -48,7 +48,6 @@ func main() {
   appRouter := gin.Default()
   appRouter.StaticFS("/", http.Dir("../public"))
 
-  appPort := ":8000"
   println("Arquivos estáticos rodando em " + cyan("http://localhost" + appPort))
   err := appRouter.Run(appPort)
   if err != nil {
@@ -72,25 +71,18 @@ func openBrowser(port string) {
   url := "http://localhost" + port
 
   switch runtime.GOOS {
-  case "linux":
-    // cmd := exec.Command("xdg-open", url)
-    err = exec.Command("xdg-open", url).Start()
-  case "windows":
-    // cmd = exec.Command("cmd", "/c", "start", url)
-    err = exec.Command("rundll32", "url.dll,FileProtocolHandler", url).Start()
-  case "darwin":
-    err = exec.Command("open", url).Start()
-  default:
-    err = fmt.Errorf("Sistema operacional não suportado.")
+    case "linux":
+      err = exec.Command("xdg-open", url).Start()
+    case "windows":
+      err = exec.Command("cmd", "start", url).Start()
+    case "darwin":
+      err = exec.Command("open", url).Start()
+    default:
+      println("Sistema operacional não suportado.")
+      return
   }
 
   if err != nil {
-    log.Fatal(err)
+    println("Erro ao abrir o navegador padrão:", err.Error())
   }
-
-  // err := cmd.Run()
-  // if err != nil {
-  //   println("Erro ao abrir o navegador padrão:", err.Error())
-  //   return
-  // }
 }
