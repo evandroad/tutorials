@@ -113,6 +113,35 @@ func UpdateContent(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "Conteúdo alterado com sucesso."})
 }
 
+func DeleteContent(c *gin.Context) {
+	id := c.Param("id")
+	title := c.Param("title")
+	tutorial := c.Param("tutorial")
+	filePath := "../../public/data/" + tutorial + ".json"
+
+	commands := getContents(tutorial)
+
+	for i := range commands {
+		if commands[i].Title == title {
+			for j := range commands[i].Content {
+				if commands[i].Content[j].ID == id {
+					commands[i].Content = append(commands[i].Content[:j], commands[i].Content[j+1:]...)
+					break
+				}
+			}
+
+			if len(commands[i].Content) < 1 {
+				commands = append(commands[:i], commands[i+1:]...)
+				break
+			}
+		}
+	}
+
+	file.SaveCommand(filePath, commands)
+
+	c.JSON(http.StatusOK, gin.H{"message": "Conteúdo apagado com sucesso."})
+}
+
 func getContents(tutorial string) []file.Command {
 	filePath := "../../public/data/" + tutorial + ".json"
 	var jsonData []file.Command

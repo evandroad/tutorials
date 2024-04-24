@@ -113,6 +113,28 @@ export default {
         </thead>
         <tbody>
           <template v-for="content in contents">
+            <tr v-if="content.content.length < 1">
+              <td>{{ content.number }}</td>
+              <td>{{ content.title }}</td>
+              <td></td>
+              <td></td>
+              <td>
+                <a href='' @click.prevent="addContent(content)">
+                  <i class='fa fa-plus-square' style='font-size: 25px'></i>
+                </a>
+              </td>
+              <td class="goTutorial">
+                <a href='' @click.prevent="editContent(content, {})">
+                  <i class='fa fa-share' style='font-size: 25px'></i>
+                </a>
+              </td>
+              <td class="deleteTutorial">
+                <a href='' @click.prevent="deleteContent(command.id, content.title)">
+                  <i class='fa fa-trash' style='font-size: 25px'></i>
+                </a>
+              </td>
+              <td v-show="false">{{ tutorial.image }}</td>
+            </tr>
             <tr v-for="command in content.content">
               <td>{{ content.number }}</td>
               <td>{{ content.title }}</td>
@@ -129,7 +151,7 @@ export default {
                 </a>
               </td>
               <td class="deleteTutorial">
-                <a href='#'>
+                <a href='' @click.prevent="deleteContent(command.id, content.title)">
                   <i class='fa fa-trash' style='font-size: 25px'></i>
                 </a>
               </td>
@@ -141,7 +163,7 @@ export default {
     </div>
   `,
   mounted() {
-    document.querySelector("#number").focus()
+    this.focus('number')
     tutorial = ''
 
     if (window.location.hash == '#content') {
@@ -291,7 +313,7 @@ export default {
       this.page = 'content'
       this.mainTitle = tutorial
       this.listContents(tutorial)
-      setTimeout(() => document.querySelector("#contentNumber").focus(), 100)
+      setTimeout(() => this.focus('contentNumber'), 100)
     },
     editTutorial(tutorial) {
       this.number = tutorial.number
@@ -306,7 +328,7 @@ export default {
       this.mainTitle = 'Tutorial'
       window.location.hash = '#home'
       this.listTutorials()
-      setTimeout(() => document.querySelector("#number").focus(), 0)
+      setTimeout(() => this.focus('number'), 0)
     },
     saveContent() {
       var content = this.content
@@ -338,7 +360,7 @@ export default {
           this.title = ''
           this.content = ''
           this.code = ''
-          document.querySelector("#contentNumber").focus()
+          this.focus('contentNumber')
         }
       })
     },
@@ -373,7 +395,23 @@ export default {
           this.title = ''
           this.content = ''
           this.code = ''
-          document.querySelector("#contentNumber").focus()
+          this.focus('contentNumber')
+        }
+      })
+    },
+    deleteContent(id, title) {
+      var response = confirm("Você deseja apagar o conteúdo do " + title + "?")
+      
+      if (!response) {
+        return
+      }
+
+      $.ajax({
+        url: `${this.API}/content/${id}/${this.mainTitle}/${title}`,
+        method: 'delete',
+        success: (data) => {
+          alert(data.message)
+          this.listContents(tutorial)
         }
       })
     },
@@ -406,9 +444,9 @@ export default {
       return a.number - b.number;
     },
     cleanTutorial() {
+      this.focus('number')
       this.showBtnAddTutorial = true
       this.showBtnEditTutorial = false
-      document.querySelector("#number").focus()
       this.number = ''
       this.tutorial = ''
       this.image = ''
@@ -418,9 +456,16 @@ export default {
       this.title = ''
       this.content = ''
       this.code = ''
+      this.showBtnUpdContent = false
+      this.showBtnSaveContent = true
+      this.showTitleAddCont = true
+      this.showTitleUpdCont = false
     },
     cleanImage() {
       document.querySelector("#image").value = ''
+    },
+    focus(input) {
+      document.querySelector(`#${input}`).focus()
     }
   }
 }
