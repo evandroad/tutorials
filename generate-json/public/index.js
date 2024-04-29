@@ -84,13 +84,13 @@ export default {
         <div class="input-group-prepend">
           <span class="input-group-text" style="width: 80px">Content:</span>
         </div>
-        <textarea v-model="content" class="form-control" rows="3"></textarea>
+        <textarea v-model="content" class="form-control" rows="8"></textarea>
       </div>
       <div class="input-group mb-3">
         <div class="input-group-prepend">
           <span class="input-group-text" style="width: 80px">Code:</span>
         </div>
-        <textarea v-model="code" class="form-control" rows="3"></textarea>
+        <textarea v-model="code" class="form-control" rows="2"></textarea>
       </div>
       <div class="form-group gap">
         <button v-show="showBtnSaveContent" class="btn btn-success" type="button" @click="saveContent">Salvar</button>
@@ -393,7 +393,7 @@ export default {
         method: 'delete',
         success: (data) => {
           alert(data.message)
-          this.listContents(tutorial)
+          this.listContents(this.mainTitle)
         }
       })
     },

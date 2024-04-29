@@ -25,7 +25,7 @@ h2 {
 }
 
 p {
-	font-size: large
+	font-size: 16px;
 }
 
 td {
@@ -164,6 +164,10 @@ td {
 	margin-bottom: 20px;
 }
 
+#contentBody {
+	margin-bottom: 20px;
+}
+
 .summaryItem:hover {
 	background-color: rgba(255, 255, 255, 0.8);
 	border-radius: 5px;
@@ -237,7 +241,12 @@ td {
 }
 
 .markdown-body pre {
-  background: #c5c5c5 !important;
+  background: #eeeeee !important;
+  color: #333333;
+}
+
+.markdown-body code {
+  background: #eeeeee !important;
   color: #333333;
 }
 
