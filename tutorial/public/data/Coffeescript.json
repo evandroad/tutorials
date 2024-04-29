@@ -1,1 +1,7 @@
-[{"number":1,"title":"For","content":[{"id":"1147fdf31f047ee573086cb03d984c51","content":"Exemplo 1:\n```\nsequencia = [1, 2, 3]\nfor index, valor of sequencia\n  console.log \"Índice: #{index}, Valor: #{valor}\"\n```\nExemplo 2:\n```\nsequencia = [1, 2, 3, 4, 5]\nfor index in [0...sequencia.length]\n  valor = sequencia[index]\n  console.log \"Índice: #{index}, Valor: #{valor}\"\n```","code":""}]}]
+[
+  {
+    "number": 1,
+    "title": "For",
+    "content": "Exemplo 1:\n```\nsequencia = [1, 2, 3]\nfor index, valor of sequencia\n  console.log \"Índice: #{index}, Valor: #{valor}\"\n```\nExemplo 2:\n```\nsequencia = [1, 2, 3, 4, 5]\nfor index in [0...sequencia.length]\n  valor = sequencia[index]\n  console.log \"Índice: #{index}, Valor: #{valor}\"\n```"
+  }
+]

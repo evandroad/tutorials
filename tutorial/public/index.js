@@ -25,19 +25,17 @@ export default {
             </a>
           </div>
           <h2 id="summary">Summary</h2>
-          <li class="summaryItem" v-for="(command, index) in commands">
-            <a href="javascript:void(0)" @click="scrollToElement(command.title)" class="linkMenu">{{ index + 1 }} - {{ command.title }}</a>
+          <li class="summaryItem" v-for="command in commands">
+            <a href="javascript:void(0)" @click="scrollToElement(command.title)" class="linkMenu">{{ command.number }} - {{ command.title }}</a>
           </li>
         </div>
       </ul>
 
       <div id="contentBody" class="main">
         <h1>{{ title }}</h1>
-        <template v-for="(command, index) in commands">
-          <h2 :id="command.title">{{ index + 1 }} - {{ command.title }}</h2>
-          <template v-for="content in command.content">
-            <div class="markdown-body" v-html="marked(content.content)"></div>
-          </template>
+        <template v-for="command in commands">
+          <h2 :id="command.title">{{ command.number }} - {{ command.title }}</h2>
+          <div class="markdown-body" v-html="marked(command.content)"></div>
         </template>
       </div>
     </div>
@@ -87,6 +85,7 @@ export default {
         .then(response => response.json())
         .then(json => {
           json.sort(this.compareByNumber)
+          console.log(json)
           this.commands = json
         })
         .catch(err => console.log('Error in the request', err))

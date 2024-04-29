@@ -16,13 +16,7 @@ type Tutorial struct {
 type Command struct {
 	Number 	int	 			`json:"number"`
 	Title  	string	  `json:"title"`
-	Content []Content `json:"content"`
-}
-
-type Content struct {
-	ID      string `json:"id"`
-	Content string `json:"content"`
-	Code    string `json:"code"`
+	Content string		`json:"content"`
 }
 
 func SaveImage(imagePath string, image io.Reader) {

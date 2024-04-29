@@ -1,1 +1,27 @@
-[{"number":1,"title":"Listar","content":[{"id":"aca4ccfd69900b79208cbf55d3ba9ba6","content":"Para listar todas as imagens do Docker no seu sistema:\n```\ndocker image ls\n```\nListar todos os containers ativos\n```\ndocker container ls\n```\nListar todos os containers\n```\ndocker container ls -a\n```","code":""}]},{"number":2,"title":"Puxar Imagem","content":[{"id":"6fe0255e9e1985f97be4ec5cdd7916da","content":"Para puxar uma imagem docker, vá até o [hub Docker](https://hub.docker.com/). Aqui você pode encontrar centenas de Imagens Docker.\nNós podemos puxar a imagem com o seguinte comando:\n```\ndocker pull \u003cnome_da_imagem\u003e\n```","code":""}]},{"number":3,"title":"Instalar","content":[{"id":"ade6a7e39f65f50ed8aa346586e798b5","content":"Instalar o docker.\n```\nsudo apt install docker*\n```","code":""}]},{"number":4,"title":"Permissões","content":[{"id":"9877a9d3c4c3d230120d847e6613befe","content":"Para adicionar ao grupo do docker.\n```\nsudo groupadd docker\n```\nPara dar permissões ao docker.\n```\nsudo usermod -aG docker $USER\n```\nPara aplicar as permissões.\n```\nnewgrp docker\n```","code":""}]},{"number":5,"title":"Renomear Imagem","content":[{"id":"baad5145fe87929b6f7ae6ca7bb3104a","content":"Para renomear uma imagem use o comando tag.\n```\ndocker tag nome_da_imagem_antiga:tag nome_da_imagem_nova:tag\n```\nDepois remova a imagem antiga\n```\ndocker rmi myimage:latest\n```","code":""}]}]
+[
+  {
+    "number": 1,
+    "title": "Listar",
+    "content": "Para listar todas as imagens do Docker no seu sistema:\n```\ndocker image ls\n```\nListar todos os containers ativos\n```\ndocker container ls\n```\nListar todos os containers\n```\ndocker container ls -a\n```"
+  },
+  {
+    "number": 2,
+    "title": "Puxar Imagem",
+    "content": "Para puxar uma imagem docker, vá até o [hub Docker](https://hub.docker.com/). Aqui você pode encontrar centenas de Imagens Docker.\nNós podemos puxar a imagem com o seguinte comando:\n```\ndocker pull \u003cnome_da_imagem\u003e\n```"
+  },
+  {
+    "number": 3,
+    "title": "Instalar",
+    "content": "Instalar o docker.\n```\nsudo apt install docker*\n```"
+  },
+  {
+    "number": 4,
+    "title": "Permissões",
+    "content": "Para adicionar ao grupo do docker.\n```\nsudo groupadd docker\n```\nPara dar permissões ao docker.\n```\nsudo usermod -aG docker $USER\n```\nPara aplicar as permissões.\n```\nnewgrp docker\n```"
+  },
+  {
+    "number": 5,
+    "title": "Renomear Imagem",
+    "content": "Para renomear uma imagem use o comando tag.\n```\ndocker tag nome_da_imagem_antiga:tag nome_da_imagem_nova:tag\n```\nDepois remova a imagem antiga\n```\ndocker rmi myimage:latest\n```"
+  }
+]

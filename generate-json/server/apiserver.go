@@ -41,7 +41,7 @@ func main() {
   apiRouter.GET("/content/:tutorial", listContent)
   apiRouter.POST("/content", insertContent)
   apiRouter.PUT("/content", updateContent)
-  apiRouter.DELETE("/content/:id/:tutorial/:title", deleteContent)
+  apiRouter.DELETE("/content/:tutorial/:title", deleteContent)
 
   println("API rodando em " + apiUrl)
   go func() {

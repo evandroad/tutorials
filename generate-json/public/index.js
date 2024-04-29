@@ -86,12 +86,6 @@ export default {
         </div>
         <textarea v-model="content" class="form-control" rows="8"></textarea>
       </div>
-      <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <span class="input-group-text" style="width: 80px">Code:</span>
-        </div>
-        <textarea v-model="code" class="form-control" rows="2"></textarea>
-      </div>
       <div class="form-group gap">
         <button v-show="showBtnSaveContent" class="btn btn-success" type="button" @click="saveContent">Salvar</button>
         <button v-show="showBtnUpdContent" class="btn btn-success" type="button" @click="updateContent">Alterar</button>
@@ -106,56 +100,25 @@ export default {
           <th>Number</th>
           <th>Title</th>
           <th>Content</th>
-          <th>Code</th>
-          <th>Adicionar</th>
           <th>Editar</th>
           <th>Apagar</th>
         </thead>
         <tbody>
-          <template v-for="content in contents">
-            <tr v-if="content.content.length < 1">
-              <td>{{ content.number }}</td>
-              <td :id="content.title">{{ content.title }}</td>
-              <td></td>
-              <td></td>
-              <td>
-                <a href='' @click.prevent="addContent(content)">
-                  <i class='fa fa-plus-square' style='font-size: 25px'></i>
-                </a>
-              </td>
-              <td class="goTutorial">
-                <a href='' @click.prevent="editContent(content, {})">
-                  <i class='fa fa-share' style='font-size: 25px'></i>
-                </a>
-              </td>
-              <td class="deleteTutorial">
-                <a href='' @click.prevent="deleteContent(command.id, content.title)">
-                  <i class='fa fa-trash' style='font-size: 25px'></i>
-                </a>
-              </td>
-            </tr>
-            <tr v-for="command in content.content">
-              <td>{{ content.number }}</td>
-              <td :id="content.title">{{ content.title }}</td>
-              <td>{{ command.content }}</td>
-              <td>{{ command.code }}</td>
-              <td>
-                <a href='' @click.prevent="addContent(content)">
-                  <i class='fa fa-plus-square' style='font-size: 25px'></i>
-                </a>
-              </td>
-              <td class="goTutorial">
-                <a href='' @click.prevent="editContent(content, command)">
-                  <i class='fa fa-share' style='font-size: 25px'></i>
-                </a>
-              </td>
-              <td class="deleteTutorial">
-                <a href='' @click.prevent="deleteContent(command.id, content.title)">
-                  <i class='fa fa-trash' style='font-size: 25px'></i>
-                </a>
-              </td>
-            </tr>
-          </template>
+          <tr v-for="content in contents">
+            <td>{{ content.number }}</td>
+            <td :id="content.title">{{ content.title }}</td>
+            <td>{{ content.content }}</td>
+            <td class="goTutorial">
+              <a href='' @click.prevent="editContent(content)">
+                <i class='fa fa-share' style='font-size: 25px'></i>
+              </a>
+            </td>
+            <td class="deleteTutorial">
+              <a href='' @click.prevent="deleteContent(content)">
+                <i class='fa fa-trash' style='font-size: 25px'></i>
+              </a>
+            </td>
+          </tr>
         </tbody>
       </table>
     </div>
@@ -187,9 +150,7 @@ export default {
 	    currentImage: '',
       contentNumber: '',
       title: '',
-      id: '',
       content: '',
-      code: '',
       currentTitle: '',
       mainTitle: 'Tutoriais',
       showBtnEditTutorial: false,
@@ -330,7 +291,7 @@ export default {
       })
     },
     saveContent() {
-      if (this.title.length < 1 && (this.content.length < 1 || this.code.length < 1)) {
+      if (this.title.length < 1 || this.content.length < 1) {
         alert('Campos não podem ficar vazio')
         return
       }
@@ -342,20 +303,19 @@ export default {
       $.ajax({
         url: this.API + '/content',
         method: 'post',
-        data: {tutorial: this.mainTitle, number: this.contentNumber, title: this.title, content: this.content, code: this.code},
+        data: {tutorial: this.mainTitle, number: this.contentNumber, title: this.title, content: this.content},
         success: data => {
           alert(data.message)
           this.listContents(this.mainTitle)
           this.contentNumber = ''
           this.title = ''
           this.content = ''
-          this.code = ''
           this.focus('contentNumber')
         }
       })
     },
     updateContent() {
-      if (this.title.length < 1 && (this.content.length < 1 || this.code.length < 1)) {
+      if (this.title.length < 1 || this.content.length < 1) {
         alert('Campos não podem ficar vazio')
         return
       }
@@ -367,7 +327,7 @@ export default {
       $.ajax({
         url: this.API + '/content',
         method: 'put',
-        data: {tutorial: this.mainTitle, id: this.id, number: this.contentNumber, title: this.title, content: this.content, code: this.code, oldTitle: this.currentTitle},
+        data: {tutorial: this.mainTitle, number: this.contentNumber, title: this.title, content: this.content, oldTitle: this.currentTitle},
         success: data => {
           alert(data.message)
           this.listContents(this.mainTitle)
@@ -376,20 +336,19 @@ export default {
           this.contentNumber = ''
           this.title = ''
           this.content = ''
-          this.code = ''
           this.focus('contentNumber')
         }
       })
     },
-    deleteContent(id, title) {
-      var response = confirm("Você deseja apagar o conteúdo do " + title + "?")
+    deleteContent(content) {
+      var response = confirm("Você deseja apagar o conteúdo do " + content.title + "?")
       
       if (!response) {
         return
       }
 
       $.ajax({
-        url: `${this.API}/content/${id}/${this.mainTitle}/${title}`,
+        url: `${this.API}/content/${this.mainTitle}/${content.title}`,
         method: 'delete',
         success: (data) => {
           alert(data.message)
@@ -397,16 +356,7 @@ export default {
         }
       })
     },
-    addContent(content) {
-      this.cleanContent()
-      this.showBtnSaveContent = true
-      this.showTitleAddCont = true
-      this.showBtnUpdContent = false
-      this.showTitleUpdCont = false
-      this.contentNumber = content.number
-      this.title = content.title
-    },
-    editContent(content, command) {
+    editContent(content) {
       this.cleanContent()
       this.showBtnSaveContent = false
       this.showTitleAddCont = false
@@ -415,9 +365,7 @@ export default {
       this.contentNumber = content.number
       this.title = content.title
       this.currentTitle = content.title
-      this.id = command.id
-      this.content = command.content
-      this.code = command.code
+      this.content = content.content
       window.scrollTo({ top: 0, behavior: 'smooth' })
     },
     handleImageChange(event) {
