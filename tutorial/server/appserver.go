@@ -18,14 +18,14 @@ func main() {
     openBrowserLinux(url)
   }
   
-	appRouter := gin.Default()
-	appRouter.StaticFS("/", http.Dir("../public"))
+  appRouter := gin.Default()
+  appRouter.StaticFS("/", http.Dir("../public"))
 
-	println("Arquivos estáticos rodando em " + cyan(url))
-	err := appRouter.Run(appPort)
-	if err != nil {
-		println("Erro ao iniciar o servidor de arquivos estáticos: ", err.Error())
-	}
+  println("Arquivos estáticos rodando em " + cyan(url))
+  err := appRouter.Run(appPort)
+  if err != nil {
+    println("Erro ao iniciar o servidor de arquivos estáticos: ", err.Error())
+  }
 }
 
 func openBrowserLinux(url string) {

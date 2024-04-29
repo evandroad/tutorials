@@ -115,7 +115,7 @@ export default {
           <template v-for="content in contents">
             <tr v-if="content.content.length < 1">
               <td>{{ content.number }}</td>
-              <td>{{ content.title }}</td>
+              <td :id="content.title">{{ content.title }}</td>
               <td></td>
               <td></td>
               <td>
@@ -133,11 +133,10 @@ export default {
                   <i class='fa fa-trash' style='font-size: 25px'></i>
                 </a>
               </td>
-              <td v-show="false">{{ tutorial.image }}</td>
             </tr>
             <tr v-for="command in content.content">
               <td>{{ content.number }}</td>
-              <td>{{ content.title }}</td>
+              <td :id="content.title">{{ content.title }}</td>
               <td>{{ command.content }}</td>
               <td>{{ command.code }}</td>
               <td>
@@ -155,7 +154,6 @@ export default {
                   <i class='fa fa-trash' style='font-size: 25px'></i>
                 </a>
               </td>
-              <td v-show="false">{{ tutorial.image }}</td>
             </tr>
           </template>
         </tbody>
@@ -332,16 +330,7 @@ export default {
       })
     },
     saveContent() {
-      var content = this.content
-        .replaceAll('<', '&lt')
-        .replaceAll('>', '&gt')
-        .replaceAll('\n', '<br>')
-      var code = this.code
-        .replaceAll('<', '&lt')
-        .replaceAll('>', '&gt')
-        .replaceAll('\n', '<br>')
-      
-      if (this.title.length < 1 && (content.length < 1 || code.length < 1)) {
+      if (this.title.length < 1 && (this.content.length < 1 || this.code.length < 1)) {
         alert('Campos não podem ficar vazio')
         return
       }
@@ -353,7 +342,7 @@ export default {
       $.ajax({
         url: this.API + '/content',
         method: 'post',
-        data: {tutorial: this.mainTitle, number: this.contentNumber, title: this.title, content: content, code: code},
+        data: {tutorial: this.mainTitle, number: this.contentNumber, title: this.title, content: this.content, code: this.code},
         success: data => {
           alert(data.message)
           this.listContents(this.mainTitle)
@@ -366,16 +355,7 @@ export default {
       })
     },
     updateContent() {
-      var content = this.content
-        .replaceAll('<', '&lt')
-        .replaceAll('>', '&gt')
-        .replaceAll('\n', '<br>')
-      var code = this.code
-        .replaceAll('<', '&lt')
-        .replaceAll('>', '&gt')
-        .replaceAll('\n', '<br>')
-      
-      if (this.title.length < 1 && (content.length < 1 || code.length < 1)) {
+      if (this.title.length < 1 && (this.content.length < 1 || this.code.length < 1)) {
         alert('Campos não podem ficar vazio')
         return
       }
@@ -387,10 +367,11 @@ export default {
       $.ajax({
         url: this.API + '/content',
         method: 'put',
-        data: {tutorial: this.mainTitle, id: this.id, number: this.contentNumber, title: this.title, content: content, code: code, oldTitle: this.currentTitle},
+        data: {tutorial: this.mainTitle, id: this.id, number: this.contentNumber, title: this.title, content: this.content, code: this.code, oldTitle: this.currentTitle},
         success: data => {
           alert(data.message)
           this.listContents(this.mainTitle)
+          this.scrollToElement(this.title)
           this.addContent({})
           this.contentNumber = ''
           this.title = ''
@@ -437,12 +418,17 @@ export default {
       this.id = command.id
       this.content = command.content
       this.code = command.code
+      window.scrollTo({ top: 0, behavior: 'smooth' })
     },
     handleImageChange(event) {
       this.image = event.target.files[0];
     },
     compareByNumber(a, b) {
       return a.number - b.number;
+    },
+    scrollToElement(id) {
+      var element = document.getElementById(id)
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' })
     },
     cleanTutorial() {
       this.focus('number')

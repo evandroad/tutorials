@@ -1,148 +1,116 @@
-const mainContainer = document.getElementById('mainContainer')
-const contentContainer = document.getElementById('contentContainer')
-const contentMenu = document.getElementById('contentMenu')
-const contentBody = document.getElementById('contentBody')
+export default {
+  template: `
+    <div id="mainContainer" v-show="showMainContent">
+      <h1>Tutorials</h1>
+        
+      <p id="description">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The idea of this project is to gather some important tutorials for those who are entering the world of programming and software development, as well as for those with more experience who have not memorized all the commands.</p>
 
-window.onload = () => {
-  if (window.location.hash != '' && window.location.hash != '#home') {
-    mainContainer.style.display = 'none'
-    page = window.location.hash.replace('#', '').replaceAll('-', ' ')
-    getPage(page)
-    return
+      <section id="menuTutorials" class="gallery">
+        <div class="card" v-for="card in mainCards">
+          <img :src="'img/' + card.image"></img>
+          <h2>{{ card.title }}</h2>
+          <button class="btnTutorial" @click="renderTutorial(card.title)">Leia mais</button>
+        </div>
+      </section>
+    </div>
+
+    <button v-show="showBtnTop" @click="topFunction" id="btnTop" title="Go to top">Top</button>
+
+    <div id="contentContainer" v-show="showTutorialContent">
+      <ul id="contentMenu">
+        <div class="sidenav">
+          <div id="divHome">
+            <a href="" @click.prevent="renderMain">
+              <i class="fa fa-home" id="logoHome" style="font-size: 50px"></i>
+            </a>
+          </div>
+          <h2 id="summary">Summary</h2>
+          <li class="summaryItem" v-for="(command, index) in commands">
+            <a href="javascript:void(0)" @click="scrollToElement(command.title)" class="linkMenu">{{ index + 1 }} - {{ command.title }}</a>
+          </li>
+        </div>
+      </ul>
+
+      <div id="contentBody" class="main">
+        <h1>{{ title }}</h1>
+        <template v-for="(command, index) in commands">
+          <h2 :id="command.title">{{ index + 1 }} - {{ command.title }}</h2>
+          <template v-for="content in command.content">
+            <div class="markdown-body" v-html="marked(content.content)"></div>
+          </template>
+        </template>
+      </div>
+    </div>
+  `,
+  mounted() {
+    this.listMainCards()
+    window.onscroll = () => this.scrollFunction()
+  },
+  data() {
+    return {
+      showMainContent: true,
+      showTutorialContent: false,
+      showBtnTop: false,
+      mainCards: [],
+      commands: [],
+      title: ''
+    }
+  },
+  methods: {
+    listMainCards() {
+      if (location.hash != '' && location.hash != '#home') {
+        this.showMainContent = false
+        var page = location.hash
+        page = page.replace('#', '').replace('-', ' ')
+        this.renderTutorial(page)
+        return
+      }
+    
+      this.renderMain()    
+    },
+    renderMain() {
+      window.location.hash = '#home'
+      this.showMainContent = true
+      this.showTutorialContent = false
+      fetch("data/tutorials.json")
+        .then(response => response.json())
+        .then(json => this.mainCards = json)
+        .catch(err => console.log('Error in the request', err))
+    },
+    renderTutorial(page) {
+      this.title = page
+      window.location.hash = '#' + page.replaceAll(' ', '-')
+      this.showTutorialContent = true
+      this.showMainContent = false
+    
+      fetch("data/" + page + ".json")
+        .then(response => response.json())
+        .then(json => {
+          json.sort(this.compareByNumber)
+          this.commands = json
+        })
+        .catch(err => console.log('Error in the request', err))
+    },
+    compareByNumber(a, b) {
+      return a.number - b.number;
+    },
+    scrollFunction() {
+      if (document.body.scrollTop > 400 || document.documentElement.scrollTop > 400) {
+        this.showBtnTop = true
+        return
+      }
+    
+      this.showBtnTop = false
+    },
+    topFunction() {
+      window.scrollTo({ behavior: 'smooth', top: 0 })
+    },
+    scrollToElement(id) {
+      var element = document.getElementById(id)
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    },
+    marked(text) {
+      return marked.parse(text)
+    }
   }
-
-  contentContainer.style.display = 'none'
-
-  fetch("data/tutorials.json")
-    .then(response => response.json())
-    .then(json => {
-      var menu = document.getElementById('menuTutorials')
-
-      json.forEach(item => {
-        const div = document.createElement('div')
-        div.setAttribute('class', 'card')
-        const img = document.createElement('img')
-        img.setAttribute('src', 'img/' + item.image)
-        const h2 = document.createElement('h2')
-        h2.innerHTML = item.title
-        const link = document.createElement('button')
-        link.setAttribute('onclick', 'getPage(\"' + item.title + '\")')
-        link.setAttribute('class', 'btnTutorial')
-        link.innerHTML = 'Leia mais'
-        div.appendChild(img)
-        div.appendChild(h2)
-        div.appendChild(link)
-        menu.appendChild(div)
-      })
-    })
-    .catch(err => console.log('Error in the request', err))
-}
-
-function getPage(page) {
-  window.location.hash = '#' + page.replaceAll(' ', '-')
-  mainContainer.style.display = "none";
-  contentContainer.style.display = 'block'
-
-  fetch("data/" + page + ".json")
-    .then(response => response.json())
-    .then(json => {
-      json.sort(compareByNumber);
-      renderMenu(json, page)
-      renderBody(json, page)
-    })
-    .catch(err => console.log('Error in the request', err))
-}
-
-function renderMenu(data) {
-  const sidenav = document.createElement('div')
-  sidenav.setAttribute('class', 'sidenav')
-
-  const divHome = document.createElement('div')
-  divHome.setAttribute('id','divHome');
-  
-  const linkHome = document.createElement('a')
-  linkHome.setAttribute('href', 'index.html/#home')
-
-  const logoHome = document.createElement('i')
-  logoHome.setAttribute('class', 'fa fa-home')
-  logoHome.setAttribute('id', 'logoHome')
-  logoHome.setAttribute('style', 'font-size: 50px')
-
-  const summary = document.createElement('h2')
-  summary.setAttribute('id', 'summary')
-  summary.innerHTML = 'Summary'
-    
-  linkHome.appendChild(logoHome)
-  divHome.appendChild(linkHome)
-  sidenav.appendChild(divHome)
-  sidenav.appendChild(summary)
-  
-  data.forEach(item => {
-    const li = document.createElement('li')
-    li.setAttribute('class', 'summaryItem')
-    
-    const link = document.createElement('a')
-    link.setAttribute('href', '#' + item.title)
-    link.setAttribute('class', 'linkMenu')
-    link.innerHTML = item.number + ' - ' + item.title
-    
-    li.appendChild(link)
-    sidenav.appendChild(li)
-  })
-  
-  contentMenu.appendChild(sidenav)
-}
-
-function renderBody(data, page) {
-  const title = document.createElement('h1')
-  title.innerHTML = page
-  contentBody.appendChild(title)
-  
-  data.forEach(item => {
-    const title = document.createElement('h2')
-    title.setAttribute('id', item.title)
-    title.innerHTML = item.number + ' - ' + item.title
-    contentBody.appendChild(title)
-    
-    item.content.forEach(ele => {
-      createContentAndCode(ele, contentBody)
-    })
-  })
-}
-
-function compareByNumber(a, b) {
-  return a.number - b.number;
-}
-
-function createContentAndCode(obj, main) {
-  const content = document.createElement('pre')
-  content.setAttribute('class', 'content')
-  content.innerHTML = obj.content
-  main.appendChild(content)
-  
-  if (obj.code != '') {
-    const pre = document.createElement('pre')
-    const code = document.createElement('code')
-    code.innerHTML = obj.code
-    pre.appendChild(code)
-    main.appendChild(pre)
-  }
-}
-
-btnTop = document.getElementById("btnTop");
-
-window.onscroll = function() { scrollFunction() };
-
-function scrollFunction() {
-  if (document.body.scrollTop > 400 || document.documentElement.scrollTop > 400) {
-    btnTop.style.display = "block";
-    return
-  }
-
-  btnTop.style.display = "none";
-}
-
-function topFunction() {
-  document.body.scrollTop = 0; // For Safari
-  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
 }
