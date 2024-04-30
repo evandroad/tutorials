@@ -12,7 +12,7 @@ import (
 )
 
 const (
-	ROOT_DIR = "../../tutorial/public/"
+	ROOT_DIR = "../tutorial/"
 )
 
 func ListTutorial(c *gin.Context) {
