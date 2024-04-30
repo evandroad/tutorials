@@ -13,6 +13,11 @@
   <title>Tutorials</title>  
 </head>
 <body>
+  <label class="switch">
+    <input type="checkbox" id="themeCheckbox">
+    <span class="slider"></span>
+  </label>
+
   <div id="app"></div>
 
   <script type="module">
@@ -21,5 +26,37 @@
 	
 		createApp(App).mount('#app')
 	</script>
+  <script>
+    window.addEventListener('load', () =>{
+      if (!document.getElementById('themeCheckbox').checked) {
+        loadCSS('dark.css')
+      } else {
+        loadCSS('light.css')
+      }
+    })
+
+    document.getElementById('themeCheckbox').addEventListener('change', function() {
+      if (this.checked) {
+        loadCSS('light.css')
+      } else {
+        loadCSS('dark.css')
+      }
+    })
+
+    async function loadCSS(url) {
+      const themeLink = document.getElementById('themeLink');
+
+      if (!themeLink) {
+          const link = document.createElement('link');
+          link.id = 'themeLink'
+          link.rel = 'stylesheet'
+          link.href = url
+          document.head.appendChild(link)
+          return
+      } else {
+        themeLink.setAttribute('href', url)
+      }
+    }
+  </script>
 </body>
 </html

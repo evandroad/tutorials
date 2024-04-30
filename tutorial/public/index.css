@@ -1,9 +1,3 @@
-:root {
-	--dark: #3a3a3a;
-	--middle: #7e7e7e;
-	--light: #cccccc;
-}
-
 * {
 	box-sizing: border-box;
 }
@@ -12,6 +6,8 @@ body {
 	margin: 0;
 	padding: 0;
 	font-family: Arial, Helvetica, sans-serif;
+	background-color: var(--primary);
+	color: var(--font);
 }
 
 h1 {
@@ -21,15 +17,10 @@ h1 {
 
 h2 {
 	font-size: 22px;
-	color: #333333;
 }
 
 p {
 	font-size: 16px;
-}
-
-td {
-	background: #e9e9e9 I !important;
 }
 
 .gallery {
@@ -40,9 +31,9 @@ td {
 }
 
 .card {
-	background-color: white;
-	border-radius: 15px;
-	box-shadow: 1px 4px 6px rgba(0, 0, 0, 0.2);
+	background-color: var(--secondary);
+	border-radius: 12px;
+	box-shadow: 2px 2px 4px 4px var(--details);
 	margin: 10px;
 	padding: 15px;
 	min-width: 200px;
@@ -64,10 +55,8 @@ td {
 	margin-top: 10px;
 }
 
-.card p {
-	font-size: 14px;
-	color: var(--dark);
-	margin-top: 10px;
+.card button {
+	background: var(--secondary);
 }
 
 #mainContainer {
@@ -201,17 +190,6 @@ td {
 	white-space: pre-line;
 }
 
-/* code {
-	background-color: var(--dark);
-	width: 80%;
-	border-radius: 10px;
-	display: block;
-	padding: 20px;
-	color: rgb(0, 206, 17);
-	font-size: 0.9em;
-	white-space: pre-wrap;
-} */
-
 #btnTop {
 	position: fixed;
 	bottom: 20px;
@@ -236,24 +214,23 @@ td {
   color: #333333;
 }
 
+.markdown-body p {
+	width: 80%;
+}
+
 .markdown-body a {
   color: #0366d6;
 }
 
 .markdown-body pre {
-  background: #eeeeee !important;
+  background: #dddddd !important;
   color: #333333;
+	width: 80%;
 }
 
 .markdown-body code {
-  background: #eeeeee !important;
+  background: #dddddd !important;
   color: #333333;
-}
-
-.markdown-body th, .markdown-body td {
-	border: 1px solid #d0d7de;
-	padding: 8px;
-	text-align: left;
 }
 
 .markdown-body th {
@@ -266,6 +243,60 @@ td {
 
 .markdown-body tbody tr:nth-child(even) {
 	background-color: #f6f8fa;
+}
+
+.switch {
+	float: right;
+	margin-top: -10px;
+	margin-right: 15px;
+  font-size: 17px;
+  position: relative;
+  display: inline-block;
+  width: 3.5em;
+  height: 2em;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  --background: #151b6b;
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--background);
+  transition: .5s;
+  border-radius: 30px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 1.4em;
+  width: 1.4em;
+  border-radius: 50%;
+  left: 10%;
+  bottom: 15%;
+  box-shadow: inset 8px -4px 0px 0px #fff000;
+  background: var(--background);
+  transition: .6s;
+}
+
+input:checked + .slider {
+  background-color: #1797ff;
+}
+
+input:checked + .slider:before {
+  transform: translateX(100%);
+  box-shadow: inset 15px -4px 0px 15px #fff000;
 }
 
 @media (max-width: 500px) {
@@ -282,14 +313,24 @@ td {
 
 @media (max-width: 650px) {
 	#contentMenu {
-			display: none;
+		display: none;
 	}
 
 	.main {
-			margin-left: 0;
+		margin-left: 0;
 	}
 
 	.content, code {
-			width: 100%;
+		width: 100%;
+	}
+}
+
+@media (max-width: 950px) {
+	.markdown-body p {
+		width: 100%;
+	}
+
+	.markdown-body pre {
+		width: 100%;
 	}
 }
