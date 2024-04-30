@@ -1,7 +1,0 @@
-[
-  {
-    "number": 1,
-    "title": "Window Location",
-    "content": "The Window.location or location-only read-only property returns a Location object with information about the current location of the document.\nlocation example:\n```\n{\n  \"href\": \"http://localhost:8001/#content\",\n  \"origin\": \"http://localhost:8001\",\n  \"protocol\": \"http:\",\n  \"host\": \"localhost:8001\",\n  \"hostname\": \"localhost\",\n  \"port\": \"8001\",\n  \"pathname\": \"/\",\n  \"search\": \"\",\n  \"hash\": \"#content\"\n}\n```"
-  }
-]

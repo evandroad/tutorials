@@ -1,0 +1,336 @@
+* {
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	font-family: Arial, Helvetica, sans-serif;
+	background-color: var(--primary);
+	color: var(--font);
+}
+
+h1 {
+	text-align: center;
+	margin: 20px auto;
+}
+
+h2 {
+	font-size: 22px;
+}
+
+p {
+	font-size: 16px;
+}
+
+.gallery {
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	align-content: center;
+}
+
+.card {
+	background-color: var(--secondary);
+	border-radius: 12px;
+	box-shadow: 2px 2px 4px 4px var(--details);
+	margin: 10px;
+	padding: 15px;
+	min-width: 200px;
+	max-width: 260px;
+	flex-basis: 23%;
+	flex-grow: 1;
+}
+
+.card img {
+	display: block;
+	margin: 0 auto;
+	width: 5em;
+	height: auto;
+	border-radius: 5px;
+}
+
+.card h2 {
+	font-size: 18px;
+	margin-top: 10px;
+}
+
+.card button {
+	background: var(--secondary);
+}
+
+#mainContainer {
+	display: block;
+	width: 80%;
+	margin: 0 auto;
+}
+
+#description {
+	text-align: justify;
+}
+
+#menuTutorials {
+	text-align: center;
+	list-style-type: none;
+	margin-bottom: 20px;
+}
+
+.liTutorial {
+	margin-left: -40px;
+	margin-bottom: 10px;
+}
+
+.btnTutorial {
+	color: rgb(6, 125, 236);
+	background-color: white;
+	font-size: 1em;
+	font-family: inherit;
+	border: 0;
+	padding: 0;
+}
+
+.btnTutorial:hover {
+	color: rgb(2, 53, 129);
+	cursor: pointer;
+}
+
+/* CONTENT */
+
+.sidenav {
+	height: 97.5%;
+	width: 20%;
+	position: fixed;
+	z-index: 1;
+	top: 0;
+	left: 0;
+	background-color: var(--dark);
+	overflow-x: hidden;
+	padding-top: 20px;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+@media screen and (max-height: 450px) {
+	.sidenav {padding-top: 15px;}
+	.sidenav a {font-size: 18px;}
+}
+
+#linkHome {
+	padding: 6px 8px 6px 16px;
+	text-decoration: none;
+	font-size: 18px;
+	color: var(--light);
+	display: block;
+}
+
+#linkHome:hover {
+	cursor: context-menu;
+}
+
+#divHome {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#logoHome {
+	color: var(--light);
+}
+
+#logoHome:hover {
+	color: var(--middle);
+	cursor: pointer;
+}
+
+#summary {
+	color: var(--light);
+	padding-left: 15px;
+}
+
+#contentMenu {
+	list-style-type: none;
+	margin: 0px;
+	margin-bottom: 20px;
+}
+
+#contentBody {
+	margin-bottom: 20px;
+}
+
+.summaryItem:hover {
+	background-color: rgba(255, 255, 255, 0.8);
+	border-radius: 5px;
+}
+
+.summaryItem:hover .linkMenu {
+	color: var(--dark);
+}
+
+.linkMenu {
+	padding: 6px 8px 6px 16px;
+	text-decoration: none;
+	font-size: 18px;
+	color: var(--light);
+	display: block;
+}
+
+.linkMenu:hover {
+	color: var(--middle);
+}
+
+.main {
+	margin-left: 20%;
+	font-size: 18px;
+	padding: 0px 10px;
+}
+
+.content {
+	width: 80%;
+	font-family: sans-serif;
+	white-space: pre-line;
+}
+
+#btnTop {
+	position: fixed;
+	bottom: 20px;
+	right: 25px;
+	z-index: 99;
+	border: none;
+	outline: none;
+	background-color: rgb(36, 36, 36);
+	color: white;
+	cursor: pointer;
+	padding: 15px;
+	border-radius: 10px;
+	font-size: 25px;
+}
+  
+#btnTop:hover {
+	background-color: #555;
+}
+
+.markdown-body {
+  background-color: #ffffff;
+  color: #333333;
+}
+
+.markdown-body p {
+	width: 80%;
+}
+
+.markdown-body a {
+  color: #0366d6;
+}
+
+.markdown-body pre {
+  background: #dddddd !important;
+  color: #333333;
+	width: 80%;
+}
+
+.markdown-body code {
+  background: #dddddd !important;
+  color: #333333;
+}
+
+.markdown-body th {
+	background-color: #f6f8fa;
+}
+
+.markdown-body tbody tr:nth-child(odd) {
+	background-color: #ffffff;
+}
+
+.markdown-body tbody tr:nth-child(even) {
+	background-color: #f6f8fa;
+}
+
+.switch {
+	float: right;
+	margin-top: -10px;
+	margin-right: 15px;
+  font-size: 17px;
+  position: relative;
+  display: inline-block;
+  width: 3.5em;
+  height: 2em;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  --background: #151b6b;
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--background);
+  transition: .5s;
+  border-radius: 30px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 1.4em;
+  width: 1.4em;
+  border-radius: 50%;
+  left: 10%;
+  bottom: 15%;
+  box-shadow: inset 8px -4px 0px 0px #fff000;
+  background: var(--background);
+  transition: .6s;
+}
+
+input:checked + .slider {
+  background-color: #1797ff;
+}
+
+input:checked + .slider:before {
+  transform: translateX(100%);
+  box-shadow: inset 15px -4px 0px 15px #fff000;
+}
+
+@media (max-width: 500px) {
+	.gallery {
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.card {
+		margin-right: 0;
+		width: 200px;
+	}
+}
+
+@media (max-width: 650px) {
+	#contentMenu {
+		display: none;
+	}
+
+	.main {
+		margin-left: 0;
+	}
+
+	.content, code {
+		width: 100%;
+	}
+}
+
+@media (max-width: 950px) {
+	.markdown-body p {
+		width: 100%;
+	}
+
+	.markdown-body pre {
+		width: 100%;
+	}
+}
