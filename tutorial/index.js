@@ -10,33 +10,33 @@ export default {
         
       <p id="description">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The idea of this project is to gather some important tutorials for those who are entering the world of programming and software development, as well as for those with more experience who have not memorized all the commands.</p>
 
-      <section id="menuTutorials" class="gallery">
+      <section class="gallery">
         <div class="card" v-for="card in mainCards">
           <img :src="'img/' + card.image"></img>
           <h2>{{ card.title }}</h2>
-          <button class="btnTutorial" @click="renderTutorial(card.title)">Leia mais</button>
+          <button @click="renderTutorial(card.title)">Leia mais</button>
         </div>
       </section>
     </div>
 
     <button v-show="showBtnTop" @click="topFunction" id="btnTop" title="Go to top">Top</button>
 
-    <div id="contentContainer" v-show="showTutorialContent">
+    <div v-show="showTutorialContent">
       <ul id="contentMenu">
-        <div class="sidenav">
-          <div id="divHome">
+        <div id="sidenav">
+          <div id="logoHome">
             <a href="" @click.prevent="renderMain">
-              <i class="fa fa-home" id="logoHome" style="font-size: 50px"></i>
+              <i class="fa fa-home" style="font-size: 50px"></i>
             </a>
           </div>
-          <h2 id="summary">Summary</h2>
-          <li class="summaryItem" v-for="command in commands">
-            <a href="javascript:void(0)" @click="scrollToElement(command.title)" class="linkMenu">{{ command.number }} - {{ command.title }}</a>
+          <h2 id="summaryTitle">Summary</h2>
+          <li id="summaryItem" v-for="command in commands">
+            <a href="javascript:void(0)" @click="scrollToElement(command.title)">{{ command.number }} - {{ command.title }}</a>
           </li>
         </div>
       </ul>
 
-      <div id="contentBody" class="main">
+      <div id="contentBody">
         <h1>{{ title }}</h1>
         <template v-for="command in commands">
           <h2 :id="command.title">{{ command.number }} - {{ command.title }}</h2>

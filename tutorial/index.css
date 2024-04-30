@@ -1,3 +1,5 @@
+/* GENERAL */
+
 * {
 	box-sizing: border-box;
 }
@@ -6,7 +8,7 @@ body {
 	margin: 0;
 	padding: 0;
 	font-family: Arial, Helvetica, sans-serif;
-	background-color: var(--primary);
+	background-color: var(--color_2);
 	color: var(--font);
 }
 
@@ -23,17 +25,22 @@ p {
 	font-size: 16px;
 }
 
+/* MAIN PAGE */
+
 .gallery {
 	width: 100%;
 	display: flex;
 	flex-wrap: wrap;
 	align-content: center;
+	text-align: center;
+	list-style-type: none;
+	margin-bottom: 20px;
 }
 
 .card {
-	background-color: var(--secondary);
+	background-color: var(--color_2);
 	border-radius: 12px;
-	box-shadow: 2px 2px 4px 4px var(--details);
+	box-shadow: 2px 2px 4px 4px var(--color_3);
 	margin: 10px;
 	padding: 15px;
 	min-width: 200px;
@@ -56,7 +63,17 @@ p {
 }
 
 .card button {
-	background: var(--secondary);
+	background: var(--color_2);
+	color: rgb(6, 125, 236);
+	font-size: 1em;
+	font-family: inherit;
+	border: 0;
+	padding: 0;
+}
+
+.card button:hover {
+	color: rgb(2, 53, 129);
+	cursor: pointer;
 }
 
 #mainContainer {
@@ -69,83 +86,9 @@ p {
 	text-align: justify;
 }
 
-#menuTutorials {
-	text-align: center;
-	list-style-type: none;
-	margin-bottom: 20px;
-}
+/* CONTENT PAGE */
 
-.liTutorial {
-	margin-left: -40px;
-	margin-bottom: 10px;
-}
-
-.btnTutorial {
-	color: rgb(6, 125, 236);
-	background-color: white;
-	font-size: 1em;
-	font-family: inherit;
-	border: 0;
-	padding: 0;
-}
-
-.btnTutorial:hover {
-	color: rgb(2, 53, 129);
-	cursor: pointer;
-}
-
-/* CONTENT */
-
-.sidenav {
-	height: 97.5%;
-	width: 20%;
-	position: fixed;
-	z-index: 1;
-	top: 0;
-	left: 0;
-	background-color: var(--dark);
-	overflow-x: hidden;
-	padding-top: 20px;
-	padding-left: 10px;
-	padding-right: 10px;
-}
-
-@media screen and (max-height: 450px) {
-	.sidenav {padding-top: 15px;}
-	.sidenav a {font-size: 18px;}
-}
-
-#linkHome {
-	padding: 6px 8px 6px 16px;
-	text-decoration: none;
-	font-size: 18px;
-	color: var(--light);
-	display: block;
-}
-
-#linkHome:hover {
-	cursor: context-menu;
-}
-
-#divHome {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-
-#logoHome {
-	color: var(--light);
-}
-
-#logoHome:hover {
-	color: var(--middle);
-	cursor: pointer;
-}
-
-#summary {
-	color: var(--light);
-	padding-left: 15px;
-}
+/* MENU */
 
 #contentMenu {
 	list-style-type: none;
@@ -153,20 +96,51 @@ p {
 	margin-bottom: 20px;
 }
 
-#contentBody {
-	margin-bottom: 20px;
+#sidenav {
+	height: 97.5%;
+	width: 20%;
+	position: fixed;
+	z-index: 1;
+	top: 0;
+	left: 0;
+	background-color: var(--color_3);
+	overflow-x: hidden;
+	padding-top: 20px;
+	padding-left: 10px;
+	padding-right: 10px;
 }
 
-.summaryItem:hover {
-	background-color: rgba(255, 255, 255, 0.8);
+@media screen and (max-height: 450px) {
+	#sidenav {padding-top: 15px;}
+	#sidenav a {font-size: 18px;}
+}
+
+#logoHome {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#logoHome i {
+	color: var(--font);
+}
+
+#logoHome i:hover {
+	color: var(--color_5);
+	cursor: pointer;
+}
+
+#summaryTitle {
+	color: var(--font);
+	padding-left: 15px;
+}
+
+#summaryItem:hover {
+	background-color: var(--color_2);
 	border-radius: 5px;
 }
 
-.summaryItem:hover .linkMenu {
-	color: var(--dark);
-}
-
-.linkMenu {
+#summaryItem a {
 	padding: 6px 8px 6px 16px;
 	text-decoration: none;
 	font-size: 18px;
@@ -174,20 +148,14 @@ p {
 	display: block;
 }
 
-.linkMenu:hover {
-	color: var(--middle);
-}
+/* CONTENT */
 
-.main {
+#contentBody {
+	margin-bottom: 20px;
+	background-color: var(--color_2);
 	margin-left: 20%;
 	font-size: 18px;
 	padding: 0px 10px;
-}
-
-.content {
-	width: 80%;
-	font-family: sans-serif;
-	white-space: pre-line;
 }
 
 #btnTop {
@@ -197,8 +165,8 @@ p {
 	z-index: 99;
 	border: none;
 	outline: none;
-	background-color: rgb(36, 36, 36);
-	color: white;
+	background-color: var(--color_3);
+	color: var(--font);
 	cursor: pointer;
 	padding: 15px;
 	border-radius: 10px;
@@ -206,12 +174,14 @@ p {
 }
   
 #btnTop:hover {
-	background-color: #555;
+	background-color: var(--color_4);
 }
 
+/* MARKDOWN */
+
 .markdown-body {
-  background-color: #ffffff;
-  color: #333333;
+  background-color: var(--color_2);
+  color: var(--font);
 }
 
 .markdown-body p {
@@ -223,27 +193,29 @@ p {
 }
 
 .markdown-body pre {
-  background: #dddddd !important;
-  color: #333333;
+  background: var(--color_3) !important;
+  color: var(--font);
 	width: 80%;
 }
 
 .markdown-body code {
-  background: #dddddd !important;
-  color: #333333;
+  background: var(--color_3) !important;
+  color: var(--font);
 }
 
 .markdown-body th {
-	background-color: #f6f8fa;
+	background-color: var(--color_1);
 }
 
 .markdown-body tbody tr:nth-child(odd) {
-	background-color: #ffffff;
+	background-color: var(--color_1);
 }
 
 .markdown-body tbody tr:nth-child(even) {
-	background-color: #f6f8fa;
+	background-color: var(--color_1);
 }
+
+/* BUTTON THEME */
 
 .switch {
 	float: right;
