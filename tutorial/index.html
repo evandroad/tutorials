@@ -13,11 +13,6 @@
   <title>Tutorials</title>  
 </head>
 <body>
-  <label class="switch">
-    <input type="checkbox" id="themeCheckbox">
-    <span class="slider"></span>
-  </label>
-
   <div id="app"></div>
 
   <script type="module">
@@ -26,50 +21,5 @@
 	
 		createApp(App).mount('#app')
 	</script>
-  <script>
-    window.addEventListener('load', () => {
-      theme = localStorage.getItem('theme')
-      if (theme == null || theme == 'light') {
-        check = true
-        localStorage.setItem('theme', 'light')
-      } else {
-        check = false
-        localStorage.setItem('theme', 'dark')
-      }
-
-      document.getElementById('themeCheckbox').checked = check
-      
-      if (!document.getElementById('themeCheckbox').checked) {
-        loadCSS('dark.css')
-      } else {
-        loadCSS('light.css')
-      }
-    })
-
-    document.getElementById('themeCheckbox').addEventListener('change', function() {
-      if (this.checked) {
-        loadCSS('light.css')
-        localStorage.setItem('theme', 'light')
-      } else {
-        loadCSS('dark.css')
-        localStorage.setItem('theme', 'dark')
-      }
-    })
-
-    async function loadCSS(url) {
-      const themeLink = document.getElementById('themeLink');
-
-      if (!themeLink) {
-          const link = document.createElement('link');
-          link.id = 'themeLink'
-          link.rel = 'stylesheet'
-          link.href = url
-          document.head.appendChild(link)
-          return
-      } else {
-        themeLink.setAttribute('href', url)
-      }
-    }
-  </script>
 </body>
 </html

@@ -31,7 +31,7 @@ func main() {
   apiUrl := "http://localhost" + apiPort
 
   if runtime.GOOS == "linux" {
-    openBrowserLinux(appUrl)
+    openBrowserLinux(webUrl, appUrl)
   }
 
   apiRouter := gin.Default()
@@ -85,11 +85,18 @@ func insertContent(c *gin.Context) { handler.InsertContent(c) }
 func updateContent(c *gin.Context) { handler.UpdateContent(c) }
 func deleteContent(c *gin.Context) { handler.DeleteContent(c) }
 
-func openBrowserLinux(url string) {
-  cmd := exec.Command("xdg-open", url)
-  err := cmd.Run()
-  if err != nil {
-    println("Erro ao abrir o navegador padrão:", err.Error())
+func openBrowserLinux(webUrl string, appUrl string) {
+  cmdWeb := exec.Command("xdg-open", webUrl)
+  errWeb := cmdWeb.Run()
+  if errWeb != nil {
+    println("Erro ao abrir o navegador padrão:", errWeb.Error())
+    return
+  }
+
+  cmdApp := exec.Command("xdg-open", appUrl)
+  errApp := cmdApp.Run()
+  if errApp != nil {
+    println("Erro ao abrir o navegador padrão:", errApp.Error())
     return
   }
 }
