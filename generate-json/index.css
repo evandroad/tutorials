@@ -19,3 +19,8 @@ h1 {
   display: flex;
   gap: 5px;
 }
+
+.center {
+  margin: 0 auto;
+  display: block;
+}

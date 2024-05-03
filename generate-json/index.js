@@ -1,32 +1,44 @@
 export default {
   template: `
-    <h1>{{ mainTitle }}</h1>
-
-    <div v-if="page == 'tutorial'" id="formTutorial" class="col-sm-6 d">
-      <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <span class="input-group-text" style="width: 80px">Número:</span>
+    <div class="modal fade" id="formTutorial" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5">Inserir URL</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" style="width: 80px">Número:</span>
+              </div>
+              <input type="text" id="number" class="form-control" v-model="number">
+            </div>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" style="width: 80px">Tutorial:</span>
+              </div>
+              <input type="text" id="tutorial" class="form-control" v-model="tutorial">
+            </div>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" style="width: 80px">Imagem:</span>
+              </div>
+              <input type="file" id="image" class="form-control" v-model="image" @change="handleImageChange">
+            </div>
+            <div class="form-group gap">
+              <button v-show="showBtnAddTutorial" class="btn btn-success" @click="createTutorial">Criar Tutorial</button>
+              <button v-show="showBtnEditTutorial" class="btn btn-success" @click="updateTutorial">Editar Tutorial</button>
+              <button class="btn btn-primary" @click="cleanTutorial">Limpar</button>
+            </div>
+          </div>
         </div>
-        <input type="text" id="number" class="form-control" v-model="number">
-      </div>
-      <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <span class="input-group-text" style="width: 80px">Tutorial:</span>
-        </div>
-        <input type="text" id="tutorial" class="form-control" v-model="tutorial">
-      </div>
-      <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <span class="input-group-text" style="width: 80px">Imagem:</span>
-        </div>
-        <input type="file" id="image" class="form-control" v-model="image" @change="handleImageChange">
-      </div>
-      <div class="form-group gap">
-        <button v-show="showBtnAddTutorial" class="btn btn-success" @click="createTutorial">Criar Tutorial</button>
-        <button v-show="showBtnEditTutorial" class="btn btn-success" @click="updateTutorial">Editar Tutorial</button>
-        <button class="btn btn-primary" @click="cleanTutorial">Limpar</button>
       </div>
     </div>
+    
+    <h1>{{ mainTitle }}</h1>
+
+    <button class="btn btn-success center" @click="openFormTutorial">Adicionar</button>
 
     <div v-if="page == 'tutorial'" id="tableTutorials" class="col-sm-6 d">
       <table id="tutorials" class="table">
@@ -205,6 +217,7 @@ export default {
           this.cleanImage()
           alert(data.message)
           this.listTutorials()
+          $('#formTutorial').modal('hide')
         }
       })
     },
@@ -239,6 +252,7 @@ export default {
           this.listTutorials()
           this.showBtnAddTutorial = true
           this.showBtnEditTutorial = false
+          $('#formTutorial').modal('hide')
         }
       })
     },
@@ -259,6 +273,7 @@ export default {
       })
     },
     editTutorial(tutorial) {
+      this.openFormTutorial()
       this.number = tutorial.number
       this.tutorial = tutorial.title
       this.currentTutorial = tutorial.title
@@ -401,6 +416,10 @@ export default {
     },
     focus(input) {
       document.querySelector(`#${input}`).focus()
-    }
+    },
+    openFormTutorial() {
+      this.cleanTutorial()
+      $('#formTutorial').modal('show')
+		}
   }
 }
