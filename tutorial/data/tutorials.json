@@ -48,5 +48,10 @@
     "number": 10,
     "title": "SQL Commands",
     "image": "SQL Commands.jpeg"
+  },
+  {
+    "number": 11,
+    "title": "Markdown",
+    "image": "Markdown.png"
   }
 ]

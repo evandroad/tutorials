@@ -1,30 +1,24 @@
 export default {
   template: `
     <div class="modal fade" id="formTutorial" tabindex="-1" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h1 class="modal-title fs-5">Inserir URL</h1>
+            <h5 class="modal-title">{{ titleModalTutorial }}</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text" style="width: 80px">Número:</span>
-              </div>
-              <input type="text" id="number" class="form-control" v-model="number">
+            <div class="mb-3">
+              <label class="form-label">Número:</label>
+              <input type="text" class="form-control" v-model="number" id="number">
             </div>
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text" style="width: 80px">Tutorial:</span>
-              </div>
-              <input type="text" id="tutorial" class="form-control" v-model="tutorial">
+            <div class="mb-3">
+              <span class="form-label">Tutorial:</span>
+              <input type="text" class="form-control" v-model="tutorial">
             </div>
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text" style="width: 80px">Imagem:</span>
-              </div>
-              <input type="file" id="image" class="form-control" v-model="image" @change="handleImageChange">
+            <div class="mb-3">
+              <span class="form-label">Imagem:</span>
+              <input type="file" class="form-control" v-model="image" id="image" @change="handleImageChange">
             </div>
             <div class="form-group gap">
               <button v-show="showBtnAddTutorial" class="btn btn-success" @click="createTutorial">Criar Tutorial</button>
@@ -36,9 +30,47 @@ export default {
       </div>
     </div>
     
+    <div class="modal fade" id="formContent" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">{{ titleModalContent }}</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="mb-3">
+              <label class="form-label">Número:</label>
+              <input type="text" class="form-control" v-model="contentNumber" id="contentNumber">
+            </div>
+            <div class="mb-3">
+              <span class="form-label">Título:</span>
+              <input type="text" class="form-control" v-model="title">
+            </div>
+            <div class="mb-3">
+              <span class="form-label">Conteúdo:</span>
+              <textarea rows="8" class="form-control" v-model="content"></textarea>
+            </div>
+            <div class="form-group gap">
+              <button v-show="showBtnSaveContent" class="btn btn-success" type="button" @click="saveContent">
+                Salvar
+              </button>
+              <button v-show="showBtnUpdContent" class="btn btn-success" type="button" @click="updateContent">
+                Alterar
+              </button>
+              <button class="btn btn-primary" type="button" @click="cleanContent">
+                Limpar
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <h1>{{ mainTitle }}</h1>
 
-    <button class="btn btn-success center" @click="openFormTutorial">Adicionar</button>
+    <button class="btn btn-success center" v-show="page == 'tutorial'" @click="openFormTutorial">
+      Adicionar
+    </button>
 
     <div v-if="page == 'tutorial'" id="tableTutorials" class="col-sm-6 d">
       <table id="tutorials" class="table">
@@ -73,36 +105,14 @@ export default {
         </tbody>
       </table>
     </div>
-
-    <div v-if="page == 'content'" id="formContent" class="col-sm-8 d">
-      <button id="btnHome" class="btn btn-secondary" type="button" @click="home">Voltar</button>
-      
-      <h2 v-show="showTitleAddCont" style="text-align: center;">Adicionar Conteúdo</h2>
-      <h2 v-show="showTitleUpdCont" style="text-align: center;">Alterar Conteúdo</h2>
-      
-      <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <span class="input-group-text" style="width: 80px">Number:</span>
-        </div>
-        <input type="text" id="contentNumber" v-model="contentNumber" class="form-control">
-      </div>
-      <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <span class="input-group-text" style="width: 80px">Title:</span>
-        </div>
-        <input type="text" v-model="title" class="form-control">
-      </div>
-      <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <span class="input-group-text" style="width: 80px">Content:</span>
-        </div>
-        <textarea v-model="content" class="form-control" rows="8"></textarea>
-      </div>
-      <div class="form-group gap">
-        <button v-show="showBtnSaveContent" class="btn btn-success" type="button" @click="saveContent">Salvar</button>
-        <button v-show="showBtnUpdContent" class="btn btn-success" type="button" @click="updateContent">Alterar</button>
-        <button class="btn btn-primary" type="button" @click="cleanContent">Limpar</button>
-      </div>
+    
+    <div class="buttons" v-show="page == 'content'">
+      <button class="btn btn-secondary" type="button" @click="home">
+        Voltar
+      </button>
+      <button class="btn btn-success" @click="openFormContent">
+        Adicionar
+      </button>
     </div>
 
     <div v-if="page == 'content'" id="tableContents" class="table-responsive col-lg-8 d">
@@ -136,14 +146,13 @@ export default {
     </div>
   `,
   mounted() {
-    this.focus('number')
-    tutorial = ''
+    this.tutorial = ''
 
     if (window.location.hash == '#content') {
       if (sessionStorage.getItem('tutorial') != null) {
-        tutorial = sessionStorage.getItem('tutorial')
+        this.tutorial = sessionStorage.getItem('tutorial')
       }
-      this.goTutorial(tutorial)
+      this.goTutorial(this.tutorial)
       return
     }
 
@@ -165,11 +174,11 @@ export default {
       content: '',
       currentTitle: '',
       mainTitle: 'Tutoriais',
+      titleModalTutorial: 'Adicionar Tutorial',
+      titleModalContent: 'Adicionar Conteúdo',
       showBtnEditTutorial: false,
       showBtnAddTutorial: true,
-      showTitleUpdCont: false,
       showBtnUpdContent: false,
-      showTitleAddCont: true,
       showBtnAddContent: false,
       showBtnSaveContent: true
     }
@@ -274,6 +283,7 @@ export default {
     },
     editTutorial(tutorial) {
       this.openFormTutorial()
+      this.titleModalTutorial = 'Editar Tutorial'
       this.number = tutorial.number
       this.tutorial = tutorial.title
       this.currentTutorial = tutorial.title
@@ -326,6 +336,7 @@ export default {
           this.title = ''
           this.content = ''
           this.focus('contentNumber')
+          $('#formContent').modal('hide')
         }
       })
     },
@@ -347,11 +358,11 @@ export default {
           alert(data.message)
           this.listContents(this.mainTitle)
           this.scrollToElement(this.title)
-          this.addContent({})
           this.contentNumber = ''
           this.title = ''
           this.content = ''
           this.focus('contentNumber')
+          $('#formContent').modal('hide')
         }
       })
     },
@@ -373,14 +384,14 @@ export default {
     },
     editContent(content) {
       this.cleanContent()
+      this.openFormContent()
       this.showBtnSaveContent = false
-      this.showTitleAddCont = false
       this.showBtnUpdContent = true
-      this.showTitleUpdCont = true
       this.contentNumber = content.number
       this.title = content.title
       this.currentTitle = content.title
       this.content = content.content
+      this.titleModalContent = 'Editar Conteúdo'
       window.scrollTo({ top: 0, behavior: 'smooth' })
     },
     handleImageChange(event) {
@@ -408,8 +419,6 @@ export default {
       this.code = ''
       this.showBtnUpdContent = false
       this.showBtnSaveContent = true
-      this.showTitleAddCont = true
-      this.showTitleUpdCont = false
     },
     cleanImage() {
       document.querySelector("#image").value = ''
@@ -418,8 +427,15 @@ export default {
       document.querySelector(`#${input}`).focus()
     },
     openFormTutorial() {
+      this.titleModalTutorial = 'Adicionar Tutorial'
       this.cleanTutorial()
       $('#formTutorial').modal('show')
+		},
+    openFormContent() {
+      this.titleModalContent = 'Adicionar Conteúdo'
+      this.cleanContent()
+      $('#formContent').modal('show')
+      setTimeout(() => this.focus('number'), 100)
 		}
   }
 }

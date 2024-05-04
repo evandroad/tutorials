@@ -24,3 +24,9 @@ h1 {
   margin: 0 auto;
   display: block;
 }
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+}
