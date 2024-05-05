@@ -66,13 +66,18 @@ export default {
       </div>
     </div>
 
+    <label class="switch">
+      <input type="checkbox" id="themeCheckbox" @change="setTheme($event)">
+      <span class="slider"></span>
+    </label>
+
     <h1>{{ mainTitle }}</h1>
 
     <button class="btn btn-success center" v-show="page == 'tutorial'" @click="openFormTutorial">
       Adicionar
     </button>
 
-    <div v-if="page == 'tutorial'" id="tableTutorials" class="col-sm-6 d">
+    <div v-if="page == 'tutorial'" id="tableTutorials" class="col-sm-6 table-panel">
       <table id="tutorials" class="table">
         <thead>
           <th>Número</th>
@@ -115,7 +120,7 @@ export default {
       </button>
     </div>
 
-    <div v-if="page == 'content'" id="tableContents" class="table-responsive col-lg-8 d">
+    <div v-if="page == 'content'" id="tableContents" class="table-responsive col-lg-8 table-panel">
       <h2 style="text-align: center;">Conteúdos</h2>
       <table id="contents" class="table table-sm table-hover table-condensed">
         <thead>
@@ -146,6 +151,7 @@ export default {
     </div>
   `,
   mounted() {
+    this.firstLoadTheme()
     this.tutorial = ''
 
     if (window.location.hash == '#content') {
@@ -436,6 +442,44 @@ export default {
       this.cleanContent()
       $('#formContent').modal('show')
       setTimeout(() => this.focus('number'), 100)
-		}
+		},
+    firstLoadTheme() {
+      var url = this.getTheme()
+
+      const link = document.createElement('link')
+      link.id = 'themeLink'
+      link.rel = 'stylesheet'
+      link.href = url
+      document.head.appendChild(link)
+    },
+    getTheme() {
+      var theme = localStorage.getItem('theme')
+      var check
+      
+      if (theme == null || theme == 'light') {
+        check = true
+        localStorage.setItem('theme', 'light')
+      } else {
+        check = false
+        localStorage.setItem('theme', 'dark')
+      }
+
+      document.getElementById('themeCheckbox').checked = check
+      
+      if (!document.getElementById('themeCheckbox').checked) {
+        return 'dark.css'
+      }
+
+      return 'light.css'
+    },
+    setTheme(e) {
+      if (e.target.checked) {
+        localStorage.setItem('theme', 'light')
+        document.getElementById('themeLink').setAttribute('href', 'light.css')
+      } else {
+        localStorage.setItem('theme', 'dark')
+        document.getElementById('themeLink').setAttribute('href', 'dark.css')
+      }
+    }
   }
 }
