@@ -137,7 +137,7 @@ export default {
             <td>{{ content.content }}</td>
             <td class="goTutorial">
               <a href='' @click.prevent="editContent(content)">
-                <i class='fa fa-share' style='font-size: 25px'></i>
+                <i class='fa fa-pencil-square' style='font-size: 25px'></i>
               </a>
             </td>
             <td class="deleteTutorial">
