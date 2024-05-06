@@ -440,6 +440,7 @@ export default {
     openFormContent() {
       this.titleModalContent = 'Adicionar Conteúdo'
       this.cleanContent()
+      this.contentNumber = this.contents.length + 1
       $('#formContent').modal('show')
       setTimeout(() => this.focus('number'), 100)
 		},
