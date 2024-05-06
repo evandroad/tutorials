@@ -9,9 +9,9 @@ h1 {
 }
 
 .table-panel {
-  background: var(--color_1);
+  background: var(--color_3);
   color: var(--font);
-  box-shadow: 2px 2px 10px #00000040;
+  box-shadow: 2px 2px 10px var(--color_2);
   margin: 10px auto;
   border-radius: 15px;
   padding: 15px;
@@ -24,24 +24,24 @@ th, td {
 
 .modal-body,
 .modal-header {
-	background-color: #1f1f1f;
+	background-color: var(--color_2);
 }
 
 .btn-close {
-	background-color: #fff;
+	background-color: var(--color_4);
 }
 
 .form-control,
 .form-select {
-	background-color: #424242;
-	color: #fff;
-	border-color: #2b2b2b;
+	background-color: var(--color_2);
+	color: var(--font);
+	border-color: var(--color_4);
 }
 
 .form-control:focus,
 .form-select:focus {
-	background-color: #555;
-	color: #fff;
+	background-color: var(--color_2);
+	color: var(--font);
 }
 
 
