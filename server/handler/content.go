@@ -4,6 +4,7 @@ import (
 	"os"
 	"sort"
 	"strconv"
+	"os/exec"
 	"net/http"
 	"encoding/json"
 	"tutorials/file"
@@ -42,6 +43,14 @@ func InsertContent(c *gin.Context) {
 	})
 
 	file.SaveCommand(jsonPath, commands)
+
+	commandShell := "cd ..; git add .; git commit -m \"feat: add content\"; git push"
+	cmd := exec.Command("powershell", "-Command", commandShell)
+  err = cmd.Run()
+  if err != nil {
+    println("Erro ao enviar para o git:", err.Error())
+    return
+  }
 
 	c.JSON(http.StatusOK, gin.H{"message": "Conteúdo salvo com sucesso."})
 }
