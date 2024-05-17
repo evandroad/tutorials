@@ -435,14 +435,16 @@ export default {
     openFormTutorial() {
       this.titleModalTutorial = 'Adicionar Tutorial'
       this.cleanTutorial()
+      this.number = this.tutorials.length + 1
       $('#formTutorial').modal('show')
+      setTimeout(() => this.focus('tutorial'), 500)
 		},
     openFormContent() {
       this.titleModalContent = 'Adicionar Conteúdo'
       this.cleanContent()
       this.contentNumber = this.contents.length + 1
       $('#formContent').modal('show')
-      setTimeout(() => this.focus('number'), 100)
+      setTimeout(() => this.focus('number'), 500)
 		},
     firstLoadTheme() {
       var url = this.getTheme()
