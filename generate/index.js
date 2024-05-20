@@ -14,7 +14,7 @@ export default {
             </div>
             <div class="mb-3">
               <span class="form-label">Tutorial:</span>
-              <input type="text" class="form-control" v-model="tutorial">
+              <input type="text" class="form-control" v-model="tutorial" id="tutorial">
             </div>
             <div class="mb-3">
               <span class="form-label">Imagem:</span>
