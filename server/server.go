@@ -23,19 +23,19 @@ func CorsMiddleware(port string) gin.HandlerFunc {
 }
 
 func main() {
-  webPort := ":8000"
-  appPort := ":8001"
-  apiPort := ":8081"
-  webUrl := "http://localhost" + webPort
-  appUrl := "http://localhost" + appPort
-  apiUrl := "http://localhost" + apiPort
+  port := ":8080"
+  apiUrl := "http://localhost" + port + "/api"
+  appUrl := "http://localhost" + port + "/generate"
+  webUrl := "http://localhost" + port + "/tutorial"
 
   if runtime.GOOS == "linux" {
     openBrowserLinux(webUrl, appUrl)
   }
 
-  apiRouter := gin.Default()
-  apiRouter.Use(CorsMiddleware(appPort))
+  router := gin.Default()
+  
+  apiRouter := router.Group("/api")
+  apiRouter.Use(CorsMiddleware(port))
   apiRouter.GET("/", status)
   apiRouter.GET("/tutorial", listTutorial)
   apiRouter.POST("/tutorial", insertTutorial)
@@ -46,32 +46,18 @@ func main() {
   apiRouter.PUT("/content", updateContent)
   apiRouter.DELETE("/content/:tutorial/:title", deleteContent)
 
-  println("API rodando em " + apiUrl)
-  go func() {
-    err := apiRouter.Run(apiPort)
-    if err != nil {
-      println("Erro ao iniciar o servidor da API: ", err.Error())
-    }
-  }()
-
-  appRouter := gin.Default()
-  appRouter.StaticFS("/", http.Dir("../generate-json"))
-
-  println("Backend rodando em " + cyan(appUrl))
-  go func() {
-    err := appRouter.Run(appPort)
-    if err != nil {
-      println("Erro ao iniciar o servidor de backend: ", err.Error())
-    }
-  }()
-  
-  webRouter := gin.Default()
+  webRouter := router.Group("/tutorial")
   webRouter.StaticFS("/", http.Dir("../tutorial"))
+  appRouter := router.Group("/generate")
+  appRouter.StaticFS("/", http.Dir("../generate"))
   
-  println("Frontend rodando em " + cyan(webUrl))
-  err := webRouter.Run(webPort)
+  println("API rodando em " + cyan(apiUrl))
+  println("Generate rodando em " + cyan(appUrl))
+  println("Tutorial rodando em " + cyan(webUrl))
+  
+  err := router.Run(port)
   if err != nil {
-    println("Erro ao iniciar o servidor de frontend: ", err.Error())
+    println("Erro ao iniciar o servidor: ", err.Error())
   }
 }
 

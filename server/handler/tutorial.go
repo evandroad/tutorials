@@ -61,7 +61,7 @@ func InsertTutorial(c *gin.Context) {
 	jsonPath := ROOT_DIR + "data/" + tutorial + ".json"
 	file.SaveEmptyJSON(jsonPath)
 
-	go file.Git("Added " + tutorial)
+	go file.Git("Added tutorial " + tutorial)
 
 	c.JSON(http.StatusOK, gin.H{"message": "Tutorial salvo com sucesso."})
 }
@@ -117,6 +117,8 @@ func UpdateTutorial(c *gin.Context) {
 
 	file.SaveJson(filePath, tutorials)
 
+	go file.Git("Updated tutorial " + tutorial)
+
 	c.JSON(http.StatusOK, gin.H{"message": "Tutorial salvo com sucesso."})
 }
 
@@ -143,7 +145,7 @@ func DeleteTutorial(c *gin.Context) {
 	jsonPath:= ROOT_DIR + "data/" + tutorial + ".json"
 	file.Remove(jsonPath)
 
-	go file.Git("Deleted " + tutorial)
+	go file.Git("Deleted tutorial " + tutorial)
 
 	c.JSON(http.StatusOK, gin.H{"message": "Tutorial apagado com sucesso."})
 }

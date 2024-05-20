@@ -4,7 +4,6 @@ import (
 	"os"
 	"sort"
 	"strconv"
-	"os/exec"
 	"net/http"
 	"encoding/json"
 	"tutorials/file"
@@ -44,13 +43,7 @@ func InsertContent(c *gin.Context) {
 
 	file.SaveCommand(jsonPath, commands)
 
-	commandShell := "cd ..; git add .; git commit -m \"feat: add content\"; git push"
-	cmd := exec.Command("powershell", "-Command", commandShell)
-  err = cmd.Run()
-  if err != nil {
-    println("Erro ao enviar para o git:", err.Error())
-    return
-  }
+	go file.Git("Added content " + title + " in tutorial " + tutorial)
 
 	c.JSON(http.StatusOK, gin.H{"message": "Conteúdo salvo com sucesso."})
 }
@@ -85,6 +78,8 @@ func UpdateContent(c *gin.Context) {
 
 	file.SaveCommand(jsonPath, commands)
 
+	go file.Git("Updated content " + title + " in tutorial " + tutorial)
+
 	c.JSON(http.StatusOK, gin.H{"message": "Conteúdo alterado com sucesso."})
 }
 
@@ -103,6 +98,8 @@ func DeleteContent(c *gin.Context) {
 	}
 
 	file.SaveCommand(filePath, commands)
+
+	go file.Git("Deleted content " + title + " in tutorial " + tutorial)
 
 	c.JSON(http.StatusOK, gin.H{"message": "Conteúdo apagado com sucesso."})
 }
