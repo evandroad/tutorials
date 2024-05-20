@@ -89,16 +89,9 @@ func Remove(filePath string) {
 }
 
 func Git(message string) {
-	// Change directory to the target directory
-  err := os.Chdir("../")
-  if err != nil {
-    fmt.Println("Error changing directory:", err)
-    return
-  }
-
   // Stage changes
-  cmd := exec.Command("git", "add", ".")
-  err = cmd.Run()
+  cmd := exec.Command("git", "add", "../*")
+  err := cmd.Run()
   if err != nil {
     fmt.Println("Error staging changes:", err)
     return
@@ -119,12 +112,5 @@ func Git(message string) {
   err = cmd.Run()
   if err != nil {
     fmt.Println("Error pushing changes:", err)
-  }
-
-	// Change directory to the target directory
-  err = os.Chdir("cd server/")
-  if err != nil {
-    fmt.Println("Error changing directory:", err)
-    return
   }
 }
