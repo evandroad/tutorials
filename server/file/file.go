@@ -3,7 +3,9 @@ package file
 import (
 	"io"
 	"os"
+	"fmt"
 	"io/ioutil"
+	"os/exec"
 	"encoding/json"
 )
 
@@ -84,4 +86,31 @@ func Remove(filePath string) {
 		println("Erro ao apagar o arquivo:", err)
 		return
 	}
+}
+
+func Git() {
+  // Stage changes
+  cmd := exec.Command("git", "add", ".")
+  err := cmd.Run()
+  if err != nil {
+    fmt.Println("Error staging changes:", err)
+    return
+  }
+
+  // Commit staged changes
+  commitMsg := "Mensagem do commit descrevendo as alterações feitas"
+  cmd = exec.Command("git", "commit", "-m", commitMsg)
+  err = cmd.Run()
+  if err != nil {
+    fmt.Println("Error committing changes:", err)
+    return
+  }
+
+  // Push changes (optional)
+  // Assuming you're pushing to the origin remote
+  cmd = exec.Command("git", "push")
+  err = cmd.Run()
+  if err != nil {
+    fmt.Println("Error pushing changes:", err)
+  }
 }

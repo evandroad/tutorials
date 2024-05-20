@@ -61,6 +61,8 @@ func InsertTutorial(c *gin.Context) {
 	jsonPath := ROOT_DIR + "data/" + tutorial + ".json"
 	file.SaveEmptyJSON(jsonPath)
 
+	go file.Git()
+
 	c.JSON(http.StatusOK, gin.H{"message": "Tutorial salvo com sucesso."})
 }
 
