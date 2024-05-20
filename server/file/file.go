@@ -88,7 +88,7 @@ func Remove(filePath string) {
 	}
 }
 
-func Git() {
+func Git(message string) {
   // Stage changes
   cmd := exec.Command("git", "add", ".")
   err := cmd.Run()
@@ -98,7 +98,7 @@ func Git() {
   }
 
   // Commit staged changes
-  commitMsg := "Mensagem do commit descrevendo as alterações feitas"
+  commitMsg := "feat: " + message
   cmd = exec.Command("git", "commit", "-m", commitMsg)
   err = cmd.Run()
   if err != nil {
