@@ -44,7 +44,7 @@ export default {
             </div>
             <div class="mb-3">
               <span class="form-label">Título:</span>
-              <input type="text" class="form-control" v-model="title">
+              <input type="text" class="form-control" v-model="title" id="title">
             </div>
             <div class="mb-3">
               <span class="form-label">Conteúdo:</span>
@@ -80,6 +80,7 @@ export default {
     <div v-if="page == 'tutorial'" id="tableTutorials" class="col-sm-6 table-panel">
       <table id="tutorials" class="table">
         <thead>
+          <th>Ícone</th>
           <th>Número</th>
           <th>Tutoriais</th>
           <th>Editar</th>
@@ -88,6 +89,7 @@ export default {
         </thead>
         <tbody>
           <tr v-for="tutorial in tutorials">
+            <td><img :src="'../tutorial/img/' + tutorial.image" style='height: 25px'></img></td>
             <td>{{ tutorial.number }}</td>
             <td>{{ tutorial.title }}</td>
             <td>
@@ -166,7 +168,7 @@ export default {
 	},
   data() {
     return {
-      API: 'http://localhost:8081',
+      API: 'http://localhost:8080/api',
       page: 'tutorial',
       tutorials: [],
       contents: [],
@@ -444,7 +446,7 @@ export default {
       this.cleanContent()
       this.contentNumber = this.contents.length + 1
       $('#formContent').modal('show')
-      setTimeout(() => this.focus('number'), 500)
+      setTimeout(() => this.focus('title'), 500)
 		},
     firstLoadTheme() {
       var url = this.getTheme()
