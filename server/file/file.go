@@ -120,4 +120,11 @@ func Git(message string) {
   if err != nil {
     fmt.Println("Error pushing changes:", err)
   }
+
+	// Change directory to the target directory
+  err = os.Chdir("cd server/")
+  if err != nil {
+    fmt.Println("Error changing directory:", err)
+    return
+  }
 }
