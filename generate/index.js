@@ -66,6 +66,28 @@ export default {
       </div>
     </div>
 
+    <div class="modal fade" id="modalGit" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">{{ titleModalContent }}</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="mb-3">
+              <label class="form-label">Número:</label>
+              <input type="text" class="form-control" v-model="contentNumber" id="contentNumber">
+            </div>
+            <div class="form-group gap">
+              <button class="btn btn-success" type="button" @click="saveContent">
+                Salvar
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <label class="switch">
       <input type="checkbox" id="themeCheckbox" @change="setTheme($event)">
       <span class="slider"></span>
@@ -235,6 +257,7 @@ export default {
           alert(data.message)
           this.listTutorials()
           $('#formTutorial').modal('hide')
+          $('#modalGit').modal('show')
         }
       })
     },
