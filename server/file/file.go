@@ -6,7 +6,9 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os/exec"
+	"net/http"
 	"encoding/json"
+	"github.com/gin-gonic/gin"
 )
 
 type Tutorial struct {
@@ -88,10 +90,10 @@ func Remove(filePath string) {
 	}
 }
 
-func InsertContent(c *gin.Context) {
+func SendGit(c *gin.Context) {
 	message := c.PostForm("message")
 
-	go file.Git(message)
+	go Git(message)
 
 	c.JSON(http.StatusOK, gin.H{"message": "Enviado para o git com sucesso."})
 }

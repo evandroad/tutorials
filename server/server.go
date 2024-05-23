@@ -46,7 +46,7 @@ func main() {
   apiRouter.POST("/content", insertContent)
   apiRouter.PUT("/content", updateContent)
   apiRouter.DELETE("/content/:tutorial/:title", deleteContent)
-  apiRouter.Post("/git", sendGit)
+  apiRouter.POST("/git", sendGit)
 
   webRouter := router.Group("/tutorial")
   webRouter.StaticFS("/", http.Dir("../tutorial"))
@@ -72,6 +72,7 @@ func listContent(c *gin.Context) { handler.ListContent(c) }
 func insertContent(c *gin.Context) { handler.InsertContent(c) }
 func updateContent(c *gin.Context) { handler.UpdateContent(c) }
 func deleteContent(c *gin.Context) { handler.DeleteContent(c) }
+func sendGit(c *gin.Context) { file.SendGit(c) }
 
 func openBrowserLinux(webUrl string, appUrl string) {
   cmdWeb := exec.Command("xdg-open", webUrl)
