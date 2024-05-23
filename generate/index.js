@@ -252,7 +252,7 @@ export default {
         contentType: false,
         data: fd,
         success: data => {
-          this.message = "Added tutorial " + this.tutorial
+          this.message = `Added tutorial "${this.tutorial}"`
           this.number = ''
           this.tutorial = ''
           this.cleanImage()
@@ -288,6 +288,7 @@ export default {
         contentType: false,
         data: fd,
         success: data => {
+          this.message = `Updated tutorial "${this.tutorial}"`
           this.number = ''
           this.tutorial = ''
           this.cleanImage()
@@ -296,6 +297,8 @@ export default {
           this.showBtnAddTutorial = true
           this.showBtnEditTutorial = false
           $('#formTutorial').modal('hide')
+          $('#modalGit').modal('show')
+          setTimeout(() => this.focus('message'), 500)
         }
       })
     },
@@ -312,6 +315,9 @@ export default {
         success: data => {
           alert(data.message)
           this.listTutorials()
+          this.message = `Deleted tutorial "${tutorial}"`
+          $('#modalGit').modal('show')
+          setTimeout(() => this.focus('message'), 500)
         }
       })
     },
@@ -364,6 +370,7 @@ export default {
         method: 'post',
         data: {tutorial: this.mainTitle, number: this.contentNumber, title: this.title, content: this.content},
         success: data => {
+          this.message = `Added content "${this.title}" in tutorial [${this.mainTitle}]`
           alert(data.message)
           this.listContents(this.mainTitle)
           this.contentNumber = ''
@@ -371,6 +378,8 @@ export default {
           this.content = ''
           this.focus('contentNumber')
           $('#formContent').modal('hide')
+          $('#modalGit').modal('show')
+          setTimeout(() => this.focus('message'), 500)
         }
       })
     },
@@ -389,6 +398,7 @@ export default {
         method: 'put',
         data: {tutorial: this.mainTitle, number: this.contentNumber, title: this.title, content: this.content, oldTitle: this.currentTitle},
         success: data => {
+          this.message = `Updated content "${this.title}" in tutorial [${this.mainTitle}]`
           alert(data.message)
           this.listContents(this.mainTitle)
           this.scrollToElement(this.title)
@@ -397,6 +407,8 @@ export default {
           this.content = ''
           this.focus('contentNumber')
           $('#formContent').modal('hide')
+          $('#modalGit').modal('show')
+          setTimeout(() => this.focus('message'), 500)
         }
       })
     },
@@ -411,8 +423,11 @@ export default {
         url: `${this.API}/content/${this.mainTitle}/${content.title}`,
         method: 'delete',
         success: (data) => {
+          this.message = `Deleted content "${content.title}" in tutorial [${this.mainTitle}]`
           alert(data.message)
           this.listContents(this.mainTitle)
+          $('#modalGit').modal('show')
+          setTimeout(() => this.focus('message'), 500)
         }
       })
     },
@@ -436,7 +451,9 @@ export default {
     },
     scrollToElement(id) {
       var element = document.getElementById(id)
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      if (element != null) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      }
     },
     cleanTutorial() {
       this.focus('number')

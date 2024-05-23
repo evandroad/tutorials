@@ -100,7 +100,7 @@ func SendGit(c *gin.Context) {
 
 func Git(message string) {
   // Stage changes
-  cmd := exec.Command("git", "add", "../*")
+  cmd := exec.Command("git", "add", "../tutorial/*")
   err := cmd.Run()
   if err != nil {
     fmt.Println("Error staging changes:", err)
@@ -116,8 +116,7 @@ func Git(message string) {
     return
   }
 
-  // Push changes (optional)
-  // Assuming you're pushing to the origin remote
+  // Push changes
   cmd = exec.Command("git", "push")
   err = cmd.Run()
   if err != nil {
