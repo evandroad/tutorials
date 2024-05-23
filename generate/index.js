@@ -252,6 +252,7 @@ export default {
         contentType: false,
         data: fd,
         success: data => {
+          this.message = "Added tutorial " + this.tutorial
           this.number = ''
           this.tutorial = ''
           this.cleanImage()
@@ -260,7 +261,6 @@ export default {
           $('#formTutorial').modal('hide')
           $('#modalGit').modal('show')
           setTimeout(() => this.focus('message'), 500)
-          this.message = "Added tutorial " + this.tutorial
         }
       })
     },
