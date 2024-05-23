@@ -75,11 +75,11 @@ export default {
           </div>
           <div class="modal-body">
             <div class="mb-3">
-              <label class="form-label">Número:</label>
-              <input type="text" class="form-control" v-model="contentNumber" id="contentNumber">
+              <label class="form-label">Mensagem:</label>
+              <input type="text" class="form-control" v-model="message" id="message">
             </div>
             <div class="form-group gap">
-              <button class="btn btn-success" type="button" @click="saveContent">
+              <button class="btn btn-success" type="button" @click="saveGit">
                 Salvar
               </button>
             </div>
@@ -203,6 +203,7 @@ export default {
       title: '',
       content: '',
       currentTitle: '',
+      message: '',
       mainTitle: 'Tutoriais',
       titleModalTutorial: 'Adicionar Tutorial',
       titleModalContent: 'Adicionar Conteúdo',
@@ -258,6 +259,8 @@ export default {
           this.listTutorials()
           $('#formTutorial').modal('hide')
           $('#modalGit').modal('show')
+          setTimeout(() => this.focus('message'), 500)
+          this.message = ''
         }
       })
     },
@@ -471,6 +474,23 @@ export default {
       $('#formContent').modal('show')
       setTimeout(() => this.focus('title'), 500)
 		},
+    saveGit() {
+      if (this.message.length < 1) {
+        alert('Mensagem não pode ficar vazia')
+        return
+      }
+
+      $.ajax({
+        url: this.API + '/git',
+        method: 'post',
+        data: {message: this.message},
+        success: data => {
+          alert(data.message)
+          this.message = ''
+          $('#modalGit').modal('hide')
+        }
+      })
+    },
     firstLoadTheme() {
       var url = this.getTheme()
 
