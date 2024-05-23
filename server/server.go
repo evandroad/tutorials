@@ -5,6 +5,7 @@ import (
   "runtime"
   "net/http"
   "tutorials/handler"
+  "tutorials/file"
   "github.com/fatih/color"
   "github.com/gin-gonic/gin"
   "github.com/gin-contrib/cors"
@@ -45,6 +46,7 @@ func main() {
   apiRouter.POST("/content", insertContent)
   apiRouter.PUT("/content", updateContent)
   apiRouter.DELETE("/content/:tutorial/:title", deleteContent)
+  apiRouter.Post("/git", sendGit)
 
   webRouter := router.Group("/tutorial")
   webRouter.StaticFS("/", http.Dir("../tutorial"))

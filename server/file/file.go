@@ -88,6 +88,14 @@ func Remove(filePath string) {
 	}
 }
 
+func InsertContent(c *gin.Context) {
+	message := c.PostForm("message")
+
+	go file.Git(message)
+
+	c.JSON(http.StatusOK, gin.H{"message": "Enviado para o git com sucesso."})
+}
+
 func Git(message string) {
   // Stage changes
   cmd := exec.Command("git", "add", "../*")

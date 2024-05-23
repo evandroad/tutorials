@@ -70,7 +70,7 @@ export default {
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">{{ titleModalContent }}</h5>
+            <h5 class="modal-title">Enviar para o Github</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
@@ -260,7 +260,7 @@ export default {
           $('#formTutorial').modal('hide')
           $('#modalGit').modal('show')
           setTimeout(() => this.focus('message'), 500)
-          this.message = ''
+          this.message = "Added tutorial " + this.tutorial
         }
       })
     },
