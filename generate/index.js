@@ -82,6 +82,9 @@ export default {
               <button class="btn btn-success" type="button" @click="saveGit">
                 Salvar
               </button>
+              <button class="btn btn-secondary" type="button" @click="closeGit">
+                Cancelar
+              </button>
             </div>
           </div>
         </div>
@@ -507,6 +510,9 @@ export default {
           $('#modalGit').modal('hide')
         }
       })
+    },
+    closeGit() {
+      $('#modalGit').modal('hide')
     },
     firstLoadTheme() {
       var url = this.getTheme()
