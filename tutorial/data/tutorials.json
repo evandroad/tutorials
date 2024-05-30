@@ -36,13 +36,13 @@
   },
   {
     "number": 8,
-    "title": "Nano",
-    "image": "Nano.jpg"
+    "title": "Jquery",
+    "image": "Jquery.png"
   },
   {
     "number": 9,
-    "title": "Terminator Commands",
-    "image": "Terminator Commands.png"
+    "title": "Markdown",
+    "image": "Markdown.png"
   },
   {
     "number": 10,
@@ -51,7 +51,12 @@
   },
   {
     "number": 11,
-    "title": "Markdown",
-    "image": "Markdown.png"
+    "title": "Nano",
+    "image": "Nano.jpg"
+  },
+  {
+    "number": 12,
+    "title": "Terminator Commands",
+    "image": "Terminator Commands.png"
   }
 ]
