@@ -58,5 +58,10 @@
     "number": 12,
     "title": "Terminator Commands",
     "image": "Terminator Commands.png"
+  },
+  {
+    "number": 13,
+    "title": "Shell Script",
+    "image": "Shell Script.png"
   }
 ]
