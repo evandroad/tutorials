@@ -1,15 +1,18 @@
 #!/bin/bash
 
-process_name="server/server"
+process_name="server"
 
-matching_pids=$(pgrep -f "$process_name")
-
-if [ -z "$matching_pids" ]; then
-  echo "Nenhum processo correspondente encontrado para o nome '$process_name'."
-  exit 1
+# Verifica se o processo está rodando
+if pgrep -x "$process_name" > /dev/null
+then
+  echo "O processo $process_name está rodando. Matando o processo..."
+  # Mata o processo
+  pkill -x "$process_name"
+  if [ $? -eq 0 ]; then
+    echo "O processo $process_name foi terminado com sucesso."
+  else
+    echo "Falha ao terminar o processo $process_name."
+  fi
+else
+  echo "O processo $process_name não está rodando."
 fi
-
-for pid in $matching_pids; do
-  echo "Encerrando processo com PID $pid."
-  kill $pid
-done
