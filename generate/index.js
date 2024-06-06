@@ -373,7 +373,7 @@ export default {
         method: 'post',
         data: {tutorial: this.mainTitle, number: this.contentNumber, title: this.title, content: this.content},
         success: data => {
-          this.message = `Added content "${this.title}" in tutorial [${this.mainTitle}]`
+          this.message = `Added content "${this.title}" in tutorial "${this.mainTitle}"`
           alert(data.message)
           this.listContents(this.mainTitle)
           this.contentNumber = ''
@@ -401,7 +401,7 @@ export default {
         method: 'put',
         data: {tutorial: this.mainTitle, number: this.contentNumber, title: this.title, content: this.content, oldTitle: this.currentTitle},
         success: data => {
-          this.message = `Updated content "${this.title}" in tutorial [${this.mainTitle}]`
+          this.message = `Updated content "${this.title}" in tutorial "${this.mainTitle}"`
           alert(data.message)
           this.listContents(this.mainTitle)
           this.scrollToElement(this.title)
@@ -426,7 +426,7 @@ export default {
         url: `${this.API}/content/${this.mainTitle}/${content.title}`,
         method: 'delete',
         success: (data) => {
-          this.message = `Deleted content "${content.title}" in tutorial [${this.mainTitle}]`
+          this.message = `Deleted content "${content.title}" in tutorial "${this.mainTitle}"`
           alert(data.message)
           this.listContents(this.mainTitle)
           $('#modalGit').modal('show')
