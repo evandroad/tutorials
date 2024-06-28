@@ -1,6 +1,8 @@
 package main
 
 import (
+  "path"
+  "embed"
   "os/exec"
   "runtime"
   "net/http"
@@ -12,6 +14,10 @@ import (
 )
 
 var cyan = color.New(color.FgCyan).SprintFunc()
+
+
+//go:embed generate/* tutorial/*
+var content embed.FS
 
 func CorsMiddleware(port string) gin.HandlerFunc {
   return cors.New(cors.Config{
@@ -49,9 +55,14 @@ func main() {
   apiRouter.POST("/git", sendGit)
 
   webRouter := router.Group("/tutorial")
-  webRouter.StaticFS("/", http.Dir("../tutorial"))
+  webRouter.GET("/*filepath", func(c *gin.Context) {
+    serveEmbeddedFile(c, "tutorial", c.Param("filepath"))
+  })
+
   appRouter := router.Group("/generate")
-  appRouter.StaticFS("/", http.Dir("../generate"))
+  appRouter.GET("/*filepath", func(c *gin.Context) {
+    serveEmbeddedFile(c, "generate", c.Param("filepath"))
+  })
   
   println("API rodando em " + cyan(apiUrl))
   println("Generate rodando em " + cyan(appUrl))
@@ -61,6 +72,33 @@ func main() {
   if err != nil {
     println("Erro ao iniciar o servidor: ", err.Error())
   }
+}
+
+func serveEmbeddedFile(c *gin.Context, basePath, filepath string) {
+  if filepath == "" || filepath == "/" {
+    filepath = "index.html"
+  }
+
+  file := path.Join(basePath, filepath)
+
+  data, err := content.ReadFile(file)
+  if err != nil {
+    c.String(http.StatusNotFound, "File not found")
+    return
+  }
+
+  switch path.Ext(file) {
+  case ".html":
+    c.Header("Content-Type", "text/html")
+  case ".css":
+    c.Header("Content-Type", "text/css")
+  case ".js":
+    c.Header("Content-Type", "application/javascript")
+  default:
+    c.Header("Content-Type", "text/plain")
+  }
+
+  c.Writer.Write(data)
 }
 
 func status(c *gin.Context) { c.JSON(http.StatusOK, gin.H{"code" : http.StatusOK, "message": "Welcome"}) }
