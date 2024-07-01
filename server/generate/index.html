@@ -11,16 +11,31 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="vue.global.js"></script>
+  <script src="vue-router.global.js"></script>
   <title>register content</title>
 </head>
 <body>
-  <div id="app"></div>
+  <div id="app">
+    <router-view></router-view>
+  </div>
 
   <script type="module">
-		const { createApp } = Vue
-		import App from './index.js'
-	
-		createApp(App).mount('#app')
-	</script>
+    import Home from './Home.js'
+    import Tutorial from './Tutorial.js'
+    
+    const routes = [
+      { path: '/', component: Home },
+      { path: '/:tutorial', name: 'tutorial', component: Tutorial }
+    ]
+    
+    const router = VueRouter.createRouter({
+      history: VueRouter.createWebHashHistory(),
+      routes
+    })
+    
+    const app = Vue.createApp({})
+    app.use(router)
+    app.mount('#app')
+  </script>
 </body>
 </html>

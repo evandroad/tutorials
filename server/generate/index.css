@@ -61,6 +61,11 @@ th, td {
   gap: 5px;
 }
 
+#back > a {
+  color: white;
+	text-decoration: none;
+}
+
 /* BUTTON THEME */
 
 .switch {

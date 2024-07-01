@@ -64,14 +64,15 @@ p {
 
 .card button {
 	background: var(--color_2);
-	color: rgb(6, 125, 236);
 	font-size: 1em;
-	font-family: inherit;
 	border: 0;
-	padding: 0;
+}
+.card button a {
+	color: rgb(6, 125, 236);
+	text-decoration: none;
 }
 
-.card button:hover {
+.card button a:hover {
 	color: rgb(2, 53, 129);
 	cursor: pointer;
 }
