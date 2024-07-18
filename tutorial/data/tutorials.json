@@ -63,5 +63,10 @@
     "number": 13,
     "title": "Shell Script",
     "image": "Shell Script.png"
+  },
+  {
+    "number": 14,
+    "title": "Curl",
+    "image": "Curl.png"
   }
 ]
