@@ -74,8 +74,8 @@ export default {
           <th>Ícone</th>
           <th>Número</th>
           <th>Tutoriais</th>
-          <th>Editar</th>
           <th>Ir</th>
+          <th>Editar</th>
           <th>Apagar</th>
         </thead>
         <tbody>
@@ -84,14 +84,14 @@ export default {
             <td>{{ tutorial.number }}</td>
             <td>{{ tutorial.title }}</td>
             <td>
-              <a href="" @click.prevent="editTutorial(tutorial)">
-                <i class='fa fa-pencil-square' style='font-size: 25px'></i>
-              </a>
-            </td>
-            <td>
               <router-link :to="{ name: 'tutorial', params: { tutorial: tutorial.title }}">
                 <i class='fa fa-share' style='font-size: 25px'></i>
               </router-link>
+            </td>
+            <td>
+              <a href="" @click.prevent="editTutorial(tutorial)">
+                <i class='fa fa-pencil-square' style='font-size: 25px'></i>
+              </a>
             </td>
             <td>
               <a href="" @click.prevent="deleteTutorial(tutorial.title)">

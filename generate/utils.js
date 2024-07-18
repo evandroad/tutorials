@@ -36,18 +36,18 @@ function getTheme() {
   document.getElementById('themeCheckbox').checked = check
   
   if (!document.getElementById('themeCheckbox').checked) {
-    return 'dark.css'
+    return 'libs/dark.css'
   }
 
-  return 'light.css'
+  return 'libs/light.css'
 }
 
 export function setTheme(e) {
   if (e.target.checked) {
     localStorage.setItem('theme', 'light')
-    document.getElementById('themeLink').setAttribute('href', 'light.css')
+    document.getElementById('themeLink').setAttribute('href', 'libs/light.css')
   } else {
     localStorage.setItem('theme', 'dark')
-    document.getElementById('themeLink').setAttribute('href', 'dark.css')
+    document.getElementById('themeLink').setAttribute('href', 'libs/dark.css')
   }
 }
