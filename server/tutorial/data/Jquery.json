@@ -1,1 +1,0 @@
-[{"number":1,"title":"Modal","content":"### Open\n```\n$('#modal').modal()\n```\n### Fechar\n```\n$('#modal').modal('hide')\n```\n### Focar\n```\n$('#modal').on('shown.bs.modal', () =\u003e $('#input').focus())\n```"}]
