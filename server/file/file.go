@@ -43,7 +43,7 @@ func SaveJson(filePath string, tutorials []Tutorial) {
 		println("Erro ao serializar JSON: " + err.Error())
 		return
 	}
-	
+
 	saveFile(filePath, data)
 }
 
@@ -53,7 +53,7 @@ func SaveCommand(filePath string, commands []Command) {
 		println("Erro ao serializar JSON: " + err.Error())
 		return
 	}
-	
+
 	saveFile(filePath, data)
 }
 
@@ -99,9 +99,17 @@ func SendGit(c *gin.Context) {
 }
 
 func Git(message string) {
-  // Stage changes
-  cmd := exec.Command("git", "add", "../tutorial/*")
+  // Pull changes
+  cmd := exec.Command("git", "pull")
   err := cmd.Run()
+  if err != nil {
+    fmt.Println("Error pull changes", err)
+    return
+  }
+
+  // Stage changes
+  cmd = exec.Command("git", "add", "../tutorial/*")
+  err = cmd.Run()
   if err != nil {
     fmt.Println("Error staging changes:", err)
     return
