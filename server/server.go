@@ -49,9 +49,9 @@ func main() {
   apiRouter.POST("/git", sendGit)
 
   webRouter := router.Group("/tutorial")
-  webRouter.StaticFS("/", http.Dir("tutorial"))
+  webRouter.StaticFS("/", http.Dir("../tutorial"))
   appRouter := router.Group("/generate")
-  appRouter.StaticFS("/", http.Dir("generate"))
+  appRouter.StaticFS("/", http.Dir("../generate"))
   
   println("API rodando em " + cyan(apiUrl))
   println("Generate rodando em " + cyan(appUrl))
