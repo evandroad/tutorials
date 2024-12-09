@@ -16,7 +16,7 @@ var cyan = color.New(color.FgCyan).SprintFunc()
 func CorsMiddleware(port string) gin.HandlerFunc {
   return cors.New(cors.Config{
     AllowCredentials: true,
-    AllowOrigins:     []string{"http://localhost" + port},
+    AllowOrigins:     []string{"*" /*http://localhost" + port*/},
     AllowMethods:     []string{"GET", "POST", "PUT", "DELETE"},
     ExposeHeaders:    []string{"Content-Length"},
     AllowHeaders:     []string{"Origin", "Content-Type", "Content-Length", "Accept-Encoding", "Authorization", "Accept", "X-Requested-With"},
