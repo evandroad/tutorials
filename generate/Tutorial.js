@@ -168,7 +168,7 @@ export default {
           this.focus('number')
           $('#formContent').modal('hide')
           $('#modalGit').modal('show')
-          this.notify(data.message, 'success')
+          this.notify(data.message, 'success', 'bottom')
           setTimeout(() => this.focus('message'), 500)
         }
       })
@@ -197,7 +197,7 @@ export default {
           this.focus('number')
           $('#formContent').modal('hide')
           $('#modalGit').modal('show')
-          this.notify(data.message, 'success')
+          this.notify(data.message, 'success', 'bottom')
           setTimeout(() => this.focus('message'), 500)
         }
       })
@@ -216,7 +216,7 @@ export default {
           this.message = `Deleted content "${content.title}" in tutorial "${this.mainTitle}"`
           this.listContents(this.mainTitle)
           $('#modalGit').modal('show')
-          this.notify(data.message, 'success')
+          this.notify(data.message, 'success', 'bottom')
           setTimeout(() => this.focus('message'), 500)
         }
       })
@@ -267,7 +267,7 @@ export default {
         success: data => {
           this.message = ''
           $('#modalGit').modal('hide')
-          this.notify(data.message, 'success')
+          this.notify(data.message, 'success', 'top')
         }
       })
     },
