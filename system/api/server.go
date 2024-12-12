@@ -13,19 +13,21 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// Estrutura do usuário
 type User struct {
 	ID    int    `json:"id"`
 	Name  string `json:"name"`
 	Email string `json:"email"`
 }
 
-// Carrega usuários do arquivo JSON
-func carregarUsuarios() ([]User, error) {
+const (
+	FILENAME = "users.json"
+)
+
+func getUsers() ([]User, error) {
 	var jsonData []User
 
 	// Se o arquivo não existir, inicializa com slice vazio
-	arquivo, err := os.OpenFile("usuarios.json", os.O_RDWR|os.O_CREATE, 0666)
+	arquivo, err := os.OpenFile(FILENAME, os.O_RDWR|os.O_CREATE, 0666)
 	if err != nil {
 		return nil, err
 	}
@@ -53,8 +55,8 @@ func carregarUsuarios() ([]User, error) {
 }
 
 // Encontra próximo ID disponível
-func proximoID() int {
-	users, err := carregarUsuarios()
+func nextID() int {
+	users, err := getUsers()
 	if err != nil {
 		fmt.Printf("Erro ao carregar usuários: %v", err)
 		return 0
@@ -76,12 +78,11 @@ func saveFile(users []User) error {
 	}
 
 	// Escreve no arquivo
-	return os.WriteFile("usuarios.json", bytes, 0666)
+	return os.WriteFile(FILENAME, bytes, 0666)
 }
 
-// Handler para listar usuários
-func listarUsuariosHandler(c *gin.Context) {
-	users, err := carregarUsuarios()
+func getAllUsersHandler(c *gin.Context) {
+	users, err := getUsers()
 	if err != nil {
 		fmt.Printf("Erro ao carregar usuários: %v", err)
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -92,18 +93,16 @@ func listarUsuariosHandler(c *gin.Context) {
 	c.JSON(http.StatusOK, users)
 }
 
-// Handler para criar usuário
-func criarUsuarioHandler(c *gin.Context) {
+func createUserHandler(c *gin.Context) {
 	var user User
 	if err := c.ShouldBindJSON(&user); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	// Define ID automaticamente
-	user.ID = proximoID()
+	user.ID = nextID()
 
-	users, err := carregarUsuarios()
+	users, err := getUsers()
 	if err != nil {
 		fmt.Printf("Erro ao carregar usuários: %v", err)
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -120,8 +119,7 @@ func criarUsuarioHandler(c *gin.Context) {
 	c.JSON(http.StatusCreated, user)
 }
 
-// Handler para atualizar usuário
-func atualizarUsuarioHandler(c *gin.Context) {
+func updateUserHandler(c *gin.Context) {
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "ID inválido"})
@@ -134,7 +132,7 @@ func atualizarUsuarioHandler(c *gin.Context) {
 		return
 	}
 
-	users, err := carregarUsuarios()
+	users, err := getUsers()
 	if err != nil {
 		fmt.Printf("Erro ao carregar usuários: %v", err)
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -158,15 +156,14 @@ func atualizarUsuarioHandler(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "Usuário alterado com sucesso."})
 }
 
-// Handler para deletar usuário
-func deletarUsuarioHandler(c *gin.Context) {
+func deleteUserHandler(c *gin.Context) {
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "ID inválido"})
 		return
 	}
 
-	users, err := carregarUsuarios()
+	users, err := getUsers()
 	if err != nil {
 		fmt.Printf("Erro ao carregar usuários: %v", err)
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -191,10 +188,10 @@ func main() {
 	router.Use(cors.Default())
 
 	// Rotas
-	router.GET("/users", listarUsuariosHandler)
-	router.POST("/users", criarUsuarioHandler)
-	router.PUT("/users/:id", atualizarUsuarioHandler)
-	router.DELETE("/users/:id", deletarUsuarioHandler)
+	router.GET("/users", getAllUsersHandler)
+	router.POST("/users", createUserHandler)
+	router.PUT("/users/:id", updateUserHandler)
+	router.DELETE("/users/:id", deleteUserHandler)
 
 	// Inicia o servidor
 	porta := ":8080"
