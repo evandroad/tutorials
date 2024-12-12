@@ -3,6 +3,9 @@ function userManagement() {
     API: 'http://localhost:8080',
     users: [],
     isModalOpen: false,
+    isConfirmModalOpen: false,
+    isLoadingModalOpen: false,
+    userToDelete: null,
     modalTitle: '',
     currentUser: {
       id: null,
@@ -24,6 +27,41 @@ function userManagement() {
         console.error('Erro ao buscar usuários:', error)
         alert('Erro ao carregar usuários')
       }
+    },
+    
+    openLoadingModal() {
+      this.isLoadingModalOpen = true;
+    },
+    
+    closeLoadingModal() {
+      this.isLoadingModalOpen = false;
+    },
+    
+    openConfirmModal(user) {
+      this.userToDelete = user;
+      this.isConfirmModalOpen = true;
+    },
+    
+    closeConfirmModal() {
+      this.userToDelete = null;
+      this.isConfirmModalOpen = false;
+    },
+    
+    deleteUser(userId) {
+      // Simulação de deleção
+      this.openLoadingModal();
+      
+      // Simular uma operação assíncrona
+      setTimeout(() => {
+        // Lógica de deleção aqui
+        console.log(`Deletando usuário ${userId}`);
+        
+        // Fechar o modal de carregamento
+        this.closeLoadingModal();
+        
+        // Fechar o modal de confirmação
+        this.closeConfirmModal();
+      }, 2000);
     },
 
     // Abre o modal para cadastro ou edição
@@ -47,6 +85,7 @@ function userManagement() {
 
     // Submete usuário (cria ou atualiza)
     async submitUser() {
+      this.openLoadingModal()
       try {
         if (this.currentUser.id) {
           // Atualiza usuário existente
@@ -68,7 +107,6 @@ function userManagement() {
           } else {
             console.warn('Resposta inesperada do servidor:', response)
           }
-
         }
 
         // Fecha o modal após a operação
@@ -77,6 +115,8 @@ function userManagement() {
         console.error('Erro ao salvar usuário:', error)
         alert('Erro ao salvar usuário')
       }
+
+      this.closeLoadingModal()
     },
 
     // Deleta usuário
