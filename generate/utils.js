@@ -51,3 +51,26 @@ export function setTheme(e) {
     document.getElementById('themeLink').setAttribute('href', 'libs/dark.css')
   }
 }
+
+export function notify(message, type) {
+  var x = document.getElementById("snackbar");
+  x.innerText = message
+  x.className = "show";
+  x.style.backgroundColor = getColor(type)
+  setTimeout(() => x.className = x.className.replace("show", ""), 3000)
+}
+
+function getColor(type) {
+  switch (type) {
+    case 'success':
+      return '#09b809'
+    case 'error':
+      return '#f73535'
+    case 'info':
+      return '#35bdf3'
+    case 'warning':
+      return '#d3d014'
+    default:
+      return 'white'
+  }
+}

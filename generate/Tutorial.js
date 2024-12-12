@@ -1,4 +1,4 @@
-import { API, focus, firstLoadTheme, setTheme } from './utils.js'
+import { API, focus, firstLoadTheme, setTheme, notify } from './utils.js'
 
 export default {
   template: `
@@ -108,6 +108,8 @@ export default {
         </tbody>
       </table>
     </div>
+
+    <div id="snackbar"></div>
   `,
   mounted() {
     this.firstLoadTheme()
@@ -132,6 +134,7 @@ export default {
     focus,
     firstLoadTheme,
     setTheme,
+    notify,
     listContents() {
       this.mainTitle = this.$route.params.tutorial
       $.ajax({
@@ -158,7 +161,6 @@ export default {
         data: {tutorial: this.mainTitle, number: this.number, title: this.title, content: this.content},
         success: data => {
           this.message = `Added content "${this.title}" in tutorial "${this.mainTitle}"`
-          alert(data.message)
           this.listContents(this.mainTitle)
           this.number = ''
           this.title = ''
@@ -166,6 +168,7 @@ export default {
           this.focus('number')
           $('#formContent').modal('hide')
           $('#modalGit').modal('show')
+          this.notify(data.message, 'success')
           setTimeout(() => this.focus('message'), 500)
         }
       })
@@ -186,7 +189,6 @@ export default {
         data: {tutorial: this.mainTitle, number: this.number, title: this.title, content: this.content, oldTitle: this.currentTitle},
         success: data => {
           this.message = `Updated content "${this.title}" in tutorial "${this.mainTitle}"`
-          alert(data.message)
           this.listContents(this.mainTitle)
           this.scrollToElement(this.title)
           this.number = ''
@@ -195,6 +197,7 @@ export default {
           this.focus('number')
           $('#formContent').modal('hide')
           $('#modalGit').modal('show')
+          this.notify(data.message, 'success')
           setTimeout(() => this.focus('message'), 500)
         }
       })
@@ -211,9 +214,9 @@ export default {
         method: 'delete',
         success: (data) => {
           this.message = `Deleted content "${content.title}" in tutorial "${this.mainTitle}"`
-          alert(data.message)
           this.listContents(this.mainTitle)
           $('#modalGit').modal('show')
+          this.notify(data.message, 'success')
           setTimeout(() => this.focus('message'), 500)
         }
       })
@@ -262,9 +265,9 @@ export default {
         method: 'post',
         data: {message: this.message},
         success: data => {
-          alert(data.message)
           this.message = ''
           $('#modalGit').modal('hide')
+          this.notify(data.message, 'success')
         }
       })
     },
