@@ -137,13 +137,9 @@ export default {
     notify,
     listContents() {
       this.mainTitle = this.$route.params.tutorial
-      $.ajax({
-        url: API + '/content/' + this.mainTitle,
-        method: 'get',
-        success: data => {
-          this.contents = data
-        }
-      })
+      fetch(API + '/content/' + this.mainTitle)
+      .then(res => res.json())
+      .then(data => this.contents = data)
     },
     saveContent() {
       if (this.title.length < 1 || this.content.length < 1) {
