@@ -1,0 +1,123 @@
+body {
+  background-color: var(--color_2);
+	color: var(--font);
+}
+
+h1 {
+  text-align: center;
+  margin: 20px auto;
+}
+
+.table-panel {
+  background: var(--color_3);
+  color: var(--font);
+  box-shadow: 2px 2px 10px var(--color_2);
+  margin: 10px auto;
+  border-radius: 15px;
+  padding: 15px;
+}
+
+th, td {
+  color: var(--font);
+  border-color: var(--color_4);
+}
+
+.modal-body,
+.modal-header {
+	background-color: var(--color_2);
+}
+
+.btn-close {
+	background-color: var(--color_4);
+}
+
+.form-control,
+.form-select {
+	background-color: var(--color_2);
+	color: var(--font);
+	border-color: var(--color_4);
+}
+
+.form-control:focus,
+.form-select:focus {
+	background-color: var(--color_2);
+	color: var(--font);
+}
+
+
+.gap {
+  display: flex;
+  gap: 5px;
+}
+
+.center {
+  margin: 0 auto;
+  display: block;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+}
+
+#back > a {
+  color: white;
+	text-decoration: none;
+}
+
+/* BUTTON THEME */
+
+.switch {
+	float: right;
+	margin-top: -10px;
+	margin-right: 15px;
+  font-size: 17px;
+  position: relative;
+  display: inline-block;
+  width: 3.5em;
+  height: 2em;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* slider */
+.slider {
+  --background: #151b6b;
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--background);
+  transition: .5s;
+  border-radius: 30px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 1.4em;
+  width: 1.4em;
+  border-radius: 50%;
+  left: 10%;
+  bottom: 15%;
+  box-shadow: inset 8px -4px 0px 0px #fff000;
+  background: var(--background);
+  transition: .6s;
+}
+
+input:checked + .slider {
+  background-color: #1797ff;
+}
+
+input:checked + .slider:before {
+  transform: translateX(100%);
+  box-shadow: inset 15px -4px 0px 15px #fff000;
+}
