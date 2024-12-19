@@ -1,62 +1,7 @@
-import { API, focus, firstLoadTheme, setTheme } from './utils.js'
+import { API, focus, firstLoadTheme, setTheme, notify } from './utils.js'
 
 export default {
   template: `
-    <div class="modal fade" id="formTutorial" tabindex="-1" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">{{ titleModalTutorial }}</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <div class="mb-3">
-              <label class="form-label">Número:</label>
-              <input type="text" class="form-control" v-model="number" id="number">
-            </div>
-            <div class="mb-3">
-              <span class="form-label">Tutorial:</span>
-              <input type="text" class="form-control" v-model="tutorial" id="tutorial">
-            </div>
-            <div class="mb-3">
-              <span class="form-label">Imagem:</span>
-              <input type="file" class="form-control" v-model="image" id="image" @change="handleImageChange">
-            </div>
-            <div class="form-group gap">
-              <button v-show="showBtnAddTutorial" class="btn btn-success" @click="createTutorial">Criar Tutorial</button>
-              <button v-show="showBtnEditTutorial" class="btn btn-success" @click="updateTutorial">Editar Tutorial</button>
-              <button class="btn btn-primary" @click="cleanTutorial">Limpar</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="modal fade" id="modalGit" tabindex="-1" aria-hidden="true">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Enviar para o Github</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <div class="mb-3">
-              <label class="form-label">Mensagem:</label>
-              <input type="text" class="form-control" v-model="message" id="message">
-            </div>
-            <div class="form-group gap">
-              <button class="btn btn-success" type="button" @click="saveGit">
-                Salvar
-              </button>
-              <button class="btn btn-secondary" type="button" @click="closeGit">
-                Cancelar
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <label class="switch">
       <input type="checkbox" id="themeCheckbox" @change="setTheme($event)">
       <span class="slider"></span>
@@ -94,7 +39,7 @@ export default {
               </a>
             </td>
             <td>
-              <a href="" @click.prevent="deleteTutorial(tutorial.title)">
+              <a href="" @click.prevent="openConfirmDeleteTutorial(tutorial)">
                 <i class='fa fa-trash' style='font-size: 25px'></i>
               </a>
             </td>
@@ -106,37 +51,50 @@ export default {
 
     <div v-if="isModalOpen" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
       <div class="bg-gray-800 p-6 rounded-lg w-96">
-        <h2 class="text-2xl mb-4 font-bold">{{ modalTitle }}</h2>
-        <form>
+        <h2 class="text-2xl mb-4 font-bold">{{ titleModalTutorial }}</h2>
+        <div class="mb-4">
+          <label class="block mb-2">Number</label>
+          <input type="text" v-model="tutorial.number" id="number" class="w-full p-2 border rounded bg-gray-700 border-gray-600 focus:outline-none focus:ring focus:ring-blue-600">
+        </div>
+        <div class="mb-4">
+          <label class="block mb-2">Tutorial</label>
+          <input type="text" v-model="tutorial.title" class="w-full p-2 border rounded bg-gray-700 border-gray-600 focus:outline-none focus:ring focus:ring-blue-600">
+        </div>
           <div class="mb-4">
-            <label class="block mb-2">Nome</label>
-            <input type="text" v-model="currentUser.name" class="w-full p-2 border rounded">
-          </div>
-          <div class="mb-4">
-            <label class="block mb-2">Email</label>
-            <input type="text" v-model="currentUser.email" class="w-full p-2 border rounded">
-          </div>
-           <div class="mb-4">
-            <label class="block mb-2">Imagem de Perfil</label>
-             <div class="flex items-center space-x-4">
-              <input type="file" ref="fileInput" accept="image/*" @change="handleImageChange" class="hidden">
-              <button type="button" @click="$refs.fileInput.click()" class="bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-600 transition">
-                Procurar
-              </button>
-              <span class="text-gray-600 truncate max-w-[200px]">
-                {{ currentUser.image ? currentUser.image.name : 'Nenhum arquivo selecionado' }}
-              </span>
-            </div>
-          </div>
-          <div class="flex justify-end space-x-2">
-            <button type="button" @click="isModalOpen = false" class="bg-gray-300 text-black px-4 py-2 rounded hover:bg-gray-400">
-              Cancelar
+          <label class="block mb-2">Imagem</label>
+            <div class="flex items-center space-x-4">
+            <input type="file" ref="fileInput" accept="image/*" @change="handleImageChange" class="hidden">
+            <button type="button" @click="$refs.fileInput.click()" class="bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-600 transition">
+              Procurar
             </button>
-            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
-              Salvar
-            </button>
+            <span class="text-gray-700 truncate max-w-[200px]">
+              {{ tutorial.image ? tutorial.image.name : 'Nenhum arquivo selecionado' }}
+            </span>
           </div>
-        </form>
+        </div>
+        <div class="flex justify-end space-x-2">
+          <button @click="isModalOpen = false" class="bg-gray-300 text-black px-4 py-2 rounded hover:bg-gray-400">Cancelar</button>
+          <button @click="createTutorial" v-show="showBtnAddTutorial" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Salvar</button>
+          <button @click="updateTutorial" v-show="showBtnEditTutorial" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Salvar</button>
+        </div>
+      </div>
+    </div>
+
+    <div v-if="isModalGitOpen" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+      <div class="bg-gray-800 p-6 rounded-lg w-96">
+        <h2 class="text-2xl mb-4 font-bold">Enviar para o Github</h2>
+        <div class="mb-4">
+          <label class="block mb-2">Mensagem:</label>
+          <input type="text" class="w-full p-2 border rounded bg-gray-700 border-gray-600 focus:outline-none focus:ring focus:ring-blue-600" v-model="message" id="message">
+        </div>
+        <div class="flex justify-end space-x-2">
+          <button @click="isModalGitOpen = false" class="bg-gray-300 text-black px-4 py-2 rounded hover:bg-gray-400">
+            Cancelar
+          </button>
+          <button @click="saveGit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+            Salvar
+          </button>
+        </div>
       </div>
     </div>
 
@@ -144,16 +102,25 @@ export default {
       <div class="bg-white p-6 rounded-xl shadow-lg max-w-md w-full">
         <h2 class="text-xl font-bold mb-4 text-gray-800">Confirmar Exclusão</h2>
         <p class="mb-6 text-gray-600">
-          Tem certeza que deseja excluir o usuário 
-          <span>{{ userToDelete ? userToDelete.name : '' }}</span>?
+          Tem certeza que deseja excluir o tutorial <span>{{ tutorial.title }}</span>?
         </p>
         <div class="flex justify-end space-x-3">
           <button @click="isConfirmModalOpen = false" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition">
             Cancelar
           </button>
-          <button @click.prevent="deleteUser(userToDelete.id)" class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition">
+          <button @click="deleteTutorial" class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition">
             Excluir
           </button>
+        </div>
+      </div>
+    </div>
+    
+    <div v-if="isAlertModalOpen" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+      <div class="bg-gray-900 p-5 rounded-xl shadow-lg max-w-md w-full">
+        <h2 class="text-xl font-bold mb-4 text-gray-300">Aviso</h2>
+        <p class="mb-6 text-gray-200">{{ alertMessage }}</p>
+        <div class="flex justify-end space-x-3">
+          <button @click="isAlertModalOpen = false" class="px-4 py-2 bg-blue-500 text-gray-300 rounded-lg hover:bg-blue-300 transition">Ok</button>
         </div>
       </div>
     </div>
@@ -166,21 +133,20 @@ export default {
   data() {
     return {
       tutorials: [],
-      number: '',
-      tutorial: '',
-      image: '',
       currentTutorial: '',
 	    currentImage: '',
       message: '',
+      alertMessage: '',
       titleModalTutorial: 'Adicionar Tutorial',
       isModalOpen: false,
+      isModalGitOpen: false,
+      isAlertModalOpen: false,
       isConfirmModalOpen: false,
       showBtnEditTutorial: false,
       showBtnAddTutorial: true,
-      currentUser: {
-        id: null,
-        name: '',
-        email: '',
+      tutorial: {
+        number: '',
+        title: '',
         image: null,
       }
     }
@@ -189,6 +155,7 @@ export default {
     focus,
     firstLoadTheme,
     setTheme,
+    notify,
     listTutorials() {
       fetch(API + '/tutorial')
       .then(res => res.json())
@@ -196,24 +163,26 @@ export default {
       .catch(err => console.log(err))
     },
     createTutorial() {
-      if (isNaN(parseFloat(this.number))) {
-        this.number = 0;
+      if (this.tutorial.title.length < 1) {
+        this.alertMessage = 'Tutorial não pode ficar vazio'
+        this.isAlertModalOpen = true
+        return
+      }
+
+      if (this.tutorial.image == null) {
+        this.alertMessage = 'Selecione uma imagem.'
+        this.isAlertModalOpen = true
+        return
+      }
+
+      if (isNaN(parseFloat(this.tutorial.number))) {
+        this.tutorial.number = 0;
       }
     
       var fd = new FormData()
-      fd.append('number', this.number)
-      fd.append('tutorial', this.tutorial)
-      fd.append('image', this.image)
-      
-      if (this.tutorial.length < 1) {
-        alert('Tutorial não pode ficar vazio')
-        return
-      }
-    
-      if (fd.get('image').size === undefined) {
-        alert('Selecione uma imagem.')
-        return
-      }
+      fd.append('number', this.tutorial.number)
+      fd.append('tutorial', this.tutorial.title)
+      fd.append('image', this.tutorial.image)
 
       fetch(API + '/tutorial', {
         method: 'POST',
@@ -221,15 +190,15 @@ export default {
       })
       .then(res => res.json())
       .then(data => {
-        this.message = `Added tutorial "${this.tutorial}"`
-        this.number = ''
-        this.tutorial = ''
-        this.cleanImage()
+        this.message = `Added tutorial "${this.tutorial.title}"`
+        this.tutorial.number = ''
+        this.tutorial.title = ''
+        this.tutorial.image = null
         this.listTutorials()
         this.isModalOpen = false
-        alert(data.message)
-        // $('#modalGit').modal('show')
-        // setTimeout(() => this.focus('message'), 500)
+        this.notify(data.message, 'success', 'top')
+        this.isModalGitOpen = true
+        setTimeout(() => this.focus('message'), 100)
       })
     },
     updateTutorial() {
@@ -259,7 +228,7 @@ export default {
           this.message = `Updated tutorial "${this.tutorial}"`
           this.number = ''
           this.tutorial = ''
-          this.cleanImage()
+          this.tutorial.image = null
           alert(data.message)
           this.listTutorials()
           this.showBtnAddTutorial = true
@@ -270,24 +239,24 @@ export default {
         }
       })
     },
-    deleteTutorial(tutorial) {
-      var response = confirm("Você deseja apagar o tutorial " + tutorial + "?");
-
-      if (!response) {
-        return
-      }
-
-      $.ajax({
-        url: API + '/tutorial/' + tutorial,
-        method: 'delete',
-        success: data => {
-          alert(data.message)
-          this.listTutorials()
-          this.message = `Deleted tutorial "${tutorial}"`
-          $('#modalGit').modal('show')
-          setTimeout(() => this.focus('message'), 500)
-        }
+    deleteTutorial() {
+      console.log(this.tutorial)
+      fetch(API + '/tutorial/' + this.tutorial.title, { method: 'DELETE' })
+      .then(res => res.json())
+      .then(data => {
+        this.notify(data.message, 'success', 'top')
+        this.listTutorials()
+        this.isConfirmModalOpen = false
+        this.message = `Deleted tutorial "${this.tutorial.title}"`
+        this.isModalGitOpen = true
+        setTimeout(() => this.focus('message'), 100)
       })
+    },
+    openFormTutorial() {
+      this.isModalOpen = true
+      this.titleModalTutorial = 'Adicionar Tutorial'
+      this.cleanTutorial()
+      this.number = this.tutorials.length + 1
     },
     editTutorial(tutorial) {
       this.openFormTutorial()
@@ -299,51 +268,43 @@ export default {
       this.showBtnAddTutorial = false
       this.showBtnEditTutorial = true
     },
+    openConfirmDeleteTutorial(tutorial) {
+      this.isConfirmModalOpen = true
+      this.tutorial = tutorial
+    },
     handleImageChange(event) {
-      this.currentUser.image = event.target.files[0]
+      this.tutorial.image = event.target.files[0]
     },
     compareByNumber(a, b) {
       return a.number - b.number;
     },
     cleanTutorial() {
-      this.focus('number')
+      setTimeout(() => this.focus('number'), 100)
       this.showBtnAddTutorial = true
       this.showBtnEditTutorial = false
-      this.number = ''
-      this.tutorial = ''
-      this.image = ''
+      this.tutorial = {
+        number: '',
+        title: '',
+        image: null,
+      }
     },
-    cleanImage() {
-      // document.querySelector("#image").value = ''
-    },
-    openFormTutorial() {
-      this.isModalOpen = true
-      this.currentUser.image = null
-      // this.titleModalTutorial = 'Adicionar Tutorial'
-      // this.cleanTutorial()
-      // this.number = this.tutorials.length + 1
-      // $('#formTutorial').modal('show')
-      // setTimeout(() => this.focus('tutorial'), 500)
-		},
     saveGit() {
       if (this.message.length < 1) {
-        alert('Mensagem não pode ficar vazia')
+        this.alertMessage = 'Mensagem não pode ficar vazia'
+        this.isAlertModalOpen = true
         return
       }
 
-      $.ajax({
-        url: API + '/git',
-        method: 'post',
-        data: {message: this.message},
-        success: data => {
-          alert(data.message)
-          this.message = ''
-          $('#modalGit').modal('hide')
-        }
+      fetch(API + '/git', {
+        method: 'POST',
+        body: JSON.stringify({ message: this.message })
+      })
+      .then(res => res.json())
+      .then(data => {
+        this.notify(data.message, 'success', 'top')
+        this.message = ''
+        this.isModalGitOpen = false
       })
     },
-    closeGit() {
-      $('#modalGit').modal('hide')
-    }
   }
 }
