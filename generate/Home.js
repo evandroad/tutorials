@@ -14,7 +14,7 @@ export default {
     </div>
 
     <div class="w-2/3 m-auto">
-      <button class="bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-600 transition mb-2" @click="openAddTutorial">
+      <button @click="openAddTutorial" class="bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-600 transition mb-2">
         Adicionar
       </button>
     </div>
@@ -22,12 +22,7 @@ export default {
     <div class="bg-zinc-800 shadow-md rounded-xl overflow-scroll w-2/3 m-auto">
       <table class="w-full">
         <thead class="bg-zinc-700 p-2">
-          <th class="p-3">Ícone</th>
-          <th>Número</th>
-          <th>Tutoriais</th>
-          <th>Ir</th>
-          <th>Editar</th>
-          <th>Apagar</th>
+          <th class="p-3" v-for="item in header">{{ item }}</th>
         </thead>
         <tbody>
           <tr v-for="tutorial in tutorials" class="border-zinc-600 border-b last:border-0">
@@ -97,15 +92,11 @@ export default {
         <h2 class="text-2xl mb-4 font-bold">Enviar para o Github</h2>
         <div class="mb-4">
           <label class="block mb-2">Mensagem:</label>
-          <input type="text" class="w-full p-2 border rounded bg-zinc-700 border-gray-600 focus:outline-none focus:ring focus:ring-blue-600" v-model="message" id="message">
+          <input v-model="message" id="message" class="w-full p-2 border rounded bg-zinc-700 border-gray-600 focus:outline-none focus:ring focus:ring-blue-600">
         </div>
         <div class="flex justify-end space-x-2">
-          <button @click="isModalGitOpen = false" class="bg-zinc-300 text-black px-4 py-2 rounded hover:bg-zinc-400">
-            Cancelar
-          </button>
-          <button @click="saveGit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
-            Salvar
-          </button>
+          <button @click="isModalGitOpen = false" class="bg-zinc-300 text-black px-4 py-2 rounded hover:bg-zinc-400">Cancelar</button>
+          <button @click="saveGit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Salvar</button>
         </div>
       </div>
     </div>
@@ -136,7 +127,6 @@ export default {
         </div>
       </div>
     </div>
-  </div>
   `,
   mounted() {
     this.firstLoadTheme()
@@ -144,6 +134,7 @@ export default {
 	},
   data() {
     return {
+      header: ['Ícone', 'Número', 'Tutoriais', 'Ir', 'Editar', 'Apagar'],
       tutorials: [],
 	    currentImage: '',
       currentTutorial: '',
