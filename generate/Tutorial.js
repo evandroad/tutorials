@@ -33,14 +33,14 @@ export default {
             <td :id="content.title">{{ content.title }}</td>
             <td>{{ content.content }}</td>
             <td>
-              <a href='' @click.prevent="editContent(content)">
+              <a href='' @click.prevent="openEditContent(content)">
                 <svg width="30px" height="30px" class="text-zinc-200 hover:text-yellow-500" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path fill-rule="evenodd" clip-rule="evenodd" d="m3.99 16.854-1.314 3.504a.75.75 0 0 0 .966.965l3.503-1.314a3 3 0 0 0 1.068-.687L18.36 9.175s-.354-1.061-1.414-2.122c-1.06-1.06-2.122-1.414-2.122-1.414L4.677 15.786a3 3 0 0 0-.687 1.068zm12.249-12.63 1.383-1.383c.248-.248.579-.406.925-.348.487.08 1.232.322 1.934 1.025.703.703.945 1.447 1.025 1.934.058.346-.1.677-.348.925L19.774 7.76s-.353-1.06-1.414-2.12c-1.06-1.062-2.121-1.415-2.121-1.415z" fill="currentColor"/>
                 </svg>
               </a>
             </td>
-            <td class="deleteTutorial">
-              <a href='' @click.prevent="deleteContent(content)">
+            <td>
+              <a href='' @click.prevent="openConfirmDeleteContent(content)">
                 <svg width="30px" height="30px" class="text-zinc-200 hover:text-red-500" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path d="M6 7V18C6 19.1046 6.89543 20 8 20H16C17.1046 20 18 19.1046 18 18V7M6 7H5M6 7H8M18 7H19M18 7H16M10 11V16M14 11V16M8 7V5C8 3.89543 8.89543 3 10 3H14C15.1046 3 16 3.89543 16 5V7M8 7H16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
@@ -84,7 +84,7 @@ export default {
     </div>
 
     <div v-if="isModalGitOpen" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-      <div class="bg-zinc-800 p-6 rounded-lg w-96">
+      <div class="bg-zinc-800 p-6 rounded-lg w-2/5">
         <h2 class="text-2xl mb-4 font-bold">Enviar para o Github</h2>
         <div class="mb-4">
           <label class="block mb-2">Mensagem:</label>
@@ -101,13 +101,13 @@ export default {
       <div class="bg-zinc-900 p-6 rounded-xl shadow-lg max-w-md w-full">
         <h2 class="text-xl font-bold mb-4 text-zinc-200">Confirmar Exclusão</h2>
         <p class="mb-6 text-zinc-300">
-          Tem certeza que deseja excluir o tutorial <span>{{ tutorial.title }}</span>?
+          Tem certeza que deseja excluir o conteúdo <span>{{ tutorial.title }}</span>?
         </p>
         <div class="flex justify-end space-x-3">
           <button @click="isConfirmModalOpen = false" class="px-4 py-2 bg-zinc-200 text-gray-700 rounded-lg hover:bg-zinc-300 transition">
             Cancelar
           </button>
-          <button @click="deleteTutorial" class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition">
+          <button @click="deleteContent" class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition">
             Excluir
           </button>
         </div>
@@ -144,6 +144,7 @@ export default {
       isModalOpen: false,
       isModalGitOpen: false,
       isAlertModalOpen: false,
+      isConfirmModalOpen: false,
       showBtnUpdContent: false,
       showBtnAddContent: false,
       showBtnSaveContent: true
@@ -199,51 +200,50 @@ export default {
       .catch(error => this.notify(error, 'error', 'top'))
     },
     updateContent() {
-      if (this.title.length < 1 || this.content.length < 1) {
-        alert('Campos não podem ficar vazio')
+      if (this.tutorial.title.length < 1 || this.tutorial.content.length < 1) {
+        this.alertMessage = 'Campos não podem ficar vazio'
+        this.isAlertModalOpen = true
         return
       }
 
-      if (isNaN(parseFloat(this.number))) {
-        this.number = 0;
+      if (isNaN(parseFloat(this.tutorial.number))) {
+        this.number = 0
       }
 
-      $.ajax({
-        url: API + '/content',
-        method: 'put',
-        data: {tutorial: this.mainTitle, number: this.number, title: this.title, content: this.content, oldTitle: this.currentTitle},
-        success: data => {
-          this.message = `Updated content "${this.title}" in tutorial "${this.mainTitle}"`
-          this.listContents(this.mainTitle)
-          this.scrollToElement(this.title)
-          this.number = ''
-          this.title = ''
-          this.content = ''
-          this.focus('number')
-          $('#formContent').modal('hide')
-          $('#modalGit').modal('show')
-          this.notify(data.message, 'success', 'bottom')
-          setTimeout(() => this.focus('message'), 500)
-        }
+      var fd = new FormData()
+      fd.append('number', this.tutorial.number)
+      fd.append('tutorial', this.tutorial.tutorial)
+      fd.append('title', this.tutorial.title)
+      fd.append('content', this.tutorial.content)
+      fd.append('oldTitle', this.currentTitle)
+
+      fetch(API + '/content', {
+        method: 'PUT',
+        body: fd
+      })
+      .then(res => res.json())
+      .then(data => {
+        this.message = `Updated content "${this.tutorial.title}" in tutorial "${this.tutorial.tutorial}"`
+        this.cleanContent()
+        this.listContents(this.tutorial.tutorial)
+        this.scrollToElement(this.tutorial.title)
+        this.isModalOpen = false
+        this.isModalGitOpen = true
+        this.notify(data.message, 'success', 'top')
+        setTimeout(() => this.focus('message'), 100)
       })
     },
-    deleteContent(content) {
-      var response = confirm("Você deseja apagar o conteúdo do " + content.title + "?")
-      
-      if (!response) {
-        return
-      }
-
-      $.ajax({
-        url: `${API}/content/${this.mainTitle}/${content.title}`,
-        method: 'delete',
-        success: (data) => {
-          this.message = `Deleted content "${content.title}" in tutorial "${this.mainTitle}"`
-          this.listContents(this.mainTitle)
-          $('#modalGit').modal('show')
-          this.notify(data.message, 'success', 'bottom')
-          setTimeout(() => this.focus('message'), 500)
-        }
+    deleteContent() {
+      fetch(`${API}/content/${this.tutorial.tutorial}/${this.tutorial.title}`, { method: 'DELETE' })
+      .then(res => res.json())
+      .then(data => {
+        this.notify(data.message, 'success', 'top')
+        this.message = `Deleted content "${this.tutorial.title}" in tutorial "${this.tutorial.tutorial}"`
+        this.cleanContent()
+        this.listContents()
+        this.isConfirmModalOpen = false
+        this.isModalGitOpen = true
+        setTimeout(() => this.focus('message'), 100)
       })
     },
     openAddContent() {
@@ -253,17 +253,22 @@ export default {
       this.isModalOpen = true
       setTimeout(() => this.focus('title'), 100)
 		},
-    editContent(content) {
+    openEditContent(content) {
       this.cleanContent()
-      this.openAddContent()
       this.showBtnSaveContent = false
       this.showBtnUpdContent = true
-      this.number = content.number
-      this.title = content.title
+      this.tutorial.number = content.number
+      this.tutorial.title = content.title
+      this.tutorial.content = content.content
       this.currentTitle = content.title
-      this.content = content.content
       this.titleModalContent = 'Editar Conteúdo'
+      this.isModalOpen = true
+      setTimeout(() => this.focus('title'), 100)
       window.scrollTo({ top: 0, behavior: 'smooth' })
+    },
+    openConfirmDeleteContent(tutorial) {
+      this.isConfirmModalOpen = true
+      this.tutorial.title = tutorial.title
     },
     cleanContent() {
       this.tutorial = {

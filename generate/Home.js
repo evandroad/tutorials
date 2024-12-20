@@ -236,7 +236,6 @@ export default {
       })
     },
     deleteTutorial() {
-      console.log(this.tutorial)
       fetch(API + '/tutorial/' + this.tutorial.title, { method: 'DELETE' })
       .then(res => res.json())
       .then(data => {
