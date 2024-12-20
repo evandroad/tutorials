@@ -2,106 +2,48 @@ import { API, focus, firstLoadTheme, setTheme, notify } from './utils.js'
 
 export default {
   template: `
-    <div class="modal fade" id="formContent" tabindex="-1" aria-hidden="true">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">{{ titleModalContent }}</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <div class="mb-3">
-              <label class="form-label">Número:</label>
-              <input type="text" class="form-control" v-model="number" id="number">
-            </div>
-            <div class="mb-3">
-              <span class="form-label">Título:</span>
-              <input type="text" class="form-control" v-model="title" id="title">
-            </div>
-            <div class="mb-3">
-              <span class="form-label">Conteúdo:</span>
-              <textarea rows="8" class="form-control" v-model="content"></textarea>
-            </div>
-            <div class="form-group gap">
-              <button v-show="showBtnSaveContent" class="btn btn-success" type="button" @click="saveContent">
-                Salvar
-              </button>
-              <button v-show="showBtnUpdContent" class="btn btn-success" type="button" @click="updateContent">
-                Alterar
-              </button>
-              <button class="btn btn-primary" type="button" @click="cleanContent">
-                Limpar
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div class="w-full">
+      <label class="switch">
+        <input type="checkbox" id="themeCheckbox" @change="setTheme($event)">
+        <span class="slider"></span>
+      </label>
     </div>
 
-    <div class="modal fade" id="modalGit" tabindex="-1" aria-hidden="true">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Enviar para o Github</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <div class="mb-3">
-              <label class="form-label">Mensagem:</label>
-              <input type="text" class="form-control" v-model="message" id="message">
-            </div>
-            <div class="form-group gap">
-              <button class="btn btn-success" type="button" @click="saveGit">
-                Salvar
-              </button>
-              <button class="btn btn-secondary" type="button" @click="closeGit">
-                Cancelar
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div class="w-full flex justify-center">
+      <h1 class="text-4xl font-medium">{{ tutorial.tutorial }}</h1>
     </div>
 
-    <label class="switch">
-      <input type="checkbox" id="themeCheckbox" @change="setTheme($event)">
-      <span class="slider"></span>
-    </label>
-
-    <h1>{{ mainTitle }}</h1>
-
-    <div class="buttons">
-      <button id="back" class="btn btn-secondary" type="button" @click="home">
+    <div class="w-2/3 m-auto">
+      <button @click="home" class="bg-zinc-500 text-white px-4 py-2 rounded-full hover:bg-zinc-600 transition mb-2 mr-1">
         <router-link to="/">Voltar</router-link>
       </button>
-      <button class="btn btn-success" @click="openFormContent">
+      <button @click="openAddContent" class="bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-600 transition mb-2">
         Adicionar
       </button>
     </div>
 
-    <div id="tableContents" class="table-responsive col-lg-8 table-panel">
-      <h2 style="text-align: center;">Conteúdos</h2>
-      <table id="contents" class="table table-sm table-hover table-condensed">
-        <thead>
-          <th>Number</th>
-          <th>Title</th>
-          <th>Content</th>
-          <th>Editar</th>
-          <th>Apagar</th>
+    <div class="bg-zinc-800 shadow-md rounded-xl overflow-scroll w-2/3 m-auto">
+      <table class="w-full">
+        <thead class="bg-zinc-700 p-2">
+          <th class="p-3" v-for="item in header">{{ item }}</th>
         </thead>
         <tbody>
-          <tr v-for="content in contents">
-            <td>{{ content.number }}</td>
+          <tr v-for="content in contents" class="border-zinc-600 border-b last:border-0">
+            <td class="p-2">{{ content.number }}</td>
             <td :id="content.title">{{ content.title }}</td>
             <td>{{ content.content }}</td>
             <td>
-              <a href='' @click.prevent="editContent(content)">
-                <i class='fa fa-pencil-square' style='font-size: 25px'></i>
+              <a href='' @click.prevent="openEditContent(content)">
+                <svg width="30px" height="30px" class="text-zinc-200 hover:text-yellow-500" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="m3.99 16.854-1.314 3.504a.75.75 0 0 0 .966.965l3.503-1.314a3 3 0 0 0 1.068-.687L18.36 9.175s-.354-1.061-1.414-2.122c-1.06-1.06-2.122-1.414-2.122-1.414L4.677 15.786a3 3 0 0 0-.687 1.068zm12.249-12.63 1.383-1.383c.248-.248.579-.406.925-.348.487.08 1.232.322 1.934 1.025.703.703.945 1.447 1.025 1.934.058.346-.1.677-.348.925L19.774 7.76s-.353-1.06-1.414-2.12c-1.06-1.062-2.121-1.415-2.121-1.415z" fill="currentColor"/>
+                </svg>
               </a>
             </td>
-            <td class="deleteTutorial">
-              <a href='' @click.prevent="deleteContent(content)">
-                <i class='fa fa-trash' style='font-size: 25px'></i>
+            <td>
+              <a href='' @click.prevent="openConfirmDeleteContent(content)">
+                <svg width="30px" height="30px" class="text-zinc-200 hover:text-red-500" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M6 7V18C6 19.1046 6.89543 20 8 20H16C17.1046 20 18 19.1046 18 18V7M6 7H5M6 7H8M18 7H19M18 7H16M10 11V16M14 11V16M8 7V5C8 3.89543 8.89543 3 10 3H14C15.1046 3 16 3.89543 16 5V7M8 7H16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
               </a>
             </td>
           </tr>
@@ -109,7 +51,78 @@ export default {
       </table>
     </div>
 
-    <div id="snackbar"></div>
+    <div v-if="isModalOpen" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+      <div class="bg-zinc-800 p-6 rounded-lg w-2/5">
+        <h5 class="text-2xl mb-4 font-bold">{{ titleModalContent }}</h5>
+        <div class="mb-4">
+          <label class="block mb-2">Número:</label>
+          <input type="text" v-model="tutorial.number" id="number" class="w-full p-2 border rounded bg-zinc-700 border-gray-600 focus:outline-none focus:ring focus:ring-blue-600">
+        </div>
+        <div class="mb-4">
+          <span class="block mb-2">Título:</span>
+          <input type="text" v-model="tutorial.title" id="title" class="w-full p-2 border rounded bg-zinc-700 border-gray-600 focus:outline-none focus:ring focus:ring-blue-600">
+        </div>
+        <div class="mb-4">
+          <span class="block mb-2">Conteúdo:</span>
+          <textarea rows="8" v-model="tutorial.content" class="w-full p-2 border rounded bg-zinc-700 border-gray-600 focus:outline-none focus:ring focus:ring-blue-600"></textarea>
+        </div>
+        <div class="flex justify-end space-x-2">
+          <button @click="isModalOpen = false" class="bg-zinc-300 text-black px-4 py-2 rounded hover:bg-zinc-400">
+            cancelar
+          </button>
+          <button @click="cleanContent" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
+            Limpar
+          </button>
+          <button v-show="showBtnSaveContent" @click="saveContent" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+            Salvar
+          </button>
+          <button v-show="showBtnUpdContent" @click="updateContent" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+            Alterar
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div v-if="isModalGitOpen" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+      <div class="bg-zinc-800 p-6 rounded-lg w-2/5">
+        <h2 class="text-2xl mb-4 font-bold">Enviar para o Github</h2>
+        <div class="mb-4">
+          <label class="block mb-2">Mensagem:</label>
+          <input v-model="message" id="message" class="w-full p-2 border rounded bg-zinc-700 border-gray-600 focus:outline-none focus:ring focus:ring-blue-600">
+        </div>
+        <div class="flex justify-end space-x-2">
+          <button @click="isModalGitOpen = false" class="bg-zinc-300 text-black px-4 py-2 rounded hover:bg-zinc-400">Cancelar</button>
+          <button @click="saveGit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Salvar</button>
+        </div>
+      </div>
+    </div>
+
+    <div v-if="isConfirmModalOpen" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+      <div class="bg-zinc-900 p-6 rounded-xl shadow-lg max-w-md w-full">
+        <h2 class="text-xl font-bold mb-4 text-zinc-200">Confirmar Exclusão</h2>
+        <p class="mb-6 text-zinc-300">
+          Tem certeza que deseja excluir o conteúdo <span>{{ tutorial.title }}</span>?
+        </p>
+        <div class="flex justify-end space-x-3">
+          <button @click="isConfirmModalOpen = false" class="px-4 py-2 bg-zinc-200 text-gray-700 rounded-lg hover:bg-zinc-300 transition">
+            Cancelar
+          </button>
+          <button @click="deleteContent" class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition">
+            Excluir
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <div v-if="isAlertModalOpen" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+      <div class="bg-zinc-900 p-5 rounded-xl shadow-lg max-w-md w-full">
+        <h2 class="text-xl font-bold mb-4 text-gray-300">Aviso</h2>
+        <p class="mb-6 text-gray-200">{{ alertMessage }}</p>
+        <div class="flex justify-end space-x-3">
+          <button @click="isAlertModalOpen = false" class="px-4 py-2 bg-blue-500 text-gray-300 rounded-lg hover:bg-blue-300 transition">Ok</button>
+        </div>
+      </div>
+    </div>
   `,
   mounted() {
     this.firstLoadTheme()
@@ -117,14 +130,21 @@ export default {
   },
   data() {
     return {
+      header: ['Número', 'Título', 'Conteúdo', 'Editar', 'Apagar'],
       contents: [],
-      mainTitle: '',
-      number: '',
-      title: '',
-      content: '',
+      tutorial: {
+        number: '',
+        tutorial: '',
+        title: '',
+        content: '',
+      },
       currentTitle: '',
       message: '',
       titleModalContent: 'Adicionar Conteúdo',
+      isModalOpen: false,
+      isModalGitOpen: false,
+      isAlertModalOpen: false,
+      isConfirmModalOpen: false,
       showBtnUpdContent: false,
       showBtnAddContent: false,
       showBtnSaveContent: true
@@ -136,114 +156,131 @@ export default {
     setTheme,
     notify,
     listContents() {
-      this.mainTitle = this.$route.params.tutorial
-      fetch(API + '/content/' + this.mainTitle)
+      this.tutorial.tutorial = this.$route.params.tutorial
+      fetch(API + '/content/' + this.tutorial.tutorial)
       .then(res => res.json())
       .then(data => this.contents = data)
     },
     saveContent() {
-      if (this.title.length < 1 || this.content.length < 1) {
-        alert('Campos não podem ficar vazio')
+      if (this.tutorial.title.length < 1 || this.tutorial.content.length < 1) {
+        this.alertMessage = 'Campos não podem ficar vazio'
+        this.isAlertModalOpen = true
         return
       }
 
-      if (isNaN(parseFloat(this.number))) {
-        this.number = 0;
+      if (isNaN(parseFloat(this.tutorial.number))) {
+        this.tutorial.number = 0
       }
 
-      $.ajax({
-        url: API + '/content',
-        method: 'post',
-        data: {tutorial: this.mainTitle, number: this.number, title: this.title, content: this.content},
-        success: data => {
-          this.message = `Added content "${this.title}" in tutorial "${this.mainTitle}"`
-          this.listContents(this.mainTitle)
-          this.number = ''
-          this.title = ''
-          this.content = ''
-          this.focus('number')
-          $('#formContent').modal('hide')
-          $('#modalGit').modal('show')
-          this.notify(data.message, 'success', 'bottom')
-          setTimeout(() => this.focus('message'), 500)
-        }
+      var fd = new FormData()
+      fd.append('number', this.tutorial.number)
+      fd.append('tutorial', this.tutorial.tutorial)
+      fd.append('title', this.tutorial.title)
+      fd.append('content', this.tutorial.content)
+
+      fetch(API + '/content', {
+        method: 'POST',
+        body: fd
       })
+      .then(res => res.json())
+      .then(data => {
+        if (data.error) {
+          this.notify(data.error, 'error', 'top')
+          return
+        }
+
+        this.message = `Added content "${this.tutorial.title}" in tutorial "${this.tutorial.name}"`
+        this.cleanContent()
+        this.listContents(this.tutorial.name)
+        this.isModalOpen = false
+        this.isModalGitOpen = true
+        this.notify(data.message, 'success', 'top')
+        setTimeout(() => this.focus('message'), 100)
+      })
+      .catch(error => this.notify(error, 'error', 'top'))
     },
     updateContent() {
-      if (this.title.length < 1 || this.content.length < 1) {
-        alert('Campos não podem ficar vazio')
+      if (this.tutorial.title.length < 1 || this.tutorial.content.length < 1) {
+        this.alertMessage = 'Campos não podem ficar vazio'
+        this.isAlertModalOpen = true
         return
       }
 
-      if (isNaN(parseFloat(this.number))) {
-        this.number = 0;
+      if (isNaN(parseFloat(this.tutorial.number))) {
+        this.number = 0
       }
 
-      $.ajax({
-        url: API + '/content',
-        method: 'put',
-        data: {tutorial: this.mainTitle, number: this.number, title: this.title, content: this.content, oldTitle: this.currentTitle},
-        success: data => {
-          this.message = `Updated content "${this.title}" in tutorial "${this.mainTitle}"`
-          this.listContents(this.mainTitle)
-          this.scrollToElement(this.title)
-          this.number = ''
-          this.title = ''
-          this.content = ''
-          this.focus('number')
-          $('#formContent').modal('hide')
-          $('#modalGit').modal('show')
-          this.notify(data.message, 'success', 'bottom')
-          setTimeout(() => this.focus('message'), 500)
-        }
-      })
-    },
-    deleteContent(content) {
-      var response = confirm("Você deseja apagar o conteúdo do " + content.title + "?")
-      
-      if (!response) {
-        return
-      }
+      var fd = new FormData()
+      fd.append('number', this.tutorial.number)
+      fd.append('tutorial', this.tutorial.tutorial)
+      fd.append('title', this.tutorial.title)
+      fd.append('content', this.tutorial.content)
+      fd.append('oldTitle', this.currentTitle)
 
-      $.ajax({
-        url: `${API}/content/${this.mainTitle}/${content.title}`,
-        method: 'delete',
-        success: (data) => {
-          this.message = `Deleted content "${content.title}" in tutorial "${this.mainTitle}"`
-          this.listContents(this.mainTitle)
-          $('#modalGit').modal('show')
-          this.notify(data.message, 'success', 'bottom')
-          setTimeout(() => this.focus('message'), 500)
-        }
+      fetch(API + '/content', {
+        method: 'PUT',
+        body: fd
+      })
+      .then(res => res.json())
+      .then(data => {
+        this.message = `Updated content "${this.tutorial.title}" in tutorial "${this.tutorial.tutorial}"`
+        this.cleanContent()
+        this.listContents(this.tutorial.tutorial)
+        this.scrollToElement(this.tutorial.title)
+        this.isModalOpen = false
+        this.isModalGitOpen = true
+        this.notify(data.message, 'success', 'top')
+        setTimeout(() => this.focus('message'), 100)
       })
     },
-    editContent(content) {
+    deleteContent() {
+      fetch(`${API}/content/${this.tutorial.tutorial}/${this.tutorial.title}`, { method: 'DELETE' })
+      .then(res => res.json())
+      .then(data => {
+        this.notify(data.message, 'success', 'top')
+        this.message = `Deleted content "${this.tutorial.title}" in tutorial "${this.tutorial.tutorial}"`
+        this.cleanContent()
+        this.listContents()
+        this.isConfirmModalOpen = false
+        this.isModalGitOpen = true
+        setTimeout(() => this.focus('message'), 100)
+      })
+    },
+    openAddContent() {
       this.cleanContent()
-      this.openFormContent()
+      this.titleModalContent = 'Adicionar Conteúdo'
+      this.tutorial.number = (this.contents.length + 1).toString()
+      this.isModalOpen = true
+      setTimeout(() => this.focus('title'), 100)
+		},
+    openEditContent(content) {
+      this.cleanContent()
       this.showBtnSaveContent = false
       this.showBtnUpdContent = true
-      this.number = content.number
-      this.title = content.title
+      this.tutorial.number = content.number
+      this.tutorial.title = content.title
+      this.tutorial.content = content.content
       this.currentTitle = content.title
-      this.content = content.content
       this.titleModalContent = 'Editar Conteúdo'
+      this.isModalOpen = true
+      setTimeout(() => this.focus('title'), 100)
       window.scrollTo({ top: 0, behavior: 'smooth' })
     },
+    openConfirmDeleteContent(tutorial) {
+      this.isConfirmModalOpen = true
+      this.tutorial.title = tutorial.title
+    },
     cleanContent() {
-      this.number = ''
-      this.title = ''
-      this.content = ''
+      this.tutorial = {
+        tutorial: this.tutorial.tutorial,
+        number: '',
+        title: '',
+        content: ''
+      }
       this.code = ''
       this.showBtnUpdContent = false
       this.showBtnSaveContent = true
     },
-    openFormContent() {
-      this.titleModalContent = 'Adicionar Conteúdo'
-      this.cleanContent()
-      this.number = this.contents.length + 1
-      $('#formContent').modal('show')
-      setTimeout(() => this.focus('title'), 500)
-		},
     scrollToElement(id) {
       var element = document.getElementById(id)
       if (element != null) {
@@ -256,19 +293,16 @@ export default {
         return
       }
 
-      $.ajax({
-        url: API + '/git',
-        method: 'post',
-        data: {message: this.message},
-        success: data => {
-          this.message = ''
-          $('#modalGit').modal('hide')
-          this.notify(data.message, 'success', 'top')
-        }
+      fetch(API + '/git', {
+        method: 'POST',
+        body: JSON.stringify({ message: this.message })
       })
-    },
-    closeGit() {
-      $('#modalGit').modal('hide')
+      .then(res => res.json())
+      .then(data => {
+        this.notify(data.message, 'success', 'top')
+        this.message = ''
+        this.isModalGitOpen = false
+      })
     }
   }
 }
