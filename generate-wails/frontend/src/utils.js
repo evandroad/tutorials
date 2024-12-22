@@ -93,6 +93,8 @@ function getCssNotify() {
 }
 
 let overlay = null
+let style = null
+
 export function showLoading() {
   overlay = document.createElement('div')
   const modal = document.createElement('div')
@@ -113,11 +115,19 @@ export function showLoading() {
 }
 
 export function closeLoading() {
-  overlay.remove()
+  if (overlay) {
+    overlay.remove()
+    overlay = null
+  }
+
+  if (style) {
+    style.remove()
+    style = null
+  }
 }
 
 function addStylesLoading() {
-  const style = document.createElement('style')
+  style = document.createElement('style')
   style.innerHTML = `
     .overlay {
       position: fixed;

@@ -116,7 +116,7 @@
 
 <script>
 import { API, focus, notify, showLoading, closeLoading } from '../utils.js'
-import { GetAllTutorials, InsertTutorial, SaveImage } from '../../wailsjs/go/main/App.js'
+import { GetAllTutorials, InsertTutorial, SaveImage, DeleteTutorial } from '../../wailsjs/go/main/App.js'
 
 export default {
   name: 'HomeView',
@@ -178,55 +178,40 @@ export default {
         this.tutorial.number = 0
       }
 
-      this.showLoading()
+      // this.showLoading()
+
       const reader = new FileReader()
       reader.onload = (e) => {
         const bytes = new Uint8Array(e.target.result)
-        
+      
         SaveImage(this.tutorial.image.name, Array.from(bytes))
-          .then((res) => {
-            if (res) {
-              this.tutorial.number = Number(this.tutorial.number)
-              this.tutorial.image = this.tutorial.image.name
-  
-              return InsertTutorial(this.tutorial)
-            }
+        .then((res) => {
+          if (res) {
+            this.tutorial.number = Number(this.tutorial.number)
+            this.tutorial.image = this.tutorial.image.name
 
-            this.notify('Erro ao salvar a Imagem.', 'error', 'top')
-          })
-          .then(res => {
-            this.notify(res, 'success', 'top')
-            this.listTutorials()
-          })
-          .catch(error => {
-            console.error('Erro:', error)
-            this.notify('Erro ao salvar o tutorial.', 'error', 'top')
-          })
-          .finally(() => this.closeLoading())
+            return InsertTutorial(this.tutorial)
+          }
+
+          this.notify('Erro ao salvar a Imagem.', 'error', 'top')
+        })
+        .then(res => {
+          this.message = `Added tutorial "${this.tutorial.title}"`
+          this.cleanTutorial()
+          this.listTutorials()
+          this.notify(res, 'success', 'top')
+          this.isModalOpen = false
+        //   this.isModalGitOpen = true
+        //   setTimeout(() => this.focus('message'), 100)
+        })
+        .catch(error => {
+          console.error('Erro:', error)
+          this.notify('Erro ao salvar o tutorial.', 'error', 'top')
+        })
+        // .finally(() => this.closeLoading())
       }
 
       reader.readAsArrayBuffer(this.tutorial.image)
-
-    
-      // var fd = new FormData()
-      // fd.append('number', this.tutorial.number)
-      // fd.append('tutorial', this.tutorial.title)
-      // fd.append('image', this.tutorial.image)
-
-      // fetch(API + '/tutorial', {
-      //   method: 'POST',
-      //   body: fd
-      // })
-      // .then(res => res.json())
-      // .then(data => {
-      //   this.message = `Added tutorial "${this.tutorial.title}"`
-      //   this.cleanTutorial()
-      //   this.listTutorials()
-      //   this.notify(data.message, 'success', 'top')
-      //   this.isModalOpen = false
-      //   this.isModalGitOpen = true
-      //   setTimeout(() => this.focus('message'), 100)
-      // })
     },
     updateTutorial() {
       if (this.tutorial.title.length < 1) {
@@ -262,16 +247,17 @@ export default {
       })
     },
     deleteTutorial() {
-      fetch(API + '/tutorial/' + this.tutorial.title, { method: 'DELETE' })
-      .then(res => res.json())
+      // this.showLoading()
+      DeleteTutorial(this.tutorial.title)
       .then(data => {
-        this.notify(data.message, 'success', 'top')
+        this.notify(data, 'success', 'top')
         this.listTutorials()
         this.isConfirmModalOpen = false
         this.message = `Deleted tutorial "${this.tutorial.title}"`
-        this.isModalGitOpen = true
-        setTimeout(() => this.focus('message'), 100)
+        // this.isModalGitOpen = true
+        // setTimeout(() => this.focus('message'), 100)
       })
+      // .finally(() => this.closeLoading())
     },
     openAddTutorial() {
       this.isModalOpen = true

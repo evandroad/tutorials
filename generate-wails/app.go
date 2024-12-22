@@ -22,10 +22,6 @@ func (a *App) startup(ctx context.Context) {
 	a.ctx = ctx
 }
 
-func (a *App) Greet(name string) string {
-	return fmt.Sprintf("Hello %s, It's show time!", name)
-}
-
 type Tutorial struct {
 	Number int    `json:"number"`
 	Title  string `json:"title"`
@@ -79,6 +75,14 @@ func saveJson(path string, users []Tutorial) error {
 	return os.WriteFile(path, bytes, 0666)
 }
 
+func remove(filePath string) {
+	err := os.Remove(filePath)
+	if err != nil {
+		println("Erro ao apagar o arquivo:", err)
+		return
+	}
+}
+
 func (a *App) SaveImage(filename string, data []byte) (bool, error) {
 	if err := os.MkdirAll(IMAGE_DIR, 0755); err != nil {
 		return false, err
@@ -121,4 +125,31 @@ func (a *App) InsertTutorial(tutorial Tutorial) string {
 	saveJson(jsonPath, []Tutorial{})
 
 	return "Tutorial salvo com sucesso."
+}
+
+func (a *App) DeleteTutorial(tutorial string) string {
+	tutorials, err := getTutorials()
+	if err != nil {
+		fmt.Printf("Erro ao carregar os tutoriais: %v", err)
+		return "Erro ao carregar os tutoriais."
+	}
+
+	var image string
+	for i := range tutorials {
+		if tutorials[i].Title == tutorial {
+			image = tutorials[i].Image
+			tutorials = append(tutorials[:i], tutorials[i+1:]...)
+			break
+		}
+	}
+
+	saveJson(TUTORIALS, tutorials)
+	
+	imagePath := IMAGE_DIR + "/" + image
+	remove(imagePath)
+
+	jsonPath:= TUTORIALS_DIR + tutorial + ".json"
+	remove(jsonPath)
+
+	return "Tutorial apagado com sucesso."
 }
