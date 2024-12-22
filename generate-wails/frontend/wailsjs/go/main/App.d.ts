@@ -5,3 +5,7 @@ import {main} from '../models';
 export function GetAllTutorials():Promise<Array<main.Tutorial>>;
 
 export function Greet(arg1:string):Promise<string>;
+
+export function InsertTutorial(arg1:main.Tutorial):Promise<string>;
+
+export function SaveImage(arg1:string,arg2:Array<number>):Promise<boolean>;

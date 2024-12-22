@@ -9,33 +9,29 @@
     </button>
   </div>
 
-  <div class="bg-zinc-800 shadow-md rounded-xl overflow-scroll w-2/3 m-auto">
+  <div class="bg-zinc-800 shadow-md rounded-xl overflow-scroll w-2/3 m-auto mb-5">
     <table class="w-full">
       <thead class="bg-zinc-700 p-2">
-        <th class="p-3" v-for="item in header" :key="item.number">{{ item }}</th>
+        <th class="p-3 text-left" v-for="item in header" :key="item.number">{{ item }}</th>
       </thead>
       <tbody>
         <tr v-for="tutorial in tutorials" :key="tutorial.number" class="border-zinc-600 border-b last:border-0">
           <td class="p-2"><img :src="`/tutorial/img/${tutorial.image}`" style='height: 25px' /></td>
           <td class="">{{ tutorial.number }}</td>
           <td>{{ tutorial.title }}</td>
-          <td>
+          <td class="flex gap-1 whitespace-nowrap">
             <router-link :to="{ name: 'tutorial', params: { tutorial: tutorial.title }}">
-              <svg width="30px" height="30px" class="text-zinc-200 hover:text-blue-500" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <svg width="30px" height="30px" class="inline text-zinc-200 hover:text-blue-500" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path d="M15.4306 7.70172C7.55045 7.99826 3.43929 15.232 2.17021 19.3956C2.07701 19.7014 2.31139 20 2.63107 20C2.82491 20 3.0008 19.8828 3.08334 19.7074C6.04179 13.4211 12.7066 12.3152 15.514 12.5639C15.7583 12.5856 15.9333 12.7956 15.9333 13.0409V15.1247C15.9333 15.5667 16.4648 15.7913 16.7818 15.4833L20.6976 11.6784C20.8723 11.5087 20.8993 11.2378 20.7615 11.037L16.8456 5.32965C16.5677 4.92457 15.9333 5.12126 15.9333 5.61253V7.19231C15.9333 7.46845 15.7065 7.69133 15.4306 7.70172Z" fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </router-link>
-          </td>
-          <td>
             <a href="" @click.prevent="openEditTutorial(tutorial)">
-              <svg width="30px" height="30px" class="text-zinc-200 hover:text-yellow-500" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <svg width="30px" height="30px" class="inline text-zinc-200 hover:text-yellow-500" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" clip-rule="evenodd" d="m3.99 16.854-1.314 3.504a.75.75 0 0 0 .966.965l3.503-1.314a3 3 0 0 0 1.068-.687L18.36 9.175s-.354-1.061-1.414-2.122c-1.06-1.06-2.122-1.414-2.122-1.414L4.677 15.786a3 3 0 0 0-.687 1.068zm12.249-12.63 1.383-1.383c.248-.248.579-.406.925-.348.487.08 1.232.322 1.934 1.025.703.703.945 1.447 1.025 1.934.058.346-.1.677-.348.925L19.774 7.76s-.353-1.06-1.414-2.12c-1.06-1.062-2.121-1.415-2.121-1.415z" fill="currentColor"/>
               </svg>
             </a>
-          </td>
-          <td>
             <a href="" @click.prevent="openConfirmDeleteTutorial(tutorial)">
-              <svg width="30px" height="30px" class="text-zinc-200 hover:text-red-500" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <svg width="30px" height="30px" class="inline text-zinc-200 hover:text-red-500" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path d="M6 7V18C6 19.1046 6.89543 20 8 20H16C17.1046 20 18 19.1046 18 18V7M6 7H5M6 7H8M18 7H19M18 7H16M10 11V16M14 11V16M8 7V5C8 3.89543 8.89543 3 10 3H14C15.1046 3 16 3.89543 16 5V7M8 7H16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </a>
@@ -50,11 +46,11 @@
       <h2 class="text-2xl mb-4 font-bold">{{ titleModalTutorial }}</h2>
       <div class="mb-4">
         <label class="block mb-2">Number</label>
-        <input type="text" v-model="tutorial.number" id="number" class="w-full p-2 border rounded bg-zinc-700 border-gray-600 focus:outline-none focus:ring focus:ring-blue-600">
+        <input type="text" v-model="tutorial.number" class="w-full p-2 border rounded bg-zinc-700 border-gray-600 focus:outline-none focus:ring focus:ring-blue-600">
       </div>
       <div class="mb-4">
         <label class="block mb-2">Tutorial</label>
-        <input type="text" v-model="tutorial.title" class="w-full p-2 border rounded bg-zinc-700 border-gray-600 focus:outline-none focus:ring focus:ring-blue-600">
+        <input type="text" v-model="tutorial.title" id="tutorial" class="w-full p-2 border rounded bg-zinc-700 border-gray-600 focus:outline-none focus:ring focus:ring-blue-600">
       </div>
         <div class="mb-4">
         <label class="block mb-2">Imagem</label>
@@ -119,9 +115,8 @@
 </template>
 
 <script>
-import { API, focus, notify } from '../utils.js'
-// import { GetAllTutorials } from '../../wailsjs/go/main/App.js'
-import { GetAllTutorials } from '../../wailsjs/go/main/App.js'
+import { API, focus, notify, showLoading, closeLoading } from '../utils.js'
+import { GetAllTutorials, InsertTutorial, SaveImage } from '../../wailsjs/go/main/App.js'
 
 export default {
   name: 'HomeView',
@@ -130,7 +125,7 @@ export default {
 	},
   data() {
     return {
-      header: ['Ícone', 'Número', 'Tutoriais', 'Ir', 'Editar', 'Apagar'],
+      header: ['Ícone', 'Número', 'Tutoriais', 'Ações'],
       tutorials: [],
       currentImage: '',
       currentTutorial: '',
@@ -153,7 +148,10 @@ export default {
   methods: {
     focus,
     notify,
+    showLoading,
+    closeLoading,
     listTutorials() {
+      this.showLoading()
       try {
         GetAllTutorials()
         .then(data => this.tutorials = data.sort(this.compareByNumber))
@@ -161,11 +159,7 @@ export default {
       } catch (error) {
         console.error('Erro ao buscar usuários:', error)
       }
-
-      // fetch(API + '/tutorial')
-      // .then(res => res.json())
-      // .then(data => this.tutorials = data.sort(this.compareByNumber))
-      // .catch(err => console.log(err))
+      this.closeLoading()
     },
     createTutorial() {
       if (this.tutorial.title.length < 1) {
@@ -183,26 +177,56 @@ export default {
       if (isNaN(parseFloat(this.tutorial.number))) {
         this.tutorial.number = 0
       }
-    
-      var fd = new FormData()
-      fd.append('number', this.tutorial.number)
-      fd.append('tutorial', this.tutorial.title)
-      fd.append('image', this.tutorial.image)
 
-      fetch(API + '/tutorial', {
-        method: 'POST',
-        body: fd
-      })
-      .then(res => res.json())
-      .then(data => {
-        this.message = `Added tutorial "${this.tutorial.title}"`
-        this.cleanTutorial()
-        this.listTutorials()
-        this.notify(data.message, 'success', 'top')
-        this.isModalOpen = false
-        this.isModalGitOpen = true
-        setTimeout(() => this.focus('message'), 100)
-      })
+      this.showLoading()
+      const reader = new FileReader()
+      reader.onload = (e) => {
+        const bytes = new Uint8Array(e.target.result)
+        
+        SaveImage(this.tutorial.image.name, Array.from(bytes))
+          .then((res) => {
+            if (res) {
+              this.tutorial.number = Number(this.tutorial.number)
+              this.tutorial.image = this.tutorial.image.name
+  
+              return InsertTutorial(this.tutorial)
+            }
+
+            this.notify('Erro ao salvar a Imagem.', 'error', 'top')
+          })
+          .then(res => {
+            this.notify(res, 'success', 'top')
+            this.listTutorials()
+          })
+          .catch(error => {
+            console.error('Erro:', error)
+            this.notify('Erro ao salvar o tutorial.', 'error', 'top')
+          })
+          .finally(() => this.closeLoading())
+      }
+
+      reader.readAsArrayBuffer(this.tutorial.image)
+
+    
+      // var fd = new FormData()
+      // fd.append('number', this.tutorial.number)
+      // fd.append('tutorial', this.tutorial.title)
+      // fd.append('image', this.tutorial.image)
+
+      // fetch(API + '/tutorial', {
+      //   method: 'POST',
+      //   body: fd
+      // })
+      // .then(res => res.json())
+      // .then(data => {
+      //   this.message = `Added tutorial "${this.tutorial.title}"`
+      //   this.cleanTutorial()
+      //   this.listTutorials()
+      //   this.notify(data.message, 'success', 'top')
+      //   this.isModalOpen = false
+      //   this.isModalGitOpen = true
+      //   setTimeout(() => this.focus('message'), 100)
+      // })
     },
     updateTutorial() {
       if (this.tutorial.title.length < 1) {
@@ -253,8 +277,8 @@ export default {
       this.isModalOpen = true
       this.titleModalTutorial = 'Adicionar Tutorial'
       this.cleanTutorial()
-      this.number = this.tutorials.length + 1
-      setTimeout(() => this.focus('number'), 100)
+      this.tutorial.number = this.tutorials.length + 1
+      setTimeout(() => this.focus('tutorial'), 100)
     },
     openEditTutorial(tutorial) {
       this.cleanTutorial()

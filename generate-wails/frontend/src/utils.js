@@ -7,7 +7,7 @@ export function focus(input) {
 let counter = 0
 export function notify(message = '', type, position = '') {
   const style = document.createElement('style')
-  style.textContent = getCss()
+  style.textContent = getCssNotify()
   document.head.appendChild(style)
   
   const snackbar = document.createElement("div")
@@ -23,7 +23,7 @@ export function notify(message = '', type, position = '') {
   }
   
   snackbar.innerText = message
-  const { bg, cl} = getColor(type)
+  const { bg, cl} = getColorNotify(type)
   snackbar.style.backgroundColor = bg
   snackbar.style.color = cl
 
@@ -33,7 +33,7 @@ export function notify(message = '', type, position = '') {
   }, 3000)
 }
 
-function getColor(type) {
+function getColorNotify(type) {
   switch (type) {
     case 'success':
       return { bg: '#09b809', cl: 'white' }
@@ -48,7 +48,7 @@ function getColor(type) {
   }
 }
 
-function getCss() {
+function getCssNotify() {
   return `
     #snackbar${counter.toString()} {
       visibility: hidden;
@@ -90,4 +90,84 @@ function getCss() {
       to {bottom: 0; opacity: 0;}
     }
   `
-} 
+}
+
+let overlay = null
+export function showLoading() {
+  overlay = document.createElement('div')
+  const modal = document.createElement('div')
+  const message = document.createElement('div')
+  const spinner = document.createElement('div')
+  
+  overlay.classList.add('overlay')
+  modal.classList.add('modal')
+  message.classList.add('message')
+  message.innerText = 'Aguarde...'
+  spinner.classList.add('spinner')
+
+  modal.appendChild(message)
+  modal.appendChild(spinner)
+  overlay.appendChild(modal)
+  document.body.appendChild(overlay)
+  addStylesLoading()
+}
+
+export function closeLoading() {
+  overlay.remove()
+}
+
+function addStylesLoading() {
+  const style = document.createElement('style')
+  style.innerHTML = `
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .modal {
+      display: flex;
+      align-items: center;
+      background-color: white;
+      padding: 20px 30px;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .message {
+      font-size: 1.5rem;
+      font-weight: 500;
+      font-family: Arial, Helvetica, sans-serif;
+      color: #2d2d2d;
+      margin-right: 20px;
+    }
+
+    .spinner {
+      border: 6px solid rgba(0, 0, 0, 0.1);
+      border-top: 6px solid #3498db;
+      border-radius: 50%;
+      width: 35px;
+      height: 35px;
+      animation: spin 1s linear infinite;
+      margin: 0 auto;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+  `
+  document.head.appendChild(style)
+}

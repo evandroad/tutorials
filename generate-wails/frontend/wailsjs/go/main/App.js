@@ -9,3 +9,11 @@ export function GetAllTutorials() {
 export function Greet(arg1) {
   return window['go']['main']['App']['Greet'](arg1);
 }
+
+export function InsertTutorial(arg1) {
+  return window['go']['main']['App']['InsertTutorial'](arg1);
+}
+
+export function SaveImage(arg1, arg2) {
+  return window['go']['main']['App']['SaveImage'](arg1, arg2);
+}

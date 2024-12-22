@@ -4,8 +4,9 @@ import (
 	"os"
 	"io"
 	"fmt"
-	// "sort"
+	"sort"
 	"context"
+	"path/filepath"
 	"encoding/json"
 )
 
@@ -39,6 +40,8 @@ type Content struct {
 
 const (
 	TUTORIALS = "tutorial/data/tutorials.json"
+	TUTORIALS_DIR = "tutorial/data/"
+	IMAGE_DIR = "tutorial/img"
 )
 
 func getTutorials() ([]Tutorial, error) {
@@ -67,6 +70,28 @@ func getTutorials() ([]Tutorial, error) {
 	return jsonData, nil
 }
 
+func saveJson(path string, users []Tutorial) error {
+	bytes, err := json.MarshalIndent(users, "", "  ")
+	if err != nil {
+		return err
+	}
+
+	return os.WriteFile(path, bytes, 0666)
+}
+
+func (a *App) SaveImage(filename string, data []byte) (bool, error) {
+	if err := os.MkdirAll(IMAGE_DIR, 0755); err != nil {
+		return false, err
+	}
+
+	err := os.WriteFile(filepath.Join(IMAGE_DIR, filename), data, 0644)
+	if err != nil {
+		return false, err
+	}
+
+	return true, nil
+}
+
 func (a *App) GetAllTutorials() []Tutorial {
 	tutorials, err := getTutorials()
 	if err != nil {
@@ -75,4 +100,25 @@ func (a *App) GetAllTutorials() []Tutorial {
 	}
 
 	return tutorials
+}
+
+func (a *App) InsertTutorial(tutorial Tutorial) string {
+	tutorials, err := getTutorials()
+	if err != nil {
+		fmt.Printf("Erro ao carregar os tutoriais: %v", err)
+		return "Erro ao carregar os tutoriais."
+	}
+
+	tutorials = append(tutorials, tutorial)
+
+	sort.Slice(tutorials, func(i, j int) bool {
+    return tutorials[i].Number < tutorials[j].Number
+	})
+
+	saveJson(TUTORIALS, tutorials)
+	
+	jsonPath := TUTORIALS_DIR + tutorial.Title + ".json"
+	saveJson(jsonPath, []Tutorial{})
+
+	return "Tutorial salvo com sucesso."
 }
