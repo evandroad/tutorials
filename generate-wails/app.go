@@ -237,7 +237,6 @@ func (a *App) SendGit(message string) string {
 }
 
 func git(message string) {
-  // Pull changes
   cmd := exec.Command("git", "pull")
   err := cmd.Run()
   if err != nil {
@@ -245,7 +244,6 @@ func git(message string) {
     return
   }
 
-  // Stage changes
   cmd = exec.Command("git", "add", "../tutorial/*")
   err = cmd.Run()
   if err != nil {
@@ -253,7 +251,6 @@ func git(message string) {
     return
   }
 
-  // Commit staged changes
   commitMsg := "feat: " + message
   cmd = exec.Command("git", "commit", "-m", commitMsg)
   err = cmd.Run()
@@ -262,7 +259,6 @@ func git(message string) {
     return
   }
 
-  // Push changes
   cmd = exec.Command("git", "push")
   err = cmd.Run()
   if err != nil {
