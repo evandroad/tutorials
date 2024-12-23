@@ -244,7 +244,7 @@ func git(message string) {
     return
   }
 
-  cmd = exec.Command("git", "add", "../tutorial/*")
+  cmd = exec.Command("git", "add", "./tutorial/*")
   err = cmd.Run()
   if err != nil {
     fmt.Println("Error staging changes:", err)
