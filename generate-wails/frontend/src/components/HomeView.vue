@@ -9,7 +9,7 @@
     </button>
   </div>
 
-  <div class="bg-zinc-800 shadow-md rounded-xl overflow-scroll w-2/3 m-auto mb-5">
+  <div class="bg-zinc-800 shadow-md rounded-xl overflow-auto w-2/3 m-auto mb-5">
     <table class="w-full">
       <thead class="bg-zinc-700 p-2">
         <th class="p-3 text-left" v-for="item in header" :key="item.number">{{ item }}</th>
@@ -60,13 +60,13 @@
             Procurar
           </button>
           <span class="text-gray-500 truncate max-w-[200px]">
-            {{ tutorial.image ? tutorial.image.name : 'Nenhum arquivo selecionado' }}
+            {{ image ? image : 'Nenhum arquivo selecionado' }}
           </span>
         </div>
       </div>
       <div class="flex justify-end space-x-2">
         <button @click="isModalOpen = false" class="bg-zinc-300 text-black px-4 py-2 rounded hover:bg-zinc-400">Cancelar</button>
-        <button @click="createTutorial" v-show="showBtnAddTutorial" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Salvar</button>
+        <button @click="insertTutorial" v-show="showBtnAddTutorial" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Salvar</button>
         <button @click="updateTutorial" v-show="showBtnEditTutorial" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Salvar</button>
       </div>
     </div>
@@ -116,7 +116,7 @@
 
 <script>
 import { API, focus, notify, showLoading, closeLoading } from '../utils.js'
-import { GetAllTutorials, InsertTutorial, DeleteTutorial } from '../../wailsjs/go/main/App.js'
+import { GetAllTutorials, InsertTutorial, UpdateTutorial, DeleteTutorial } from '../../wailsjs/go/main/App.js'
 
 export default {
   name: 'HomeView',
@@ -138,6 +138,7 @@ export default {
       isConfirmModalOpen: false,
       showBtnEditTutorial: false,
       showBtnAddTutorial: true,
+      image: '',
       tutorial: {
         id: '',
         number: '',
@@ -162,49 +163,38 @@ export default {
       }
       this.closeLoading()
     },
-    createTutorial() {
+    insertTutorial() {
       if (this.tutorial.title.length < 1) {
         this.alertMessage = 'Tutorial não pode ficar vazio'
         this.isAlertModalOpen = true
         return
       }
 
-      if (this.tutorial.image == null) {
-        this.alertMessage = 'Selecione uma imagem.'
-        this.isAlertModalOpen = true
-        return
-      }
-
+      this.processImage(this.tutorial.image)
+      .then(imageBytes => this.submitInsert(imageBytes))
+    },
+    submitInsert(imageBytes) {
       if (isNaN(parseFloat(this.tutorial.number))) {
         this.tutorial.number = 0
       }
 
-      // this.showLoading()
-
-      const reader = new FileReader()
-      reader.onload = (e) => {
-        const bytes = new Uint8Array(e.target.result)
-        this.tutorial.number = Number(this.tutorial.number)
-        this.tutorial.image = this.tutorial.image.name
-      
-        InsertTutorial(this.tutorial, Array.from(bytes))
-        .then(res => {
-          this.message = `Added tutorial "${this.tutorial.title}"`
-          this.cleanTutorial()
-          this.listTutorials()
-          this.notify(res, 'success', 'top')
-          this.isModalOpen = false
-        //   this.isModalGitOpen = true
-        //   setTimeout(() => this.focus('message'), 100)
-        })
-        .catch(error => {
-          console.error('Erro:', error)
-          this.notify('Erro ao salvar o tutorial.', 'error', 'top')
-        })
-        // .finally(() => this.closeLoading())
-      }
-
-      reader.readAsArrayBuffer(this.tutorial.image)
+      this.tutorial.number = Number(this.tutorial.number)
+      this.tutorial.image = this.image
+    
+      InsertTutorial(this.tutorial, imageBytes)
+      .then(res => {
+        this.message = `Added tutorial "${this.tutorial.title}"`
+        this.cleanTutorial()
+        this.listTutorials()
+        this.notify(res, 'success', 'top')
+        this.isModalOpen = false
+      //   this.isModalGitOpen = true
+      //   setTimeout(() => this.focus('message'), 100)
+      })
+      .catch(error => {
+        console.error('Erro:', error)
+        this.notify('Erro ao salvar o tutorial.', 'error', 'top')
+      })
     },
     updateTutorial() {
       if (this.tutorial.title.length < 1) {
@@ -212,32 +202,49 @@ export default {
         this.isAlertModalOpen = true
         return
       }
-
+      
+      this.processImage(this.tutorial.image)
+      .then(imageBytes => this.submitUpdate(imageBytes))
+    },
+    submitUpdate(imageBytes) {
       if (isNaN(parseFloat(this.tutorial.number))) {
         this.tutorial.number = 0
       }
-      
-      var fd = new FormData()
-      fd.append('number', this.tutorial.number)
-      fd.append('tutorial', this.tutorial.title)
-      fd.append('currentTutorial', this.currentTutorial)
-      fd.append('currentImage', this.currentImage)
-      fd.append('image', this.tutorial.image)
 
-      fetch(API + '/tutorial', {
-        method: 'PUT',
-        body: fd
+      this.tutorial.number = Number(this.tutorial.number)
+      this.tutorial.image = this.image
+
+      UpdateTutorial(this.tutorial, imageBytes)
+      .then(res => {
+        console.log(res)
+        this.notify(res, 'success', 'top')
       })
-      .then(res => res.json())
-      .then(data => {
-        this.message = `Updated tutorial "${this.tutorial.title}"`
-        this.cleanTutorial()
-        this.listTutorials()
-        this.notify(data.message, 'success', 'top')
-        this.isModalOpen = false
-        this.isModalGitOpen = true
-        setTimeout(() => this.focus('message'), 100)
+      .catch(error => {
+        console.error('Erro:', error)
+        this.notify('Erro ao salvar o tutorial: ' + error, 'error', 'top')
       })
+      
+      // var fd = new FormData()
+      // fd.append('number', this.tutorial.number)
+      // fd.append('tutorial', this.tutorial.title)
+      // fd.append('currentTutorial', this.currentTutorial)
+      // fd.append('currentImage', this.currentImage)
+      // fd.append('image', this.tutorial.image)
+
+      // fetch(API + '/tutorial', {
+      //   method: 'PUT',
+      //   body: fd
+      // })
+      // .then(res => res.json())
+      // .then(data => {
+      //   this.message = `Updated tutorial "${this.tutorial.title}"`
+      //   this.cleanTutorial()
+      //   this.listTutorials()
+      //   this.notify(data.message, 'success', 'top')
+      //   this.isModalOpen = false
+      //   this.isModalGitOpen = true
+      //   setTimeout(() => this.focus('message'), 100)
+      // })
     },
     deleteTutorial() {
       // this.showLoading()
@@ -265,11 +272,10 @@ export default {
       this.titleModalTutorial = 'Editar Tutorial'
       this.tutorial = JSON.parse(JSON.stringify(tutorial))
       this.tutorial.image = null
-      this.currentImage = tutorial.image
-      this.currentTutorial = tutorial.title
+      this.image = tutorial.image
       this.showBtnAddTutorial = false
       this.showBtnEditTutorial = true
-      setTimeout(() => this.focus('number'), 100)
+      setTimeout(() => this.focus('tutorial'), 100)
     },
     openConfirmDeleteTutorial(tutorial) {
       this.isConfirmModalOpen = true
@@ -277,6 +283,22 @@ export default {
     },
     handleImageChange(event) {
       this.tutorial.image = event.target.files[0]
+      this.image = this.tutorial.image.name
+    },
+    processImage(image) {
+      return new Promise(resolve => {
+        if (!image) {
+          resolve(null)
+          return
+        }
+
+        const reader = new FileReader()
+        reader.onload = (e) => {
+          const bytes = new Uint8Array(e.target.result)
+          resolve(Array.from(bytes))
+        }
+        reader.readAsArrayBuffer(image)
+      })
     },
     compareByNumber(a, b) {
       return a.number - b.number;
@@ -284,7 +306,9 @@ export default {
     cleanTutorial() {
       this.showBtnAddTutorial = true
       this.showBtnEditTutorial = false
+      this.image = ''
       this.tutorial = {
+        id: '',
         number: '',
         title: '',
         image: null,

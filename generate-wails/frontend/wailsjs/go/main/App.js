@@ -13,3 +13,7 @@ export function GetAllTutorials() {
 export function InsertTutorial(arg1, arg2) {
   return window['go']['main']['App']['InsertTutorial'](arg1, arg2);
 }
+
+export function UpdateTutorial(arg1, arg2) {
+  return window['go']['main']['App']['UpdateTutorial'](arg1, arg2);
+}

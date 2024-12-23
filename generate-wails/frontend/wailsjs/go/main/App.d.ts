@@ -7,3 +7,5 @@ export function DeleteTutorial(arg1:string):Promise<string>;
 export function GetAllTutorials():Promise<Array<main.Tutorial>>;
 
 export function InsertTutorial(arg1:main.Tutorial,arg2:Array<number>):Promise<string>;
+
+export function UpdateTutorial(arg1:main.Tutorial,arg2:Array<number>):Promise<string>;
