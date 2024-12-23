@@ -1,17 +1,18 @@
 package main
 
 import (
+	"os"
+	"io"
+	"fmt"
+	"sort"
+	"time"
 	"context"
+	"runtime"
+	"os/exec"
 	"crypto/md5"
 	"encoding/hex"
 	"encoding/json"
-	"fmt"
-	"io"
-	"os"
 	"path/filepath"
-	"os/exec"
-	"sort"
-	"time"
 )
 
 type App struct {
@@ -232,36 +233,55 @@ func (a *App) DeleteTutorial(id string) string {
 }
 
 func (a *App) SendGit(message string) string {
-	go git(message)
+	go func() {
+		if err := git(message); err != nil {
+			fmt.Println("Error:", err)
+		}
+	}()
+	
 	return "Enviado para o git com sucesso."
 }
 
-func git(message string) {
-  cmd := exec.Command("git", "pull")
-  err := cmd.Run()
-  if err != nil {
-    fmt.Println("Error pull changes", err)
-    return
-  }
+func git(message string) error {
+	isWindows := runtime.GOOS == "windows"
 
-  cmd = exec.Command("git", "add", "./tutorial/*")
-  err = cmd.Run()
-  if err != nil {
-    fmt.Println("Error staging changes:", err)
-    return
-  }
+	var pullCmd, addCmd, commitCmd, pushCmd *exec.Cmd
+	if isWindows {
+		pullCmd = exec.Command("cmd", "/C", "git pull")
+		addCmd = exec.Command("cmd", "/C", "git add ./tutorial/*")
+		commitCmd = exec.Command("cmd", "/C", "git commit -m", "feat: "+message)
+		pushCmd = exec.Command("cmd", "/C", "git push")
+	} else {
+		pullCmd = exec.Command("git", "pull")
+		addCmd = exec.Command("git", "add", "./tutorial/*")
+		commitCmd = exec.Command("git", "commit", "-m", "feat: " + message)
+		pushCmd = exec.Command("git", "push")
+	}
 
-  commitMsg := "feat: " + message
-  cmd = exec.Command("git", "commit", "-m", commitMsg)
-  err = cmd.Run()
-  if err != nil {
-    fmt.Println("Error committing changes:", err)
-    return
-  }
+	if err := runCommand(pullCmd, "Error pulling changes"); err != nil {
+		return err
+	}
 
-  cmd = exec.Command("git", "push")
-  err = cmd.Run()
-  if err != nil {
-    fmt.Println("Error pushing changes:", err)
-  }
+	if err := runCommand(addCmd, "Error staging changes"); err != nil {
+		return err
+	}
+
+	if err := runCommand(commitCmd, "Error committing changes"); err != nil {
+		return err
+	}
+
+	if err := runCommand(pushCmd, "Error pushing changes"); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func runCommand(cmd *exec.Cmd, errorMessage string) error {
+	if err := cmd.Run(); err != nil {
+		fmt.Println(errorMessage + ":", err)
+		return err
+	}
+
+	return nil
 }

@@ -115,7 +115,7 @@
 </template>
 
 <script>
-import { focus, notify, showLoading, closeLoading } from '../utils.js'
+import { focus, notify, Loading } from '../utils.js'
 import { GetAllTutorials, InsertTutorial, UpdateTutorial, DeleteTutorial, SendGit } from '../../wailsjs/go/main/App.js'
 
 export default {
@@ -136,6 +136,7 @@ export default {
       isConfirmModalOpen: false,
       showBtnEditTutorial: false,
       showBtnAddTutorial: true,
+      loading: new Loading(),
       image: '',
       tutorial: {
         id: '',
@@ -148,18 +149,18 @@ export default {
   methods: {
     focus,
     notify,
-    showLoading,
-    closeLoading,
-    listTutorials() {
-      this.showLoading()
+    Loading,
+    async listTutorials() {
+      this.loading.show()
+
       try {
-        GetAllTutorials()
-        .then(data => this.tutorials = data.sort(this.compareByNumber))
-        .catch(err => console.error(err))
+        const data = await GetAllTutorials()
+        this.tutorials = data.sort(this.compareByNumber)
       } catch (error) {
         console.error('Erro ao buscar usuários:', error)
+      } finally {
+        this.loading.close()
       }
-      this.closeLoading()
     },
     insertTutorial() {
       if (this.tutorial.title.length < 1) {
@@ -168,19 +169,21 @@ export default {
         return
       }
 
+      this.loading.show()
       this.processImage(this.tutorial.image)
       .then(imageBytes => this.submitInsert(imageBytes))
     },
-    submitInsert(imageBytes) {
-      if (isNaN(parseFloat(this.tutorial.number))) {
-        this.tutorial.number = 0
-      }
-
-      this.tutorial.number = Number(this.tutorial.number)
-      this.tutorial.image = this.image
-    
-      InsertTutorial(this.tutorial, imageBytes)
-      .then(res => {
+    async submitInsert(imageBytes) {
+      try {
+        if (isNaN(parseFloat(this.tutorial.number))) {
+          this.tutorial.number = 0
+        }
+  
+        this.tutorial.number = Number(this.tutorial.number)
+        this.tutorial.image = this.image
+      
+        const res = await InsertTutorial(this.tutorial, imageBytes)
+        
         this.message = `Added tutorial "${this.tutorial.title}"`
         this.cleanTutorial()
         this.listTutorials()
@@ -188,11 +191,12 @@ export default {
         this.isModalOpen = false
         this.isModalGitOpen = true
         setTimeout(() => this.focus('message'), 100)
-      })
-      .catch(error => {
+      } catch (error) {
         console.error('Erro:', error)
         this.notify('Erro ao salvar o tutorial.', 'error', 'top')
-      })
+      } finally {
+        this.loading.close()
+      }
     },
     updateTutorial() {
       if (this.tutorial.title.length < 1) {
@@ -201,19 +205,21 @@ export default {
         return
       }
       
+      this.loading.show()
       this.processImage(this.tutorial.image)
       .then(imageBytes => this.submitUpdate(imageBytes))
     },
-    submitUpdate(imageBytes) {
-      if (isNaN(parseFloat(this.tutorial.number))) {
-        this.tutorial.number = 0
-      }
-
-      this.tutorial.number = Number(this.tutorial.number)
-      this.tutorial.image = this.image
-
-      UpdateTutorial(this.tutorial, imageBytes)
-      .then(res => {
+    async submitUpdate(imageBytes) {
+      try {
+        if (isNaN(parseFloat(this.tutorial.number))) {
+          this.tutorial.number = 0
+        }
+  
+        this.tutorial.number = Number(this.tutorial.number)
+        this.tutorial.image = this.image
+  
+        const res = await UpdateTutorial(this.tutorial, imageBytes)
+        
         this.message = `Updated tutorial "${this.tutorial.title}"`
         this.cleanTutorial()
         this.listTutorials()
@@ -221,25 +227,30 @@ export default {
         this.isModalOpen = false
         this.isModalGitOpen = true
         setTimeout(() => this.focus('message'), 100)
-      })
-      .catch(error => {
+      } catch(error) {
         console.error('Erro:', error)
         this.notify('Erro ao salvar o tutorial: ' + error, 'error', 'top')
-      })
-      
+      } finally {
+        this.loading.close()
+      }
     },
-    deleteTutorial() {
-      // this.showLoading()
-      DeleteTutorial(this.tutorial.id)
-      .then(data => {
+    async deleteTutorial() {
+      this.loading.show()
+
+      try {
+        const data = await DeleteTutorial(this.tutorial.id)
         this.notify(data, 'success', 'top')
         this.listTutorials()
         this.isConfirmModalOpen = false
         this.message = `Deleted tutorial "${this.tutorial.title}"`
         this.isModalGitOpen = true
         setTimeout(() => this.focus('message'), 100)
-      })
-      // .finally(() => this.closeLoading())
+      } catch (error) {
+        console.error('Erro:', error)
+        this.notify('Erro ao apagar o tutorial: ' + error, 'error', 'top')
+      } finally {
+        this.loading.close()
+      }
     },
     openAddTutorial() {
       this.isModalOpen = true

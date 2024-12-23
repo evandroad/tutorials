@@ -2,14 +2,13 @@ export function focus(input) {
   document.querySelector(`#${input}`).focus()
 }
 
-let counter = 0
 export function notify(message = '', type, position = '') {
   const style = document.createElement('style')
   style.textContent = getCssNotify()
   document.head.appendChild(style)
   
   const snackbar = document.createElement("div")
-  snackbar.id = 'snackbar' + counter.toString()
+  snackbar.id = 'snackbar'
   document.body.appendChild(snackbar)
 
   if (position == 'bottom') {
@@ -48,7 +47,7 @@ function getColorNotify(type) {
 
 function getCssNotify() {
   return `
-    #snackbar${counter.toString()} {
+    #snackbar {
       visibility: hidden;
       min-width: 250px;
       margin-left: -125px;
@@ -63,11 +62,11 @@ function getCssNotify() {
       font-size: 16px;
       font-family: Arial, Helvetica, sans-serif;
     }
-    #snackbar${counter.toString()}.show-t {
+    #snackbar.show-t {
       visibility: visible;
       animation: fadein-t 0.5s, fadeout-t 0.5s 2.6s;
     }
-    #snackbar${counter.toString()}.show-b {
+    #snackbar.show-b {
       visibility: visible;
       animation: fadein-b 0.5s, fadeout-b 0.5s 2.6s;
     }
@@ -90,92 +89,100 @@ function getCssNotify() {
   `
 }
 
-let overlay = null
-let style = null
+export class Loading {
+  constructor() {
+    this.overlay = null
+    this.style = null
+  }
 
-export function showLoading() {
-  overlay = document.createElement('div')
-  const modal = document.createElement('div')
-  const message = document.createElement('div')
-  const spinner = document.createElement('div')
+  show() {
+    if (this.overlay) return
+
+    this.overlay = document.createElement('div')
+    const modal = document.createElement('div')
+    const message = document.createElement('div')
+    const spinner = document.createElement('div')
+    
+    this.overlay.classList.add('overlay')
+    modal.classList.add('modal')
+    message.classList.add('message')
+    message.innerText = 'Aguarde...'
+    spinner.classList.add('spinner')
   
-  overlay.classList.add('overlay')
-  modal.classList.add('modal')
-  message.classList.add('message')
-  message.innerText = 'Aguarde...'
-  spinner.classList.add('spinner')
-
-  modal.appendChild(message)
-  modal.appendChild(spinner)
-  overlay.appendChild(modal)
-  document.body.appendChild(overlay)
-  addStylesLoading()
-}
-
-export function closeLoading() {
-  if (overlay) {
-    overlay.remove()
-    overlay = null
+    modal.appendChild(message)
+    modal.appendChild(spinner)
+    this.overlay.appendChild(modal)
+    document.body.appendChild(this.overlay)
+    this.addStyles()
   }
 
-  if (style) {
-    style.remove()
-    style = null
+  close() {
+    if (this.overlay) {
+      this.overlay.remove()
+      this.overlay = null
+    }
+  
+    if (this.style) {
+      this.style.remove()
+      this.style = null
+    }
   }
-}
 
-function addStylesLoading() {
-  style = document.createElement('style')
-  style.innerHTML = `
-    .overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.5);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-    }
+  addStyles() {
+    if (this.style) return
 
-    .modal {
-      display: flex;
-      align-items: center;
-      background-color: white;
-      padding: 20px 30px;
-      border-radius: 10px;
-      text-align: center;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    }
-
-    .message {
-      font-size: 1.5rem;
-      font-weight: 500;
-      font-family: Arial, Helvetica, sans-serif;
-      color: #2d2d2d;
-      margin-right: 20px;
-    }
-
-    .spinner {
-      border: 6px solid rgba(0, 0, 0, 0.1);
-      border-top: 6px solid #3498db;
-      border-radius: 50%;
-      width: 35px;
-      height: 35px;
-      animation: spin 1s linear infinite;
-      margin: 0 auto;
-    }
-
-    @keyframes spin {
-      0% {
-        transform: rotate(0deg);
+    this.style = document.createElement('style')
+    this.style.innerHTML = `
+      .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
       }
-      100% {
-        transform: rotate(360deg);
+  
+      .modal {
+        display: flex;
+        align-items: center;
+        background-color: white;
+        padding: 20px 30px;
+        border-radius: 10px;
+        text-align: center;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
       }
-    }
-  `
-  document.head.appendChild(style)
+  
+      .message {
+        font-size: 1.5rem;
+        font-weight: 500;
+        font-family: Arial, Helvetica, sans-serif;
+        color: #2d2d2d;
+        margin-right: 20px;
+      }
+  
+      .spinner {
+        border: 6px solid rgba(0, 0, 0, 0.1);
+        border-top: 6px solid #3498db;
+        border-radius: 50%;
+        width: 35px;
+        height: 35px;
+        animation: spin 1s linear infinite;
+        margin: 0 auto;
+      }
+  
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    `
+    document.head.appendChild(this.style)
+  }
 }
