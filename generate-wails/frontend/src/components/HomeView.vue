@@ -115,8 +115,8 @@
 </template>
 
 <script>
-import { API, focus, notify, showLoading, closeLoading } from '../utils.js'
-import { GetAllTutorials, InsertTutorial, UpdateTutorial, DeleteTutorial } from '../../wailsjs/go/main/App.js'
+import { focus, notify, showLoading, closeLoading } from '../utils.js'
+import { GetAllTutorials, InsertTutorial, UpdateTutorial, DeleteTutorial, SendGit } from '../../wailsjs/go/main/App.js'
 
 export default {
   name: 'HomeView',
@@ -186,8 +186,8 @@ export default {
         this.listTutorials()
         this.notify(res, 'success', 'top')
         this.isModalOpen = false
-      //   this.isModalGitOpen = true
-      //   setTimeout(() => this.focus('message'), 100)
+        this.isModalGitOpen = true
+        setTimeout(() => this.focus('message'), 100)
       })
       .catch(error => {
         console.error('Erro:', error)
@@ -219,8 +219,8 @@ export default {
         this.listTutorials()
         this.notify(res, 'success', 'top')
         this.isModalOpen = false
-      //   this.isModalGitOpen = true
-      //   setTimeout(() => this.focus('message'), 100)
+        this.isModalGitOpen = true
+        setTimeout(() => this.focus('message'), 100)
       })
       .catch(error => {
         console.error('Erro:', error)
@@ -236,8 +236,8 @@ export default {
         this.listTutorials()
         this.isConfirmModalOpen = false
         this.message = `Deleted tutorial "${this.tutorial.title}"`
-        // this.isModalGitOpen = true
-        // setTimeout(() => this.focus('message'), 100)
+        this.isModalGitOpen = true
+        setTimeout(() => this.focus('message'), 100)
       })
       // .finally(() => this.closeLoading())
     },
@@ -303,11 +303,7 @@ export default {
         return
       }
 
-      fetch(API + '/git', {
-        method: 'POST',
-        body: JSON.stringify({ message: this.message })
-      })
-      .then(res => res.json())
+      SendGit(this.message)
       .then(data => {
         this.notify(data.message, 'success', 'top')
         this.message = ''

@@ -9,6 +9,7 @@ import (
 	"io"
 	"os"
 	"path/filepath"
+	"os/exec"
 	"sort"
 	"time"
 )
@@ -228,4 +229,43 @@ func (a *App) DeleteTutorial(id string) string {
 	remove(jsonPath)
 
 	return "Tutorial apagado com sucesso."
+}
+
+func (a *App) SendGit(message string) string {
+	go git(message)
+	return "Enviado para o git com sucesso."
+}
+
+func git(message string) {
+  // Pull changes
+  cmd := exec.Command("git", "pull")
+  err := cmd.Run()
+  if err != nil {
+    fmt.Println("Error pull changes", err)
+    return
+  }
+
+  // Stage changes
+  cmd = exec.Command("git", "add", "../tutorial/*")
+  err = cmd.Run()
+  if err != nil {
+    fmt.Println("Error staging changes:", err)
+    return
+  }
+
+  // Commit staged changes
+  commitMsg := "feat: " + message
+  cmd = exec.Command("git", "commit", "-m", commitMsg)
+  err = cmd.Run()
+  if err != nil {
+    fmt.Println("Error committing changes:", err)
+    return
+  }
+
+  // Push changes
+  cmd = exec.Command("git", "push")
+  err = cmd.Run()
+  if err != nil {
+    fmt.Println("Error pushing changes:", err)
+  }
 }
