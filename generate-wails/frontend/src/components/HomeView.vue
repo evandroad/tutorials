@@ -127,8 +127,6 @@ export default {
     return {
       header: ['Ícone', 'Número', 'Tutoriais', 'Ações'],
       tutorials: [],
-      currentImage: '',
-      currentTutorial: '',
       message: '',
       alertMessage: '',
       titleModalTutorial: 'Adicionar Tutorial',
@@ -216,35 +214,19 @@ export default {
 
       UpdateTutorial(this.tutorial, imageBytes)
       .then(res => {
-        console.log(res)
+        this.message = `Updated tutorial "${this.tutorial.title}"`
+        this.cleanTutorial()
+        this.listTutorials()
         this.notify(res, 'success', 'top')
+        this.isModalOpen = false
+      //   this.isModalGitOpen = true
+      //   setTimeout(() => this.focus('message'), 100)
       })
       .catch(error => {
         console.error('Erro:', error)
         this.notify('Erro ao salvar o tutorial: ' + error, 'error', 'top')
       })
       
-      // var fd = new FormData()
-      // fd.append('number', this.tutorial.number)
-      // fd.append('tutorial', this.tutorial.title)
-      // fd.append('currentTutorial', this.currentTutorial)
-      // fd.append('currentImage', this.currentImage)
-      // fd.append('image', this.tutorial.image)
-
-      // fetch(API + '/tutorial', {
-      //   method: 'PUT',
-      //   body: fd
-      // })
-      // .then(res => res.json())
-      // .then(data => {
-      //   this.message = `Updated tutorial "${this.tutorial.title}"`
-      //   this.cleanTutorial()
-      //   this.listTutorials()
-      //   this.notify(data.message, 'success', 'top')
-      //   this.isModalOpen = false
-      //   this.isModalGitOpen = true
-      //   setTimeout(() => this.focus('message'), 100)
-      // })
     },
     deleteTutorial() {
       // this.showLoading()

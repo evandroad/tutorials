@@ -171,44 +171,32 @@ func (a *App) UpdateTutorial(tutorial Tutorial, image []byte) string {
 			remove(IMAGE_DIR + currentTutorial.Image)
 		}
 		saveImage(tutorial.Image, image)
+	} else if currentTutorial.Image != "" {
+		oldPathImg := IMAGE_DIR + "/" + currentTutorial.Image
+		newPathImg := IMAGE_DIR + "/" + tutorial.Title + filepath.Ext(currentTutorial.Image)
+		rename(oldPathImg, newPathImg)
 	}
 
 	oldPath := TUTORIALS_DIR + currentTutorial.Title + ".json"
 	newPath := TUTORIALS_DIR + tutorial.Title + ".json"
 	rename(oldPath, newPath)
 
-	// 	image, header, err := c.Request.FormFile("image")
-	// 	if err != nil {
-	// 		println("error: Erro ao receber a imagem: ", err.Error())
-	// 		ext = filepath.Ext(currentImage)
-	// 		newImagePath := ROOT_DIR + "img/" + tutorial + ext
+	for i := range tutorials {
+		if tutorials[i].ID == tutorial.ID {
+			tutorials[i].Number = tutorial.Number
+			tutorials[i].Title = tutorial.Title
+			if tutorial.Image != "" {
+				tutorials[i].Image = tutorial.Title + filepath.Ext(tutorial.Image)
+			}
+			break
+		}
+	}
 
-	// 		file.Rename(oldImagePath, newImagePath)
-	// 	} else {
-	// 		file.Remove(oldImagePath)
+	sort.Slice(tutorials, func(i, j int) bool {
+		return tutorials[i].Number < tutorials[j].Number
+	})
 
-	// 		ext = filepath.Ext(header.Filename)
-	// 		newImagePath := ROOT_DIR + "img/" + tutorial + ext
-
-	// 		file.SaveImage(newImagePath, image)
-	// 		defer image.Close()
-	// 	}
-
-	// 	var tutorials = getTutorials()
-
-	// 	for i := range tutorials {
-	// 		if tutorials[i].Title == currentTutorial {
-	// 			tutorials[i].Number = number
-	// 			tutorials[i].Title = tutorial
-	// 			tutorials[i].Image = tutorial + ext
-	// 		}
-	// 	}
-
-	// 	sort.Slice(tutorials, func(i, j int) bool {
-	//     return tutorials[i].Number < tutorials[j].Number
-	// 	})
-
-	// 	file.SaveJson(filePath, tutorials)
+	saveJson(TUTORIALS, tutorials)
 
 	return "Tutorial atualizado com sucesso."
 }
