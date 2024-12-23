@@ -3,7 +3,7 @@ package main
 import (
 	"os"
 	"io"
-	"fmt"
+	"log"
 	"sort"
 	"time"
 	"context"
@@ -25,6 +25,18 @@ func NewApp() *App {
 
 func (a *App) startup(ctx context.Context) {
 	a.ctx = ctx
+	setLog()
+}
+
+func setLog() {
+	logFile, err := os.OpenFile("app.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	if err != nil {
+		log.Fatalf("Erro ao abrir/criar o arquivo de log: %v", err)
+	}
+	defer logFile.Close()
+	
+	log.SetOutput(logFile)
+	log.SetFlags(log.Ldate | log.Ltime | log.Lshortfile)
 }
 
 type Tutorial struct {
@@ -84,7 +96,7 @@ func saveJson(path string, users []Tutorial) error {
 func remove(filePath string) {
 	err := os.Remove(filePath)
 	if err != nil {
-		println("Erro ao apagar o arquivo:", err)
+		log.Println("Erro ao apagar o arquivo:", err)
 		return
 	}
 }
@@ -92,7 +104,7 @@ func remove(filePath string) {
 func rename(oldPath string, newPath string) {
 	err := os.Rename(oldPath, newPath)
 	if err != nil {
-		println("Erro ao renomear o tutorial: " + err.Error())
+		log.Println("Erro ao renomear o tutorial: " + err.Error())
 		return
 	}
 }
@@ -119,7 +131,7 @@ func getMD5() string {
 func (a *App) GetAllTutorials() []Tutorial {
 	tutorials, err := getTutorials()
 	if err != nil {
-		fmt.Printf("Erro ao carregar os tutoriais: %v", err)
+		log.Printf("Erro ao carregar os tutoriais: %v", err)
 		return []Tutorial{}
 	}
 
@@ -129,7 +141,7 @@ func (a *App) GetAllTutorials() []Tutorial {
 func (a *App) InsertTutorial(tutorial Tutorial, image []byte) string {
 	tutorials, err := getTutorials()
 	if err != nil {
-		fmt.Printf("Erro ao carregar os tutoriais: %v", err)
+		log.Printf("Erro ao carregar os tutoriais: %v", err)
 		return "Erro ao carregar os tutoriais."
 	}
 
@@ -156,7 +168,7 @@ func (a *App) InsertTutorial(tutorial Tutorial, image []byte) string {
 func (a *App) UpdateTutorial(tutorial Tutorial, image []byte) string {
 	tutorials, err := getTutorials()
 	if err != nil {
-		fmt.Printf("Erro ao carregar os tutoriais: %v", err)
+		log.Printf("Erro ao carregar os tutoriais: %v", err)
 		return "Erro ao carregar os tutoriais."
 	}
 
@@ -206,7 +218,7 @@ func (a *App) UpdateTutorial(tutorial Tutorial, image []byte) string {
 func (a *App) DeleteTutorial(id string) string {
 	tutorials, err := getTutorials()
 	if err != nil {
-		fmt.Printf("Erro ao carregar os tutoriais: %v", err)
+		log.Printf("Erro ao carregar os tutoriais: %v", err)
 		return "Erro ao carregar os tutoriais."
 	}
 
@@ -235,10 +247,10 @@ func (a *App) DeleteTutorial(id string) string {
 func (a *App) SendGit(message string) string {
 	go func() {
 		if err := git(message); err != nil {
-			fmt.Println("Error:", err)
+			log.Println("Error:", err)
 		}
 	}()
-	
+
 	return "Enviado para o git com sucesso."
 }
 
@@ -279,7 +291,7 @@ func git(message string) error {
 
 func runCommand(cmd *exec.Cmd, errorMessage string) error {
 	if err := cmd.Run(); err != nil {
-		fmt.Println(errorMessage + ":", err)
+		log.Println(errorMessage + ":", err)
 		return err
 	}
 
