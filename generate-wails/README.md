@@ -17,3 +17,6 @@ to this in your browser, and you can call your Go code from devtools.
 ## Building
 
 To build a redistributable, production mode package, use `wails build`.
+To windows, use `wails build -platform windows/amd64`.
+
+For newer Linux use `wails build -tags webkit2_41`.
