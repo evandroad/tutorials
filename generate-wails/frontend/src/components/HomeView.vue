@@ -90,7 +90,7 @@
     <div class="bg-zinc-900 p-6 rounded-xl shadow-lg max-w-md w-full">
       <h2 class="text-xl font-bold mb-4 text-zinc-200">Confirmar Exclusão</h2>
       <p class="mb-6 text-zinc-300">
-        Tem certeza que deseja excluir o tutorial <span>{{ tutorial.title }}</span>?
+        Tem certeza que deseja excluir o tutorial <span>"{{ tutorial.title }}"</span>?
       </p>
       <div class="flex justify-end space-x-3">
         <button @click="isConfirmModalOpen = false" class="px-4 py-2 bg-zinc-200 text-gray-700 rounded-lg hover:bg-zinc-300 transition">
@@ -116,7 +116,7 @@
 
 <script>
 import { API, focus, notify, showLoading, closeLoading } from '../utils.js'
-import { GetAllTutorials, InsertTutorial, SaveImage, DeleteTutorial } from '../../wailsjs/go/main/App.js'
+import { GetAllTutorials, InsertTutorial, DeleteTutorial } from '../../wailsjs/go/main/App.js'
 
 export default {
   name: 'HomeView',
@@ -139,6 +139,7 @@ export default {
       showBtnEditTutorial: false,
       showBtnAddTutorial: true,
       tutorial: {
+        id: '',
         number: '',
         title: '',
         image: null,
@@ -183,18 +184,10 @@ export default {
       const reader = new FileReader()
       reader.onload = (e) => {
         const bytes = new Uint8Array(e.target.result)
+        this.tutorial.number = Number(this.tutorial.number)
+        this.tutorial.image = this.tutorial.image.name
       
-        SaveImage(this.tutorial.image.name, Array.from(bytes))
-        .then((res) => {
-          if (res) {
-            this.tutorial.number = Number(this.tutorial.number)
-            this.tutorial.image = this.tutorial.image.name
-
-            return InsertTutorial(this.tutorial)
-          }
-
-          this.notify('Erro ao salvar a Imagem.', 'error', 'top')
-        })
+        InsertTutorial(this.tutorial, Array.from(bytes))
         .then(res => {
           this.message = `Added tutorial "${this.tutorial.title}"`
           this.cleanTutorial()
@@ -248,7 +241,7 @@ export default {
     },
     deleteTutorial() {
       // this.showLoading()
-      DeleteTutorial(this.tutorial.title)
+      DeleteTutorial(this.tutorial.id)
       .then(data => {
         this.notify(data, 'success', 'top')
         this.listTutorials()

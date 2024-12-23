@@ -10,10 +10,6 @@ export function GetAllTutorials() {
   return window['go']['main']['App']['GetAllTutorials']();
 }
 
-export function InsertTutorial(arg1) {
-  return window['go']['main']['App']['InsertTutorial'](arg1);
-}
-
-export function SaveImage(arg1, arg2) {
-  return window['go']['main']['App']['SaveImage'](arg1, arg2);
+export function InsertTutorial(arg1, arg2) {
+  return window['go']['main']['App']['InsertTutorial'](arg1, arg2);
 }
