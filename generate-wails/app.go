@@ -47,6 +47,7 @@ type Tutorial struct {
 }
 
 type Content struct {
+	ID      string `json:"id"`
 	Number  int    `json:"number"`
 	Title   string `json:"title"`
 	Content string `json:"content"`
@@ -242,6 +243,43 @@ func (a *App) DeleteTutorial(id string) string {
 	remove(jsonPath)
 
 	return "Tutorial apagado com sucesso."
+}
+
+func getTutorial(tutorial string) ([]Content, error) {
+	var jsonData []Content
+	jsonPath := TUTORIALS_DIR + tutorial + ".json"
+
+	file, err := os.OpenFile(jsonPath, os.O_RDWR|os.O_CREATE, 0666)
+	if err != nil {
+		return nil, err
+	}
+	defer file.Close()
+
+	bytes, err := io.ReadAll(file)
+	if err != nil {
+		return nil, err
+	}
+
+	if len(bytes) == 0 {
+		return []Content{}, nil
+	}
+
+	err = json.Unmarshal(bytes, &jsonData)
+	if err != nil {
+		return nil, err
+	}
+
+	return jsonData, nil
+}
+
+func (a *App) GetAllContents(tutorial string) []Content {
+	contents, err := getTutorial(tutorial)
+	if err != nil {
+		log.Printf("Erro ao carregar os tutoriais: %v", err)
+		return []Content{}
+	}
+
+	return contents
 }
 
 func (a *App) SendGit(message string) string {

@@ -6,6 +6,10 @@ export function DeleteTutorial(arg1) {
   return window['go']['main']['App']['DeleteTutorial'](arg1);
 }
 
+export function GetAllContents(arg1) {
+  return window['go']['main']['App']['GetAllContents'](arg1);
+}
+
 export function GetAllTutorials() {
   return window['go']['main']['App']['GetAllTutorials']();
 }

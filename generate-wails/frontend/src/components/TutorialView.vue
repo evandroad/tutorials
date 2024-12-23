@@ -116,7 +116,8 @@
 </template>
 
 <script>
-import { API, focus, notify } from '../utils.js'
+import { API, focus, notify, Loading } from '../utils.js'
+import { GetAllContents /*, InsertTutorial, UpdateTutorial, DeleteTutorial, SendGit */ } from '../../wailsjs/go/main/App.js'
 
 export default {
   name: 'HomeView',
@@ -136,6 +137,7 @@ export default {
       currentTitle: '',
       message: '',
       titleModalContent: 'Adicionar Conteúdo',
+      loading: new Loading(),
       isModalOpen: false,
       isModalGitOpen: false,
       isAlertModalOpen: false,
@@ -148,11 +150,20 @@ export default {
   methods: {
     focus,
     notify,
-    listContents() {
-      this.tutorial.tutorial = this.$route.params.tutorial
-      fetch(API + '/content/' + this.tutorial.tutorial)
-      .then(res => res.json())
-      .then(data => this.contents = data)
+    Loading,
+    async listContents() {
+      this.loading.show()
+
+      try {
+        this.tutorial.tutorial = this.$route.params.tutorial
+        
+        const data = await GetAllContents(this.tutorial.tutorial)
+        this.contents = data
+      } catch(error) {
+        console.error('Erro ao buscar usuários:', error)
+      } finally {
+        this.loading.close()
+      }
     },
     saveContent() {
       if (this.tutorial.title.length < 1 || this.tutorial.content.length < 1) {
