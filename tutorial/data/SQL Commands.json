@@ -1,1 +1,32 @@
-[{"number":1,"title":"Select","content":"Gets data from one or more tables.\n```\nSELECT * FROM table_name;\n```"},{"number":2,"title":"Insert","content":"The INSERT INTO statement is used to insert new records in a table.\n```\nINSERT INTO table_name (column1, column2, column3) VALUES (value1, value2, value3)\n```\nor\n```\nINSERT INTO table_name VALUES (value1, value2, value3)\n```"},{"number":3,"title":"Update","content":"The UPDATE statement is used to modify the existing records in a table.\n```\nUPDATE table_name SET column1 = value1, column2 = value2 WHERE condition;\n```"},{"number":4,"title":"Delete","content":"The DELETE statement is used to delete existing records in a table.\n```\nDELETE FROM table_name WHERE condition;\n```"},{"number":5,"title":"Alter Table","content":"### ADD Column\n\nTo add a column in a table, use the following syntax:\n```\nALTER TABLE table_name ADD column_name datatype;\n```\n### DROP column\nTo delete a column in a table, use the following syntax (notice that some database systems don't allow deleting a column):\n```\nALTER TABLE table_name DROP COLUMN column_name;\n```\n### RENAME Column\nTo rename a column in a table, use the following syntax:\n```\nALTER TABLE table_name RENAME COLUMN old_name to new_name;\n```\n### ALTER/MODIFY DATATYPE\nTo change the data type of a column in a table, use the following syntax:\n```\nALTER TABLE table_name MODIFY COLUMN column_name datatype;\n```"}]
+[
+  {
+    "id": "2dd7e29d13ece2d32a8e12e1cbb3dec8",
+    "number": 1,
+    "title": "Select",
+    "content": "Gets data from one or more tables.\n```\nSELECT * FROM table_name;\n```"
+  },
+  {
+    "id": "04ba6f207d3f68dde74a4fefe102932b",
+    "number": 2,
+    "title": "Insert",
+    "content": "The INSERT INTO statement is used to insert new records in a table.\n```\nINSERT INTO table_name (column1, column2, column3) VALUES (value1, value2, value3)\n```\nor\n```\nINSERT INTO table_name VALUES (value1, value2, value3)\n```"
+  },
+  {
+    "id": "8ee8181d6aa5a69c9568fcb47a8ac8a9",
+    "number": 3,
+    "title": "Update",
+    "content": "The UPDATE statement is used to modify the existing records in a table.\n```\nUPDATE table_name SET column1 = value1, column2 = value2 WHERE condition;\n```"
+  },
+  {
+    "id": "9e4bc133d2ebf9e35d975f5103de8d9b",
+    "number": 4,
+    "title": "Delete",
+    "content": "The DELETE statement is used to delete existing records in a table.\n```\nDELETE FROM table_name WHERE condition;\n```"
+  },
+  {
+    "id": "52dbf8ad58d27a186066f88cff57976c",
+    "number": 5,
+    "title": "Alter Table",
+    "content": "### ADD Column\n\nTo add a column in a table, use the following syntax:\n```\nALTER TABLE table_name ADD column_name datatype;\n```\n### DROP column\nTo delete a column in a table, use the following syntax (notice that some database systems don't allow deleting a column):\n```\nALTER TABLE table_name DROP COLUMN column_name;\n```\n### RENAME Column\nTo rename a column in a table, use the following syntax:\n```\nALTER TABLE table_name RENAME COLUMN old_name to new_name;\n```\n### ALTER/MODIFY DATATYPE\nTo change the data type of a column in a table, use the following syntax:\n```\nALTER TABLE table_name MODIFY COLUMN column_name datatype;\n```"
+  }
+]

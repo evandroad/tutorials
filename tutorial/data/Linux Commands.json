@@ -1,1 +1,110 @@
-[{"number":1,"title":"ls","content":"ls is a command to list the contents of a directory.\n```\nls\n```\nThis command is used to list files and directories in Long Listing Format.\n```\nls -l\n```"},{"number":2,"title":"pwd","content":"pwd is a command that stands for Print Working Directory. It displays your current working directory as output.\n```\npwd\n```"},{"number":3,"title":"scp","content":"Envia um arquivo para um outro computador remotamente via ssh\n```\nscp test.txt user@ip_dest:/location\n```\nPega um arquivo de um outro computador remotamente via ssh\n```\nscp user@ip_dest:/location/test.txt .\n```\nPega uma pasta de um outro computador remotamente via ssh\n```\nscp -r user@ip_dest:/location/test.txt\n```"},{"number":4,"title":"logs","content":"Visualisar logs do sistema\n```\ncat /var/log/syslog\n```"},{"number":5,"title":"crontab","content":"Editar o arquivo de agendamentos do crontab\n```\ncrontab -e\n```\nVisualizar o arquivo de agendamento do crontab\n```\ncrontab -l\n```\nLinha que deve ser adicionada no arquivo de agendamento.\u003cbr\u003e[minuto(0-59)] [hora(0-23)] [dia-mês(1-31)] [mês(1-12)] [dia-semana(0-7)].\n```\n* * * * * /caminho/para/seu/script\n```"},{"number":6,"title":"ip fixo","content":"Editar o arquivo de configuração\n```\nsudo nano /etc/network/interfaces\n```\nConfigure o endereço de ip fixo. Antes:\n```\nauto eth0 iface eth0 inet dhcp\n```\nDepois:\n```\nauto eth0\niface eth0 inet static\n    address 192.168.1.10\n    netmask 255.255.255.0\n    gateway 192.168.1.1\n    dns-nameservers 8.8.8.8\n```\nPara configurar o ip fixo no Ubuntu 20, edite o seguinte arquivo:\n```\nsudo nano /etc/netplan/00-installer-config.yaml\n```\nDeixe o arquivo assim:\n```\nnetwork:\n  version: 2\n  ethernets:\n     enp0s3:\n        dhcp4: false\n        addresses:\n          - 192.168.2.100/22\n        gateway4: 192.168.2.1\n        nameservers:\n          addresses:\n            - 8.8.8.8\n            - 8.8.4.4\n```\nEm seguida, salve o arquivo e execute o comando netplan abaixo para salvar as alterações.\n```\nsudo netplan apply\n```"},{"number":7,"title":"tar","content":"Primeiro deve-se escolher o que o `tar` deve fazer através das opções:\n\n- `c`: Cria um novo arquivo .tar;\n- `u`: Adiciona mais arquivos ao arquivo .tar somente se estes forem novos ou modificados;\n- `r`: Adiciona os arquivos especificados no final do arquivo .tar;\n- `g`: Cria um backup incremental;\n- `t`: Lista o conteúdo de um arquivo .tar;\n- `x`: Extrai os arquivos de arquivo .tar;\n- `z`: Utiliza o gzip para compactar e descompactar os arquivos .tar.gz;\n- `v`: Lista todos os arquivos processados;\n- `f`: Indica que o destino é um arquivo em disco, e não uma unidade de fita magnética;\n\nCriar um arquivo tar.\n```\ntar -czvf \u003cname\u003e \u003carquivo/pasta\u003e\n```\nExtrair um arquivo tar.\n```\ntar -xzvf \u003carquivo-tar\u003e\n```\nExtrai um arquivo tar para uma pasta específica.\n```\ntar -xzvf \u003carquivo-tar\u003e -C \u003cendereço\u003e\n```\nLista os arquivos em um arquivo tar.\n```\ntar -tvf \u003carquivo-tar\u003e\n```"},{"number":8,"title":"md5sum","content":"Calcula o hash MD5 de um arquivo.\n```\nmd5sum \u003cname-file\u003e\n```"},{"number":9,"title":"hexdump","content":"Comando para imprimir o conteúdo de um arquivo em hexadecimal.\n```\nhexdump -C \u003cfilename\u003e\n```"},{"number":10,"title":"timedatectl","content":"Exibir configurações de data e hora do sistema.\n```\ntimedatectl\n```\nEncontrar o nome completo do seu fuso horário. Normalmente, a convenção usa o formato Região/Cidade.\n```\ntimedatectl list-timezones\n```\nPara selecionar o timezone rode o seguinte comando para realizar a mudança.\n```\nsudo timedatectl set-timezone [timezone]\n```\nUsuários de versões do Ubuntu como 16.04 ou mais baixas podem definir o timezone assim:\n```\nsudo dpkg-reconfigure tzdata\n```"},{"number":11,"title":"passwd","content":"Para modificar a senha do seu usuário.\n```\nsudo passwd\n```"},{"number":12,"title":"while","content":"Criar um loop na linha de comando.\n```\nwhile true; do docker-compose logs | tail -n 80; sleep 2; done\n```"},{"number":13,"title":"ssh","content":"Cria uma conexão ssh com outro computador com linux via terminal.\n```\nssh \u003cuser\u003e@\u003cremote_ip\u003e\n```"},{"number":14,"title":"zip","content":"Criar um arquivo compactado zip.\n```\nzip filename.zip filename1 filename2 filename3\n```\nCriar um arquivo compactado zip de uma pasta e seus arquivos.\n```\nzip -r foldername.zip foldername/\n```\nCriar um arquivo compactado de um arquivo com uma senha.\n```\nzip -e  filename.zip file_name.txt\n```"},{"number":15,"title":"unzip","content":"Para extrair um arquivo.zip.\n```\nunzip filename.zip\n```\nPara extrair um arquivo em um diretório específico.\n```\nunzip filename.zip -d /path/to/directory\n```\nPara listar o conteúdo de um arquivo zip.\n```\nunzip -l filename.zip\n```"},{"number":16,"title":"Virtual Box","content":"Para acessar uma pasta compartilhada no Virutal Box.\n```\nsudo usermod -aG vboxsf \u003cuser\u003e\nsudo chmod 777 /media/sf_Docs\n```\nCaso tenha erro na inicialização do sistema de arquivos do linux:\n```\nfsck /dev/sda1\nfsck /dev/sda2\nfsck /dev/sda3\n```"},{"number":17,"title":"Certificado SSL Autoassinado","content":"Gerar uma chave privada:\n```\nopenssl genrsa -out localhost.key 2048\n```\nGerar um arquivo de certificado:\n```\nopenssl req -new -x509 -key localhost.key -out localhost.crt -days 365 \\\n    -subj \"/C=US/ST=State/L=City/O=Organization/OU=Department/CN=localhost\"\n```"},{"number":18,"title":"imagemagik","content":"Image Magik"}]
+[
+  {
+    "id": "e6597a861106467a11b03439345ff5d6",
+    "number": 1,
+    "title": "ls",
+    "content": "ls is a command to list the contents of a directory.\n```\nls\n```\nThis command is used to list files and directories in Long Listing Format.\n```\nls -l\n```"
+  },
+  {
+    "id": "6a967e27b8b4186fb50174bf78b75ea3",
+    "number": 2,
+    "title": "pwd",
+    "content": "pwd is a command that stands for Print Working Directory. It displays your current working directory as output.\n```\npwd\n```"
+  },
+  {
+    "id": "dd6ad20ce9b34205446487a426f6763f",
+    "number": 3,
+    "title": "scp",
+    "content": "Envia um arquivo para um outro computador remotamente via ssh\n```\nscp test.txt user@ip_dest:/location\n```\nPega um arquivo de um outro computador remotamente via ssh\n```\nscp user@ip_dest:/location/test.txt .\n```\nPega uma pasta de um outro computador remotamente via ssh\n```\nscp -r user@ip_dest:/location/test.txt\n```"
+  },
+  {
+    "id": "cc6d54889ea7d4fb9f6a79cc22b70760",
+    "number": 4,
+    "title": "logs",
+    "content": "Visualisar logs do sistema\n```\ncat /var/log/syslog\n```"
+  },
+  {
+    "id": "02e329c830476130d67d335d9b4351a4",
+    "number": 5,
+    "title": "crontab",
+    "content": "Editar o arquivo de agendamentos do crontab\n```\ncrontab -e\n```\nVisualizar o arquivo de agendamento do crontab\n```\ncrontab -l\n```\nLinha que deve ser adicionada no arquivo de agendamento.\u003cbr\u003e[minuto(0-59)] [hora(0-23)] [dia-mês(1-31)] [mês(1-12)] [dia-semana(0-7)].\n```\n* * * * * /caminho/para/seu/script\n```"
+  },
+  {
+    "id": "915f82b7bda9752bdc44bca7cfeed3af",
+    "number": 6,
+    "title": "ip fixo",
+    "content": "Editar o arquivo de configuração\n```\nsudo nano /etc/network/interfaces\n```\nConfigure o endereço de ip fixo. Antes:\n```\nauto eth0 iface eth0 inet dhcp\n```\nDepois:\n```\nauto eth0\niface eth0 inet static\n    address 192.168.1.10\n    netmask 255.255.255.0\n    gateway 192.168.1.1\n    dns-nameservers 8.8.8.8\n```\nPara configurar o ip fixo no Ubuntu 20, edite o seguinte arquivo:\n```\nsudo nano /etc/netplan/00-installer-config.yaml\n```\nDeixe o arquivo assim:\n```\nnetwork:\n  version: 2\n  ethernets:\n     enp0s3:\n        dhcp4: false\n        addresses:\n          - 192.168.2.100/22\n        gateway4: 192.168.2.1\n        nameservers:\n          addresses:\n            - 8.8.8.8\n            - 8.8.4.4\n```\nEm seguida, salve o arquivo e execute o comando netplan abaixo para salvar as alterações.\n```\nsudo netplan apply\n```"
+  },
+  {
+    "id": "581137d73b09bda4cdba2021e22405a6",
+    "number": 7,
+    "title": "tar",
+    "content": "Primeiro deve-se escolher o que o `tar` deve fazer através das opções:\n\n- `c`: Cria um novo arquivo .tar;\n- `u`: Adiciona mais arquivos ao arquivo .tar somente se estes forem novos ou modificados;\n- `r`: Adiciona os arquivos especificados no final do arquivo .tar;\n- `g`: Cria um backup incremental;\n- `t`: Lista o conteúdo de um arquivo .tar;\n- `x`: Extrai os arquivos de arquivo .tar;\n- `z`: Utiliza o gzip para compactar e descompactar os arquivos .tar.gz;\n- `v`: Lista todos os arquivos processados;\n- `f`: Indica que o destino é um arquivo em disco, e não uma unidade de fita magnética;\n\nCriar um arquivo tar.\n```\ntar -czvf \u003cname\u003e \u003carquivo/pasta\u003e\n```\nExtrair um arquivo tar.\n```\ntar -xzvf \u003carquivo-tar\u003e\n```\nExtrai um arquivo tar para uma pasta específica.\n```\ntar -xzvf \u003carquivo-tar\u003e -C \u003cendereço\u003e\n```\nLista os arquivos em um arquivo tar.\n```\ntar -tvf \u003carquivo-tar\u003e\n```"
+  },
+  {
+    "id": "d09a069be835fde5a85703b780399640",
+    "number": 8,
+    "title": "md5sum",
+    "content": "Calcula o hash MD5 de um arquivo.\n```\nmd5sum \u003cname-file\u003e\n```"
+  },
+  {
+    "id": "ab0e19f1dfc28a7506df8cd8d2ea3f2d",
+    "number": 9,
+    "title": "hexdump",
+    "content": "Comando para imprimir o conteúdo de um arquivo em hexadecimal.\n```\nhexdump -C \u003cfilename\u003e\n```"
+  },
+  {
+    "id": "46297e28cb30413a56dce23172d92465",
+    "number": 10,
+    "title": "timedatectl",
+    "content": "Exibir configurações de data e hora do sistema.\n```\ntimedatectl\n```\nEncontrar o nome completo do seu fuso horário. Normalmente, a convenção usa o formato Região/Cidade.\n```\ntimedatectl list-timezones\n```\nPara selecionar o timezone rode o seguinte comando para realizar a mudança.\n```\nsudo timedatectl set-timezone [timezone]\n```\nUsuários de versões do Ubuntu como 16.04 ou mais baixas podem definir o timezone assim:\n```\nsudo dpkg-reconfigure tzdata\n```"
+  },
+  {
+    "id": "1d1f2ab089d35e79e817b44b10e02f0f",
+    "number": 11,
+    "title": "passwd",
+    "content": "Para modificar a senha do seu usuário.\n```\nsudo passwd\n```"
+  },
+  {
+    "id": "578408944e5840dc8ce2d9358922a079",
+    "number": 12,
+    "title": "while",
+    "content": "Criar um loop na linha de comando.\n```\nwhile true; do docker-compose logs | tail -n 80; sleep 2; done\n```"
+  },
+  {
+    "id": "ff818d62d6907cfc583861593123fc87",
+    "number": 13,
+    "title": "ssh",
+    "content": "Cria uma conexão ssh com outro computador com linux via terminal.\n```\nssh \u003cuser\u003e@\u003cremote_ip\u003e\n```"
+  },
+  {
+    "id": "ac4658a632dd4dace32bb5c2692e86f3",
+    "number": 14,
+    "title": "zip",
+    "content": "Criar um arquivo compactado zip.\n```\nzip filename.zip filename1 filename2 filename3\n```\nCriar um arquivo compactado zip de uma pasta e seus arquivos.\n```\nzip -r foldername.zip foldername/\n```\nCriar um arquivo compactado de um arquivo com uma senha.\n```\nzip -e  filename.zip file_name.txt\n```"
+  },
+  {
+    "id": "346b3b9310363081c732727c95a846cc",
+    "number": 15,
+    "title": "unzip",
+    "content": "Para extrair um arquivo.zip.\n```\nunzip filename.zip\n```\nPara extrair um arquivo em um diretório específico.\n```\nunzip filename.zip -d /path/to/directory\n```\nPara listar o conteúdo de um arquivo zip.\n```\nunzip -l filename.zip\n```"
+  },
+  {
+    "id": "4617b7041f8479b78081d823de3b59ff",
+    "number": 16,
+    "title": "Virtual Box",
+    "content": "Para acessar uma pasta compartilhada no Virutal Box.\n```\nsudo usermod -aG vboxsf \u003cuser\u003e\nsudo chmod 777 /media/sf_Docs\n```\nCaso tenha erro na inicialização do sistema de arquivos do linux:\n```\nfsck /dev/sda1\nfsck /dev/sda2\nfsck /dev/sda3\n```"
+  },
+  {
+    "id": "8603c8b306c317034dfb754bc9561f6c",
+    "number": 17,
+    "title": "Certificado SSL Autoassinado",
+    "content": "Gerar uma chave privada:\n```\nopenssl genrsa -out localhost.key 2048\n```\nGerar um arquivo de certificado:\n```\nopenssl req -new -x509 -key localhost.key -out localhost.crt -days 365 \\\n    -subj \"/C=US/ST=State/L=City/O=Organization/OU=Department/CN=localhost\"\n```"
+  },
+  {
+    "id": "f0bb1fe466da6bd32eee44946bf0e04f",
+    "number": 18,
+    "title": "imagemagik",
+    "content": "Image Magik"
+  }
+]

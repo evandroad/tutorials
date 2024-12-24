@@ -1,25 +1,30 @@
 [
   {
+    "id": "019886ebfe7156b3fb0a42a21e9b72f6",
     "number": 1,
     "title": "Listar",
     "content": "Para listar todas as imagens do Docker no seu sistema:\n```\ndocker image ls\n```\nListar todos os containers ativos\n```\ndocker container ls\n```\nListar todos os containers\n```\ndocker container ls -a\n```"
   },
   {
+    "id": "ad9c09f9b9af8335a306351bfcf8f70b",
     "number": 2,
     "title": "Puxar Imagem",
     "content": "Para puxar uma imagem docker, vá até o [hub Docker](https://hub.docker.com/). Aqui você pode encontrar centenas de Imagens Docker.\nNós podemos puxar a imagem com o seguinte comando:\n```\ndocker pull \u003cnome_da_imagem\u003e\n```"
   },
   {
+    "id": "cfc5e09b542b2ab00315d6dcc6089ca8",
     "number": 3,
     "title": "Instalar",
     "content": "Instalar o docker.\n```\nsudo apt install docker*\n```"
   },
   {
+    "id": "7dffe2b190eb354f304bd81d300cabcc",
     "number": 4,
     "title": "Permissões",
     "content": "Para adicionar ao grupo do docker.\n```\nsudo groupadd docker\n```\nPara dar permissões ao docker.\n```\nsudo usermod -aG docker $USER\n```\nPara aplicar as permissões.\n```\nnewgrp docker\n```"
   },
   {
+    "id": "bd9af462032b3da13c70231cc48eacc0",
     "number": 5,
     "title": "Renomear Imagem",
     "content": "Para renomear uma imagem use o comando tag.\n```\ndocker tag nome_da_imagem_antiga:tag nome_da_imagem_nova:tag\n```\nDepois remova a imagem antiga\n```\ndocker rmi myimage:latest\n```"

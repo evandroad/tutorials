@@ -1,1 +1,32 @@
-[{"number":1,"title":"Get","content":"- Sent:\n```\ncurl https://jsonplaceholder.typicode.com/users\n```\n- Received:\n```\n[\n  {\n    \"id\": 1,\n    \"name\": \"Leanne Graham\",\n    \"username\": \"Bret\",\n    \"email\": \"Sincere@april.biz\"\n  },\n  {\n    \"id\": 2,\n    \"name\": \"Ervin Howell\",\n    \"username\": \"Antonette\",\n    \"email\": \"Shanna@melissa.tv\"\n  }\n]\n```\n- Obs.: sent with header:\n```\ncurl https://jsonplaceholder.typicode.com/users -H \"Authorization: token\"\n```"},{"number":2,"title":"Post","content":"- Sent:\n```\ncurl -X POST https://jsonplaceholder.typicode.com/users -d 'name=Example\u0026age=30'\n```\n- Received:\n```\n{\"message\": \"Data added successfully\"}\n```\n- Obs.: sent with header:\n```\ncurl -X POST \\\n    https://jsonplaceholder.typicode.com/users \\\n    -H 'Authorization: token' \\\n    -H 'Content-Type: application/json' \\\n    -d '{\"name\": \"Example\", \"age\": 30}'\n```"},{"number":3,"title":"Put","content":"- Sent:\n```\ncurl -X PUT https://jsonplaceholder.typicode.com/users -d 'name=Example\u0026age=30'\n```\n- Received:\n```\n{\"message\": \"Data updated successfully\"}\n```\n- Obs.: sent with header:\n```\ncurl -X PUT \\\n    https://jsonplaceholder.typicode.com/users \\\n    -H 'Authorization: token' \\\n    -H 'Content-Type: application/json' \\\n    -d '{\"name\": \"Example\", \"age\": 30}'\n```"},{"number":4,"title":"Delete","content":"- Sent:\n```\ncurl -X DELETE https://jsonplaceholder.typicode.com/users/1\n```\n- Received:\n```\n{\"message\": \"Data deleted successfully\"}\n```\n- Obs.: sent with header:\n```\ncurl -X DELETE https://jsonplaceholder.typicode.com/users/1 -H \"Authorization: token\"\n```"},{"number":5,"title":"Install","content":"Para instalar a libcurl com suporte a OpenSSL 3 no Linux Mint, siga estes passos:\n\n- 1. Primeiro, atualize seu sistema:\n```\nsudo apt update\nsudo apt upgrade\n```\n- 2. Instale as dependências necessárias:\n```\nsudo apt install build-essential libssl-dev libpsl-dev\n```\n- 3. Baixe a versão mais recente do libcurl (ou a versão específica que você precisa) do site oficial:\n```\nwget https://curl.se/download/curl-8.6.0.tar.gz\n```\n- 4. Extraia o arquivo:\n```\ntar -xzvf curl-8.6.0.tar.gz\n```\n- 5. Entre no diretório extraído:\n```\ncd curl-8.6.0\n```\n- 6. Configure a compilação com suporte a OpenSSL 3:\n```\n./configure --with-openssl\n```\n- 7. Compile o código:\n```\nmake\n```\n- 8. Instale o libcurl compilado:\n```\nsudo make install\n```\n- 9. Atualize o cache da biblioteca dinâmica:\n```\nsudo ldconfig\n```\n- 10. Adicione essa linha ao seu arquivo .bashrc para torná-la permanente:\n```\nexport LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH\n```"}]
+[
+  {
+    "id": "a262e5c09afe29fdaf2588038e7f082b",
+    "number": 1,
+    "title": "Get",
+    "content": "- Sent:\n```\ncurl https://jsonplaceholder.typicode.com/users\n```\n- Received:\n```\n[\n  {\n    \"id\": 1,\n    \"name\": \"Leanne Graham\",\n    \"username\": \"Bret\",\n    \"email\": \"Sincere@april.biz\"\n  },\n  {\n    \"id\": 2,\n    \"name\": \"Ervin Howell\",\n    \"username\": \"Antonette\",\n    \"email\": \"Shanna@melissa.tv\"\n  }\n]\n```\n- Obs.: sent with header:\n```\ncurl https://jsonplaceholder.typicode.com/users -H \"Authorization: token\"\n```"
+  },
+  {
+    "id": "530816dad2559164752aba697d77b8f6",
+    "number": 2,
+    "title": "Post",
+    "content": "- Sent:\n```\ncurl -X POST https://jsonplaceholder.typicode.com/users -d 'name=Example\u0026age=30'\n```\n- Received:\n```\n{\"message\": \"Data added successfully\"}\n```\n- Obs.: sent with header:\n```\ncurl -X POST \\\n    https://jsonplaceholder.typicode.com/users \\\n    -H 'Authorization: token' \\\n    -H 'Content-Type: application/json' \\\n    -d '{\"name\": \"Example\", \"age\": 30}'\n```"
+  },
+  {
+    "id": "6e3d70eed6ace38dd1befb86b397a049",
+    "number": 3,
+    "title": "Put",
+    "content": "- Sent:\n```\ncurl -X PUT https://jsonplaceholder.typicode.com/users -d 'name=Example\u0026age=30'\n```\n- Received:\n```\n{\"message\": \"Data updated successfully\"}\n```\n- Obs.: sent with header:\n```\ncurl -X PUT \\\n    https://jsonplaceholder.typicode.com/users \\\n    -H 'Authorization: token' \\\n    -H 'Content-Type: application/json' \\\n    -d '{\"name\": \"Example\", \"age\": 30}'\n```"
+  },
+  {
+    "id": "532cc1463dcb8d018b111f8c9db9d6f9",
+    "number": 4,
+    "title": "Delete",
+    "content": "- Sent:\n```\ncurl -X DELETE https://jsonplaceholder.typicode.com/users/1\n```\n- Received:\n```\n{\"message\": \"Data deleted successfully\"}\n```\n- Obs.: sent with header:\n```\ncurl -X DELETE https://jsonplaceholder.typicode.com/users/1 -H \"Authorization: token\"\n```"
+  },
+  {
+    "id": "470bac5bbcb4d96d7c0330867d6cbdaa",
+    "number": 5,
+    "title": "Install",
+    "content": "Para instalar a libcurl com suporte a OpenSSL 3 no Linux Mint, siga estes passos:\n\n- 1. Primeiro, atualize seu sistema:\n```\nsudo apt update\nsudo apt upgrade\n```\n- 2. Instale as dependências necessárias:\n```\nsudo apt install build-essential libssl-dev libpsl-dev\n```\n- 3. Baixe a versão mais recente do libcurl (ou a versão específica que você precisa) do site oficial:\n```\nwget https://curl.se/download/curl-8.6.0.tar.gz\n```\n- 4. Extraia o arquivo:\n```\ntar -xzvf curl-8.6.0.tar.gz\n```\n- 5. Entre no diretório extraído:\n```\ncd curl-8.6.0\n```\n- 6. Configure a compilação com suporte a OpenSSL 3:\n```\n./configure --with-openssl\n```\n- 7. Compile o código:\n```\nmake\n```\n- 8. Instale o libcurl compilado:\n```\nsudo make install\n```\n- 9. Atualize o cache da biblioteca dinâmica:\n```\nsudo ldconfig\n```\n- 10. Adicione essa linha ao seu arquivo .bashrc para torná-la permanente:\n```\nexport LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH\n```"
+  }
+]
