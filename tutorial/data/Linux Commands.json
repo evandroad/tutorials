@@ -105,6 +105,6 @@
     "id": "f0bb1fe466da6bd32eee44946bf0e04f",
     "number": 18,
     "title": "imagemagick",
-    "content": ".png to .ico\n```\nconvert -background transparent \"favicon.png\" -define icon:auto-resize=256 \"favicon.ico\"\n```"
+    "content": "### .png to .ico\n```\nconvert -background transparent \"favicon.png\" -define icon:auto-resize=256 \"favicon.ico\"\n```"
   }
 ]
