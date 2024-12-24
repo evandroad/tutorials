@@ -18,6 +18,20 @@ export namespace main {
 	        this.content = source["content"];
 	    }
 	}
+	export class Response {
+	    message: string;
+	    status: number;
+	
+	    static createFrom(source: any = {}) {
+	        return new Response(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.message = source["message"];
+	        this.status = source["status"];
+	    }
+	}
 	export class Tutorial {
 	    id: string;
 	    number: number;

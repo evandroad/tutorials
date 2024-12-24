@@ -1,6 +1,6 @@
 <template>
   <div class="w-full flex justify-center mt-4">
-    <h1 class="text-4xl font-medium">{{ tutorial.tutorial }}</h1>
+    <h1 class="text-4xl font-medium">{{ tutorial }}</h1>
   </div>
 
   <div class="w-2/3 m-auto">
@@ -46,15 +46,15 @@
       <h5 class="text-2xl mb-4 font-bold">{{ titleModalContent }}</h5>
       <div class="mb-4">
         <label class="block mb-2">Número:</label>
-        <input type="text" v-model="tutorial.number" id="number" class="w-full p-2 border rounded bg-zinc-700 border-gray-600 focus:outline-none focus:ring focus:ring-blue-600">
+        <input type="text" v-model="content.number" id="number" class="w-full p-2 border rounded bg-zinc-700 border-gray-600 focus:outline-none focus:ring focus:ring-blue-600">
       </div>
       <div class="mb-4">
         <span class="block mb-2">Título:</span>
-        <input type="text" v-model="tutorial.title" id="title" class="w-full p-2 border rounded bg-zinc-700 border-gray-600 focus:outline-none focus:ring focus:ring-blue-600">
+        <input type="text" v-model="content.title" id="title" class="w-full p-2 border rounded bg-zinc-700 border-gray-600 focus:outline-none focus:ring focus:ring-blue-600">
       </div>
       <div class="mb-4">
         <span class="block mb-2">Conteúdo:</span>
-        <textarea rows="8" v-model="tutorial.content" class="w-full p-2 border rounded bg-zinc-700 border-gray-600 focus:outline-none focus:ring focus:ring-blue-600"></textarea>
+        <textarea rows="8" v-model="content.content" class="w-full p-2 border rounded bg-zinc-700 border-gray-600 focus:outline-none focus:ring focus:ring-blue-600"></textarea>
       </div>
       <div class="flex justify-end space-x-2">
         <button @click="isModalOpen = false" class="bg-zinc-300 text-black px-4 py-2 rounded hover:bg-zinc-400">
@@ -63,7 +63,7 @@
         <button @click="cleanContent" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
           Limpar
         </button>
-        <button v-show="showBtnSaveContent" @click="saveContent" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+        <button v-show="showBtnAddContent" @click="insertContent" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
           Salvar
         </button>
         <button v-show="showBtnUpdContent" @click="updateContent" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
@@ -91,7 +91,7 @@
     <div class="bg-zinc-900 p-6 rounded-xl shadow-lg max-w-md w-full">
       <h2 class="text-xl font-bold mb-4 text-zinc-200">Confirmar Exclusão</h2>
       <p class="mb-6 text-zinc-300">
-        Tem certeza que deseja excluir o conteúdo <span>{{ tutorial.title }}</span>?
+        Tem certeza que deseja excluir o conteúdo <span>{{ content.title }}</span>?
       </p>
       <div class="flex justify-end space-x-3">
         <button @click="isConfirmModalOpen = false" class="px-4 py-2 bg-zinc-200 text-gray-700 rounded-lg hover:bg-zinc-300 transition">
@@ -117,7 +117,7 @@
 
 <script>
 import { API, focus, notify, Loading } from '../utils.js'
-import { GetAllContents /*, InsertTutorial, UpdateTutorial, DeleteTutorial, SendGit */ } from '../../wailsjs/go/main/App.js'
+import { GetAllContents, InsertContent, UpdateContent, DeleteContent, /*SendGit */ } from '../../wailsjs/go/main/App.js'
 
 export default {
   name: 'HomeView',
@@ -128,13 +128,12 @@ export default {
     return {
       header: ['Número', 'Título', 'Conteúdo', 'Editar', 'Apagar'],
       contents: [],
-      tutorial: {
+      tutorial: '',
+      content: {
         number: '',
-        tutorial: '',
         title: '',
         content: '',
       },
-      currentTitle: '',
       message: '',
       titleModalContent: 'Adicionar Conteúdo',
       loading: new Loading(),
@@ -143,8 +142,7 @@ export default {
       isAlertModalOpen: false,
       isConfirmModalOpen: false,
       showBtnUpdContent: false,
-      showBtnAddContent: false,
-      showBtnSaveContent: true
+      showBtnAddContent: false
     }
   },
   methods: {
@@ -155,9 +153,9 @@ export default {
       this.loading.show()
 
       try {
-        this.tutorial.tutorial = this.$route.params.tutorial
+        this.tutorial = this.$route.params.tutorial
         
-        const data = await GetAllContents(this.tutorial.tutorial)
+        const data = await GetAllContents(this.tutorial)
         this.contents = data
       } catch(error) {
         console.error('Erro ao buscar usuários:', error)
@@ -165,125 +163,141 @@ export default {
         this.loading.close()
       }
     },
-    saveContent() {
-      if (this.tutorial.title.length < 1 || this.tutorial.content.length < 1) {
+    async insertContent() {
+      if (this.content.title.length < 1 || this.content.content.length < 1) {
         this.alertMessage = 'Campos não podem ficar vazio'
         this.isAlertModalOpen = true
         return
       }
 
-      if (isNaN(parseFloat(this.tutorial.number))) {
-        this.tutorial.number = 0
+      if (isNaN(parseFloat(this.content.number))) {
+        this.content.number = 0
       }
 
-      var fd = new FormData()
-      fd.append('number', this.tutorial.number)
-      fd.append('tutorial', this.tutorial.tutorial)
-      fd.append('title', this.tutorial.title)
-      fd.append('content', this.tutorial.content)
+      this.loading.show()
 
-      fetch(API + '/content', {
-        method: 'POST',
-        body: fd
-      })
-      .then(res => res.json())
-      .then(data => {
-        if (data.error) {
-          this.notify(data.error, 'error', 'top')
+      try {
+        this.content.number = Number(this.content.number)
+        const res = await InsertContent(this.content, this.tutorial)
+        
+        if (res.status == 1) {
+          this.cleanContent()
+          this.notify(res.message, 'error', 'top')
+          this.isModalOpen = false
           return
         }
 
-        this.message = `Added content "${this.tutorial.title}" in tutorial "${this.tutorial.name}"`
+        this.message = `Added content "${this.content.title}" in tutorial "${this.tutorial}"`
         this.cleanContent()
         this.listContents(this.tutorial.name)
         this.isModalOpen = false
         this.isModalGitOpen = true
-        this.notify(data.message, 'success', 'top')
+        this.notify(res.message, 'success', 'top')
         setTimeout(() => this.focus('message'), 100)
-      })
-      .catch(error => this.notify(error, 'error', 'top'))
+      } catch(error) {
+        console.error(error)
+        this.notify(error, 'error', 'top')
+      } finally {
+        this.loading.close()
+      }
     },
-    updateContent() {
-      if (this.tutorial.title.length < 1 || this.tutorial.content.length < 1) {
+    async updateContent() {
+      if (this.content.title.length < 1 || this.content.content.length < 1) {
         this.alertMessage = 'Campos não podem ficar vazio'
         this.isAlertModalOpen = true
         return
       }
 
-      if (isNaN(parseFloat(this.tutorial.number))) {
+      if (isNaN(parseFloat(this.content.number))) {
         this.number = 0
       }
 
-      var fd = new FormData()
-      fd.append('number', this.tutorial.number)
-      fd.append('tutorial', this.tutorial.tutorial)
-      fd.append('title', this.tutorial.title)
-      fd.append('content', this.tutorial.content)
-      fd.append('oldTitle', this.currentTitle)
+      this.loading.show()
 
-      fetch(API + '/content', {
-        method: 'PUT',
-        body: fd
-      })
-      .then(res => res.json())
-      .then(data => {
-        this.message = `Updated content "${this.tutorial.title}" in tutorial "${this.tutorial.tutorial}"`
+      try {
+        this.content.number = Number(this.content.number)
+        const res = await UpdateContent(this.content, this.tutorial)
+
+        if (res.status == 1) {
+          this.cleanContent()
+          this.notify(res.message, 'error', 'top')
+          this.isModalOpen = false
+          return
+        }
+
+        this.message = `Updated content "${this.content.title}" in tutorial "${this.tutorial}"`
         this.cleanContent()
         this.listContents(this.tutorial.tutorial)
         this.scrollToElement(this.tutorial.title)
         this.isModalOpen = false
         this.isModalGitOpen = true
-        this.notify(data.message, 'success', 'top')
+        this.notify(res.message, 'success', 'top')
         setTimeout(() => this.focus('message'), 100)
-      })
+      } catch(error) {
+        console.error(error)
+        this.notify(error, 'error', 'top')
+      } finally {
+        this.loading.close()
+      }
     },
-    deleteContent() {
-      fetch(`${API}/content/${this.tutorial.tutorial}/${this.tutorial.title}`, { method: 'DELETE' })
-      .then(res => res.json())
-      .then(data => {
-        this.notify(data.message, 'success', 'top')
-        this.message = `Deleted content "${this.tutorial.title}" in tutorial "${this.tutorial.tutorial}"`
+    async deleteContent() {
+      this.loading.show()
+
+      try {
+        const res = await DeleteContent(this.content.id, this.tutorial)
+
+        if (res.status == 1) {
+          this.cleanContent()
+          this.notify(res.message, 'error', 'top')
+          this.isModalOpen = false
+          return
+        }
+
+        this.notify(res.message, 'success', 'top')
+        this.message = `Deleted content "${this.content.title}" in tutorial "${this.tutorial}"`
         this.cleanContent()
         this.listContents()
         this.isConfirmModalOpen = false
         this.isModalGitOpen = true
         setTimeout(() => this.focus('message'), 100)
-      })
+      } catch(error) {
+        console.error(error)
+        this.notify(error, 'error', 'top')
+      } finally {
+        this.loading.close()
+      }
     },
     openAddContent() {
       this.cleanContent()
       this.titleModalContent = 'Adicionar Conteúdo'
-      this.tutorial.number = (this.contents.length + 1).toString()
+      this.content.number = (this.contents.length + 1).toString()
       this.isModalOpen = true
       setTimeout(() => this.focus('title'), 100)
 		},
     openEditContent(content) {
       this.cleanContent()
-      this.showBtnSaveContent = false
+      this.showBtnAddContent = false
       this.showBtnUpdContent = true
-      this.tutorial.number = content.number
-      this.tutorial.title = content.title
-      this.tutorial.content = content.content
-      this.currentTitle = content.title
+      this.content = JSON.parse(JSON.stringify(content))
       this.titleModalContent = 'Editar Conteúdo'
       this.isModalOpen = true
       setTimeout(() => this.focus('title'), 100)
       window.scrollTo({ top: 0, behavior: 'smooth' })
     },
-    openConfirmDeleteContent(tutorial) {
+    openConfirmDeleteContent(content) {
       this.isConfirmModalOpen = true
-      this.tutorial.title = tutorial.title
+      this.content.id = content.id
+      this.content.title = content.title
     },
     cleanContent() {
-      this.tutorial = {
-        tutorial: this.tutorial.tutorial,
+      this.content = {
         number: '',
         title: '',
         content: ''
       }
       this.code = ''
       this.showBtnUpdContent = false
-      this.showBtnSaveContent = true
+      this.showBtnAddContent = true
     },
     scrollToElement(id) {
       var element = document.getElementById(id)

@@ -183,11 +183,18 @@ export default {
         this.tutorial.image = this.image
       
         const res = await InsertTutorial(this.tutorial, imageBytes)
+
+        if (res.status == 1) {
+          this.cleanTutorial()
+          this.notify(res.message, 'error', 'top')
+          this.isModalOpen = false
+          return  
+        }
         
         this.message = `Added tutorial "${this.tutorial.title}"`
         this.cleanTutorial()
         this.listTutorials()
-        this.notify(res, 'success', 'top')
+        this.notify(res.message, 'success', 'top')
         this.isModalOpen = false
         this.isModalGitOpen = true
         setTimeout(() => this.focus('message'), 100)
@@ -219,11 +226,18 @@ export default {
         this.tutorial.image = this.image
   
         const res = await UpdateTutorial(this.tutorial, imageBytes)
+
+        if (res.status == 1) {
+          this.cleanTutorial()
+          this.notify(res.message, 'error', 'top')
+          this.isModalOpen = false
+          return  
+        }
         
         this.message = `Updated tutorial "${this.tutorial.title}"`
         this.cleanTutorial()
         this.listTutorials()
-        this.notify(res, 'success', 'top')
+        this.notify(res.message, 'success', 'top')
         this.isModalOpen = false
         this.isModalGitOpen = true
         setTimeout(() => this.focus('message'), 100)
@@ -238,8 +252,15 @@ export default {
       this.loading.show()
 
       try {
-        const data = await DeleteTutorial(this.tutorial.id)
-        this.notify(data, 'success', 'top')
+        const res = await DeleteTutorial(this.tutorial.id)
+
+        if (res.status == 1) {
+          this.notify(res.message, 'error', 'top')
+          this.isConfirmModalOpen = false
+          return
+        }
+
+        this.notify(res.message, 'success', 'top')
         this.listTutorials()
         this.isConfirmModalOpen = false
         this.message = `Deleted tutorial "${this.tutorial.title}"`

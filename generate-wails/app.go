@@ -1,8 +1,8 @@
 package main
 
 import (
-	"os"
 	"io"
+	"os"
 	"log"
 	"sort"
 	"time"
@@ -53,6 +53,11 @@ type Content struct {
 	Content string `json:"content"`
 }
 
+type Response struct {
+	Message string `json:"message"`
+	Status  int    `json:"status"`
+}
+
 const (
 	TUTORIALS     = "tutorial/data/tutorials.json"
 	TUTORIALS_DIR = "tutorial/data/"
@@ -85,8 +90,8 @@ func getTutorials() ([]Tutorial, error) {
 	return jsonData, nil
 }
 
-func saveJson(path string, users []Tutorial) error {
-	bytes, err := json.MarshalIndent(users, "", "  ")
+func saveJson(path string, data interface{}) error {
+	bytes, err := json.MarshalIndent(data, "", "  ")
 	if err != nil {
 		return err
 	}
@@ -139,11 +144,14 @@ func (a *App) GetAllTutorials() []Tutorial {
 	return tutorials
 }
 
-func (a *App) InsertTutorial(tutorial Tutorial, image []byte) string {
+func (a *App) InsertTutorial(tutorial Tutorial, image []byte) Response {
 	tutorials, err := getTutorials()
 	if err != nil {
 		log.Printf("Erro ao carregar os tutoriais: %v", err)
-		return "Erro ao carregar os tutoriais."
+		return Response{
+			Message: "Erro ao carregar os tutoriais.",
+			Status: 1,
+		}
 	}
 
 	if len(image) > 0 {
@@ -163,14 +171,20 @@ func (a *App) InsertTutorial(tutorial Tutorial, image []byte) string {
 	jsonPath := TUTORIALS_DIR + tutorial.Title + ".json"
 	saveJson(jsonPath, []Tutorial{})
 
-	return "Tutorial salvo com sucesso."
+	return Response{
+		Message: "Tutorial salvo com sucesso.",
+		Status: 0,
+	}
 }
 
-func (a *App) UpdateTutorial(tutorial Tutorial, image []byte) string {
+func (a *App) UpdateTutorial(tutorial Tutorial, image []byte) Response {
 	tutorials, err := getTutorials()
 	if err != nil {
 		log.Printf("Erro ao carregar os tutoriais: %v", err)
-		return "Erro ao carregar os tutoriais."
+		return Response{
+			Message: "Erro ao carregar os tutoriais.",
+			Status: 1,
+		}
 	}
 
 	var currentTutorial Tutorial
@@ -213,14 +227,20 @@ func (a *App) UpdateTutorial(tutorial Tutorial, image []byte) string {
 
 	saveJson(TUTORIALS, tutorials)
 
-	return "Tutorial atualizado com sucesso."
+	return Response{
+		Message: "Tutorial atualizado com sucesso.",
+		Status: 0,
+	}
 }
 
-func (a *App) DeleteTutorial(id string) string {
+func (a *App) DeleteTutorial(id string) Response {
 	tutorials, err := getTutorials()
 	if err != nil {
 		log.Printf("Erro ao carregar os tutoriais: %v", err)
-		return "Erro ao carregar os tutoriais."
+		return Response{
+			Message: "Erro ao carregar os tutoriais.",
+			Status: 1,
+		}
 	}
 
 	var image string
@@ -242,7 +262,10 @@ func (a *App) DeleteTutorial(id string) string {
 	jsonPath := TUTORIALS_DIR + tutorial + ".json"
 	remove(jsonPath)
 
-	return "Tutorial apagado com sucesso."
+	return Response{
+		Message: "Tutorial apagado com sucesso.",
+		Status: 0,
+	}
 }
 
 func getTutorial(tutorial string) ([]Content, error) {
@@ -280,6 +303,90 @@ func (a *App) GetAllContents(tutorial string) []Content {
 	}
 
 	return contents
+}
+
+func (a *App) InsertContent(content Content, tutorial string) Response {
+	contents, err := getTutorial(tutorial)
+	if err != nil {
+		log.Printf("Erro ao carregar os tutoriais: %v", err)
+		return Response{
+			Message: "Erro ao carregar os tutoriais.",
+			Status: 1,
+		}
+	}
+	
+	content.ID = getMD5()
+	contents = append(contents, content)
+	
+	sort.Slice(contents, func(i, j int) bool {
+		return contents[i].Number < contents[j].Number
+	})
+	
+	jsonPath := TUTORIALS_DIR + tutorial + ".json"
+	saveJson(jsonPath, contents)
+
+	return Response{
+		Message: "Conteúdo salvo com sucesso.",
+		Status: 0,
+	}
+}
+
+func (a *App) UpdateContent(content Content, tutorial string) Response {
+	contents, err := getTutorial(tutorial)
+	if err != nil {
+		log.Printf("Erro ao carregar os tutoriais: %v", err)
+		return Response{
+			Message: "Erro ao carregar os tutoriais.",
+			Status: 1,
+		}
+	}
+	
+	for i := range contents {
+		if contents[i].ID == content.ID {
+			contents[i].Number = content.Number
+			contents[i].Title = content.Title
+			contents[i].Content = content.Content
+			break
+		}
+	}
+	
+	sort.Slice(contents, func(i, j int) bool {
+		return contents[i].Number < contents[j].Number
+	})
+	
+	jsonPath := TUTORIALS_DIR + tutorial + ".json"
+	saveJson(jsonPath, contents)
+
+	return Response{
+		Message: "Conteúdo alterado com sucesso.",
+		Status: 0,
+	}
+}
+
+func (a *App) DeleteContent(id string, tutorial string) Response {
+	contents, err := getTutorial(tutorial)
+	if err != nil {
+		log.Printf("Erro ao carregar os tutoriais: %v", err)
+		return Response{
+			Message: "Erro ao carregar os tutoriais.",
+			Status: 1,
+		}
+	}
+
+	for i := range contents {
+		if contents[i].ID == id {
+			contents = append(contents[:i], contents[i+1:]...)
+			break
+		}
+	}
+	
+	filePath := TUTORIALS_DIR + tutorial + ".json"
+	saveJson(filePath, contents)
+
+	return Response{
+		Message: "Conteúdo apagado com sucesso.",
+		Status: 0,
+	}
 }
 
 func (a *App) SendGit(message string) string {
