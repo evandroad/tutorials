@@ -330,7 +330,7 @@ export default {
     },
     saveGit() {
       if (this.message.length < 1) {
-        this.alertMessage = 'Mensagem não pode ficar vazia'
+        this.alertMessage = 'Mensagem não pode ficar vazia.'
         this.isAlertModalOpen = true
         return
       }

@@ -25,19 +25,19 @@ func NewApp() *App {
 
 func (a *App) startup(ctx context.Context) {
 	a.ctx = ctx
-	setLog()
+	// setLog()
 }
 
-func setLog() {
-	logFile, err := os.OpenFile("app.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
-	if err != nil {
-		log.Fatalf("Erro ao abrir/criar o arquivo de log: %v", err)
-	}
-	defer logFile.Close()
+// func setLog() {
+// 	logFile, err := os.OpenFile("app.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+// 	if err != nil {
+// 		log.Fatalf("Erro ao abrir/criar o arquivo de log: %v", err)
+// 	}
+// 	defer logFile.Close()
 	
-	log.SetOutput(logFile)
-	log.SetFlags(log.Ldate | log.Ltime | log.Lshortfile)
-}
+// 	log.SetOutput(logFile)
+// 	log.SetFlags(log.Ldate | log.Ltime | log.Lshortfile)
+// }
 
 type Tutorial struct {
 	ID     string `json:"id"`

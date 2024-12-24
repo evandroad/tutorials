@@ -116,8 +116,8 @@
 </template>
 
 <script>
-import { API, focus, notify, Loading } from '../utils.js'
-import { GetAllContents, InsertContent, UpdateContent, DeleteContent, /*SendGit */ } from '../../wailsjs/go/main/App.js'
+import { focus, notify, Loading } from '../utils.js'
+import { GetAllContents, InsertContent, UpdateContent, DeleteContent, SendGit } from '../../wailsjs/go/main/App.js'
 
 export default {
   name: 'HomeView',
@@ -307,15 +307,12 @@ export default {
     },
     saveGit() {
       if (this.message.length < 1) {
-        alert('Mensagem não pode ficar vazia')
+        this.alertMessage = 'Mensagem não pode ficar vazia'
+        this.isAlertModalOpen = true
         return
       }
 
-      fetch(API + '/git', {
-        method: 'POST',
-        body: JSON.stringify({ message: this.message })
-      })
-      .then(res => res.json())
+      SendGit(this.message)
       .then(data => {
         this.notify(data.message, 'success', 'top')
         this.message = ''
