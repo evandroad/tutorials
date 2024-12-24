@@ -1,6 +1,6 @@
 #!/bin/bash
 
-process_name="server"
+process_name="web-server"
 
 # Verifica se o processo está rodando
 if pgrep -x "$process_name" > /dev/null

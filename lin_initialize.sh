@@ -1,4 +1,6 @@
 #!/bin/bash
 
-cd server
-./server
+process_name="web-server"
+
+cd "$process_name"
+./"$process_name"

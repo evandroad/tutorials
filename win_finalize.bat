@@ -1,1 +1,1 @@
-taskkill /f /im server.exe
+taskkill /f /im web-server.exe
