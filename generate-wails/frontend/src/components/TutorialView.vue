@@ -314,7 +314,7 @@ export default {
 
       SendGit(this.message)
       .then(data => {
-        this.notify(data.message, 'success', 'top')
+        this.notify(data, 'success', 'top')
         this.message = ''
         this.isModalGitOpen = false
       })
