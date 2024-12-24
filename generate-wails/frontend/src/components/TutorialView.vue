@@ -12,7 +12,7 @@
     </button>
   </div>
 
-  <div class="bg-zinc-800 shadow-md rounded-xl overflow-scroll w-2/3 m-auto">
+  <div class="bg-zinc-800 shadow-md rounded-xl overflow-auto w-2/3 m-auto mb-5">
     <table class="w-full">
       <thead class="bg-zinc-700 p-2">
         <th class="p-3" v-for="item in header" :key="item.number">{{ item }}</th>

@@ -42,7 +42,7 @@ func main() {
 	err := wails.Run(&options.App{
 		Title:  "generate-wails",
 		Width:  1440,
-		Height: 900,
+		Height: 850,
 		AssetServer: &assetserver.Options{
 			Assets: assets,
 			Handler: NewFileLoader(),

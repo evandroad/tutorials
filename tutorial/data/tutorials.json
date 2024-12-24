@@ -82,11 +82,5 @@
     "number": 14,
     "title": "Curl",
     "image": "Curl.png"
-  },
-  {
-    "id": "1b04ae05f99b70ed0d5081b429e19cf1",
-    "number": 15,
-    "title": "Image Magick",
-    "image": "Image Magick.png"
   }
 ]
