@@ -6,17 +6,18 @@ export default {
       <input type="checkbox" id="themeCheckbox" @change="setTheme($event)">
       <span class="slider"></span>
     </label>
-
-    <div id="mainContainer">
+    
+    <div class="header">
       <h1>Tutorials</h1>
-        
+    </div>
+    
+    <div id="mainContainer">
       <p id="description">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The idea of this project is to gather some important tutorials for those who are entering the world of programming and software development, as well as for those with more experience who have not memorized all the commands.</p>
 
       <section class="gallery">
         <div class="card" v-for="card in mainCards">
-          <img :src="'img/' + card.image"></img>
+          <img :src="card.image ? 'img/' + card.image : 'img/desconhecido.png' "></img>
           <h2>{{ card.title }}</h2>
-          <!--<button @click="renderTutorial(card.title)">Leia mais</button>-->
           <button><router-link :to="{ name: 'tutorial', params: { tutorial: card.title }}">Leia mais</router-link></button>
         </div>
       </section>

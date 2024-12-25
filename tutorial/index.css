@@ -15,6 +15,7 @@ body {
 h1 {
 	text-align: center;
 	margin: 20px auto;
+	width: 100%;
 }
 
 h2 {
@@ -27,14 +28,30 @@ p {
 
 /* MAIN PAGE */
 
-.gallery {
-	width: 100%;
+#mainContainer {
 	display: flex;
-	flex-wrap: wrap;
-	align-content: center;
-	text-align: center;
-	list-style-type: none;
-	margin-bottom: 20px;
+	flex-direction: column;
+	justify-content: center;
+	width: 80%;
+	margin: -50px auto;
+}
+
+.header {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	position: relative;
+	top: -40px;
+}
+
+#description {
+	text-align: justify;
+}
+
+.gallery {
+	display: grid;
+	grid-template-columns: repeat(5, 1fr);
+	justify-items: center;
 }
 
 .card {
@@ -52,21 +69,25 @@ p {
 .card img {
 	display: block;
 	margin: 0 auto;
-	width: 5em;
-	height: auto;
-	border-radius: 5px;
+	height: 5em;
+	border-radius: 8px;
+	object-fit: cover;
 }
 
 .card h2 {
 	font-size: 18px;
 	margin-top: 10px;
+	text-align: center;
 }
 
 .card button {
+	display: block;
 	background: var(--color_2);
 	font-size: 1em;
 	border: 0;
+	width: 100%;
 }
+
 .card button a {
 	color: rgb(6, 125, 236);
 	text-decoration: none;
@@ -77,14 +98,28 @@ p {
 	cursor: pointer;
 }
 
-#mainContainer {
-	display: block;
-	width: 80%;
-	margin: 0 auto;
+@media (max-width: 1200px) {
+	.gallery {
+		grid-template-columns: repeat(4, 1fr);
+	}
 }
 
-#description {
-	text-align: justify;
+@media (max-width: 992px) {
+	.gallery {
+		grid-template-columns: repeat(3, 1fr);
+	}
+}
+
+@media (max-width: 768px) {
+	.gallery {
+		grid-template-columns: repeat(2, 1fr);
+	}
+}
+
+@media (max-width: 480px) {
+	.gallery {
+		grid-template-columns: 1fr;
+	}
 }
 
 /* CONTENT PAGE */
@@ -220,13 +255,14 @@ p {
 
 .switch {
 	float: right;
-	margin-top: -10px;
+	margin-top: 10px;
 	margin-right: 15px;
   font-size: 17px;
   position: relative;
-  display: inline-block;
-  width: 3.5em;
-  height: 2em;
+  display: block;
+  width: 60px;
+  height: 30px;
+	z-index: 100;
 }
 
 /* Hide default HTML checkbox */
