@@ -16,7 +16,7 @@
       </thead>
       <tbody>
         <tr v-for="tutorial in tutorials" :key="tutorial.number" class="border-zinc-600 border-b last:border-0">
-          <td class="p-2"><img :src="`/tutorial/img/${tutorial.image}`" style='height: 25px' /></td>
+          <td class="p-2"><img class="rounded-sm" :src="tutorial.image ? `/tutorial/img/${tutorial.image}` : '/tutorial/img/desconhecido.png'" style='height: 25px' /></td>
           <td class="">{{ tutorial.number }}</td>
           <td>{{ tutorial.title }}</td>
           <td class="flex gap-1 whitespace-nowrap">
