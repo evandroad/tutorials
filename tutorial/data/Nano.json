@@ -1,6 +1,6 @@
 [
   {
-    "id": "7345d9d3cf8dc602e7335790061a3a73",
+    "id": "1940887162f27067",
     "number": 1,
     "title": "Commands",
     "content": "### Navegação\nAtalho | Função\n-|-\n↑| Mover cursor para cima\n↓|Mover cursor para baixo\n←|Mover cursor para a esquerda\n→|Mover cursor para a direita\nCtrl + A|Mover cursor para o início da linha\nCtrl + E|Mover cursor para o fim da linha\nCtrl + F|Avançar um caractere\nCtrl + B|Voltar um caractere\nPgUp|Ir para a tela anterior\nPgDn|Ir para a próxima tela\nHome|Ir para o início do buffer\nEnd|Ir para o fim do buffer\nEdição\nCtrl + O|Salvar alterações\nCtrl + X|Sair do Nano\nCtrl + K|Cortar linha\nAlt + 6|Copiar Seleção\nCtrl + U|Colar linha\nAlt + u|Desfazer\nCtrl + Y|Refazer última ação\nCtrl + W|Pesquisar texto\nCtrl + R|Substituir texto\nAlt + A|Selecionar bloco de texto\nBackspace|Apagar caractere à esquerda\nDelete|Apagar caractere à direita\nTab|Inserir tabulação\nEnter|Inserir quebra de linha\nOutras funções|\nCtrl + G|Exibir tela de ajuda\nCtrl + T|Inserir data e hora\nCtrl + L|Redesenhar tela\nCtrl + J|Justificar texto\nCtrl + C|Exibir posição do cursor\nCtrl + M|Marcar linha\nAlt + G|Ir para linha específica\nAlt + \u003e|Ir para próximo buffer\nAlt + \u003c|Ir para buffer anterior"

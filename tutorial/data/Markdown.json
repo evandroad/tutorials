@@ -1,48 +1,48 @@
 [
   {
-    "id": "52b9d6e2d03f7c384156951bee2f979c",
+    "id": "194088639cdc385c",
     "number": 1,
     "title": "Title",
     "content": "To add a title or subtitle, use:\n```\n# Title 1\n## Title 2\n### title 3\n#### Title 4\n##### Title 5\n###### Title 6\n```"
   },
   {
-    "id": "54bfd30fbbac31ca328eaf3af8372962",
+    "id": "19408864b5f90347",
     "number": 2,
     "title": "Emphasis",
     "content": "To add emphasis to the content that will be written, use the asterisk * or underline _:\n- Bold: add two asterisks `**text**` or two underdashes `__texto__` at the beginning and end of the content.\n- Italics: add only an asterisk `*texto*` or an under-dash `_texto_` at the beginning and end of the content."
   },
   {
-    "id": "d42a0ddff6aee7c723673eabfe8af1bc",
+    "id": "19408865b97ce20e",
     "number": 3,
     "title": "Links",
     "content": "There are two ways to insert a link in Markdown, through a direct link or using anchor text:\n```\nAnchor text: use the characters [](), adding the text you want to appear in braces\nand in parentheses, the destination address, in the format [example](https://example.com/).\n\nDirect link: Wrap the web address in braces \u003c\u003e. The address will be visible and clickable by the user.\nThe address in the form of a direct link has the format \u003chttps://example.com/\u003e\n```"
   },
   {
-    "id": "003d0d8e4d0cd806b36594617079797d",
+    "id": "19408866e2f9416d",
     "number": 4,
     "title": "List",
     "content": "For unordered lists, use a hyphen - or an asterisk * in front of the list item:\n```\n- Item 1\n- Item 2\n- Item 3\n  - Item 3.1\n```\nThe above unordered list will be displayed like this:\n- Item 1\n- Item 2\n- Item 3\n  - Item 3.1\n\nFor ordered lists, use the item number followed by a period. :\n```\n1. Item 1\n2. Item 2\n3. Item 3\n```\nThe above ordered list will be displayed like this:\n1. Item 1\n2. Item 2\n3. Item 3"
   },
   {
-    "id": "9cfadd88b4630c73457378b560012938",
+    "id": "19408868e3fd6040",
     "number": 5,
     "title": "Images",
     "content": "The code for inserting an image into content is similar to the code for inserting anchor links, adding an exclamation mark ! at the beginning of the code, as in the example below:\n```\n![Alt or image title](Image URL)\n```"
   },
   {
-    "id": "e20c9ebdd8c8cbd5cbed75bfc68d25ef",
+    "id": "19408869e5f49bd6",
     "number": 6,
     "title": "Quote",
     "content": "To transform text into a quote or comment, similar to the HTML `\u003cblockquote\u003e` code, use the \u003e sign at the beginning of the line that will be formatted:\n```\n\u003eThis is a *blockquote*. The signal used opens and closes this code in HTML.\n\u003eTo add another line to the citation, just press Enter for a new\n\u003esignal code. This will generate a new paragraph inside *blockquote*.\n\u003e**Bold**, __italic__ and \u003chttps://links.com\u003e codes work here.\n```\nHow it appears in the HTML:\n\n\u003eThis is a *blockquote*. The signal used opens and closes this code in HTML.\n\u003eTo add another line to the quote, simply press Enter for a new\n\u003esign code. This will generate a new paragraph within the *blockquote*.\n\u003e**Bold**, _italics_, and \u003chttps://links.com\u003e codes work here."
   },
   {
-    "id": "549ff65c9d3bd83f81369fda717b60ec",
+    "id": "1940886b5a6f11c6",
     "number": 7,
     "title": "Code",
     "content": "There are two ways to add code snippets to Markdown:\n\n- **Inline code**: add a grave accent ˋ at the beginning and end of the code.\n- **Multiple lines of code**: surround lines of code with three backticks ˋˋˋ or three tildes ~~~.\n\nThis is a line that contains a `code`.\n```\nThis is a line of code\n```\n\nTo specify what type of language is being presented in the code block by adding the name of the programming language after the ˋˋˋ or ~~~, for example ~~~javascript or ~~~ruby. See the examples below:\n\n~~~javascript\nThis is a line of code in Javascript.\n~~~\n\n~~~php\nThis is a line of code in PHP.\n~~~\n\n~~~html\nThis is a line of code in HTML.\n~~~"
   },
   {
-    "id": "51fe5a9e95ad707caf146be1738f84a5",
+    "id": "1940886f096f30b1",
     "number": 8,
     "title": "Table",
     "content": "Choose column titles and use | to delimit the columns. Then, use a hyphen - in the second line to indicate that the column titles are above, using | again to delimit columns. See an example below:\n```\nExample | Example value\n- | -\nExample 1 | R$ 10\nExample 2 | R$8\nExample 3 | R$7\nExample 4 | R$8\n```\nAs it appears:\nExample | Example value\n- | -\nExample | 1 R$10\nExample | 2 R$8\nExample | 3 R$7\nExample | 4 R$8\n\nTo specify the type of alignment you want to have in tables, use `:` next to the horizontal hyphen field `---`, in the second line of your table. See below:\n\n- **Left aligned**: use`:` on the left side (default alignment);\n- **Right aligned**: use`:` on the right side;\n- **Centered**: use`:` on both sides.\n\nSee the example:\n```\nLeft aligned | Centralized | Aligned to the right\n:- | :-: | -:\nValue | Value | Value\n```\nLeft aligned | Centered | Right aligned\n:- | :-: | -:\nValue | Value | Value"

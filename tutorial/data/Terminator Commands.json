@@ -1,6 +1,6 @@
 [
   {
-    "id": "e2353ec544f9e06cb3272cd325dea28a",
+    "id": "194088803e79cfce",
     "number": 1,
     "title": "Commands",
     "content": "Atalho|Função\n-|-\nF11|Tela cheia\nCtrl+Shift+O|Divide a aba atual em 2 terminais horizontais\nCtrl+Shift+E|Divide a aba atual em 2 terminais verticais\nCtrl+Shift+W|Fecha o terminal ativo\nCtrl+Shift+T|Abre uma nova aba\nShift+Ctrl+s|Exibe/Esconde a barra de rolagem\nCtrl+Shift+f|Procura por um texto no terminal ativo\nCtrl+Shift+R|Limpa o terminal ativo\nSuper+g|Agrupa todos os terminais em uma aba\nSuper+Shift+t|Remova todo o agrupamento de terminais\nCtrl+Shift+q|Sai do terminator, fechando todas as abas\nCtrl+Shift+N ou Ctrl+Tab|Mover para o próximo terminal\nCtrl+page_Down|Mover para a próxima guia\nCtrl+Page_up|Mover para a guia anterior\nAlt+Seta_pra_Cima|Mover para o Terminal Acima\nAlt+Seta_pra_Baixo|Mover para o Terminal Abaixo\nAlt+Seta_pra_Esquerda|Mover para o Terminal Esquerdo\nAlt+Seta_pra_Direita|Mover para o Terminal Direito\nCtrl+(+)|Aumentar o tamanho da fonte\nCtrl+(-)|Diminuir o tamanho da fonte\nCtrl+0|Redefinir o tamanho da fonte para original\nCtrl+Shift+R|Redefinir Terminal\nCtrl+Shift+G|Redefinir o terminal e limpar a janela"
