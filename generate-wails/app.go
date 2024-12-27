@@ -4,13 +4,14 @@ import (
 	"io"
 	"os"
 	"log"
+	"fmt"
 	"sort"
 	"time"
+	"strconv"
 	"context"
 	"runtime"
 	"os/exec"
-	"crypto/md5"
-	"encoding/hex"
+	"math/rand"
 	"encoding/json"
 	"path/filepath"
 )
@@ -128,10 +129,13 @@ func saveImage(filename string, data []byte) (bool, error) {
 	return true, nil
 }
 
-func getMD5() string {
-	theTime := time.Now()
-	hash := md5.Sum([]byte(theTime.Format("20060102150405")))
-	return hex.EncodeToString(hash[:])
+func generateID() string {
+	timestamp := time.Now().UnixMilli()
+	timestampHex := strconv.FormatInt(timestamp, 16)	
+	randomNumber := rand.Int63n(1e6)
+	randomPart := fmt.Sprintf("%05x", randomNumber)
+
+	return timestampHex + randomPart
 }
 
 func (a *App) GetAllTutorials() []Tutorial {
@@ -159,7 +163,7 @@ func (a *App) InsertTutorial(tutorial Tutorial, image []byte) Response {
 		saveImage(tutorial.Image, image)
 	}
 
-	tutorial.ID = getMD5()
+	tutorial.ID = generateID()
 	tutorials = append(tutorials, tutorial)
 
 	sort.Slice(tutorials, func(i, j int) bool {
@@ -315,7 +319,7 @@ func (a *App) InsertContent(content Content, tutorial string) Response {
 		}
 	}
 	
-	content.ID = getMD5()
+	content.ID = generateID()
 	contents = append(contents, content)
 	
 	sort.Slice(contents, func(i, j int) bool {
