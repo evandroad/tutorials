@@ -130,5 +130,11 @@
     "number": 22,
     "title": "git tag",
     "content": "This command is used to create tag.\n```\ngit tag [tag]\n```\n\nThis command is used to delete tag.\n```\ngit tag -d [tag]\n```\nThis command is used to list existing tags.\n```\ngit tag\n```\nCommand to change the tag commit.\n```\ngit tag -f v1.0 4736E13\n```\nSend the changed tag to remote repository.\n```\ngit push --force origin v1.0\n```\nSend new tag to remote repository.\n```\ngit push --tags\n```\nSend deleted tag to remote repository.\n```\ngit push origin :refs/tags/[tag]\n```"
+  },
+  {
+    "id": "194840c00469fbe8",
+    "number": 23,
+    "title": "git update-index",
+    "content": "This command will make Git ignore local changes to the file in your environment only.\n```\ngit update-index --assume-unchanged [file name]\n```\nThis command revert the previus command.\n```\ngit update-index --no-assume-unchanged [file name]\n```"
   }
 ]
