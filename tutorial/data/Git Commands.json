@@ -105,7 +105,7 @@
     "id": "1940882287699950",
     "number": 18,
     "title": "git rm",
-    "content": "This command deletes the file from your working directory and stages the deletion.\n```\ngit rm [file]\n```"
+    "content": "This command deletes the file from your working directory and stages the deletion.\n```\ngit rm [file]\n```\nThis command removes the file from Git version control without deleting it from disk.\n```\ngit rm --cached [file name]\n```"
   },
   {
     "id": "1940882383eb1005",
