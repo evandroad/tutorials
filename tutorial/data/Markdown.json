@@ -46,5 +46,11 @@
     "number": 8,
     "title": "Table",
     "content": "Choose column titles and use | to delimit the columns. Then, use a hyphen - in the second line to indicate that the column titles are above, using | again to delimit columns. See an example below:\n```\nExample | Example value\n- | -\nExample 1 | R$ 10\nExample 2 | R$8\nExample 3 | R$7\nExample 4 | R$8\n```\nAs it appears:\nExample | Example value\n- | -\nExample | 1 R$10\nExample | 2 R$8\nExample | 3 R$7\nExample | 4 R$8\n\nTo specify the type of alignment you want to have in tables, use `:` next to the horizontal hyphen field `---`, in the second line of your table. See below:\n\n- **Left aligned**: use`:` on the left side (default alignment);\n- **Right aligned**: use`:` on the right side;\n- **Centered**: use`:` on both sides.\n\nSee the example:\n```\nLeft aligned | Centralized | Aligned to the right\n:- | :-: | -:\nValue | Value | Value\n```\nLeft aligned | Centered | Right aligned\n:- | :-: | -:\nValue | Value | Value"
+  },
+  {
+    "id": "19488e26523e2f8b",
+    "number": 9,
+    "title": "Horizontal Line",
+    "content": "To define a horizontal line add at least three asterisks (*), dashes (-) or underscores (_) to the beginning of the line (The line must contain only the chosen characters).\n```\n***\n---\n___\n```"
   }
 ]
