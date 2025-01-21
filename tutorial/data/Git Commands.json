@@ -39,7 +39,7 @@
     "id": "1940880fd24d26a8",
     "number": 7,
     "title": "git config",
-    "content": "This command defines the name of the author that will appear in the commits.\n```\ngit config --global user.name \"[name]\"\n```\nThis command defines the author's email that will appear in the commits.\n```\ngit config --global user.email \"[email]\"\n```"
+    "content": "This command defines the name of the author that will appear in the commits.\n```\ngit config --global user.name \"[name]\"\n```\nThis command defines the author's email that will appear in the commits.\n```\ngit config --global user.email \"[email]\"\n```\nThis command sets the automatic push of a new branch.\n```\ngit config --global --type bool push.autoSetupRemote true\n```"
   },
   {
     "id": "1940881101532519",
