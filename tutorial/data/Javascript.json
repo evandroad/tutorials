@@ -40,5 +40,11 @@
     "number": 7,
     "title": "Undefined",
     "content": "### Para verificar se é undefined.\n```\nvar b = 5;\nconsole.log(typeof a === \"undefined\"); // true\nconsole.log(typeof b === \"undefined\"); // false\n```\n### Para verificar se está definida.\n```\nvar b = 5;\nconsole.log(\"a\" in window); // false\nconsole.log(\"b\" in window); // true\n```"
+  },
+  {
+    "id": "194d1ecd90b06c6e",
+    "number": 8,
+    "title": "Local Storage",
+    "content": "Syntax:\n```\nwindow.localStorage\n```\nor just:\n```\nlocalStorage\n```\nSave Data to Local Storage:\n```\nlocalStorage.setItem(key, value)\n```\nRead Data from Local Storage:\n```\nlet lastname = localStorage.getItem(key)\n```\nRemove Data from Local Storage:\n```\nlocalStorage.removeItem(key)\n```\nRemove All (Clear Local Storage):\n```\nlocalStorage.clear()\n```"
   }
 ]
