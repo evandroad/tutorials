@@ -1,39 +1,18 @@
 package main
 
-import (
-  "os/exec"
-  "runtime"
-  "net/http"
-  "github.com/fatih/color"
-  "github.com/gin-gonic/gin"
-)
-
-var cyan = color.New(color.FgCyan).SprintFunc()
+import "net/http"
 
 func main() {
   port := ":8080"
   webUrl := "http://localhost" + port
 
-  if runtime.GOOS == "linux" {
-    openBrowserLinux(webUrl)
-  }
-
-  router := gin.Default()
-  router.StaticFS("/", http.Dir("../tutorial"))
+  fileServer := http.FileServer(http.Dir("../tutorial"))
+  http.Handle("/", fileServer)
   
-  println("Tutorial rodando em " + cyan(webUrl))
+  println("Tutorial rodando em " + webUrl)
   
-  err := router.Run(port)
+  err := http.ListenAndServe(port, nil)
   if err != nil {
     println("Erro ao iniciar o servidor: ", err.Error())
-  }
-}
-
-func openBrowserLinux(webUrl string) {
-  cmdWeb := exec.Command("xdg-open", webUrl)
-  errWeb := cmdWeb.Run()
-  if errWeb != nil {
-    println("Erro ao abrir o navegador padrão:", errWeb.Error())
-    return
   }
 }

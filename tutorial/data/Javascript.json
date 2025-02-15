@@ -1,44 +1,50 @@
 [
   {
-    "id": "59eb75b35d5d60827dc6964daf61bcb8",
+    "id": "1940882dbb553219",
     "number": 1,
     "title": "Window Location",
     "content": "The Window.location or location-only read-only property returns a Location object with information about the current location of the document.\nlocation example:\n```\n{\n  \"href\": \"http://localhost:8001/#content\",\n  \"origin\": \"http://localhost:8001\",\n  \"protocol\": \"http:\",\n  \"host\": \"localhost:8001\",\n  \"hostname\": \"localhost\",\n  \"port\": \"8001\",\n  \"pathname\": \"/\",\n  \"search\": \"\",\n  \"hash\": \"#content\"\n}\n```"
   },
   {
-    "id": "2d59612ffe6677de22a73dc6c1c6087b",
+    "id": "1940882f25476020",
     "number": 2,
     "title": "Pad",
     "content": "### PadStart\nExample:\n```\nlet text = \"5\";\nlet padded = text.padStart(4,\"0\");\nconsole.log(padded)\n// 0005\n```"
   },
   {
-    "id": "3d49026a06d23568124f2a0c10a678eb",
+    "id": "194088303cde784f",
     "number": 3,
     "title": "Date",
     "content": "### Métodos\n```\ngetDate()           -\u003e Returns the day of the month (from 1-31)\ngetDay()            -\u003e Returns the day of the week (from 0-6)\ngetFullYear()       -\u003e Returns the year (XXXX)\ngetMonth()          -\u003e Returns the month (from 0-11)\ngetHours()          -\u003e Returns the hour (from 0-23)\ngetMinutes()        -\u003e Returns the minutes (from 0-59)\ngetSeconds()        -\u003e Returns the seconds (from 0-59)\ngetMilliseconds()   -\u003e Returns the milliseconds (from 0-999)\ngetTime()           -\u003e Returns the number of milliseconds since midnight Jan 1 1970, and a specified date\ngetTimezoneOffset() -\u003e \tReturns the time difference between UTC time and local time, in minutes\n```"
   },
   {
-    "id": "4ad6914cad7ffdaa85e0a12b7cb2e1de",
+    "id": "19408831afe4c516",
     "number": 4,
     "title": "Array",
     "content": "`push` - Adicionar um elemento no final:\n```\nvar numbers = [1, 2, 3, 4]\nnumbers.push(5)\nconsole.log(numbers) // [1, 2, 3, 4, 5]\n\n```\n`shift` - Remover o primeiro elemento:\n```\nvar numbers = [1, 2, 3, 4, 5]\nnumbers.shift()\nconsole.log(numbers) // [2, 3, 4, 5]\n```\n`pop` - Remover o último elemento:\n```\nvar numbers = [1, 2, 3, 4, 5]\nnumbers.pop()\nconsole.log(numbers) // [1, 2, 3, 4]\n```\n`indexOf` - Obtem o índice do elemento de acordo com sua posição:\n```\nvar numeros = [1, 2, 3, 4, 5]\nvar index = numeros.indexOf(2)\nconsole.log(index) // 1\n```\n`splice` - O método splice() remove o elemento desejado.\n```\n// array.splice(index, count, item1, ...., itemX)\nvar numbers = [1, 2, 3, 4, 5]\nnumbers.splice(2, 1)\nconsole.log(numbers) // [1, 2, 4, 5]\n```"
   },
   {
-    "id": "41df112f628f28561c41fd5a72a1d431",
+    "id": "1940883412dec3c7",
     "number": 5,
     "title": "Slice",
     "content": "### Remove characters from beginning:\n```\nconst name = 'Evandro'\nconsole.log(name.slice(1))\n// return: 'vandro'\n```\n### Remove characters from end:\n```\nconst name = 'Evandro'\nconsole.log(name.slice(name.lenght, -1))\n// return: 'Evandr'\n```"
   },
   {
-    "id": "300ec481d83bb890e15b1f812372529c",
+    "id": "1940883534e31d09",
     "number": 6,
     "title": "Fetch",
     "content": "### Get\n```\nfetch (\"http://super-api.atwebpages.com\")\n  .then(res =\u003e res.json())\n  .then(content =\u003e console.log(content))\n```\n### Post\n```\nfetch (\"http://super-api.atwebpages.com/login\", {\n    headers: {\n      'Content-Type': 'application/json'\n    },\n    method: 'POST',\n    body: JSON.stringify(({\n      login: 'login',\n      password: 'password'\n    }))\n  })\n    .then(res =\u003e res.json())\n    .then(content =\u003e console.log(content))\n```\n### Read local File\n```\nfetch (\"config.yml\")\n  .then(res =\u003e res.text())\n  .then(content =\u003e console.log(content))\n```"
   },
   {
-    "id": "a8a5e6dea20f96eb83ef548aad2e350a",
+    "id": "194088365962fe9d",
     "number": 7,
     "title": "Undefined",
     "content": "### Para verificar se é undefined.\n```\nvar b = 5;\nconsole.log(typeof a === \"undefined\"); // true\nconsole.log(typeof b === \"undefined\"); // false\n```\n### Para verificar se está definida.\n```\nvar b = 5;\nconsole.log(\"a\" in window); // false\nconsole.log(\"b\" in window); // true\n```"
+  },
+  {
+    "id": "194d1ecd90b06c6e",
+    "number": 8,
+    "title": "Local Storage",
+    "content": "Syntax:\n```\nwindow.localStorage\n```\nor just:\n```\nlocalStorage\n```\nSave Data to Local Storage:\n```\nlocalStorage.setItem(key, value)\n```\nRead Data from Local Storage:\n```\nlet lastname = localStorage.getItem(key)\n```\nRemove Data from Local Storage:\n```\nlocalStorage.removeItem(key)\n```\nRemove All (Clear Local Storage):\n```\nlocalStorage.clear()\n```"
   }
 ]

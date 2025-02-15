@@ -1,12 +1,12 @@
 [
   {
-    "id": "aaac4cec771e214166b0c1495e9da375",
+    "id": "194087dbd32d48c9",
     "number": 1,
     "title": "For",
-    "content": "Exemplo 1:\n```\nsequencia = [1, 2, 3]\nfor valor in sequencia\n  console.log \"Valor: #{valor}\"\n```\nExemplo 2:\n```\nsequencia = [1, 2, 3]\nfor index, valor of sequencia\n  console.log \"Índice: #{index}, Valor: #{valor}\"\n```\nExemplo 3:\n```\nsequencia = [1, 2, 3, 4, 5]\nfor index in [0...sequencia.length]\n  valor = sequencia[index]\n  console.log \"Índice: #{index}, Valor: #{valor}\"\n```"
+    "content": "Exemplo 1 (Obtendo o valor):\n```\nsequencia = [1, 2, 3]\nfor valor in sequencia\n  console.log \"Valor: #{valor}\"\n```\nExemplo 2 (Obtendo o índice e o valor):\n```\nsequencia = [1, 2, 3]\nfor index, valor of sequencia\n  console.log \"Índice: #{index}, Valor: #{valor}\"\n```\nExemplo 3 (Obtendo o índice):\n```\nsequencia = [1, 2, 3, 4, 5]\nfor index in [0...sequencia.length]\n  valor = sequencia[index]\n  console.log \"Índice: #{index}, Valor: #{valor}\"\n```\nExemplo 4 (Com continue):\n```\nfor num in [0..3]\n  if num == 2\n    console.log(\"Pulando o número 2\")\n    continue  # Pula para a próxima iteração\n  console.log(\"Número:\", num)\n```"
   },
   {
-    "id": "32fbf091e7b8d5e05495a30cdc13f871",
+    "id": "194087dcf535c136",
     "number": 2,
     "title": "If",
     "content": "Exemplo 1:\n```\na = 0 if a == 1\n```\nExemplo 2:\n```\nreturn unless isShow\n```"
