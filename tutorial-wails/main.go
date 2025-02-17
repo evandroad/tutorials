@@ -12,7 +12,7 @@ import (
 	"github.com/wailsapp/wails/v2/pkg/options/assetserver"
 )
 
-//go:embed all:frontend/dist
+//go:embed all:frontend/src
 var assets embed.FS
 
 type FileLoader struct {
@@ -40,7 +40,7 @@ func main() {
 	app := NewApp()
 
 	err := wails.Run(&options.App{
-		Title:  "generate-wails",
+		Title:  "Tutorials",
 		Width:  1440,
 		Height: 850,
 		AssetServer: &assetserver.Options{
