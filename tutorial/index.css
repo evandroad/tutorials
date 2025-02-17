@@ -157,13 +157,13 @@ p {
 	align-items: center;
 }
 
-#logoHome i {
-	color: var(--font);
+svg path {
+	fill: var(--font);
 }
 
-#logoHome i:hover {
-	color: var(--color_5);
+svg:hover path {
 	cursor: pointer;
+	fill: var(--color_5);
 }
 
 #summaryTitle {
