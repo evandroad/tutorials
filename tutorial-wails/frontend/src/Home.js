@@ -1,9 +1,9 @@
-import { compareByNumber, topFunction, scrollFunction, firstLoadTheme, setTheme } from "./libs/utils.js"
+import { compareByNumber, topFunction, scrollFunction, Theme } from "./libs/utils.js"
 
 export default {
   template: `
     <label class="switch">
-      <input type="checkbox" id="themeCheckbox" @change="setTheme($event)">
+      <input type="checkbox" id="themeCheckbox" @change="theme.setTheme($event)">
       <span class="slider"></span>
     </label>
     
@@ -29,20 +29,20 @@ export default {
     this.renderMain()
     window.onscroll = () => this.scrollFunction()
 
-    this.firstLoadTheme()
+    this.theme.firstLoadTheme()
   },
   data() {
     return {
-      showBtnTop: false,
-      mainCards: []
+      theme: new Theme,
+      mainCards: [],
+      showBtnTop: false
     }
   },
   methods: {
     compareByNumber,
     topFunction,
     scrollFunction,
-    firstLoadTheme,
-    setTheme,
+    Theme,
     renderMain() {
       this.showMainContent = true
       this.showTutorialContent = false
