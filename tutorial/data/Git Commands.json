@@ -33,7 +33,7 @@
     "id": "1940880ec55c6d06",
     "number": 6,
     "title": "git commit",
-    "content": "This command records or snapshots the file permanently in the version history.\n```\ngit commit -m \"[commit message]\"\n```\nThis command commits any files you've added with the git add command and also commits any files you've changed since then...\n```\ngit commit -a -m \"[commit message]\"\n```"
+    "content": "This command records or snapshots the file permanently in the version history.\n```\ngit commit -m \"[commit message]\"\n```\nThis command commits any files you've added with the git add command and also commits any files you've changed since then...\n```\ngit commit -a -m \"[commit message]\"\n```\nThis command commits a multi-line message.\n```\ngit commit -m $'feat: create a new function \\nCloses Task #100'\n```"
   },
   {
     "id": "1940880fd24d26a8",
