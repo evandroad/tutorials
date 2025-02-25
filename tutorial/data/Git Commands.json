@@ -129,7 +129,7 @@
     "id": "1940882809d31dd5",
     "number": 22,
     "title": "git tag",
-    "content": "This command is used to create tag.\n```\ngit tag [tag]\n```\n\nThis command is used to delete tag.\n```\ngit tag -d [tag]\n```\nThis command is used to list existing tags.\n```\ngit tag\n```\nCommand to change the tag commit.\n```\ngit tag -f v1.0 4736E13\n```\nSend the changed tag to remote repository.\n```\ngit push --force origin v1.0\n```\nSend new tag to remote repository.\n```\ngit push --tags\n```\nSend deleted tag to remote repository.\n```\ngit push origin :refs/tags/[tag]\n```"
+    "content": "This command is used to create tag.\n```\ngit tag [tag]\n```\n\nThis command is used to delete tag.\n```\ngit tag -d [tag]\n```\nThis command is used to list existing tags.\n```\ngit tag\n```\nCommand to change the tag commit.\n```\ngit tag -f v1.0 4736E13\n```\nSend the changed tag to remote repository.\n```\ngit push --force origin [tag]\n```\nSend new tag to remote repository.\n```\ngit push --tags\n```\nSend deleted tag to remote repository.\n```\ngit push origin --delete [tag]\n```"
   },
   {
     "id": "194840c00469fbe8",
