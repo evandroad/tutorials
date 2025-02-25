@@ -29,8 +29,8 @@ func (h *FileLoader) ServeHTTP(res http.ResponseWriter, req *http.Request) {
 	println("Requesting file:", requestedFilename)
 	fileData, err := os.ReadFile(requestedFilename)
 	if err != nil {
-			res.WriteHeader(http.StatusBadRequest)
-			res.Write([]byte(fmt.Sprintf("Could not load file %s", requestedFilename)))
+		res.WriteHeader(http.StatusBadRequest)
+		res.Write([]byte(fmt.Sprintf("Could not load file %s", requestedFilename)))
 	}
 
 	res.Write(fileData)
@@ -47,8 +47,8 @@ func main() {
 			Assets: assets,
 			Handler: NewFileLoader(),
 		},
-		BackgroundColour: &options.RGBA{R: 27, G: 38, B: 54, A: 1},
-		OnStartup:        app.startup,
+		BackgroundColour: &options.RGBA{R: 255, G: 255, B: 255, A: 255},
+		OnStartup: app.startup,
 		Bind: []interface{}{
 			app,
 		},

@@ -10,6 +10,8 @@ export function GetAllContents(arg1:string):Promise<Array<main.Content>>;
 
 export function GetAllTutorials():Promise<Array<main.Tutorial>>;
 
+export function GitStatus():Promise<string>;
+
 export function InsertContent(arg1:main.Content,arg2:string):Promise<main.Response>;
 
 export function InsertTutorial(arg1:main.Tutorial,arg2:Array<number>):Promise<main.Response>;

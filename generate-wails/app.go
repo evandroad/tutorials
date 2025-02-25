@@ -19,6 +19,7 @@ import (
 
 type App struct {
 	ctx context.Context
+	lastGitStatus string
 }
 
 func NewApp() *App {
@@ -383,34 +384,44 @@ func (a *App) DeleteContent(id string, tutorial string) Response {
 }
 
 func (a *App) SendGit(message string) string {
+	if message == "" {
+		return "Mensagem de commit não pode ser vazia."
+ 	}
+
+	a.lastGitStatus = ""
+    
 	go func() {
 		if err := git(message); err != nil {
 			log.Println("Error:", err)
-		}
+			a.lastGitStatus = "Erro ao enviar para o git: " + err.Error()
+		} else {
+      log.Println("Modificação enviada para o git com sucesso.")
+			a.lastGitStatus = "Modificação enviada para o git com sucesso."
+    }
 	}()
 
-	return "Enviado para o git com sucesso."
+	return "Processo de envio para o git iniciado..."
+}
+
+func (a *App) GitStatus() string {
+	return a.lastGitStatus
 }
 
 func git(message string) error {
+  log.Println("Starting git function with message:", message)
 	isWindows := runtime.GOOS == "windows"
+  log.Println("isWindows:", isWindows)
 
-	var pullCmd, addCmd, commitCmd, pushCmd *exec.Cmd
+	pullCmd := exec.Command("git", "pull")
+	addCmd := exec.Command("git", "add", "./tutorial/*")
+	commitCmd := exec.Command("git", "commit", "-m", "feat: " + message)
+	pushCmd := exec.Command("git", "push")
+
 	if isWindows {
 		pullCmd.SysProcAttr = &windows.SysProcAttr{HideWindow: true}
 		addCmd.SysProcAttr = &windows.SysProcAttr{HideWindow: true}
 		commitCmd.SysProcAttr = &windows.SysProcAttr{HideWindow: true}
-		pushCmd.SysProcAttr = &windows.SysProcAttr{HideWindow: true}
-
-		pullCmd = exec.Command("git", "pull")
-		addCmd = exec.Command("git", "add", "./tutorial/*")
-		commitCmd = exec.Command("git", "commit", "-m", "feat: "+message)
-		pushCmd = exec.Command("git", "push")
-	} else {
-		pullCmd = exec.Command("git", "pull")
-		addCmd = exec.Command("git", "add", "./tutorial/*")
-		commitCmd = exec.Command("git", "commit", "-m", "feat: " + message)
-		pushCmd = exec.Command("git", "push")
+		pushCmd.SysProcAttr = &windows.SysProcAttr{HideWindow: true}	
 	}
 
 	if err := runCommand(pullCmd, "Error pulling changes"); err != nil {

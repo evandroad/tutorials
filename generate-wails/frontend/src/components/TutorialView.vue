@@ -117,7 +117,7 @@
 
 <script>
 import { focus, notify, Loading } from '../utils.js'
-import { GetAllContents, InsertContent, UpdateContent, DeleteContent, SendGit } from '../../wailsjs/go/main/App.js'
+import { GetAllContents, InsertContent, UpdateContent, DeleteContent, SendGit, GitStatus } from '../../wailsjs/go/main/App.js'
 
 export default {
   name: 'HomeView',
@@ -317,7 +317,21 @@ export default {
         this.notify(data, 'success', 'top')
         this.message = ''
         this.isModalGitOpen = false
+        this.checkGitStatus()
       })
+    },
+    checkGitStatus() {
+      const intervalId = setInterval(() => {
+        GitStatus().then(status => {
+          if (status) {
+            clearInterval(intervalId)
+            const type = status.includes("Erro") ? "error" : "success"
+            this.notify(status, type, 'top')
+          }
+        })
+      }, 500)
+
+      setTimeout(() => clearInterval(intervalId), 30 * 1000)
     }
   }
 }

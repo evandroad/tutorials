@@ -18,6 +18,10 @@ export function GetAllTutorials() {
   return window['go']['main']['App']['GetAllTutorials']();
 }
 
+export function GitStatus() {
+  return window['go']['main']['App']['GitStatus']();
+}
+
 export function InsertContent(arg1, arg2) {
   return window['go']['main']['App']['InsertContent'](arg1, arg2);
 }
