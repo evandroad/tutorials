@@ -15,7 +15,7 @@
     "id": "1940880a1c627d02",
     "number": 3,
     "title": "git branch",
-    "content": "This command lists all the local branches in the current repository.\n```\ngit branch\n```\nThis command creates a new branch.\n```\ngit branch [branch name]\n```\nThis command deletes the feature branch.\n```\ngit branch -d [branch name]\n```\nThis command displays the remote branches\n```\ngit branch -r\n```\nThis command displays all branches, local and remote\n```\ngit branch -a\n```"
+    "content": "This command lists all the local branches in the current repository.\n```\ngit branch\n```\nThis command creates a new branch.\n```\ngit branch [branch name]\n```\nThis command deletes the feature branch.\n```\ngit branch -d [branch name]\n```\nThis command displays the remote branches.\n```\ngit branch -r\n```\nThis command displays all branches, local and remote.\n```\ngit branch -a\n```"
   },
   {
     "id": "1940880b385dd4b0",
