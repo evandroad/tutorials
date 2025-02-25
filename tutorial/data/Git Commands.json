@@ -3,7 +3,7 @@
     "id": "1940880757dae81c",
     "number": 1,
     "title": "git add",
-    "content": "This command adds a file to the staging area\n```\ngit add [file]\n```\nThis command adds one or more to the staging area.\n```\ngit add .\n```"
+    "content": "This command adds a file to the staging area.\n```\ngit add [file]\n```\nThis command adds one or more to the staging area.\n```\ngit add .\n```"
   },
   {
     "id": "19408808f0d086bf",
