@@ -15,7 +15,7 @@
     "id": "19408844ef670379",
     "number": 3,
     "title": "scp",
-    "content": "Envia um arquivo para um outro computador remotamente via ssh\n```\nscp test.txt user@ip_dest:/location\n```\nPega um arquivo de um outro computador remotamente via ssh\n```\nscp user@ip_dest:/location/test.txt .\n```\nPega uma pasta de um outro computador remotamente via ssh\n```\nscp -r user@ip_dest:/location/test.txt\n```"
+    "content": "Envia um arquivo para um outro computador remotamente via ssh.\n```\nscp test.txt user@ip_dest:/location\n```\nPega um arquivo de um outro computador remotamente via ssh\n```\nscp user@ip_dest:/location/test.txt .\n```\nPega uma pasta de um outro computador remotamente via ssh\n```\nscp -r user@ip_dest:/location/test.txt\n```"
   },
   {
     "id": "1940884602e83a1d",
