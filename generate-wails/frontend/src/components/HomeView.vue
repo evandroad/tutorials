@@ -4,8 +4,11 @@
   </div>
 
   <div class="w-2/3 m-auto">
-    <button @click="openAddTutorial" class="bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-600 transition mb-2">
+    <button @click="openAddTutorial" class="bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-600 transition mb-2 mr-1">
       Adicionar
+    </button>
+    <button @click="pushChangesToGit" class="bg-green-500 text-white px-4 py-2 rounded-full hover:bg-green-600 transition mb-2">
+      Enviar
     </button>
   </div>
 
@@ -116,7 +119,7 @@
 
 <script>
 import { focus, notify, Loading } from '../utils.js'
-import { GetAllTutorials, InsertTutorial, UpdateTutorial, DeleteTutorial, SendGit } from '../../wailsjs/go/main/App.js'
+import { GetAllTutorials, InsertTutorial, UpdateTutorial, DeleteTutorial, SendGit, GitStatus } from '../../wailsjs/go/main/App.js'
 
 export default {
   name: 'HomeView',
@@ -328,6 +331,20 @@ export default {
         image: null,
       }
     },
+    pushChangesToGit() {
+      if (this.message.length < 1) {
+        this.notify('Não há alterações para serem enviadas', 'warning', 'top')
+        return
+      }
+
+      SendGit(this.message)
+      .then(data => {
+        this.notify(data, 'success', 'top')
+        this.message = ''
+        this.isModalGitOpen = false
+        this.checkGitStatus()
+      })
+    },
     saveGit() {
       if (this.message.length < 1) {
         this.alertMessage = 'Mensagem não pode ficar vazia.'
@@ -340,7 +357,21 @@ export default {
         this.notify(data, 'success', 'top')
         this.message = ''
         this.isModalGitOpen = false
+        this.checkGitStatus()
       })
+    },
+    checkGitStatus() {
+      const intervalId = setInterval(() => {
+        GitStatus().then(status => {
+          if (status) {
+            clearInterval(intervalId)
+            const type = status.includes("Erro") ? "error" : "success"
+            this.notify(status, type, 'top')
+          }
+        })
+      }, 500)
+
+      setTimeout(() => clearInterval(intervalId), 30 * 1000)
     }
   }
 }
