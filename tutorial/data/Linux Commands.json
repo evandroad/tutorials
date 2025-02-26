@@ -21,7 +21,7 @@
     "id": "1940884602e83a1d",
     "number": 4,
     "title": "logs",
-    "content": "Visualisar logs do sistema\n```\ncat /var/log/syslog\n```"
+    "content": "Visualisar logs do sistema.\n```\ncat /var/log/syslog\n```"
   },
   {
     "id": "194088473a69e141",
