@@ -14,7 +14,6 @@ import (
 	"math/rand"
 	"encoding/json"
 	"path/filepath"
-	"golang.org/x/sys/windows"
 )
 
 type App struct {
@@ -417,12 +416,10 @@ func git(message string) error {
 	commitCmd := exec.Command("git", "commit", "-m", "feat: " + message)
 	pushCmd := exec.Command("git", "push")
 
-	if isWindows {
-		pullCmd.SysProcAttr = &windows.SysProcAttr{HideWindow: true}
-		addCmd.SysProcAttr = &windows.SysProcAttr{HideWindow: true}
-		commitCmd.SysProcAttr = &windows.SysProcAttr{HideWindow: true}
-		pushCmd.SysProcAttr = &windows.SysProcAttr{HideWindow: true}	
-	}
+	hideWindow(pullCmd)
+	hideWindow(addCmd)
+	hideWindow(commitCmd)
+	hideWindow(pushCmd)
 
 	if err := runCommand(pullCmd, "Error pulling changes"); err != nil {
 		return err
