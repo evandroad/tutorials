@@ -7,8 +7,11 @@
     <button @click="home" class="bg-zinc-500 text-white px-4 py-2 rounded-full hover:bg-zinc-600 transition mb-2 mr-1">
       <router-link to="/">Voltar</router-link>
     </button>
-    <button @click="openAddContent" class="bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-600 transition mb-2">
+    <button @click="openAddContent" class="bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-600 transition mb-2 mr-1">
       Adicionar
+    </button>
+    <button @click="pushChangesToGit" class="bg-green-500 text-white px-4 py-2 rounded-full hover:bg-green-600 transition mb-2">
+      Enviar
     </button>
   </div>
 
@@ -304,6 +307,20 @@ export default {
       if (element != null) {
         element.scrollIntoView({ behavior: 'smooth', block: 'start' })
       }
+    },
+    pushChangesToGit() {
+      if (this.message.length < 1) {
+        this.notify('Não há alterações para serem enviadas', 'warning', 'top')
+        return
+      }
+
+      SendGit(this.message)
+      .then(data => {
+        this.notify(data, 'success', 'top')
+        this.message = ''
+        this.isModalGitOpen = false
+        this.checkGitStatus()
+      })
     },
     saveGit() {
       if (this.message.length < 1) {
