@@ -106,5 +106,11 @@
     "number": 18,
     "title": "imagemagick",
     "content": "### .png to .ico\n```\nconvert -background transparent \"favicon.png\" -define icon:auto-resize=256 \"favicon.ico\"\n```"
+  },
+  {
+    "id": "19667eeb236ea492",
+    "number": 19,
+    "title": "grep",
+    "content": "Pesquisa a string em todos os arquivos da pasta atual retornando o caminho dos arquivos.\n```\ngrep -R -l \"traffics.js.state.msg\" .\n```"
   }
 ]
