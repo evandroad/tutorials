@@ -111,6 +111,6 @@
     "id": "19667eeb236ea492",
     "number": 19,
     "title": "grep",
-    "content": "Pesquisa a string em todos os arquivos da pasta atual retornando o caminho dos arquivos.\n```\ngrep -R -l \"traffics.js.state.msg\" .\n```"
+    "content": "Pesquisa a string em todos os arquivos da pasta atual retornando o caminho dos arquivos.\n```\ngrep -R -l \"traffics.js.state.msg\" .\n```\nPara ver o número da linha onde cada ocorrência aparece:\n```\ngrep -R -n \"minhaString\" .\n```\nPara que só dê match em palavras inteiras:\n```\ngrep -R -w -l \"minhaString\" .\n```"
   }
 ]
