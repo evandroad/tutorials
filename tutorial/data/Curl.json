@@ -3,7 +3,7 @@
     "id": "194087e810584801",
     "number": 1,
     "title": "Get",
-    "content": "- Sent:\n```\ncurl https://jsonplaceholder.typicode.com/users\n```\n- Received:\n```\n[\n  {\n    \"id\": 1,\n    \"name\": \"Leanne Graham\",\n    \"username\": \"Bret\",\n    \"email\": \"Sincere@april.biz\"\n  },\n  {\n    \"id\": 2,\n    \"name\": \"Ervin Howell\",\n    \"username\": \"Antonette\",\n    \"email\": \"Shanna@melissa.tv\"\n  }\n]\n```\n- Obs.: sent with header:\n```\ncurl https://jsonplaceholder.typicode.com/users -H \"Authorization: token\"\n```"
+    "content": "- Sent:\n```\ncurl https://jsonplaceholder.typicode.com/users\n```\n- Received:\n```\n[\n  {\n    \"id\": 1,\n    \"name\": \"Leanne Graham\",\n    \"username\": \"Bret\",\n    \"email\": \"Sincere@april.biz\"\n  },\n  {\n    \"id\": 2,\n    \"name\": \"Ervin Howell\",\n    \"username\": \"Antonette\",\n    \"email\": \"Shanna@melissa.tv\"\n  }\n]\n```\n- Obs.: sent with header:\n```\ncurl https://jsonplaceholder.typicode.com/users -H \"Authorization: token\"\n```\n- To get call times:\n```\ncurl https://jsonplaceholder.typicode.com/users \\\n  -w \"\\n\\nLookup: %{time_namelookup}s\\nConnect: %{time_connect}s\\nStartTransfer: %{time_starttransfer}s\\nTotal: %{time_total}s\\n\"\n```\n- Received:\n```\n{\n  \"userId\": 1,\n  \"id\": 2,\n  \"title\": \"qui est esse\",\n  \"body\": \"est rerum tempore vitaesequi sint nihil reprehenderit dolor beatae ea dolores neque fugiat blanditiis voluptate\"\n}\n\nLookup: 0.001427s\nConnect: 0.002082s\nStartTransfer: 0.485448s\nTotal: 0.485618s\n```"
   },
   {
     "id": "194087e946c15760",
