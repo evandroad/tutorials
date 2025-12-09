@@ -1,0 +1,14 @@
+[
+  {
+    "id": "19b02c6802eaeafe",
+    "number": 1,
+    "title": "Box model (largura, altura, margem, padding, borda)",
+    "content": "```\n.caixa {\n  width: 200px;\n  height: 100px;\n\n  margin: 20px;               /* espaço externo */\n  padding: 10px;              /* espaço interno */\n\n  border: 1px solid #000;\n  box-sizing: border-box;     /* inclui borda+padding na width/height */\n}\n```\nAtalhos:\n```\n/* margin: top right bottom left */\nmargin: 10px 20px 30px 40px;\n\n/* padding vertical horizontal */\npadding: 10px 20px;\n```"
+  },
+  {
+    "id": "19b02c817f6cee6c",
+    "number": 2,
+    "title": "Texto e fontes",
+    "content": "```\nbody {\n  font-family: Arial, sans-serif;\n  font-size: 16px;\n  line-height: 1.5;         /* espaçamento entre linhas */\n  color: #222;\n}\n\nh1 {\n  font-size: 32px;\n  text-align: center;\n  text-transform: uppercase; /* maiúsculas */\n}\n\na {\n  text-decoration: none;     /* tira sublinhado */\n}\n```"
+  }
+]
