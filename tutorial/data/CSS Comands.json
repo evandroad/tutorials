@@ -10,5 +10,29 @@
     "number": 2,
     "title": "Texto e fontes",
     "content": "```\nbody {\n  font-family: Arial, sans-serif;\n  font-size: 16px;\n  line-height: 1.5;         /* espaçamento entre linhas */\n  color: #222;\n}\n\nh1 {\n  font-size: 32px;\n  text-align: center;\n  text-transform: uppercase; /* maiúsculas */\n}\n\na {\n  text-decoration: none;     /* tira sublinhado */\n}\n```"
+  },
+  {
+    "id": "19b02c99ee16839e",
+    "number": 3,
+    "title": "Display e posição",
+    "content": "```\n/* mostrar/esconder */\n.elemento {\n  display: block;     /* ocupa linha toda */\n  /* display: inline; */\n  /* display: inline-block; */\n  /* display: none;   some o elemento */\n}\n\n/* posição */\n.caixa {\n  position: relative;\n  /* absolute/fixed/sticky */\n  top: 10px;\n  left: 20px;\n}\n```"
+  },
+  {
+    "id": "19b02ca0545c314d",
+    "number": 4,
+    "title": "Pseudo-classes mais usadas",
+    "content": "```\na:hover {          /* ao passar o mouse */\n  color: red;\n}\n\ninput:focus {      /* quando o campo está em foco */\n  outline: 2px solid blue;\n}\n\nbutton:disabled {\n  opacity: 0.5;\n  cursor: not-allowed;\n}\n```"
+  },
+  {
+    "id": "19b02cc40eacd9b5",
+    "number": 5,
+    "title": "Flexbox (layout em linha/coluna)",
+    "content": "```\n\u003cdiv class=\"container\"\u003e\n  \u003cdiv class=\"item\"\u003e1\u003c/div\u003e\n  \u003cdiv class=\"item\"\u003e2\u003c/div\u003e\n  \u003cdiv class=\"item\"\u003e3\u003c/div\u003e\n\u003c/div\u003e\n```\n\n#### 5.1. Container flex\n```\n.container {\n  display: flex;\n  flex-direction: row;        /* row | row-reverse | column | column-reverse */\n  justify-content: center;    /* eixo principal: start | center | end | space-between | space-around | space-evenly */\n  align-items: center;        /* eixo cruzado: flex-start | center | flex-end | stretch */\n  flex-wrap: wrap;            /* quebra linha: nowrap | wrap */\n  gap: 10px;                  /* espaço entre itens */\n}\n```\n#### 5.2. Itens flex\n```\n.item {\n  flex: 1;             /* cresce igualmente para ocupar espaço */\n  /* equivalente a flex: 1 1 0; (grow, shrink, basis) */\n}\n\n/* Exemplo mais explícito */\n.item-grande {\n  flex-grow: 2;        /* cresce o dobro dos outros */\n  flex-shrink: 1;\n  flex-basis: 200px;   /* tamanho inicial */\n}\n\n.item {\n  align-self: center;  /* sobrescreve align-items do container */\n  order: 2;            /* muda ordem de exibição */\n}\n```\n#### 5.3. Exemplo completo de layout com flex\n```\n\u003cdiv class=\"header\"\u003eTopo\u003c/div\u003e\n\n\u003cdiv class=\"main\"\u003e\n  \u003cdiv class=\"sidebar\"\u003eLateral\u003c/div\u003e\n  \u003cdiv class=\"content\"\u003eConteúdo\u003c/div\u003e\n\u003c/div\u003e\n\n\u003cdiv class=\"footer\"\u003eRodapé\u003c/div\u003e\n```\n```\n.header, .footer {\n  background: #333;\n  color: #fff;\n  padding: 10px;\n}\n\n.main {\n  display: flex;\n  gap: 10px;\n}\n\n.sidebar {\n  flex: 1;\n  background: #eee;\n}\n\n.content {\n  flex: 3;\n  background: #ddd;\n}\n```"
+  },
+  {
+    "id": "19b02d24da0a271e",
+    "number": 6,
+    "title": "Grid (layout em duas dimensões)",
+    "content": "#### 6.1. Container grid\n```\n.grid {\n  display: grid;\n  grid-template-columns: 1fr 1fr 1fr;  /* 3 colunas iguais */\n  /* ou: grid-template-columns: 200px 1fr 2fr; */\n  grid-template-rows: auto auto;       /* opcional */\n  gap: 10px;                           /* espaço entre linhas/colunas */\n}\n```\nHTML:\n```\n\u003cdiv class=\"grid\"\u003e\n  \u003cdiv class=\"item\"\u003e1\u003c/div\u003e\n  \u003cdiv class=\"item\"\u003e2\u003c/div\u003e\n  \u003cdiv class=\"item\"\u003e3\u003c/div\u003e\n  \u003cdiv class=\"item\"\u003e4\u003c/div\u003e\n  \u003cdiv class=\"item\"\u003e5\u003c/div\u003e\n  \u003cdiv class=\"item\"\u003e6\u003c/div\u003e\n\u003c/div\u003e\n```\n#### 6.2. Atalhos úteis de grid\n\nColunas responsivas:\n```\n.grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));\n  gap: 16px;\n}\n```\nAlinhamento:\n```\n.grid {\n  justify-items: center;    /* alinha conteúdo de cada célula no eixo X */\n  align-items: center;      /* eixo Y */\n  justify-content: center;  /* alinha o grid inteiro no container */\n  align-content: center;\n}\n```\n#### 6.3. Itens de grid (span, posição)\n```\n.item1 {\n  grid-column: 1 / 3;  /* vai da coluna 1 até antes da 3 (ocupa 2 colunas) */\n  grid-row: 1 / 2;     /* primeira linha */\n}\n\n/* usando span */\n.item2 {\n  grid-column: span 2;   /* ocupa 2 colunas a partir da posição atual */\n}\n```\nExemplo:\n```\n.grid {\n  display: grid;\n  grid-template-columns: repeat(4, 1fr);\n  gap: 10px;\n}\n\n.header {\n  grid-column: 1 / -1;  /* ocupa todas as colunas */\n}\n\n.sidebar {\n  grid-column: 1 / 2;\n  grid-row: 2 / 4;\n}\n\n.main {\n  grid-column: 2 / -1;\n  grid-row: 2 / 3;\n}\n\n.footer {\n  grid-column: 1 / -1;\n  grid-row: 4 / 5;\n}\n```\n```\n\u003cdiv class=\"grid\"\u003e\n  \u003cdiv class=\"header\"\u003eHeader\u003c/div\u003e\n  \u003cdiv class=\"sidebar\"\u003eSidebar\u003c/div\u003e\n  \u003cdiv class=\"main\"\u003eMain\u003c/div\u003e\n  \u003cdiv class=\"footer\"\u003eFooter\u003c/div\u003e\n\u003c/div\u003e\n```"
   }
 ]
