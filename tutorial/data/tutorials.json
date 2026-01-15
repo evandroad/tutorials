@@ -2,32 +2,32 @@
   {
     "id": "194087840a5eefb4",
     "number": 1,
-    "title": "Linux Commands",
-    "image": "Linux Commands.png"
+    "title": "Linux",
+    "image": "Linux.png"
   },
   {
     "id": "1940878ad498554c",
     "number": 2,
-    "title": "Git Commands",
-    "image": "Git Commands.png"
+    "title": "Git",
+    "image": "Git.png"
   },
   {
     "id": "1940878ea87652e4",
     "number": 3,
-    "title": "Docker Commands",
-    "image": "Docker Commands.png"
+    "title": "Docker",
+    "image": "Docker.png"
   },
   {
     "id": "19408790e961f1e7",
     "number": 4,
-    "title": "Adb Commands",
-    "image": "Adb Commands.png"
+    "title": "Adb",
+    "image": "Adb.png"
   },
   {
     "id": "194087a3e500698c",
     "number": 5,
-    "title": "Conventional Commits",
-    "image": "Conventional Commits.png"
+    "title": "Git Conventional",
+    "image": "Git Conventional.png"
   },
   {
     "id": "194087a5159efdd9",
@@ -56,8 +56,8 @@
   {
     "id": "194087aaa5e42945",
     "number": 10,
-    "title": "SQL Commands",
-    "image": "SQL Commands.jpeg"
+    "title": "SQL",
+    "image": "SQL.jpeg"
   },
   {
     "id": "194087abaff9416b",
@@ -68,8 +68,8 @@
   {
     "id": "194087ad430bec30",
     "number": 12,
-    "title": "Terminator Commands",
-    "image": "Terminator Commands.png"
+    "title": "Terminator",
+    "image": "Terminator.png"
   },
   {
     "id": "194087ae571a52ed",
