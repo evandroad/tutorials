@@ -1,0 +1,8 @@
+[
+  {
+    "id": "19c532d133581264",
+    "number": 1,
+    "title": "Cores ANSI",
+    "content": "# 🧠 Como usar\n\nEstrutura geral:\n```sh\n\\033[CODIGOmTexto\\033[0m\n```\n\nExemplo (texto vermelho em negrito):\n```sh\n\\033[1;31mTexto vermelho negrito\\033[0m\n```\n\nExemplo (letra branca, fundo azul):\n```sh\n\\033[37;44mTexto\\033[0m\n```\n\n# 🎨 Cor da Letra (Foreground)\nCor|Código\n-|-\nPreto| 30\nVermelho|\t31\nVerde|\t32\nAmarelo|\t33\nAzul|\t34\nMagenta|\t35\nCiano|\t36\nBranco|\t37\nPadrão|\t39\n\n# 🖼️ Cor de Fundo (Background)\nCor|Código\n-|-\nPreto|\t40\nVermelho|\t41\nVerde|\t42\nAmarelo|\t43\nAzul|\t44\nMagenta|\t45\nCiano|\t46\nBranco|\t47\nPadrão|\t49\n\n# 🔥 Estilo (Formato)\nEstilo|Código\n-|-\nResetar| tudo\t0\nNegrito|\t1\nFraco|\t2\nItálico|\t3\nSublinhado|\t4\nPiscar|\t5\nInverter| cores\t7\nOculto|\t8"
+  }
+]

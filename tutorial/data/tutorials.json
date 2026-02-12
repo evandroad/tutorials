@@ -88,5 +88,11 @@
     "number": 15,
     "title": "CSS",
     "image": "CSS.png"
+  },
+  {
+    "id": "19c532c2359654e3",
+    "number": 16,
+    "title": "Cores ANSI",
+    "image": "Cores ANSI.png"
   }
 ]
